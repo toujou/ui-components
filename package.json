@@ -1,0 +1,15 @@
+{
+  "name": "@toujou/ui-components",
+  "version": "0.0.1",
+  "description": "toujou's webcomponents collection",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/toujou/ui-components.git"
+  },
+  "author": "toujou",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/toujou/ui-components/issues"
+  },
+  "homepage": "https://github.com/toujou/ui-components#readme"
+}
