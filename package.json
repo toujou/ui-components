@@ -2,6 +2,8 @@
   "name": "@toujou/ui-components",
   "version": "0.0.1",
   "description": "toujou's webcomponents collection",
+  "type": "module",
+  "private": true,
   "repository": {
     "type": "git",
     "url": "git+https://github.com/toujou/ui-components.git"
