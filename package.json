@@ -1,7 +1,7 @@
 {
   "name": "@toujou/ui-components",
   "version": "0.0.1",
-  "description": "collection of webcomponents used in the toujou themes",
+  "description": "Collection of web-components used in the toujou themes",
   "type": "module",
   "private": true,
   "repository": {

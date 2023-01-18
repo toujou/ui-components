@@ -10,19 +10,19 @@ import { terser } from 'rollup-plugin-terser';
 import summary from 'rollup-plugin-summary';
 import postcss from 'rollup-plugin-postcss';
 import postcssLit from 'rollup-plugin-postcss-lit';
-
 import { readdirSync } from 'fs';
 import * as path from "path";
 
+// Get a list of all available packages
 const entryPoints = readdirSync(new URL('./packages', import.meta.url), {
     withFileTypes: true,
 });
 const entryPointNames = [];
 for (const entry of entryPoints) {
-    const { name } = entry;
-    entryPointNames.push(name);
+    entryPointNames.push(entry.name);
 }
 
+// Create config array with configuration for all the found packages
 const config = entryPointNames.map((entryName) => {
     return {
         context: 'window',

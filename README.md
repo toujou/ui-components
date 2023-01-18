@@ -1,6 +1,6 @@
 # ui-components
 
-Mono repo with toujou's webcomponents
+Mono repo with the web-components used across the toujou themes
 
 ## Requirements
 npm v16.14.0
@@ -16,11 +16,15 @@ On the root folder run:
 
 ## Publish component
 On the component folder (ex: `/ui-components/packages/toujou-burger`) run:
-- `npm publish` (need to login to npm with `npm login`)
+- `npm publish` (need to log in to npm with `npm login`)
 
 > The package will be published to npm at `https://www.npmjs.com/package/@toujou/{packageName}`
 
 ## Install package
-If you want to install one of the package on a project, run:
+If you want to install one of the packages on a project, run:
 - `npm install @toujou/{packageName}`
 - ex: `npm install @toujou/toujou-burger`
+
+## Packages available
+- [toujou-burger](https://www.npmjs.com/package/@toujou/toujou-burger)
+- [toujou-spinner](https://www.npmjs.com/package/@toujou/toujou-spinner)
