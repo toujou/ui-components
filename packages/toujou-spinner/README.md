@@ -2,6 +2,12 @@
 
 The `<toujou-spinner>` render a spinner on the pge, to show that something is loading
 
+## How to install
+1. install via NPM with `npm install @toujou/toujou-spinner`
+2. import
+   1. in html with `<script src="node_modules/@toujou/toujou-spinner/dist/toujou-spinner.js"></script>`
+   2. in js with: `import ToujouSpinner from '@toujou/toujou-spinner';`
+
 ## How to use
 ```html
 <toujou-spinner></toujou-spinner>
