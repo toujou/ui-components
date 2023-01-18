@@ -1,9 +1,9 @@
 {
-  "name": "@toujou/toujou-spinner",
+  "name": "@toujou/toujou-burger",
   "version": "1.0.0",
-  "description": "A spinner element to show that something is loading",
-  "main": "./dist/toujou-spinner.js",
-  "module": "./src/toujou-spinner.js",
+  "description": "A burger button element",
+  "main": "./dist/toujou-burgerr.js",
+  "module": "./src/toujou-burger.js",
   "type": "module",
   "publishConfig": {
     "access": "public"
@@ -11,11 +11,11 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/toujou/ui-components.git",
-    "directory": "./packages/toujou-spinner"
+    "directory": "./packages/toujou-burger"
   },
   "keywords": [
     "toujou",
-    "spinner",
+    "burger button",
     "web-component"
   ],
   "author": "toujou",
