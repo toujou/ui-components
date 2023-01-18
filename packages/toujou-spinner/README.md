@@ -33,3 +33,6 @@ There are several custom properties that help us customize the spinner:
 - `--toujou-spinner-animation-duration`
 - `--toujou-spinner-dash-animation-duration`
 - `--toujou-spinner-display`
+
+## Dependencies
+- Lit [^2.0.0-rc.2]

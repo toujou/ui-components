@@ -14,21 +14,40 @@ import { readdirSync } from 'fs';
 import * as path from "path";
 
 // Get a list of all available packages
-const entryPoints = readdirSync(new URL('./packages', import.meta.url), {
+// const entryPoints = readdirSync(new URL('./packages', import.meta.url), {
+//     withFileTypes: true,
+// });
+// console.log(entryPoints);
+// const entryPointNames = [];
+// for (const entry of entryPoints) {
+//     entryPointNames.push(entry.name);
+// }
+
+const filesToBundle = [];
+
+const packages = readdirSync(new URL('./packages', import.meta.url), {
     withFileTypes: true,
 });
-const entryPointNames = [];
-for (const entry of entryPoints) {
-    entryPointNames.push(entry.name);
+
+for (const pck of packages) {
+    const packageName = pck.name
+    readdirSync(`./packages/${packageName}/src`).forEach((file) => {
+        if (path.extname(file) === '.js') {
+            filesToBundle.push({
+                packageName: packageName,
+                fileName: file
+            });
+        }
+    });
 }
 
 // Create config array with configuration for all the found packages
-const config = entryPointNames.map((entryName) => {
+const config = filesToBundle.map((fileToBundle) => {
     return {
         context: 'window',
-        input: path.resolve(`./packages/${entryName}`),
+        input: path.resolve(`./packages/${fileToBundle.packageName}/src/${fileToBundle.fileName}`),
         output: {
-            dir: `./packages/${entryName}/dist/`,
+            dir: `./packages/${fileToBundle.packageName}/dist/`,
             format: 'esm',
             sourcemap: true,
             compact: true
@@ -37,7 +56,9 @@ const config = entryPointNames.map((entryName) => {
         plugins: [
             alias({
                 resolve: ['', './index.js', '.js'],
-                entries: {},
+                entries: {
+                    'mapbox-geocoder': `${__dirname}/node_modules/@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.min.js`,
+                },
             }),
             replace({
                 preventAssignment: true,
@@ -54,7 +75,7 @@ const config = entryPointNames.map((entryName) => {
                 inject: false
             }),
             postcssLit(),
-            summary()
+            // summary()
         ],
     };
 });

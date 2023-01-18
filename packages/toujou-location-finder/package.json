@@ -1,0 +1,24 @@
+{
+  "name": "@toujou/toujou-location-finder",
+  "version": "0.0.1",
+  "description": "A location finder with and interactive map",
+  "main": "./dist/toujou-location-finder.js",
+  "module": "./src/toujou-location-finder.js",
+  "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/toujou/ui-components.git",
+    "directory": "packages/toujou-location-finder"
+  },
+  "keywords": [
+    "toujou",
+    "map",
+    "location finder",
+    "web-component"
+  ],
+  "author": "toujou",
+  "license": "MIT"
+}

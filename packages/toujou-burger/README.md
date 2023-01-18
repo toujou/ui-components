@@ -32,3 +32,6 @@ with CSS (example on `ext/toujou/Resources/Public/Scss/medatsu/elements/_burger.
     <span class="burger__line burger__line--bottom" aria-hidden="true"></span>
 </toujou-burger>
 ```
+
+## Dependencies
+- Lit [^2.0.0-rc.2]
