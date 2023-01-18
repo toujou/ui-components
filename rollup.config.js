@@ -33,6 +33,7 @@ const config = entryPointNames.map((entryName) => {
             sourcemap: true,
             compact: true
         },
+        external: ['lit'],
         plugins: [
             alias({
                 resolve: ['', './index.js', '.js'],
@@ -57,43 +58,6 @@ const config = entryPointNames.map((entryName) => {
         ],
     };
 });
-
-// const config = [
-//     {
-//         context: 'window',
-//         input: [
-//             './packages/toujou-spinner/src/toujou-spinner'
-//         ],
-//         output: {
-//             dir: './dist/',
-//             format: 'esm',
-//             sourcemap: true,
-//             compact: true
-//         },
-//         plugins: [
-//             alias({
-//                 resolve: ['', './index.js', '.js'],
-//                 entries: {},
-//             }),
-//             replace({
-//                 preventAssignment: true,
-//                 'process.env.NODE_ENV': JSON.stringify('production'),
-//             }),
-//             resolve({
-//                 mainFields: ['module', 'browser', 'main', 'jsnext'],
-//             }),
-//             commonjs({
-//                 include: 'node_modules/**',
-//             }),
-//             json(),
-//             postcss({
-//                 inject: false
-//             }),
-//             postcssLit(),
-//             summary()
-//         ],
-//     },
-// ];
 
 const es6Babel = babel({
     extensions: ['.css'].concat(babelCore.DEFAULT_EXTENSIONS),
