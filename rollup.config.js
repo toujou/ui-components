@@ -52,7 +52,10 @@ const config = filesToBundle.map((fileToBundle) => {
             sourcemap: true,
             compact: true
         },
-        external: ['lit'],
+        external: [
+            'lit',
+            'lit/directives/unsafe-html.js',
+        ],
         plugins: [
             alias({
                 resolve: ['', './index.js', '.js'],
