@@ -1,0 +1,24 @@
+{
+  "name": "@toujou/toujou-map",
+  "version": "1.0.0",
+  "description": "Different webcomponents wo render a mapbox map",
+  "main": "./dist/toujou-map.js",
+  "module": "./src/toujou-map.js",
+  "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/toujou/ui-components.git",
+    "directory": "packages/toujou-map"
+  },
+  "keywords": [
+    "toujou",
+    "map",
+    "mapbox",
+    "web-component"
+  ],
+  "author": "toujou",
+  "license": "MIT"
+}
