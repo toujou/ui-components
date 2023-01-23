@@ -42,6 +42,7 @@
     "mapbox-gl": "^1.13.1",
     "postcss": "^8.4.20",
     "postcss-cli": "^10.1.0",
+    "postcss-import": "^15.1.0",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "regenerator-runtime": "^0.13.3",
