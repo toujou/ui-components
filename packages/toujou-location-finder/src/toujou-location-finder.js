@@ -28,6 +28,7 @@ import {
   setPopupCoordinates,
 } from './store/actions/_popup.js';
 import { getGeoJsonWithHighlights } from './store/selectors/data.js';
+import { convertToLegacyColorString } from './utils/_utils.js';
 
 // eslint-disable-next-line import/prefer-default-export
 export class ToujouLocationFinder extends LitElement {
@@ -548,18 +549,18 @@ export class ToujouLocationFinder extends LitElement {
    */
   _getCustomProperties() {
     const bodyStyles = window.getComputedStyle(document.body);
-    this._mapPointColor = bodyStyles.getPropertyValue('--toujou-location-finder-map-point-color');
-    this._mapPointColorHover = bodyStyles.getPropertyValue('--toujou-location-finder-map-point-color-hover');
-    this._mapPolygonColor = bodyStyles.getPropertyValue('--toujou-location-finder-map-polygon-color');
-    this._mapPolygonColorHover = bodyStyles.getPropertyValue('--toujou-location-finder-map-polygon-color-hover');
-    this._mapLineColor = bodyStyles.getPropertyValue('--toujou-location-finder-map-line-color');
-    this._mapLineColorHover = bodyStyles.getPropertyValue('--toujou-location-finder-map-line-color-hover');
+    this._mapPointColor = convertToLegacyColorString(bodyStyles.getPropertyValue('--toujou-location-finder-map-point-color'));
+    this._mapPointColorHover = convertToLegacyColorString(bodyStyles.getPropertyValue('--toujou-location-finder-map-point-color-hover'));
+    this._mapPolygonColor = convertToLegacyColorString(bodyStyles.getPropertyValue('--toujou-location-finder-map-polygon-color'));
+    this._mapPolygonColorHover = convertToLegacyColorString(bodyStyles.getPropertyValue('--toujou-location-finder-map-polygon-color-hover'));
+    this._mapLineColor = convertToLegacyColorString(bodyStyles.getPropertyValue('--toujou-location-finder-map-line-color'));
+    this._mapLineColorHover = convertToLegacyColorString(bodyStyles.getPropertyValue('--toujou-location-finder-map-line-color-hover'));
     this._breakpoint = bodyStyles.getPropertyValue('--toujou-location-finder-breakpoint');
 
-    this._clusterBgColor = bodyStyles.getPropertyValue('--toujou-location-finder-cluster-background-color');
+    this._clusterBgColor = convertToLegacyColorString(bodyStyles.getPropertyValue('--toujou-location-finder-cluster-background-color'));
     this._clusterBorderWidth = bodyStyles.getPropertyValue('--toujou-location-finder-cluster-border-width');
-    this._clusterBorderColor = bodyStyles.getPropertyValue('--toujou-location-finder-cluster-border-color');
-    this._clusterTextColor = bodyStyles.getPropertyValue('--toujou-location-finder-cluster-text-color');
+    this._clusterBorderColor = convertToLegacyColorString(bodyStyles.getPropertyValue('--toujou-location-finder-cluster-border-color'));
+    this._clusterTextColor = convertToLegacyColorString(bodyStyles.getPropertyValue('--toujou-location-finder-cluster-text-color'));
     this._clusterTextSize = bodyStyles.getPropertyValue('--toujou-location-finder-cluster-text-size');
     this._clusterRadius = parseInt(bodyStyles.getPropertyValue('--toujou-location-finder-cluster-radius'), 10);
     this._clusterMaxZoom = bodyStyles.getPropertyValue('--toujou-location-finder-cluster-max-zoom');

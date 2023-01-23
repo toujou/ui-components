@@ -11,3 +11,28 @@ export const areArraysEqual = (a, b) => {
   && a.length === b.length
   && a.every((val, index) => val === b[index]);
 };
+
+/**
+ * Mapbox can (currently) not handle the modern color syntax will throw
+ * "Could not parse color from value" error
+ *
+ * @param {string} rawColor
+ *
+ * @return {string}
+ */
+export const convertToLegacyColorString = (rawColor) => {
+  const color = rawColor.trim();
+  const regex = /((rgb|hsl)a?)\((.*)\)/gm;
+
+  const matches =  regex.exec(color);
+
+  if (matches == null) {
+    return color;
+  }
+
+  if (matches[3].includes(',')) {
+    return color;
+  }
+
+  return matches[1] + '(' + matches[3].split(' ').filter(e => e  != '').join(',') + ')';
+}
