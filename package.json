@@ -15,7 +15,7 @@
   },
   "homepage": "https://github.com/toujou/ui-components#readme",
   "scripts": {
-    "clean:build": "rm -rf ./dist",
+    "clean:build": "rm -rf packages/**/dist",
     "build": "npm run build:js",
     "build:js": "rollup -c",
     "build:production": "NODE_ENV=production rollup -c",
@@ -38,6 +38,7 @@
     "@rollup/plugin-replace": "^2.3.4",
     "@web/dev-server-esbuild": "^0.3.3",
     "@web/test-runner": "^0.15.0",
+    "js-cookie": "^3.0.1",
     "lit": "^2.0.0-rc.2",
     "mapbox-gl": "^1.13.1",
     "postcss": "^8.4.20",
