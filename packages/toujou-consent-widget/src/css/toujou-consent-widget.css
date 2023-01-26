@@ -1,0 +1,4 @@
+:host {
+    display: var(--toujou-consent-widget-display, block);
+}
+

@@ -1,0 +1,23 @@
+{
+  "name": "@toujou/toujou-consent",
+  "version": "1.0.0",
+  "description": "A consent element",
+  "main": "./dist/toujou-consent.js",
+  "module": "./src/toujou-consent.js",
+  "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/toujou/ui-components.git",
+    "directory": "packages/toujou-consent"
+  },
+  "keywords": [
+    "toujou",
+    "consent",
+    "web-component"
+  ],
+  "author": "toujou",
+  "license": "MIT"
+}

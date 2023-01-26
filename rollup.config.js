@@ -54,6 +54,8 @@ const config = filesToBundle.map((fileToBundle) => {
         },
         external: [
             /^lit.*/,
+            /^@toujou.*/,
+            'js-cookie'
         ],
         plugins: [
             alias({
