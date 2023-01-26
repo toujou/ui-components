@@ -2,9 +2,11 @@
 .location-finder-popup {
     background-color: var(--toujou-location-finder-popup-bg-color, var(--bg-color));
     width: var(--toujou-location-finder-popup-width, var(--toujou-location-finder-sidebar-width));
+    max-width: var(--toujou-location-finder-popup-max-width, 100%);
     font-family: var(--paragraph__family);
     font-weight: var(--paragraph__normal);
     padding: var(--toujou-location-finder-popup-padding, .5rem);
+    margin: var(--toujou-location-finder-popop-margin, 0);
 }
 
 .location-finder-popup .teaser {

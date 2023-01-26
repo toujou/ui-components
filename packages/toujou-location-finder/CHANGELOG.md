@@ -2,6 +2,11 @@
 
 All notable changes to the `@toujou/location-finder` package will be documented in this file
 
+## [0.0.6] - 2023-01-26
+
+### Added
+- Add css variables for the already existing properties on the location finder popup
+
 ## [0.0.5] - 2023-01-26
 
 ### Changed
