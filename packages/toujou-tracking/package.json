@@ -16,8 +16,8 @@
     "tracking",
     "web-component"
   ],
-  "dependencies": {
-    "@toujou/ui-components": "^1.0.0"
+  "peerDependencies": {
+    "@toujou/consent-widget": "^1.0.0"
   },
   "author": "toujou",
   "license": "MIT"
