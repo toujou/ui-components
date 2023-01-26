@@ -38,6 +38,7 @@
     "@rollup/plugin-replace": "^2.3.4",
     "@web/dev-server-esbuild": "^0.3.3",
     "@web/test-runner": "^0.15.0",
+    "autoprefixer": "^10.4.13",
     "js-cookie": "^3.0.1",
     "lit": "^2.0.0-rc.2",
     "mapbox-gl": "^1.13.1",
