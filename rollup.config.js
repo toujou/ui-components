@@ -53,8 +53,7 @@ const config = filesToBundle.map((fileToBundle) => {
             compact: true
         },
         external: [
-            'lit',
-            'lit/directives/unsafe-html.js',
+            /^lit.*/,
         ],
         plugins: [
             alias({
@@ -78,7 +77,7 @@ const config = filesToBundle.map((fileToBundle) => {
                 inject: false
             }),
             postcssLit(),
-            // summary()
+            summary()
         ],
     };
 });
