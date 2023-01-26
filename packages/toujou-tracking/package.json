@@ -1,7 +1,7 @@
 {
-  "name": "@toujou/toujou-tracking-google-analytics",
+  "name": "@toujou/toujou-tracking",
   "version": "1.0.0",
-  "description": "A spinner element to show that something is loading",
+  "description": "Collection of specific tracking elements for GA/Matomo etc.",
   "type": "module",
   "publishConfig": {
     "access": "public"
@@ -9,7 +9,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/toujou/ui-components.git",
-    "directory": "packages/toujou-tracking-google-analytics"
+    "directory": "packages/toujou-tracking"
   },
   "keywords": [
     "toujou",
