@@ -29,7 +29,7 @@ const config = filesToBundle.map((fileToBundle) => {
         context: 'window',
         input: path.resolve(`./packages/${fileToBundle.packageName}/src/${fileToBundle.fileName}`),
         output: {
-            dir: `./packages/${fileToBundle.packageName}/lib/`,
+            dir: `./packages/${fileToBundle.packageName}/dist/`,
             format: 'esm',
             sourcemap: true,
             compact: true
@@ -38,15 +38,11 @@ const config = filesToBundle.map((fileToBundle) => {
         plugins: [
             nodeResolve({
                 mainFields: ['module', 'main'],
-                // threat all node_modules as external apart css files
-                resolveOnly: [/^\.{0,2}\/|\.css$/i],
             }),
             ...commonPlugins,
         ],
     };
 });
-
-
 export default () => {
     config.forEach((es6Config) => {
         if (process.env.NODE_ENV === 'production') {

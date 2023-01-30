@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie';
-import { consentsStore } from '@toujou/consent-widget/consentsStore';
+import { consentsStore } from '../toujou-consent-widget/consentsStore';
 
 class ToujouTrackingMatomo extends HTMLElement {
   get url() {

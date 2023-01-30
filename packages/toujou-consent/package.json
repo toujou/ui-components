@@ -13,6 +13,14 @@
     "url": "git+https://github.com/toujou/ui-components.git",
     "directory": "packages/toujou-consent"
   },
+  "dependencies": {
+    "js-cookie": "^3.0.1",
+    "lit": "^2.0.0-rc.2",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0",
+    "regenerator-runtime": "^0.13.3",
+    "reselect": "^4.0.0"
+  },
   "keywords": [
     "toujou",
     "consent",

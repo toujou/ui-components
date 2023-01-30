@@ -15,10 +15,10 @@
   },
   "homepage": "https://github.com/toujou/ui-components#readme",
   "scripts": {
-    "clean:build": "rm -rf packages/**/dist",
-    "build": "npm run build:js",
-    "build:js": "rollup -c",
-    "build:production": "NODE_ENV=production rollup -c",
+    "clean:build": "rm -rf packages/**/dist && rm -rf packages/**/lib",
+    "build": "rollup --config rollup.config.js",
+    "build:dist": "rollup --config rollup.config.dist.js",
+    "build:production": "NODE_ENV=production npm run build && npm run build:dist",
     "dev:js": "NODE_ENV=development npx rollup -c -w",
     "test": "web-test-runner"
   },
