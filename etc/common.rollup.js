@@ -12,7 +12,7 @@ export const commonPlugins = [
     alias({
         resolve: ['', './index.js', '.js'],
         entries: {
-            'mapbox-geocoder': `${__dirname}/node_modules/@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.min.js`,
+            '@mapbox/mapbox-gl-geocoder': `${__dirname}/node_modules/@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.min.js`,
         },
     }),
     replace({
