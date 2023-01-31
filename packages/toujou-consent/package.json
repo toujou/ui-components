@@ -1,0 +1,31 @@
+{
+  "name": "@toujou/toujou-consent",
+  "version": "1.0.0",
+  "description": "A consent element",
+  "main": "./dist/toujou-consent.js",
+  "module": "./src/toujou-consent.js",
+  "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/toujou/ui-components.git",
+    "directory": "packages/toujou-consent"
+  },
+  "dependencies": {
+    "js-cookie": "^3.0.1",
+    "lit": "^2.0.0-rc.2",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0",
+    "regenerator-runtime": "^0.13.3",
+    "reselect": "^4.0.0"
+  },
+  "keywords": [
+    "toujou",
+    "consent",
+    "web-component"
+  ],
+  "author": "toujou",
+  "license": "MIT"
+}

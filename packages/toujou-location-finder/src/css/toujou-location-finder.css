@@ -35,11 +35,8 @@
     height: var(--toujou-location-finder-sidebar-ui-button-height, 1rem);
     width: var(--toujou-location-finder-sidebar-ui-button-width, 1rem);
     background-color: var(--toujou-location-finder-sidebar-ui-button-background-color, var(--font-color));
-    -webkit-mask-size: var(--toujou-location-finder-sidebar-ui-button-mask-size, contain);
     mask-size: var(--toujou-location-finder-sidebar-ui-button-mask-size, contain);
-    -webkit-mask-position: var(--toujou-location-finder-sidebar-ui-button-mask-position, center);
     mask-position: var(--toujou-location-finder-sidebar-ui-button-mask-position, center);
-    -webkit-mask-repeat: var(--toujou-location-finder-sidebar-ui-button-mask-repeat, no-repeat);
     mask-repeat: var(--toujou-location-finder-sidebar-ui-button-mask-repeat, no-repeat);
     position: var(--toujou-location-finder-sidebar-ui-button-position, absolute);
     top: var(--toujou-location-finder-sidebar-ui-button-top, 50%);
@@ -56,21 +53,15 @@
 .sidebar__ui-button--locator:after {
     height: var(--toujou-location-finder-sidebar-locator-icon-height, 1.5rem);
     width: var(--toujou-location-finder-sidebar-locator-icon-width, 1.5rem);
-    -webkit-mask-image: var(--toujou-location-finder-sidebar-locator-icon-image, var(--toujou-location-finder-icon-target));
     mask-image: var(--toujou-location-finder-sidebar-locator-icon-image, var(--toujou-location-finder-icon-target));
-    -webkit-transform: var(--toujou-location-finder-sidebar-locator-transform, translate(-50%, -50%));
     transform: var(--toujou-location-finder-sidebar-locator-transform, translate(-50%, -50%));
-    -webkit-transition: var(--toujou-location-finder-sidebar-locator-transition, -webkit-transform .25s ease-in-out);
-    transition: var(--toujou-location-finder-sidebar-locator-transition, -webkit-transform .25s ease-in-out);
     transition: var(--toujou-location-finder-sidebar-locator-transition, transform .25s ease-in-out);
-    transition: var(--toujou-location-finder-sidebar-locator-transition, transform .25s ease-in-out, -webkit-transform .25s ease-in-out);
 }
 
 .sidebar__ui-button--locator[locatorisloading]:after {
     height: var(--toujou-location-finder-sidebar-locator-loader-height, 1rem);
     width: var(--toujou-location-finder-sidebar-locator-loader-width, 1rem);
     mask-image: var(--toujou-location-finder-sidebar-locator-loader-image, none);
-    -webkit-mask-image: var(--toujou-location-finder-sidebar-locator-loader-image, none);
     border-radius: var(--toujou-location-finder-sidebar-locator-loader-border-radius, 50%);
     border: var(--toujou-location-finder-sidebar-locator-loader-border, 3px solid transparent);
     border-top-color: var(--toujou-location-finder-sidebar-locator-loader-border-top-color, var(--primary-color));
@@ -184,13 +175,9 @@
     width: var(--toujou-location-finder-pagination-button-width, 1.5rem);
     background-color: var(--toujou-location-finder-pagination-button-bg-color, var(--font-color));
     mask-position: center;
-    -webkit-mask-position: center;
     mask-repeat: no-repeat;
-    -webkit-mask-repeat: no-repeat;
     mask-size: contain;
-    -webkit-mask-size: contain;
     mask-image: var(--toujou-location-finder-pagination-button-image, var(--medatsu-icon-chevron-down));
-    -webkit-mask-image: var(--toujou-location-finder-pagination-button-image, var(--medatsu-icon-chevron-down));
     opacity: var(--toujou-location-finder-pagination-button-opacity, .5);
     cursor: pointer;
 }

@@ -15,10 +15,10 @@
   },
   "homepage": "https://github.com/toujou/ui-components#readme",
   "scripts": {
-    "clean:build": "rm -rf ./dist",
-    "build": "npm run build:js",
-    "build:js": "rollup -c",
-    "build:production": "NODE_ENV=production rollup -c",
+    "clean:build": "rm -rf packages/**/dist && rm -rf packages/**/lib",
+    "build": "rollup --config rollup.config.js",
+    "build:dist": "rollup --config rollup.config.dist.js",
+    "build:production": "NODE_ENV=production npm run build && npm run build:dist",
     "dev:js": "NODE_ENV=development npx rollup -c -w",
     "test": "web-test-runner"
   },
@@ -38,6 +38,8 @@
     "@rollup/plugin-replace": "^2.3.4",
     "@web/dev-server-esbuild": "^0.3.3",
     "@web/test-runner": "^0.15.0",
+    "autoprefixer": "^10.4.13",
+    "js-cookie": "^3.0.1",
     "lit": "^2.0.0-rc.2",
     "mapbox-gl": "^1.13.1",
     "postcss": "^8.4.20",
@@ -60,6 +62,7 @@
   "peerDependencies": {
     "@mapbox/mapbox-gl-geocoder": "^4.7.1",
     "@mapbox/mapbox-gl-language": "^1.0.0",
+    "js-cookie": "^3.0.1",
     "lit": "^2.0.0-rc.2",
     "mapbox-gl": "^1.13.1",
     "redux": "^4.0.5",
