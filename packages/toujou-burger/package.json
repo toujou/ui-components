@@ -1,6 +1,6 @@
 {
   "name": "@toujou/toujou-burger",
-  "version": "1.0.6",
+  "version": "1.0.0-alpha.0",
   "description": "A burger button element",
   "main": "./dist/toujou-burger.js",
   "module": "./src/toujou-burger.js",

@@ -1,6 +1,6 @@
 {
   "name": "@toujou/toujou-map",
-  "version": "1.0.1",
+  "version": "1.0.0-alpha.0",
   "description": "Different webcomponents wo render a mapbox map",
   "main": "./dist/toujou-map.js",
   "module": "./src/toujou-map.js",
@@ -18,9 +18,9 @@
     "genPackagelock": "npm i --package-lock-only"
   },
   "dependencies": {
-    "mapbox-gl": "^1.13.1",
     "@mapbox/mapbox-gl-language": "^1.0.0",
-    "lit": "^2.0.0-rc.2"
+    "lit": "^2.0.0-rc.2",
+    "mapbox-gl": "^1.13.1"
   },
   "keywords": [
     "toujou",
