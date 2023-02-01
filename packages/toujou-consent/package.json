@@ -13,6 +13,10 @@
     "url": "git+https://github.com/toujou/ui-components.git",
     "directory": "packages/toujou-consent"
   },
+  "scripts": {
+    "build": "rollup --silent --config ../../rollup.config.js",
+    "genPackagelock": "npm i --package-lock-only"
+  },
   "dependencies": {
     "js-cookie": "^3.0.1",
     "lit": "^2.0.0-rc.2",

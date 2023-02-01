@@ -8,10 +8,17 @@
   "publishConfig": {
     "access": "public"
   },
+  "scripts": {
+    "build": "rollup --silent --config ../../rollup.config.js",
+    "genPackagelock": "npm i --package-lock-only"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/toujou/ui-components.git",
     "directory": "packages/toujou-burger"
+  },
+  "dependencies": {
+    "lit": "^2.0.0-rc.2"
   },
   "keywords": [
     "toujou",

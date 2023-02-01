@@ -15,12 +15,13 @@
   },
   "homepage": "https://github.com/toujou/ui-components#readme",
   "scripts": {
-    "clean:build": "rm -rf packages/**/dist && rm -rf packages/**/lib",
+    "build-lib": "lerna run build",
     "build": "rollup --config rollup.config.js",
-    "build:dist": "rollup --config rollup.config.dist.js",
-    "build:production": "NODE_ENV=production npm run build && npm run build:dist",
     "dev:js": "NODE_ENV=development npx rollup -c -w",
-    "test": "web-test-runner"
+    "postinstall": "lerna bootstrap --hoist && NODE_ENV=production npm run build-lib && lerna run --parallel genPackagelock",
+    "test": "web-test-runner",
+    "watch-components": "lerna run watch",
+    "release": "lerna clean --yes && git clean -dfxq -e .idea -e .vscode && npm ci && lerna version --include-merged-tags --exact && lerna publish from-package && git clean -dfxq -e .idea -e .vscode && npm install && git add -A && git commit -m \"release: update package locks\" && git push"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
@@ -41,6 +42,7 @@
     "@web/test-runner": "^0.15.0",
     "autoprefixer": "^10.4.13",
     "js-cookie": "^3.0.1",
+    "lerna": "^6.4.1",
     "lit": "^2.0.0-rc.2",
     "mapbox-gl": "^1.13.1",
     "postcss": "^8.4.20",
@@ -69,5 +71,8 @@
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0"
-  }
+  },
+  "workspaces": [
+    "packages/*"
+  ]
 }

@@ -13,6 +13,15 @@
     "url": "git+https://github.com/toujou/ui-components.git",
     "directory": "packages/toujou-map"
   },
+  "scripts": {
+    "build": "rollup --silent --config ../../rollup.config.js",
+    "genPackagelock": "npm i --package-lock-only"
+  },
+  "dependencies": {
+    "mapbox-gl": "^1.13.1",
+    "@mapbox/mapbox-gl-language": "^1.0.0",
+    "lit": "^2.0.0-rc.2"
+  },
   "keywords": [
     "toujou",
     "map",

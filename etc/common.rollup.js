@@ -7,6 +7,7 @@ import postcssLit from 'rollup-plugin-postcss-lit';
 import summary from 'rollup-plugin-summary';
 import babel from '@rollup/plugin-babel';
 import * as babelCore from '@babel/core';
+import {terser} from 'rollup-plugin-terser';
 
 export const commonPlugins = [
     alias({
@@ -21,6 +22,7 @@ export const commonPlugins = [
     }),
     commonjs({
         include: 'node_modules/**',
+        requireReturnsDefault: 'auto',
     }),
     json(),
     postcss({
@@ -47,3 +49,21 @@ export const es6Babel = babel({
     ],
     babelHelpers: 'bundled',
 });
+
+/**
+ *
+ * @param {object} config
+ *
+ * @return {object}
+ */
+export function handleEnvironment(config) {
+    if (process.env.NODE_ENV === 'production') {
+        config.output.compact = true;
+        config.plugins.push(es6Babel);
+        config.plugins.push(terser());
+    } else {
+        config.cache = true;
+        config.treeshake = false;
+    }
+    return config;
+}

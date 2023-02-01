@@ -13,6 +13,13 @@
     "url": "git+https://github.com/toujou/ui-components.git",
     "directory": "packages/toujou-spinner"
   },
+  "scripts": {
+    "build": "rollup --silent --config ../../rollup.config.js",
+    "genPackagelock": "npm i --package-lock-only"
+  },
+  "dependencies": {
+    "lit": "^2.0.0-rc.2"
+  },
   "keywords": [
     "toujou",
     "spinner",

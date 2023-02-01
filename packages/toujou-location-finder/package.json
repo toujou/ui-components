@@ -13,6 +13,20 @@
     "url": "git+https://github.com/toujou/ui-components.git",
     "directory": "packages/toujou-location-finder"
   },
+  "scripts": {
+    "build": "rollup --silent --config ../../rollup.config.js",
+    "genPackagelock": "npm i --package-lock-only"
+  },
+  "dependencies": {
+    "@mapbox/mapbox-gl-geocoder": "^4.7.1",
+    "@mapbox/mapbox-gl-language": "^1.0.0",
+    "lit": "^2.0.0-rc.2",
+    "mapbox-gl": "^1.13.1",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0",
+    "reselect": "^4.0.0"
+  },
+
   "keywords": [
     "toujou",
     "map",
