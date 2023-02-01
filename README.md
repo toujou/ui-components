@@ -9,6 +9,7 @@ npm v16.14.0
 On the root folder run:
 1. `nvm use`
 2. `npm ci`
+3. `npm run build`
 
 ## Create a new release
 - `npm release` (need to log in to npm with `npm login`)
