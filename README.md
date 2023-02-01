@@ -8,15 +8,10 @@ npm v16.14.0
 ## Install dependencies
 On the root folder run:
 1. `nvm use`
-2. `npm run install`
+2. `npm ci`
 
-## Build
-On the root folder run:
-- `npm run build`
-
-## Publish component
-On the component folder (ex: `/ui-components/packages/toujou-burger`) run:
-- `npm publish` (need to log in to npm with `npm login`)
+## Create a new release
+- `npm release` (need to log in to npm with `npm login`)
 
 > The package will be published to npm at `https://www.npmjs.com/package/@toujou/{packageName}`
 
@@ -25,6 +20,12 @@ If you want to install one of the packages on a project, run:
 - `npm install @toujou/{packageName}`
 - ex: `npm install @toujou/toujou-burger`
 
-## Packages available
-- [toujou-burger](https://www.npmjs.com/package/@toujou/toujou-burger)
-- [toujou-spinner](https://www.npmjs.com/package/@toujou/toujou-spinner)
+## Released Components
+[![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
+
+| Component                                                   | npmjs.com                                                                                                                                                  |
+|-------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [toujou-burger](./packages/toujou-burger)                   | [![npm version](https://img.shields.io/npm/v/@toujou/toujou-burger.svg?style=flat)](https://www.npmjs.com/package/@toujou/toujou-burger)                   |
+| [toujou-location-finder](./packages/toujou-location-finder) | [![npm version](https://img.shields.io/npm/v/@toujou/toujou-location-finder.svg?style=flat)](https://www.npmjs.com/package/@toujou/toujou-location-finder) |
+| [toujou-map](./packages/toujou-map)                         | [![npm version](https://img.shields.io/npm/v/@toujou/toujou-map.svg?style=flat)](https://www.npmjs.com/package/@toujou/toujou-map)                         |
+| [toujou-spinner](./packages/toujou-spinner)                 | [![npm version](https://img.shields.io/npm/v/@toujou/toujou-spinner.svg?style=flat)](https://www.npmjs.com/package/@toujou/toujou-spinner)                 |
