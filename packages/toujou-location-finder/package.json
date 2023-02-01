@@ -1,6 +1,6 @@
 {
   "name": "@toujou/toujou-location-finder",
-  "version": "0.0.6",
+  "version": "2.0.0-alpha.0",
   "description": "A location finder with and interactive map",
   "main": "./dist/toujou-location-finder.js",
   "module": "./src/toujou-location-finder.js",
@@ -13,6 +13,19 @@
     "url": "git+https://github.com/toujou/ui-components.git",
     "directory": "packages/toujou-location-finder"
   },
+  "scripts": {
+    "build": "rollup --silent --config ../../rollup.config.js",
+    "genPackagelock": "npm i --package-lock-only"
+  },
+  "dependencies": {
+    "@mapbox/mapbox-gl-geocoder": "^4.7.1",
+    "@mapbox/mapbox-gl-language": "^1.0.0",
+    "lit": "^2.0.0-rc.2",
+    "mapbox-gl": "^1.13.1",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0",
+    "reselect": "^4.0.0"
+  },
   "keywords": [
     "toujou",
     "map",
@@ -20,5 +33,6 @@
     "web-component"
   ],
   "author": "toujou",
-  "license": "MIT"
+  "license": "MIT",
+  "gitHead": "e1bfcc508966aac0d1391d2b19e9fd692c5070fc"
 }

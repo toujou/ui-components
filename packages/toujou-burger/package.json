@@ -1,6 +1,6 @@
 {
   "name": "@toujou/toujou-burger",
-  "version": "1.0.6",
+  "version": "2.0.0-alpha.0",
   "description": "A burger button element",
   "main": "./dist/toujou-burger.js",
   "module": "./src/toujou-burger.js",
@@ -8,10 +8,17 @@
   "publishConfig": {
     "access": "public"
   },
+  "scripts": {
+    "build": "rollup --silent --config ../../rollup.config.js",
+    "genPackagelock": "npm i --package-lock-only"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/toujou/ui-components.git",
     "directory": "packages/toujou-burger"
+  },
+  "dependencies": {
+    "lit": "^2.0.0-rc.2"
   },
   "keywords": [
     "toujou",
@@ -19,5 +26,6 @@
     "web-component"
   ],
   "author": "toujou",
-  "license": "MIT"
+  "license": "MIT",
+  "gitHead": "e1bfcc508966aac0d1391d2b19e9fd692c5070fc"
 }

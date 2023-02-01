@@ -1,8 +1,9 @@
 import { LitElement, html } from 'lit';
 import mapboxgl from 'mapbox-gl';
+import * as MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
+
 import './toujou-location-finder-teaser.js';
-// eslint-disable-next-line import/no-unresolved
-import MapboxGeocoder from 'mapbox-geocoder';
+
 import mapboxGeocoderStyles from '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 // eslint-disable-next-line import/extensions
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
