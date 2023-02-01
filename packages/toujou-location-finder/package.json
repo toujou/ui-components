@@ -1,6 +1,6 @@
 {
   "name": "@toujou/toujou-location-finder",
-  "version": "1.0.0-alpha.0",
+  "version": "2.0.0-alpha.0",
   "description": "A location finder with and interactive map",
   "main": "./dist/toujou-location-finder.js",
   "module": "./src/toujou-location-finder.js",
