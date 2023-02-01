@@ -1,6 +1,6 @@
 {
   "name": "@toujou/ui-components",
-  "version": "0.0.1",
+  "version": "1.0.0-alpha.0",
   "description": "Collection of web-components used in the toujou themes",
   "type": "module",
   "private": true,
@@ -18,10 +18,10 @@
     "build-lib": "lerna run build",
     "build": "rollup --config rollup.config.js",
     "dev:js": "NODE_ENV=development npx rollup -c -w",
-    "postinstall": "lerna bootstrap --hoist && NODE_ENV=production npm run build-lib && lerna run --parallel genPackagelock",
+    "postinstall": "lerna bootstrap --hoist && NODE_ENV=production npm run build-lib",
     "test": "web-test-runner",
     "watch-components": "lerna run watch",
-    "release": "lerna clean --yes && git clean -dfxq -e .idea -e .vscode && npm ci && lerna version --include-merged-tags --exact && lerna publish from-package && git clean -dfxq -e .idea -e .vscode && npm install && git add -A && git commit -m \"release: update package locks\" && git push"
+    "release": "lerna clean --yes && git clean -dfxq -e .idea -e .vscode && npm ci && lerna run --parallel genPackagelock && lerna version --include-merged-tags --exact && lerna publish from-package && git clean -dfxq -e .idea -e .vscode && npm install && git add -A && git commit -m \"release: update package locks\" && git push"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
