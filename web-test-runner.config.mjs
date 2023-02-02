@@ -4,7 +4,6 @@ import postcssLitRollup from 'rollup-plugin-postcss-lit';
 import aliasRollup from '@rollup/plugin-alias';
 import commonjsRollup from '@rollup/plugin-commonjs';
 import postcssRollup from 'rollup-plugin-postcss';
-import nodeResolveRollup from '@rollup/plugin-node-resolve';
 import path from 'path';
 
 const replace = fromRollup(rollupReplace);
@@ -21,7 +20,7 @@ export default {
     preserveSymlinks: true,
     browserLogs: false,
     files: [
-        'packages/**/src/tests/**/*.test.js'
+        'packages/**/tests/**/*.test.js'
     ],
     mimeTypes: {
         '**/*.css': 'js',
@@ -30,7 +29,6 @@ export default {
         alias({
             resolve: ['', './index.js', '.js'],
             entries: {
-                '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css': `${nodeModulesPath}/@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css`,
                 '@mapbox/mapbox-gl-geocoder': `${nodeModulesPath}/@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.min.js`,
             },
         }),

@@ -1,6 +1,6 @@
   import { expect, fixture, html } from '@open-wc/testing';
 
-  import '../toujou-location-finder.js';
+  import '../src/toujou-location-finder.js';
 
   describe('toujou-location-finder basics', () => {
     let element = null;

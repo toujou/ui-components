@@ -1,5 +1,5 @@
 import { expect } from '@open-wc/testing';
-import {convertToLegacyColorString} from '../../utils/_utils.js';
+import {convertToLegacyColorString} from '../../src/utils/_utils.js';
 
 describe('convertToLegacyColorString', () => {
 
