@@ -21,8 +21,12 @@ The `<toujou-consent-widget>` is shown as a 'consent-box' when the user first co
 
 Example:
 ```html
-<toujou-consent-widget class="consent-widget" listenTo="click" listenOn="#consentSaveButton">
-
+<toujou-consent-widget 
+        class="consent-widget" 
+        listenTo="click" 
+        listenOn="#consentSaveButton" 
+        hidden
+>
     <div class="consent-widget__header" slot="consentWidgetHeader">
         <h4 class="consent-widget__title">{title}</h4>
         <p class="consent-widget__description">{description} <a class="consent-widget__description-link" href="{link}">{linkText}</a></p>
@@ -57,7 +61,7 @@ You can add an 'inpage' `<toujou-consent-widget>` to any page by choosing it on 
 
 Example:
 ```html
-<toujou-consent-widget class="consent-widget">
+<toujou-consent-widget class="consent-widget" inPage>
 
     <div class="consent-widget__header" slot="consentWidgetHeader">
         <h4 class="consent-widget__title">{data.header}</h4>

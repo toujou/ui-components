@@ -4,7 +4,6 @@ import * as MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 
 import './toujou-location-finder-teaser.js';
 
-import mapboxGeocoderStyles from '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 // eslint-disable-next-line import/extensions
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import styles from './css/toujou-location-finder.css';
@@ -38,7 +37,7 @@ export class ToujouLocationFinder extends LitElement {
   }
 
   static get styles() {
-    return [styles, teaserStyles, popupStyles, mapboxGeocoderStyles, toujouGeocoderStyles];
+    return [styles, teaserStyles, popupStyles, toujouGeocoderStyles];
   }
 
   static get properties() {
