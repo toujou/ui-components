@@ -1,0 +1,29 @@
+{
+  "name": "@toujou/{{package_name}}",
+  "version": "0.0.0-beta.0",
+  "author": "toujou",
+  "license": "MIT",
+  "description": "The {{package_name}} package of toujou ui components",
+  "main": "./lib/index.js",
+  "module": "./src/index.js",
+  "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "rollup --silent --config ../../rollup.config.js",
+    "genPackagelock": "npm i --package-lock-only"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/toujou/ui-components.git",
+    "directory": "packages/{{package_name}}"
+  },
+  "dependencies": {
+    "lit": "^2.0.0-rc.2"
+  },
+  "keywords": [
+    "toujou",
+    "web-component"
+  ]
+}
