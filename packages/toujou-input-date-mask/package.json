@@ -20,6 +20,7 @@
     "directory": "packages/toujou-input-date-mask"
   },
   "dependencies": {
+    "inputmask": "^5.0.7",
     "lit": "^2.0.0-rc.2"
   },
   "keywords": [
