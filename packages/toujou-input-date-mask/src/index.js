@@ -1,5 +1,6 @@
 import { LitElement, html} from 'lit';
-import Inputmask from 'inputmask/dist/inputmask.es6.js';
+import Inputmask from 'inputmask';
+import {validateDate} from './utlis/dates.js';
 
 export class ToujouInputDateMask extends LitElement {
     static get is() {
@@ -13,9 +14,17 @@ export class ToujouInputDateMask extends LitElement {
             },
             showMaskOnHover: {
                 type: Boolean,
+                attribute: 'show-mask-on-hover'
             },
             showMaskOnFocus: {
-                type: Boolean
+                type: Boolean,
+                attribute: 'show-mask-on-focus'
+
+            },
+            customValidationErrorMessage: {
+                type: String,
+                attribute: 'custom-validation-error-message'
+
             },
         };
     }
@@ -25,31 +34,67 @@ export class ToujouInputDateMask extends LitElement {
         this.mask = 'dd.mm.yyyy';
         this.showMaskOnHover = false;
         this.showMaskOnFocus = false;
+        this.customValidationErrorMessage = 'Please enter a valid date';
+        this.validateInput.bind(this);
     }
 
-    createRenderRoot() {
-        return this;
-    }
-
-    connectedCallback() {
+    firstUpdated() {
         super.connectedCallback();
+        const numberMask = this.mask.replace(/[a-zA-Z]/g, '9');
+
         this.inputmask = new Inputmask({
-            mask: this.mask,
+            mask: numberMask,
             showMaskOnHover: this.showMaskOnHover,
             showMaskOnFocus: this.showMaskOnFocus,
         });
+
+        this.inputmask.mask(this.inputElement);
+
+        this.inputElement.addEventListener('input', this.validateInput);
+    }
+
+    disconnectedCallback() {
+        super.disconnectedCallback();
+        this.inputElement.removeEventListener('input', this.validateInput);
+
     }
 
     render() {
-        return html`
-            <input ref={myRef} placeholder={statePlaceholder} type='tel'
-                   onClick={onClick} className={className} spellCheck="false" onInput={onInput} onTouchStart={onTouchStart}
-                   onFocus={onFocus} value={maskOnFocus ? newState : ''} onKeyDown={onKeyDown}
-            autoComplete='off' onPaste={onHandlePaste} onMouseEnter={onHandleMouseEnter}
-            onMouseLeave={onHandleMouseLeave} onBlur={onHandleBlur} disabled={disabled} readOnly={readOnly}></input>
-            
-        `;
+        return html`<slot></slot>`;
     }
+
+
+    validateInput = () => {
+        const value = this.inputElement.value;
+        if (false === this.inputmask.isValid(value) || false === validateDate(value, this.mask)) {
+            this.inputElement.setCustomValidity(this.customValidationErrorMessage);
+        } else {
+            this.inputElement.setCustomValidity('');
+
+        }
+    }
+
+    /**
+     * @returns {HTMLInputElement|null}
+     */
+    get inputElement() {
+
+        const slot = this.shadowRoot.querySelector('slot');
+
+        if (null === slot) {
+            return null;
+        }
+
+        const firstNode = slot
+            .assignedNodes({ flatten: true })
+            .find(node => node.tagName === 'INPUT');
+
+        return firstNode ?? null;
+    }
+
+
+
+
 }
 
 customElements.define(ToujouInputDateMask.is, ToujouInputDateMask);

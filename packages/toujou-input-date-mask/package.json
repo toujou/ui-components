@@ -12,7 +12,8 @@
   },
   "scripts": {
     "build": "rollup --silent --config ../../rollup.config.js",
-    "genPackagelock": "npm i --package-lock-only"
+    "genPackagelock": "npm i --package-lock-only",
+    "watch": "rollup --watch --silent --config ../../rollup.config.js "
   },
   "repository": {
     "type": "git",

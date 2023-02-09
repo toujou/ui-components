@@ -2,16 +2,57 @@ import { expect, fixture, html } from '@open-wc/testing';
 
 import '../src/index.js';
 
-describe('{{component_name}}', () => {
+describe('toujou-input-date-mask', () => {
     let element = null;
     beforeEach(async () => {
         element = await fixture(html`
-            <toujou-input-date-mask></toujou-input-date-mask>`);
+            <toujou-input-date-mask mask="dd.mm.yyyy">
+                <input placeholder="tt.mm.jjjj"
+                       required
+                       autocomplete="off"
+                       type="tel"
+                       id="test"
+                />
+            </toujou-input-date-mask>
+        `);
     });
 
     it('can create component', async () => {
         expect(element).to.not.be.null;
         expect(element).to.not.be.undefined;
         expect(element.nodeName).to.equal(`toujou-input-date-mask`.toUpperCase());
+    });
+
+    it('will initialize input element with input mask', async () => {
+        const inputElement = element.querySelector('#test');
+
+        expect(inputElement.inputmask).to.not.be.null;
+        expect(inputElement.inputmask.userOptions.mask).to.be.equal('99.99.9999');
+        expect(inputElement.inputmask.userOptions.showMaskOnFocus).to.be.false;
+        expect(inputElement.inputmask.userOptions.showMaskOnHover).to.be.false;
+    });
+
+    it('will set validity state to false on incomplete date string', async () => {
+        const inputElement = element.querySelector('#test');
+        inputElement.value = '12';
+
+        inputElement.dispatchEvent(new CustomEvent('input'));
+        expect(inputElement.checkValidity()).to.be.false;
+    });
+
+    it('will set validity state to false on invalid date string', async () => {
+        const inputElement = element.querySelector('#test');
+        inputElement.value = '31.13.2001';
+
+        inputElement.dispatchEvent(new CustomEvent('input'));
+        expect(inputElement.checkValidity()).to.be.false;
+    });
+
+    it('will set validity state to true on valid date string', async () => {
+        const inputElement = element.querySelector('#test');
+        inputElement.value = '13.12.2001';
+
+        inputElement.dispatchEvent(new CustomEvent('input'));
+        expect(inputElement.checkValidity()).to.be.true;
     });
 });
