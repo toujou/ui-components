@@ -28,9 +28,6 @@ export default {
     plugins: [
         alias({
             resolve: ['', './index.js', '.js'],
-            entries: {
-                '@mapbox/mapbox-gl-geocoder': `${nodeModulesPath}/@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.min.js`,
-            },
         }),
         replace({
             preventAssignment: true,
