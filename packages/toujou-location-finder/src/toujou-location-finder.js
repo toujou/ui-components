@@ -1,6 +1,6 @@
 import { LitElement, html } from 'lit';
 import mapboxgl from 'mapbox-gl';
-import * as MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
+import * as MapboxGeocoder from '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.min';
 
 import './toujou-location-finder-teaser.js';
 
