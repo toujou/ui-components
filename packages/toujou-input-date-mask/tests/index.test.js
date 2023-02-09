@@ -11,8 +11,15 @@ describe('toujou-input-date-mask', () => {
                        required
                        autocomplete="off"
                        type="tel"
-                       id="test"
+                       id="facade"
+                       slot="facade"
                 />
+                <input type="hidden" 
+                       slot="input" 
+                       id="hidden"
+                       value="2022-01-03"
+                />
+                
             </toujou-input-date-mask>
         `);
     });
@@ -24,7 +31,7 @@ describe('toujou-input-date-mask', () => {
     });
 
     it('will initialize input element with input mask', async () => {
-        const inputElement = element.querySelector('#test');
+        const inputElement = element.querySelector('#facade');
 
         expect(inputElement.inputmask).to.not.be.null;
         expect(inputElement.inputmask.userOptions.mask).to.be.equal('99.99.9999');
@@ -33,26 +40,40 @@ describe('toujou-input-date-mask', () => {
     });
 
     it('will set validity state to false on incomplete date string', async () => {
-        const inputElement = element.querySelector('#test');
+        const inputElement = element.querySelector('#facade');
+        const hiddenElement = element.querySelector('#hidden');
+
         inputElement.value = '12';
 
         inputElement.dispatchEvent(new CustomEvent('input'));
         expect(inputElement.checkValidity()).to.be.false;
+        expect(hiddenElement.value).to.be.equal('');
     });
 
     it('will set validity state to false on invalid date string', async () => {
-        const inputElement = element.querySelector('#test');
+        const inputElement = element.querySelector('#facade');
+        const hiddenElement = element.querySelector('#hidden');
+
         inputElement.value = '31.13.2001';
 
         inputElement.dispatchEvent(new CustomEvent('input'));
         expect(inputElement.checkValidity()).to.be.false;
+        expect(hiddenElement.value).to.be.equal('');
     });
 
     it('will set validity state to true on valid date string', async () => {
-        const inputElement = element.querySelector('#test');
+        const inputElement = element.querySelector('#facade');
+        const hiddenElement = element.querySelector('#hidden');
         inputElement.value = '13.12.2001';
 
         inputElement.dispatchEvent(new CustomEvent('input'));
         expect(inputElement.checkValidity()).to.be.true;
+
+        expect(hiddenElement.value).to.be.equal('2001-12-13');
+    });
+
+    it('will prefill facade on preset hidden input value', async () => {
+        const inputElement = element.querySelector('#facade');
+        expect(inputElement.value).to.be.equal('03.01.2022');
     });
 });

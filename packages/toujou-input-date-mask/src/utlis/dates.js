@@ -1,3 +1,5 @@
+const add0 = t => (String(t).padStart(2, '0'));
+
 /**
  * @param {String} dateString
  * @param {String} format
@@ -62,4 +64,29 @@ export const parseDateFromFormat = (dateString, format) => {
     }
 
     return new Date(year, month, day);
+}
+
+/**
+ * @param {Date} date
+ *
+ * @return {string}
+ */
+export function dateToISO8601(date) {
+    return `${date.getFullYear()}-${add0(date.getMonth() + 1)}-${add0(date.getDate())}`;
+}
+
+/**
+ * @param {String} isoDateString
+ *
+ * @param {String} format
+ *
+ * @return {string}
+ */
+export function formatIsoDateToFormatDate(isoDateString, format) {
+    const parts = isoDateString.match(/\d+/g);
+
+    return format
+        .replace('yyyy', parts[0])
+        .replace('mm', parts[1])
+        .replace('dd', parts[2])
 }

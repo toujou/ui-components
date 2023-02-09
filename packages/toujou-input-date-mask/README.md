@@ -10,15 +10,18 @@
     
 
 ```html
-
-<toujou-input-date-mask
-    mask="dd.mm.yyyyy"
->
+<toujou-input-date-mask mask="dd.mm.yyyyy">
     <input placeholder="tt.mm.jjjj" 
            required="required" 
            autocomplete="off" 
            type="tel"
-    >
+           slot="facade"
+    />
+    <input type="hidden"
+           slot="hidden"
+           id="hidden"
+           name="birthdate"
+    />
 </toujou-input-date-mask>
 
 ```    

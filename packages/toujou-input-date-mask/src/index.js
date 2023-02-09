@@ -1,6 +1,6 @@
 import { LitElement, html} from 'lit';
 import Inputmask from 'inputmask';
-import {validateDate} from './utlis/dates.js';
+import {dateToISO8601, formatIsoDateToFormatDate, parseDateFromFormat, validateDate} from './utlis/dates.js';
 
 export class ToujouInputDateMask extends LitElement {
     static get is() {
@@ -19,7 +19,6 @@ export class ToujouInputDateMask extends LitElement {
             showMaskOnFocus: {
                 type: Boolean,
                 attribute: 'show-mask-on-focus'
-
             },
             customValidationErrorMessage: {
                 type: String,
@@ -48,53 +47,79 @@ export class ToujouInputDateMask extends LitElement {
             showMaskOnFocus: this.showMaskOnFocus,
         });
 
-        this.inputmask.mask(this.inputElement);
+        this.inputmask.mask(this.facadeInputElement);
 
-        this.inputElement.addEventListener('input', this.validateInput);
+        this.facadeInputElement.addEventListener('input', this.validateInput);
+
+        if (this.hiddenInputElement && this.hiddenInputElement.value) {
+            this.facadeInputElement.value = formatIsoDateToFormatDate(this.hiddenInputElement.value, this.mask)
+        }
     }
 
     disconnectedCallback() {
         super.disconnectedCallback();
-        this.inputElement.removeEventListener('input', this.validateInput);
+        this.facadeInputElement.removeEventListener('input', this.validateInput);
 
     }
 
     render() {
-        return html`<slot></slot>`;
+        return html`
+            <slot name="facade"></slot>
+            <slot name="input"></slot>
+        `;
     }
 
-
     validateInput = () => {
-        const value = this.inputElement.value;
-        if (false === this.inputmask.isValid(value) || false === validateDate(value, this.mask)) {
-            this.inputElement.setCustomValidity(this.customValidationErrorMessage);
-        } else {
-            this.inputElement.setCustomValidity('');
+        const facade = this.facadeInputElement;
+        const hidden = this.hiddenInputElement;
+        const value = facade.value;
+        let convertedValue = '';
 
+        if (false === this.inputmask.isValid(value) || false === validateDate(value, this.mask)) {
+            facade.setCustomValidity(this.customValidationErrorMessage);
+        } else {
+            convertedValue = dateToISO8601(parseDateFromFormat(value, this.mask));
+            facade.setCustomValidity('');
+        }
+
+        if (hidden) {
+            this.hiddenInputElement.value = convertedValue;
         }
     }
 
     /**
      * @returns {HTMLInputElement|null}
      */
-    get inputElement() {
-
-        const slot = this.shadowRoot.querySelector('slot');
+    get facadeInputElement() {
+        const slot = this.shadowRoot.querySelector('slot[name="facade"]');
 
         if (null === slot) {
             return null;
         }
 
         const firstNode = slot
-            .assignedNodes({ flatten: true })
+            .assignedNodes({flatten: true})
             .find(node => node.tagName === 'INPUT');
 
         return firstNode ?? null;
     }
 
+    /**
+     * @returns {HTMLInputElement|null}
+     */
+    get hiddenInputElement() {
+        const slot = this.shadowRoot.querySelector('slot[name="input"]');
 
+        if (null === slot) {
+            return null;
+        }
 
+        const firstNode = slot
+            .assignedNodes({flatten: true})
+            .find(node => node.tagName === 'INPUT');
 
+        return firstNode ?? null;
+    }
 }
 
 customElements.define(ToujouInputDateMask.is, ToujouInputDateMask);
