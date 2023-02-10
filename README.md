@@ -28,6 +28,11 @@ If you want to install one of the packages on a project, run:
 |-------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | [toujou-burger](./packages/toujou-burger)                   | [![npm version](https://img.shields.io/npm/v/@toujou/toujou-burger.svg?style=flat)](https://www.npmjs.com/package/@toujou/toujou-burger)                   |
 | [toujou-consent](./packages/toujou-consent)                 | [![npm version](https://img.shields.io/npm/v/@toujou/toujou-consent.svg?style=flat)](https://www.npmjs.com/package/@toujou/toujou-consent)                 |
+| [toujou-input-date-mask](./packages/toujou-input-date-mask) | [![npm version](https://img.shields.io/npm/v/@toujou/toujou-input-date-mask.svg?style=flat)](https://www.npmjs.com/package/@toujou/toujou-input-date-mask) |
 | [toujou-location-finder](./packages/toujou-location-finder) | [![npm version](https://img.shields.io/npm/v/@toujou/toujou-location-finder.svg?style=flat)](https://www.npmjs.com/package/@toujou/toujou-location-finder) |
 | [toujou-map](./packages/toujou-map)                         | [![npm version](https://img.shields.io/npm/v/@toujou/toujou-map.svg?style=flat)](https://www.npmjs.com/package/@toujou/toujou-map)                         |
 | [toujou-spinner](./packages/toujou-spinner)                 | [![npm version](https://img.shields.io/npm/v/@toujou/toujou-spinner.svg?style=flat)](https://www.npmjs.com/package/@toujou/toujou-spinner)                 |
+
+## Create new package/component (via cli)
+
+    npm run generate
