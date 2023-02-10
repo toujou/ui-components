@@ -38,24 +38,27 @@ export const parseDateFromFormat = (dateString, format) => {
     let day = null;
     formatArray.forEach((key, index) => {
         switch (key) {
-            case 'yyyy':
+            case 'yyyy': {
                 year = parseInt(dateArray[index]);
                 if (year < 1000 || year > 9999) {
                     year = null;
                 }
                 break;
-            case 'mm':
+            }
+            case 'mm': {
                 month = parseInt(dateArray[index]) - 1;
                 if (month < 0 || month > 11) {
                     month = null;
                 }
                 break;
-            case 'dd':
+            }
+            case 'dd': {
                 day = parseInt(dateArray[index]);
                 if (day < 0 || day > 31) {
                     day = null;
                 }
                 break;
+            }
         }
     });
 
