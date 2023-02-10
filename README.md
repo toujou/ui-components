@@ -31,3 +31,8 @@ If you want to install one of the packages on a project, run:
 | [toujou-location-finder](./packages/toujou-location-finder) | [![npm version](https://img.shields.io/npm/v/@toujou/toujou-location-finder.svg?style=flat)](https://www.npmjs.com/package/@toujou/toujou-location-finder) |
 | [toujou-map](./packages/toujou-map)                         | [![npm version](https://img.shields.io/npm/v/@toujou/toujou-map.svg?style=flat)](https://www.npmjs.com/package/@toujou/toujou-map)                         |
 | [toujou-spinner](./packages/toujou-spinner)                 | [![npm version](https://img.shields.io/npm/v/@toujou/toujou-spinner.svg?style=flat)](https://www.npmjs.com/package/@toujou/toujou-spinner)                 |
+
+
+## Create new package/component (via cli)
+
+    npm run generate
