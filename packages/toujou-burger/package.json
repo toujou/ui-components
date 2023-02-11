@@ -9,8 +9,10 @@
     "access": "public"
   },
   "scripts": {
-    "build": "rollup --silent --config ../../rollup.config.js",
-    "genPackagelock": "npm i --package-lock-only"
+    "build:lib": "rollup --silent --config ../../rollup.config.js",
+    "build:dist": "rollup --config ../../rollup.config.dist.js",
+    "genPackagelock": "npm i --package-lock-only",
+    "watch": "rollup --watch --silent --config ../../rollup.config.js"
   },
   "repository": {
     "type": "git",
