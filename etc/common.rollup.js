@@ -21,7 +21,7 @@ export const commonPlugins = [
         'process.env.NODE_ENV': JSON.stringify('production'),
     }),
     commonjs({
-        include: 'node_modules/**',
+        include: /node_modules/,
         requireReturnsDefault: 'auto',
     }),
     json(),
