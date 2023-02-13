@@ -1,6 +1,6 @@
 {
   "name": "@toujou/toujou-input-password-toggle",
-  "version": "0.0.0-beta.0",
+  "version": "2.0.5",
   "author": "toujou",
   "license": "MIT",
   "description": "The toujou-input-password-toggle package of toujou ui components",
