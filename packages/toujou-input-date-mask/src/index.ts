@@ -108,7 +108,7 @@ export class ToujouInputDateMask extends LitElement {
      * @returns {HTMLInputElement|null}
      */
     get hiddenInputElement() {
-        const slot = this.shadowRoot.querySelector('slot[name="input"]');
+        const slot = this.shadowRoot?.querySelector('slot[name="input"]');
 
         if (null === slot) {
             return null;

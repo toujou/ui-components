@@ -1,6 +1,6 @@
 import { expect, fixture, html } from '@open-wc/testing';
 
-import '../src/index.js';
+import '../src';
 
 describe('toujou-input-date-mask', () => {
     let element = null;

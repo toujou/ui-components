@@ -1,6 +1,7 @@
 import { html, LitElement } from 'lit';
 
 class ToujouBurger extends LitElement {
+
   static get is() {
     return 'toujou-burger';
   }
@@ -48,10 +49,9 @@ class ToujouBurger extends LitElement {
    * React to navigation state input change
    * and add corresponding aria attribute values
    *
-   * @param event
    * @private
    */
-  _handleStateChange(event) {
+  _handleStateChange(event: Event) {
     this._status = event.currentTarget.checked;
 
     this.dispatchEvent(new CustomEvent('toujou-burger-button-click', {

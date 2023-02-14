@@ -2,8 +2,6 @@
   "name": "@toujou/toujou-burger",
   "version": "2.0.5",
   "description": "A burger button element",
-  "main": "./dist/toujou-burger.js",
-  "module": "./src/toujou-burger.js",
   "type": "module",
   "publishConfig": {
     "access": "public"
@@ -29,5 +27,8 @@
   ],
   "author": "toujou",
   "license": "MIT",
-  "gitHead": "e1bfcc508966aac0d1391d2b19e9fd692c5070fc"
+  "gitHead": "e1bfcc508966aac0d1391d2b19e9fd692c5070fc",
+  "devDependencies": {
+    "@rollup/plugin-typescript": "^11.0.0"
+  }
 }
