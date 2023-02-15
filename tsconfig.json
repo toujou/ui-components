@@ -17,9 +17,17 @@
 		"noEmit": true,
 		"noUnusedLocals": true,
 		"resolveJsonModule": true,
+		"typeRoots": [
+			"./node_modules/@types/",
+			"./types/"
+		],
 		"types": [
 			"node",
-			"mocha"
+			"mocha",
+			"css"
 		]
 	},
+	"include": [
+		"**/*.ts"
+	]
 }
