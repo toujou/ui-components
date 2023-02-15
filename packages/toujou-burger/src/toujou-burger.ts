@@ -1,6 +1,10 @@
 import { html, LitElement } from 'lit';
 
 class ToujouBurger extends LitElement {
+  private _elementToToggle: any;
+  private toggleElement: string;
+  private listenTo: string;
+  private _stateInput: Element;
 
   static get is() {
     return 'toujou-burger';
@@ -52,13 +56,14 @@ class ToujouBurger extends LitElement {
    * @private
    */
   _handleStateChange(event: Event) {
-    this._status = event.currentTarget.checked;
+    const currentTarget = (event.currentTarget as HTMLInputElement)
+    this._status = currentTarget.checked;
 
     this.dispatchEvent(new CustomEvent('toujou-burger-button-click', {
       bubbles: true,
       composed: true,
       detail: {
-        state: event.currentTarget.checked,
+        state: currentTarget.checked,
       },
     }));
   }
