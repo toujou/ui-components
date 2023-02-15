@@ -3,6 +3,14 @@ import Inputmask from 'inputmask/dist/inputmask.es6.js';
 import {dateToISO8601, formatIsoDateToFormatDate, parseDateFromFormat, validateDate} from './utlis/dates.js';
 
 export class ToujouInputDateMask extends LitElement {
+
+    protected mask: string = 'dd.mm.yyyy';
+    protected showMaskOnHover: Boolean = false;
+    protected showMaskOnFocus: Boolean = false;
+    protected customValidationErrorMessage: string = 'Please enter a valid date';
+    private inputmask!: Inputmask;
+
+
     static get is() {
         return 'toujou-input-date-mask';
     }
@@ -30,10 +38,6 @@ export class ToujouInputDateMask extends LitElement {
 
     constructor() {
         super();
-        this.mask = 'dd.mm.yyyy';
-        this.showMaskOnHover = false;
-        this.showMaskOnFocus = false;
-        this.customValidationErrorMessage = 'Please enter a valid date';
         this.validateInput.bind(this);
     }
 
@@ -87,11 +91,8 @@ export class ToujouInputDateMask extends LitElement {
         }
     }
 
-    /**
-     * @returns {HTMLInputElement|null}
-     */
-    get facadeInputElement() {
-        const slot = this.shadowRoot.querySelector('slot[name="facade"]');
+    get facadeInputElement(): HTMLInputElement|null {
+        const slot = this.shadowRoot.querySelector('slot[name="facade"]') as HTMLSlotElement;
 
         if (null === slot) {
             return null;
@@ -99,16 +100,13 @@ export class ToujouInputDateMask extends LitElement {
 
         const firstNode = slot
             .assignedNodes({flatten: true})
-            .find(node => node.tagName === 'INPUT');
+            .find(node => (node as HTMLInputElement).tagName === 'INPUT');
 
-        return firstNode ?? null;
+        return (firstNode as HTMLInputElement) ?? null;
     }
 
-    /**
-     * @returns {HTMLInputElement|null}
-     */
-    get hiddenInputElement() {
-        const slot = this.shadowRoot?.querySelector('slot[name="input"]');
+    get hiddenInputElement(): HTMLInputElement|null {
+        const slot = this.shadowRoot?.querySelector('slot[name="input"]') as HTMLSlotElement;
 
         if (null === slot) {
             return null;
@@ -116,9 +114,9 @@ export class ToujouInputDateMask extends LitElement {
 
         const firstNode = slot
             .assignedNodes({flatten: true})
-            .find(node => node.tagName === 'INPUT');
+            .find(node => (node as HTMLElement).tagName === 'INPUT');
 
-        return firstNode ?? null;
+        return (firstNode as HTMLInputElement) ?? null;
     }
 }
 
