@@ -27,5 +27,8 @@
   "keywords": [
     "toujou",
     "web-component"
-  ]
+  ],
+  "devDependencies": {
+    "@types/mocha": "^10.0.1"
+  }
 }

@@ -1,19 +1,25 @@
 {
 	"compilerOptions": {
+		"target": "es2018",
+		"module": "esnext",
+		"moduleResolution": "node",
+		"noEmitOnError": true,
+		"lib": [
+			"es2017",
+			"dom"
+		],
+		"strict": false,
 		"esModuleInterop": false,
 		"allowSyntheticDefaultImports": true,
 		"skipLibCheck": true,
-		"target": "es5",
-		"module": "ESNext",
-		"moduleResolution": "Node",
-		"strict": true,
-		"noImplicitAny": true,
+		"noImplicitAny": false,
 		"allowJs": true,
 		"noEmit": true,
 		"noUnusedLocals": true,
 		"resolveJsonModule": true,
 		"types": [
-			"node"
+			"node",
+			"mocha"
 		]
 	},
 }

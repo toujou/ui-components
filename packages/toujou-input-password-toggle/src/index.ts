@@ -1,6 +1,8 @@
 import { LitElement, html} from 'lit';
 
 export class ToujouInputPasswordToggle extends LitElement {
+
+    private passwordVisible: boolean;
     static get is() {
         return 'toujou-input-password-toggle';
     }
@@ -27,27 +29,23 @@ export class ToujouInputPasswordToggle extends LitElement {
     handleToggleClick() {
         const input = this.inputElement;
 
-        const currentType = input.getAttribute('type');
+        const currentType = input?.getAttribute('type');
         const targetType = (currentType === 'password' ? 'text' : 'password')
-        input.setAttribute('type', targetType);
+        input?.setAttribute('type', targetType);
         this.passwordVisible = targetType === 'text';
     }
 
-    /**
-     * @return {HTMLInputElement|null}
-     */
-    get inputElement() {
-        const slot = this.shadowRoot.querySelector('slot');
+    get inputElement(): HTMLInputElement|null {
+        const slot = this.shadowRoot?.querySelector('slot');
 
         if (null === slot) {
             return null;
         }
 
-        const firstNode = slot
-        .assignedNodes({flatten: true})
-        .find(node => node.tagName === 'INPUT');
+        const firstNode = slot?.assignedNodes({flatten: true})
+        .find(node => (node as HTMLElement).tagName === 'INPUT');
 
-        return firstNode ?? null;
+        return firstNode as HTMLInputElement ?? null;
     }
 }
 

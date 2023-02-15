@@ -28,7 +28,9 @@ export default {
         '**/*.css': 'js',
     },
     plugins: [
-        typescript(),
+        typescript({
+            tsconfig: 'tsconfig.json'
+        }),
         alias({
             resolve: ['', './index.js', '.js', '.ts', './index.ts'],
             entries: {
