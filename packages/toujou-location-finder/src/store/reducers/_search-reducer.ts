@@ -1,4 +1,4 @@
-import { SET_SEARCH_LOADING_START, SET_SEARCH_LOADING_END } from '../actions/_search.js';
+import { SET_SEARCH_LOADING_START, SET_SEARCH_LOADING_END } from '../actions/_search';
 
 const initialState = {
   isLoading: false,

@@ -1,5 +1,5 @@
-import { areArraysEqual } from '../../utils/_utils.js';
-import { setHasNoPagination, setHasPagination } from './_pagination.js';
+import { areArraysEqual } from '../../utils/_utils';
+import { setHasNoPagination, setHasPagination } from './_pagination';
 
 export const SET_DATA_GEOJSON = 'SET_DATA_GEOJSON';
 export const SET_DATA_TEASERS = 'SET_DATA_TEASERS';

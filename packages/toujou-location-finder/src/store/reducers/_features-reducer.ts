@@ -1,7 +1,7 @@
 import {
   MOUSE_ENTER_FEATURE,
   MOUSE_LEAVE_FEATURE,
-} from '../actions/_features.js';
+} from '../actions/_features';
 
 const initialState = {
   highlightedFeature: null,

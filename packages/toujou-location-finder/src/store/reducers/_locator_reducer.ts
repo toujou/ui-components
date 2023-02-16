@@ -1,4 +1,4 @@
-import { SET_LOCATOR_LOADING_START, SET_LOCATOR_LOADING_END } from '../actions/_locator.js';
+import { SET_LOCATOR_LOADING_START, SET_LOCATOR_LOADING_END } from '../actions/_locator';
 
 const initialState = {
   isLoading: false,

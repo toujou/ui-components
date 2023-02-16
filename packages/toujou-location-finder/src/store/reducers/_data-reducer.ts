@@ -4,7 +4,7 @@ import {
   SET_DATA_LOAD_START,
   SET_DATA_LOAD_END,
   SET_CURRENT_VISIBLE_FEATURES,
-} from '../actions/_data.js';
+} from '../actions/_data';
 
 const initialState = {
   geojson: null,

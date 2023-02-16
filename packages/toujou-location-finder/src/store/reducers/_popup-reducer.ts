@@ -5,7 +5,7 @@ import {
   SET_POPUP_FEATURE,
   SET_POPUP_COORDINATES,
   RESET_POPUP_COORDINATES,
-} from '../actions/_popup.js';
+} from '../actions/_popup';
 
 const initialState = {
   feature: null,

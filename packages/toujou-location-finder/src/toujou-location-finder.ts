@@ -2,32 +2,32 @@ import { LitElement, html } from 'lit';
 import mapboxgl from 'mapbox-gl';
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 
-import './toujou-location-finder-teaser.js';
+import './toujou-location-finder-teaser';
 
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import styles from './css/toujou-location-finder.css';
 import teaserStyles from './css/toujou-location-finder-teaser.css';
 import popupStyles from './css/_location-finder-popup.css';
 import toujouGeocoderStyles from './css/_location-finder-geocoder.css';
-import { locationFinderStore } from './store/locationFinderStore.js';
-import { isLoading } from './store/selectors/global.js';
+import { locationFinderStore } from './store/locationFinderStore';
+import { isLoading } from './store/selectors/global';
 
 import {
   mouseEnterFeature,
   mouseLeaveFeature,
-} from './store/actions/_features.js';
-import { setLocatorLoadingStart, setLocatorLoadingEnd } from './store/actions/_locator.js';
-import { getMapData } from './store/actions/_data.js';
-import { setPrevPaginationPage, setNextPaginationPage, resetPagination } from './store/actions/_pagination.js';
-import { setSearchLoadingStart, setSearchLoadingEnd } from './store/actions/_search.js';
+} from './store/actions/_features';
+import { setLocatorLoadingStart, setLocatorLoadingEnd } from './store/actions/_locator';
+import { getMapData } from './store/actions/_data';
+import { setPrevPaginationPage, setNextPaginationPage, resetPagination } from './store/actions/_pagination';
+import { setSearchLoadingStart, setSearchLoadingEnd } from './store/actions/_search';
 import {
   getPopupFeature,
   resetPopupCoordinates,
   resetPopupFeature,
   setPopupCoordinates,
-} from './store/actions/_popup.js';
-import { getGeoJsonWithHighlights } from './store/selectors/data.js';
-import { convertToLegacyColorString } from './utils/_utils.js';
+} from './store/actions/_popup';
+import { getGeoJsonWithHighlights } from './store/selectors/data';
+import { convertToLegacyColorString } from './utils/_utils';
 
 export class ToujouLocationFinder extends LitElement {
 

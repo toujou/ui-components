@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
-import { locatorReducer } from './_locator_reducer.js';
-import { featuresReducer } from './_features-reducer.js';
-import { dataReducer } from './_data-reducer.js';
-import { searchReducer } from './_search-reducer.js';
-import { paginationReducer } from './_pagination-reducer.js';
-import { popupReducer } from './_popup-reducer.js';
+import { locatorReducer } from './_locator_reducer';
+import { featuresReducer } from './_features-reducer';
+import { dataReducer } from './_data-reducer';
+import { searchReducer } from './_search-reducer';
+import { paginationReducer } from './_pagination-reducer';
+import { popupReducer } from './_popup-reducer';
 
 // eslint-disable-next-line no-unused-vars
 export const locationFinderReducer = combineReducers({

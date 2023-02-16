@@ -4,7 +4,7 @@ import {
   SET_NEXT_PAGINATION_PAGE,
   SET_HAS_PAGINATION,
   SET_HAS_NO_PAGINATION,
-} from '../actions/_pagination.js';
+} from '../actions/_pagination';
 
 const initialState = {
   hasPagination: false,

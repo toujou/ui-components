@@ -1,6 +1,6 @@
 import { LitElement, html} from 'lit';
 import Inputmask from 'inputmask/dist/inputmask.es6.js';
-import {dateToISO8601, formatIsoDateToFormatDate, parseDateFromFormat, validateDate} from './utlis/dates.js';
+import {dateToISO8601, formatIsoDateToFormatDate, parseDateFromFormat, validateDate} from './utlis/dates';
 
 export class ToujouInputDateMask extends LitElement {
 
