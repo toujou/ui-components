@@ -17,7 +17,7 @@ export const commonPlugins = [
     alias({
         resolve: ['', './index.js', '.js', '.ts'],
         entries: {
-            '@mapbox/mapbox-gl-geocoder': `node_modules/@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.min.js`,
+             '@mapbox/mapbox-gl-geocoder': `${__dirname}/node_modules/@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.min.js`,
         },
     }),
     replace({
