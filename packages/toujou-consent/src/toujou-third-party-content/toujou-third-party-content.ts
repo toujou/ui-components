@@ -5,6 +5,12 @@ import { consentsStore } from '../toujou-consent-widget/consentsStore';
 import { saveSingleConsent } from '../toujou-consent-widget/actions/consent-actions';
 
 class ToujouThirdPartyContent extends LitElement {
+  public store: any
+  public contentTypeAllowed = false;
+  public isIntersecting = false;
+  public show = false;
+  protected _state: any;
+  private contentType: any;
   static get is() {
     return 'toujou-third-party-content';
   }
@@ -42,8 +48,8 @@ class ToujouThirdPartyContent extends LitElement {
     };
   }
 
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
 
     this.onStateChange = this.onStateChange.bind(this);
     this._handleConsentButtonClick = this._handleConsentButtonClick.bind(this);
@@ -51,10 +57,6 @@ class ToujouThirdPartyContent extends LitElement {
     this.store = consentsStore;
     this.store.subscribe(this.onStateChange);
     this._state = this.store.getState();
-
-    this.contentTypeAllowed = false;
-    this.isIntersecting = false;
-    this.show = false;
   }
 
   /**
@@ -209,7 +211,7 @@ class ToujouThirdPartyContent extends LitElement {
     this.querySelector('.toujou-third-party-content__templated-content').appendChild(readyScript);
 
     if (!readyScript.hasAttribute('src') || readyScript.hasAttribute('async') || readyScript.hasAttribute('defer')) {
-      return new Promise((resolve) => {
+      return new Promise<void>((resolve) => {
         resolve();
       });
     }
@@ -324,10 +326,12 @@ class ToujouThirdPartyContent extends LitElement {
   _showContent() {
     this._clearRenderedContent();
 
-    const templates = this.shadowRoot
-      .querySelector('#templatedContent')
+    const slot = this.shadowRoot
+        .querySelector('#templatedContent') as HTMLSlotElement;
+
+    const templates = slot
       .assignedNodes({ flatten: true })
-      .filter((el) => el.tagName === 'TEMPLATE');
+      .filter((el) => (el as HTMLTemplateElement).tagName === 'TEMPLATE') as HTMLTemplateElement[];
 
     templates.forEach((template) => {
       if (this.contentType === 'html') {

@@ -67,8 +67,8 @@ export default function consentReducersExport(state = INITIAL_STATE, action) {
   const reducedState = consentReducers(state, action);
   handlePersistanceDataToSave(reducedState);
 
-  if (typeof window.dataLayer === 'object' && (!initialStatePushedToDataLayer || (reducedState.consents.consentBoxDismissed !== undefined && reducedState.consents.consentBoxDismissed))) {
-    window.dataLayer.push({ event: 'consent-changed', ...reducedState.consents });
+  if (typeof (window as any).dataLayer === 'object' && (!initialStatePushedToDataLayer || (reducedState.consents.consentBoxDismissed !== undefined && reducedState.consents.consentBoxDismissed))) {
+    (window as any).dataLayer.push({ event: 'consent-changed', ...reducedState.consents });
     initialStatePushedToDataLayer = true;
   }
 

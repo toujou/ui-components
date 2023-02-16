@@ -73,9 +73,9 @@ const loadPersistedState = (storeType, itemName) => {
 export const toujouLoadStorageState = () => {
   const sessionStorageData = loadPersistedState(cookieStorage, 'consentsState');
   const localStorageData = loadPersistedState(localStorage, 'consentsState');
-  const finalData = {};
-  finalData.consents = { ...sessionStorageData.consents, ...localStorageData.consents };
-  return finalData;
+  return {
+    consents: { ...sessionStorageData.consents, ...localStorageData.consents }
+  };
 };
 
 /**

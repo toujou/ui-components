@@ -2,6 +2,13 @@ import { LitElement, html } from 'lit';
 import styles from './css/toujou-consent.css';
 
 class ToujouConsent extends LitElement {
+
+  public  consentInputType: string;
+  public listenOn: string;
+
+  protected _consentType: string;
+  protected _consentInputType: any;
+
   static get is() {
     return 'toujou-consent';
   }
@@ -33,7 +40,7 @@ class ToujouConsent extends LitElement {
 
   set consentState(state) {
     if (this.consentInputType === 'checkbox') {
-      this.querySelector('.consent__checkbox').checked = state;
+      (this.querySelector('.consent__checkbox') as HTMLInputElement).checked = state;
     }
   }
 
@@ -43,8 +50,8 @@ class ToujouConsent extends LitElement {
     });
   }
 
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
 
     this._handleEvent = this._handleEvent.bind(this);
     this.listenOn = '*';

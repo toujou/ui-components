@@ -1,7 +1,19 @@
 import Cookies from 'js-cookie';
 import { consentsStore } from '../toujou-consent-widget/consentsStore';
+import { Subscription } from 'rxjs';
 
 class ToujouTrackingMatomo extends HTMLElement {
+
+  public store: any;
+
+  public consentState: any;
+
+  public matomoIsInstantiated: any;
+
+  private _matomo: boolean;
+  private _storeSubscription: Subscription;
+
+
   get url() {
     return this.getAttribute('url').replace(/^\/\//, `${window.location.protocol}//`);
   }
@@ -10,9 +22,8 @@ class ToujouTrackingMatomo extends HTMLElement {
     return this.getAttribute('siteid');
   }
 
-  constructor(props) {
-    super(props);
-
+  constructor() {
+    super();
     this.hidden = true;
     this.style.display = 'contents';
 
@@ -28,12 +39,12 @@ class ToujouTrackingMatomo extends HTMLElement {
    */
   connectedCallback() {
     this._handleConsentState(this.consentState);
-    this._storeUnsubscribe = this.store.subscribe(this.onStateChange);
+    this._storeSubscription = this.store.subscribe(this.onStateChange);
   }
 
   disconnectedCallback() {
-    if (this._storeUnsubscribe) {
-      this._storeUnsubscribe();
+    if (this._storeSubscription) {
+      this._storeSubscription.unsubscribe();
     }
   }
 
@@ -73,8 +84,8 @@ class ToujouTrackingMatomo extends HTMLElement {
     const scriptSrc = new URL(matomoUrl);
     scriptSrc.pathname = '/matomo.js';
 
-    window._paq = window._paq || [];
-    const { _paq } = window;
+    (window as any)._paq = (window as any)._paq || [];
+    const { _paq } = (window as any);
     _paq.push(['requireConsent']);
     _paq.push(['trackPageView']);
     _paq.push(['enableLinkTracking']);
@@ -106,8 +117,8 @@ class ToujouTrackingMatomo extends HTMLElement {
 
   _disableMatomoTracking() {
     if (this.matomoIsInstantiated) {
-      window._paq = window._paq || [];
-      const { _paq } = window;
+      (window as any)._paq = (window as any)._paq || [];
+      const { _paq } = (window as any);
       _paq.push(['forgetConsentGiven']);
     }
 

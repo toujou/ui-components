@@ -1,13 +1,21 @@
 import Cookies from 'js-cookie';
 import { consentsStore } from '../toujou-consent-widget/consentsStore';
+import { Subscription } from 'rxjs';
 
 class ToujouTrackingGoogleAnalytics extends HTMLElement {
+  public store: any;
+  
+  public consentState: any;
+  private _storeSubscription: Subscription;
+  private gaIsInstantiated: any;
+  private _ga: any;
+  
   get analyticsid() {
     return this.getAttribute('analyticsid');
   }
 
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
 
     this.hidden = true;
     this.style.display = 'contents';
@@ -24,12 +32,12 @@ class ToujouTrackingGoogleAnalytics extends HTMLElement {
    */
   connectedCallback() {
     this._handleConsentState(this.consentState);
-    this._storeUnsubscribe = this.store.subscribe(this.onStateChange);
+    this._storeSubscription = this.store.subscribe(this.onStateChange);
   }
 
   disconnectedCallback() {
-    if (this._storeUnsubscribe) {
-      this._storeUnsubscribe();
+    if (this._storeSubscription) {
+      this._storeSubscription.unsubscribe();
     }
   }
 
@@ -71,11 +79,11 @@ class ToujouTrackingGoogleAnalytics extends HTMLElement {
       anonymize_ip: true,
     };
 
-    // eslint-disable-next-line no-undef
-    window.dataLayer = window.dataLayer || [];
-    // eslint-disable-next-line prefer-rest-params,no-undef
-    function gtag() { dataLayer.push(arguments); }
-    window.gtag = gtag;
+    (window as any).dataLayer = (window as any).dataLayer || [];
+    function gtag(...args) {
+      (window as any).dataLayer.push(arguments);
+    }
+    (window as any).gtag = gtag;
 
     if (!this._ga) {
       this._ga = this._addAnalyticsScriptTag(analyticsID);

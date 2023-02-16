@@ -9,6 +9,17 @@ import {
 } from './actions/consent-actions';
 
 class ToujouConsentWidget extends LitElement {
+
+  public inPage = false;
+  public deactivated = false;
+
+  public store: any;
+  public consentTypeNames = ['tracking', 'html', 'maps', 'video'];
+
+  public listenOn = '*';
+
+  public _state: any;
+
   static get is() {
     return 'toujou-consent-widget';
   }
@@ -73,20 +84,17 @@ class ToujouConsentWidget extends LitElement {
     this._warningVisible = this.inPage && !value;
   }
 
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
 
     this.onStateChange = this.onStateChange.bind(this);
     this._handleEvent = this._handleEvent.bind(this);
 
-    this.inPage = false;
-    this.deactivated = false;
     this.store = consentsStore;
     this.store.subscribe(this.onStateChange);
     this.consentTypeNames = ['tracking', 'html', 'maps', 'video'];
 
     this._state = this.store.getState();
-    this.listenOn = '*';
     this._warningVisible = this.inPage;
 
     if (window.location.hash === '#aaa') {
@@ -103,7 +111,6 @@ class ToujouConsentWidget extends LitElement {
   connectedCallback() {
     super.connectedCallback();
 
-    this._inPage = this.inPage;
     this._dismissedBox = this._state.consents ? this._state.consents.consentBoxDismissed : false;
 
     if (this.deactivated) {
@@ -150,7 +157,7 @@ class ToujouConsentWidget extends LitElement {
     event.stopPropagation();
 
     // Click on save button in 'consent-box'
-    if (event.type === 'click' && !this._inPage && event.target.matches(this.listenOn)) {
+    if (event.type === 'click' && !this.inPage && event.target.matches(this.listenOn)) {
       this._handleConsentBoxSaveButtonClick(event.target);
     }
   }
