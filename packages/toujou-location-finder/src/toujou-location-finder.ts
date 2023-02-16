@@ -4,7 +4,6 @@ import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 
 import './toujou-location-finder-teaser.js';
 
-// eslint-disable-next-line import/extensions
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import styles from './css/toujou-location-finder.css';
 import teaserStyles from './css/toujou-location-finder-teaser.css';
@@ -30,8 +29,72 @@ import {
 import { getGeoJsonWithHighlights } from './store/selectors/data.js';
 import { convertToLegacyColorString } from './utils/_utils.js';
 
-// eslint-disable-next-line import/prefer-default-export
 export class ToujouLocationFinder extends LitElement {
+
+  public geoJsonUrl = '';
+  public filterParams = '';
+  public teaserUrl = '';
+
+  public hasPagination = false;
+  public bounds = [];
+  public accessToken = null;
+
+  public reducedMotion = false;
+
+  public store: any
+
+  public isLoading: any;
+
+  protected _geoJsonData = null;
+  protected _teasersData = null;
+  protected _bounds: any = {};
+  protected _popupFeature = null;
+  protected _popupCoordinates = null;
+  protected _maxTeasersPerPage = 20;
+  protected _currentPage = 1;
+
+  protected _locatorIsLoading = false;
+  protected _mql = null;
+  protected _mapPaddingMobile = {
+    top: 16,
+    bottom: 16,
+    left: 16,
+    right: 16,
+  };
+  protected _mapPaddingDesktop = {
+    top: 16,
+    bottom: 16,
+    left: 352,
+    right: 16,
+  };
+  protected _deviceCanHover: boolean;
+  protected _layers = [];
+
+  protected _state: any
+  protected _map: mapboxgl.Map;
+  private minZoom: any;
+  private mapStyle: any;
+  private maxZoom: any;
+  private fitBoundsMaxZoom: any;
+  private _clusterRadius: number;
+  private _clusterMaxZoom: any;
+  private _mapPolygonColor: any;
+  private _mapPolygonColorHover: any;
+  private _mapPointColor: any;
+  private _mapPointColorHover: any;
+  private _mapLineColor: any;
+  private _mapLineColorHover: any;
+  private _clusterBgColor: any;
+  private _clusterBorderWidth: any;
+  private _clusterBorderColor: any;
+  private _clusterTextSize: any;
+  private _clusterTextColor: any;
+
+  private _currentlyVisibleFeaturesUids: any;
+  private isMobile: any;
+  private _geocoder: MapboxGeocoder;
+  private _breakpoint: any;
+  
   static get is() {
     return 'toujou-location-finder';
   }
@@ -380,7 +443,7 @@ export class ToujouLocationFinder extends LitElement {
     this._map.setPadding(this.isMobile ? this._mapPaddingMobile : this._mapPaddingDesktop);
 
     if (this.bounds) {
-      this._map.fitBounds(this.bounds, { animate: !this.reducedMotion });
+      this._map.fitBounds((this.bounds as mapboxgl.LngLatBoundsLike), { animate: !this.reducedMotion });
     }
 
     this._initGeocoder();
@@ -688,7 +751,7 @@ export class ToujouLocationFinder extends LitElement {
   }
 
   _updateMapPadding() {
-    this.map && this.map.setPadding(this.isMobile ? this._mapPaddingMobile : this._mapPaddingDesktop);
+    this._map && this._map.setPadding(this.isMobile ? this._mapPaddingMobile : this._mapPaddingDesktop);
   }
 }
 

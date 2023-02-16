@@ -6,7 +6,8 @@ import locationFinderReducer from './reducers/location-finder-reducers.js';
 
 function configureStore() {
   // eslint-disable-next-line no-underscore-dangle,max-len,no-mixed-operators
-  const composeEnhancers = (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({ trace: true, traceLimit: 25 }) || compose);
+  const composeEnhancers = window['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__']({ trace: true, traceLimit: 25 }) || compose;
+
   const composedEnhancers = composeEnhancers(
     applyMiddleware(thunk.withExtraArgument({ })),
   );

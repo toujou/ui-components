@@ -150,7 +150,7 @@ export const getMapData = (featuresEndpoint, teasersEndpoint, map, layerIds, cur
         if (Object.prototype.hasOwnProperty.call(feature.properties, 'cluster_id')) {
           const clusterSource = map.getSource(feature.source);
           // eslint-disable-next-line no-await-in-loop
-          const subFeatures = await getClusterLeaves(clusterSource, feature.properties.cluster_id, feature.properties.point_count, 0);
+          const subFeatures = await getClusterLeaves(clusterSource, feature.properties.cluster_id, feature.properties.point_count, 0) as any[];
           visibleFeatures.push(...subFeatures);
         } else {
           visibleFeatures.push(feature);

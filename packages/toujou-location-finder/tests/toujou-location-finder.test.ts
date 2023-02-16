@@ -1,6 +1,6 @@
   import { expect, fixture, html } from '@open-wc/testing';
 
-  import '../src/toujou-location-finder.js';
+  import '../src/toujou-location-finder';
 
   describe('toujou-location-finder basics', () => {
     let element = null;
@@ -153,7 +153,7 @@
   describe('toujou-location-finder attributes', () => {
     it('accepts bounds attribute', async () => {
       const testBounds = "[[5.148824, 46.437102], [14.91567, 52.065327]]";
-      const elementWithBounds = await fixture(html`<toujou-location-finder bounds="${testBounds}"></toujou-location-finder>`);
+      const elementWithBounds = await fixture(html`<toujou-location-finder bounds="${testBounds}"></toujou-location-finder>`) as any;
       expect(elementWithBounds.bounds).to.not.be.null;
       expect(elementWithBounds.bounds).to.not.be.undefined;
       expect(typeof elementWithBounds.bounds).to.equal('object');
@@ -162,7 +162,7 @@
 
     it('accepts teaserURL attribute', async () => {
       const teaserURL = "/placesteaser.html?details=name%2Cdescription";
-      const elementWithTeaserURL = await fixture(html`<toujou-location-finder teaserUrl="${teaserURL}"></toujou-location-finder>`);
+      const elementWithTeaserURL = await fixture(html`<toujou-location-finder teaserUrl="${teaserURL}"></toujou-location-finder>`) as any;
       expect(elementWithTeaserURL.teaserUrl).to.not.be.null;
       expect(elementWithTeaserURL.teaserUrl).to.not.be.undefined;
       expect(elementWithTeaserURL.teaserUrl).to.equal(teaserURL);
@@ -170,7 +170,7 @@
 
     it('accepts geoJsonUrl attribute', async () => {
       const geoJsonURL = "/placesgeo.json";
-      const elementWithGeojsonURL = await fixture(html`<toujou-location-finder geoJsonUrl="${geoJsonURL}"></toujou-location-finder>`);
+      const elementWithGeojsonURL = await fixture(html`<toujou-location-finder geoJsonUrl="${geoJsonURL}"></toujou-location-finder>`) as any;
       expect(elementWithGeojsonURL.geoJsonUrl).to.not.be.null;
       expect(elementWithGeojsonURL.geoJsonUrl).to.not.be.undefined;
       expect(elementWithGeojsonURL.geoJsonUrl).to.equal(geoJsonURL);
