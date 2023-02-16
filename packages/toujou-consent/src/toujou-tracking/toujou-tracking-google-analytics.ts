@@ -4,11 +4,11 @@ import { Subscription } from 'rxjs';
 
 class ToujouTrackingGoogleAnalytics extends HTMLElement {
   public store: any;
-
   public consentState: any;
-  private _storeSubscription: Subscription;
-  private gaIsInstantiated: any;
+  public gaIsInstantiated: boolean;
+
   private _ga: any;
+  private _storeSubscription: Subscription;
 
   get analyticsid() {
     return this.getAttribute('analyticsid');

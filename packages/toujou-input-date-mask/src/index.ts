@@ -10,7 +10,6 @@ export class ToujouInputDateMask extends LitElement {
   protected customValidationErrorMessage = 'Please enter a valid date';
   private inputmask!: Inputmask;
 
-
   static get is() {
     return 'toujou-input-date-mask';
   }

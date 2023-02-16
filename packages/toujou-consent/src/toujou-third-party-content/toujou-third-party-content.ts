@@ -9,8 +9,10 @@ class ToujouThirdPartyContent extends LitElement {
   public contentTypeAllowed = false;
   public isIntersecting = false;
   public show = false;
+  public contentType: any;
+
   protected _state: any;
-  private contentType: any;
+
   static get is() {
     return 'toujou-third-party-content';
   }

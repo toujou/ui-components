@@ -44,6 +44,10 @@ export class ToujouLocationFinder extends LitElement {
   public store: any;
 
   public isLoading: any;
+  public minZoom: any;
+  public mapStyle: any;
+  public maxZoom: any;
+  public fitBoundsMaxZoom: any;
 
   protected _geoJsonData = null;
   protected _teasersData = null;
@@ -69,13 +73,9 @@ export class ToujouLocationFinder extends LitElement {
   };
   protected _deviceCanHover: boolean;
   protected _layers = [];
-
   protected _state: any;
   protected _map: mapboxgl.Map;
-  private minZoom: any;
-  private mapStyle: any;
-  private maxZoom: any;
-  private fitBoundsMaxZoom: any;
+
   private _clusterRadius: number;
   private _clusterMaxZoom: any;
   private _mapPolygonColor: any;
@@ -94,7 +94,7 @@ export class ToujouLocationFinder extends LitElement {
   private isMobile: any;
   private _geocoder: MapboxGeocoder;
   private _breakpoint: any;
-  
+
   static get is() {
     return 'toujou-location-finder';
   }
