@@ -1,6 +1,6 @@
 import { UpdatingElement } from 'lit';
 
-// eslint-disable-next-line no-unused-vars
+//@ts-ignore
 const mapStyleLoadedMap = new WeakMap();
 
 /**
@@ -9,6 +9,17 @@ const mapStyleLoadedMap = new WeakMap();
  * @element toujou-map-geojson
  */
 class ToujouMapGeojson extends UpdatingElement {
+  public source: any;
+  public data: any;
+  public maxZoom: any;
+  public sourceId: any;
+  public buffer: any;
+  public tolerance: any;
+  public cluster: any;
+  public clusterRadius: any;
+  public clusterMaxZoom: any;
+  protected _map: any;
+  
   static get is() { return 'toujou-map-geojson'; }
 
   static get properties() {
@@ -136,7 +147,7 @@ class ToujouMapGeojson extends UpdatingElement {
   }
 
   constructor(props) {
-    super(props);
+    super();
     this.maxZoom = 18;
     this.buffer = 128;
     this.tolerance = 0.375;

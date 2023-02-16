@@ -7,6 +7,21 @@ import mapboxgl from 'mapbox-gl';
  * @element toujou-map-spiderfy
  */
 class ToujouMapSpiderfy extends UpdatingElement {
+
+  public data = null;
+  public source = null;
+  public leavesSeparation = 50;
+  public leavesOffset = [0, 0];
+  public minZoom = 0;
+  public zoomIncrement = 2;
+  public sourceId: string;
+  public selectedCluster = null;
+  public selectedClusterFeatures = [];
+  public spiderfySource?: mapboxgl.GeoJSONSource;
+
+  protected _map: mapboxgl.Map|any;
+
+
   static get is() { return 'toujou-map-spiderfy'; }
 
   static get properties() {
@@ -64,17 +79,8 @@ class ToujouMapSpiderfy extends UpdatingElement {
     return this._map;
   }
 
-  constructor(props) {
-    super(props);
-    this._map = null;
-    this.data = null;
-    this.source = null;
-    this.leavesSeparation = 50;
-    this.leavesOffset = [0, 0];
-    this.minZoom = 0;
-    this.zoomIncrement = 2;
-    this.selectedCluster = null;
-    this.selectedClusterFeatures = [];
+  constructor() {
+    super();
     this.handleClusterSelection = this.handleClusterSelection.bind(this);
     this.renderFeatures = this.renderFeatures.bind(this);
   }

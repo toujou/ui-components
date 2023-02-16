@@ -13,6 +13,23 @@ function makeid(length) {
 }
 
 class ToujouMapPopup extends LitElement {
+
+  public initialPopupOptions = {
+    closeButton: false,
+    closeOnClick: false,
+  };
+
+  public popupSlotName = `popup-${makeid(6)}`;
+
+  public popup: mapboxgl.Popup;
+
+  protected _map: mapboxgl.Map|any;
+
+  protected _lngLat: mapboxgl.LngLatLike = [0, 0];
+
+  protected _marker?: mapboxgl.Marker;
+
+
   static get is() { return 'toujou-map-popup'; }
 
   static get styles() { return styles; }
@@ -87,17 +104,8 @@ class ToujouMapPopup extends LitElement {
     return this.initialPopupOptions.closeOnClick;
   }
 
-  constructor(props) {
-    super(props);
-    this.initialPopupOptions = {
-      closeButton: false,
-      closeOnClick: false,
-    };
-    this._lngLat = [0, 0];
-    this._map = null;
-    this._marker = null;
-    this.popup = null;
-    this.popupSlotName = `popup-${makeid(6)}`;
+  constructor() {
+    super();
     this.forwardPopupEvent = this.forwardPopupEvent.bind(this);
   }
 
@@ -144,7 +152,7 @@ class ToujouMapPopup extends LitElement {
     this.popup.setDOMContent(slot);
     this.slot = this.popupSlotName;
     // eslint-disable-next-line no-undef
-    window.ShadyCSS && ShadyCSS.styleElement(this);
+    (window as any).ShadyCSS && (window as any).ShadyCSS.styleElement(this);
   }
 }
 

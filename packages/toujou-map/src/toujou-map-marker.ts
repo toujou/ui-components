@@ -8,6 +8,19 @@ import mapboxgl from 'mapbox-gl';
  * @element toujou-map-marker
  */
 class ToujouMapMarker extends LitElement {
+  public marker?: mapboxgl.Marker;
+
+  public initialMarkerOptions: mapboxgl.MarkerOptions = {
+    element: null,
+    offset: [0, 0],
+    color: '#77b800',
+  };
+
+  public _lngLat: mapboxgl.LngLatLike = [0, 0];
+  protected  _map: mapboxgl.Map|any;
+  protected _element: any;
+
+
   static get is() { return 'toujou-map-marker'; }
 
   static get styles() {
@@ -94,18 +107,6 @@ class ToujouMapMarker extends LitElement {
 
   get element() {
     return this.marker ? this.marker.getElement() : this.initialMarkerOptions.element;
-  }
-
-  constructor(props) {
-    super(props);
-    this.initialMarkerOptions = {
-      element: null,
-      offset: [0, 0],
-      color: '#77b800',
-    };
-    this._lngLat = [0, 0];
-    this._map = null;
-    this.marker = null;
   }
 
   connectedCallback() {

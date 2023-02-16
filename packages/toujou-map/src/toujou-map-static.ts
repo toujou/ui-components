@@ -8,6 +8,17 @@ import { LitElement, html, css } from 'lit';
  */
 // eslint-disable-next-line import/prefer-default-export
 export class ToujouMapStatic extends LitElement {
+  public accessToken = 'pk.eyJ1IjoiZml0cmVpc2VuIiwiYSI6ImNqdHppeXlkMDBiazk0M3QxZDFpNGNqYmgifQ.f6VsL4UgB13NPCXv9-vJGQ';
+  public mapStyle = 'mapbox://styles/mapbox/light-v10';
+  public center = [0, 0];
+  public overlay = '';
+  public zoom = 8;
+  public pitch = 0;
+  public bearing = 0;
+  public auto = false;
+  public markers = [];
+  public slotRendered = false;
+
   static get is() { return 'toujou-map-static'; }
 
   static get styles() {
@@ -196,7 +207,7 @@ export class ToujouMapStatic extends LitElement {
     return `${pathParts.join('/')}?access_token=${this.accessToken}`;
   }
 
-  set width(width) {
+  set width(width: any) {
     // eslint-disable-next-line no-restricted-globals
     this.style.width = isNaN(width) ? width : `${width}px`;
   }
@@ -205,7 +216,7 @@ export class ToujouMapStatic extends LitElement {
     return this.style.width.replace(/px$/, '');
   }
 
-  set height(height) {
+  set height(height: any) {
     // eslint-disable-next-line no-restricted-globals
     this.style.height = isNaN(height) ? height : `${height}px`;
   }
@@ -214,20 +225,11 @@ export class ToujouMapStatic extends LitElement {
     return this.style.height.replace(/px$/, '');
   }
 
-  constructor(props) {
-    super(props);
-    this.accessToken = 'pk.eyJ1IjoiZml0cmVpc2VuIiwiYSI6ImNqdHppeXlkMDBiazk0M3QxZDFpNGNqYmgifQ.f6VsL4UgB13NPCXv9-vJGQ';
-    this.mapStyle = 'mapbox://styles/mapbox/light-v10';
-    this.center = [0, 0];
-    this.overlay = '';
-    this.zoom = 8;
-    this.pitch = 0;
-    this.bearing = 0;
-    this.auto = false;
+  constructor() {
+    super();
     this.width = 300;
     this.height = 200;
-    this.markers = [];
-    this.slotRendered = false;
+
   }
 
   firstUpdated() {

@@ -3,8 +3,35 @@ import mapboxgl from 'mapbox-gl';
 import MapboxLanguage from '@mapbox/mapbox-gl-language';
 import styles from './toujou-map.css';
 
-// eslint-disable-next-line import/prefer-default-export
 export class ToujouMap extends LitElement {
+  public accessToken = null; // Mapbox access token
+  public initialMapOptions: mapboxgl.MapboxOptions|any = {
+    style: 'mapbox://styles/mapbox/light-v10',
+    minZoom: 0,
+    maxZoom: 20,
+    pitch: 0,
+    bearing: 0,
+    attributionControl: false,
+  };
+  public initialControls = {
+    noNavigation: false,
+  };
+  public loaded: boolean;
+  public targets = [];
+  public markers = [];
+  public zoomOnScroll = false;
+  public mapPadding = {
+    top: 16, bottom: 16, left: 16, right: 16,
+  };
+  public fullscreenControl = false;
+  public reducedMotion = false;
+  public layers = [];
+  public map: mapboxgl.Map;
+
+  public initialBounds: any;
+  public fitBoundsMaxZoom: any;
+  protected _navigationControl: mapboxgl.NavigationControl;
+
   static get is() { return 'toujou-map'; }
 
   static get styles() { return styles; }
@@ -109,30 +136,8 @@ export class ToujouMap extends LitElement {
     };
   }
 
-  constructor(props) {
-    super(props);
-    this.accessToken = null; // Mapbox access token
-    this.initialMapOptions = {
-      style: 'mapbox://styles/mapbox/light-v10',
-      minZoom: 0,
-      maxZoom: 20,
-      pitch: 0,
-      bearing: 0,
-      attributionControl: false,
-    };
-    this.initialControls = {
-      noNavigation: false,
-    };
-    this.loaded = window.mapboxgl && true;
-    this.targets = [];
-    this.markers = [];
-    this.zoomOnScroll = false;
-    this.mapPadding = {
-      top: 16, bottom: 16, left: 16, right: 16,
-    };
-    this.fullscreenControl = false;
-    this.reducedMotion = false;
-    this.layers = [];
+  constructor() {
+    super();
     this.reorderLayers = this.reorderLayers.bind(this);
   }
 
@@ -188,8 +193,7 @@ export class ToujouMap extends LitElement {
   // eslint-disable-next-line consistent-return
   set noNavigation(noNavigation) {
     if (!this.map) {
-      // eslint-disable-next-line no-return-assign
-      return this.initialControls = { ...this.initialControls, noNavigation: !!noNavigation };
+      this.initialControls = { ...this.initialControls, noNavigation: !!noNavigation };
     }
     if (!noNavigation) {
       // eslint-disable-next-line no-unused-expressions
@@ -310,7 +314,7 @@ export class ToujouMap extends LitElement {
 
     if (this.map) {
       // eslint-disable-next-line no-param-reassign
-      mapElements.forEach((n) => { n.map = this.map; });
+      mapElements.forEach((n) => { (n as any).map = this.map; });
     }
   }
 

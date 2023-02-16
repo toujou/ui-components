@@ -29,6 +29,7 @@
 		]
 	},
 	"include": [
-		"**/*.ts"
+		"**/*.ts",
+		"node_modules/@webcomponents/shadycss/externs/shadycss.d.ts"
 	]
 }

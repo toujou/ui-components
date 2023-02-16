@@ -1,6 +1,20 @@
 import { UpdatingElement } from 'lit';
+import mapboxgl from 'mapbox-gl';
 
 class ToujouMapLayer extends UpdatingElement {
+  
+  public layerId: string;
+  public source: string;
+  public type: string;
+  public minZoom = 0;
+  public maxZoom = 24;
+  public beforeLayerId: string;
+  public filter: any[];
+  public layout: {};
+  public paint: {};
+  public layer: mapboxgl.AnyLayer;
+
+  protected _map: mapboxgl.Map|any;
   static get is() { return 'toujou-map-layer'; }
 
   static get properties() {
@@ -60,7 +74,7 @@ class ToujouMapLayer extends UpdatingElement {
     return this._map;
   }
 
-  get layerConf() {
+  get layerConf(): mapboxgl.Layer {
     const conf = {
       id: this.layerId,
       source: this.source,
@@ -71,7 +85,7 @@ class ToujouMapLayer extends UpdatingElement {
       metadata: {
         beforeLayerId: this.beforeLayerId,
       },
-    };
+    } as mapboxgl.Layer;
 
     this.filter && this.filter.length > 0 && (conf.filter = this.filter);
     this.layout && (conf.layout = this.layout);
@@ -80,16 +94,9 @@ class ToujouMapLayer extends UpdatingElement {
     return conf;
   }
 
-  constructor(props) {
-    super(props);
-    this.minZoom = 0;
-    this.maxZoom = 24;
-    this.filter = [];
-    this.layout = {};
-    this.paint = {};
-    this._map = null;
-    this.layer = null;
-    this.beforeLayerId = null;
+  constructor() {
+    super();
+
     this.initLayer = this.initLayer.bind(this);
     this.initWhenSourceIsAvailable = this.initWhenSourceIsAvailable.bind(this);
   }
