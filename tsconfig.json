@@ -24,7 +24,8 @@
 		"types": [
 			"node",
 			"mocha",
-			"css"
+			"css",
+			"mapbox-gl"
 		]
 	},
 	"include": [
