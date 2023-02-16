@@ -35,4 +35,4 @@ export const convertToLegacyColorString = (rawColor) => {
   }
 
   return matches[1] + '(' + matches[3].split(' ').filter(e => e  != '').join(',') + ')';
-}
+};

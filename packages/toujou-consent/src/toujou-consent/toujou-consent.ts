@@ -13,7 +13,6 @@ class ToujouConsent extends LitElement {
     return 'toujou-consent';
   }
 
-  // eslint-disable-next-line class-methods-use-this
   render() {
     return html`
       <slot id="content"></slot>

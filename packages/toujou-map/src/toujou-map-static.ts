@@ -6,7 +6,6 @@ import { LitElement, html, css } from 'lit';
  *
  * @element toujou-map-static
  */
-// eslint-disable-next-line import/prefer-default-export
 export class ToujouMapStatic extends LitElement {
   public accessToken = 'pk.eyJ1IjoiZml0cmVpc2VuIiwiYSI6ImNqdHppeXlkMDBiazk0M3QxZDFpNGNqYmgifQ.f6VsL4UgB13NPCXv9-vJGQ';
   public mapStyle = 'mapbox://styles/mapbox/light-v10';

@@ -24,7 +24,6 @@ class ToujouConsentWidget extends LitElement {
     return 'toujou-consent-widget';
   }
 
-  // eslint-disable-next-line class-methods-use-this
   render() {
     return html`
       <slot name="consentWidgetHeader"></slot>
@@ -77,7 +76,6 @@ class ToujouConsentWidget extends LitElement {
    */
   set _dismissedBox(value) {
     if (!this.inPage) {
-      // eslint-disable-next-line no-unused-expressions
       value ? this.setAttribute('hidden', '') : this.removeAttribute('hidden');
     }
 

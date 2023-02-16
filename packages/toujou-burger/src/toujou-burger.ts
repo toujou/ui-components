@@ -56,7 +56,7 @@ class ToujouBurger extends LitElement {
    * @private
    */
   _handleStateChange(event: Event) {
-    const currentTarget = (event.currentTarget as HTMLInputElement)
+    const currentTarget = (event.currentTarget as HTMLInputElement);
     this._status = currentTarget.checked;
 
     this.dispatchEvent(new CustomEvent('toujou-burger-button-click', {

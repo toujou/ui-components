@@ -5,7 +5,7 @@ import { consentsStore } from '../toujou-consent-widget/consentsStore';
 import { saveSingleConsent } from '../toujou-consent-widget/actions/consent-actions';
 
 class ToujouThirdPartyContent extends LitElement {
-  public store: any
+  public store: any;
   public contentTypeAllowed = false;
   public isIntersecting = false;
   public show = false;
@@ -327,7 +327,7 @@ class ToujouThirdPartyContent extends LitElement {
     this._clearRenderedContent();
 
     const slot = this.shadowRoot
-        .querySelector('#templatedContent') as HTMLSlotElement;
+      .querySelector('#templatedContent') as HTMLSlotElement;
 
     const templates = slot
       .assignedNodes({ flatten: true })

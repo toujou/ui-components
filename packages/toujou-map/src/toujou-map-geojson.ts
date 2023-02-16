@@ -1,6 +1,5 @@
 import { UpdatingElement } from 'lit';
 
-//@ts-ignore
 const mapStyleLoadedMap = new WeakMap();
 
 /**
@@ -19,7 +18,7 @@ class ToujouMapGeojson extends UpdatingElement {
   public clusterRadius: any;
   public clusterMaxZoom: any;
   protected _map: any;
-  
+
   static get is() { return 'toujou-map-geojson'; }
 
   static get properties() {
@@ -146,7 +145,7 @@ class ToujouMapGeojson extends UpdatingElement {
     return {};
   }
 
-  constructor(props) {
+  constructor() {
     super();
     this.maxZoom = 18;
     this.buffer = 128;

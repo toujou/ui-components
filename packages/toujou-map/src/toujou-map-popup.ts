@@ -137,12 +137,12 @@ class ToujouMapPopup extends LitElement {
   forwardPopupEvent(event) {
     // eslint-disable-next-line default-case
     switch (event.type) {
-      case 'open':
-        this.dispatchEvent(new CustomEvent('toujou-map-popup-opened', { detail: this.popup, bubbles: true, composed: true }));
-        break;
-      case 'close':
-        this.dispatchEvent(new CustomEvent('toujou-map-popup-closed', { detail: this.popup, bubbles: true, composed: true }));
-        break;
+    case 'open':
+      this.dispatchEvent(new CustomEvent('toujou-map-popup-opened', { detail: this.popup, bubbles: true, composed: true }));
+      break;
+    case 'close':
+      this.dispatchEvent(new CustomEvent('toujou-map-popup-closed', { detail: this.popup, bubbles: true, composed: true }));
+      break;
     }
   }
 

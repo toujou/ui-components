@@ -4,7 +4,6 @@ export const SAVE_SINGLE_CONSENT = 'SAVE_SINGLE_CONSENT';
 export const DISMISS_CONSENT_BOX = 'DISMISS_CONSENT_BOX';
 export const UNDISMISS_CONSENT_BOX = 'UNDISMISS_CONSENT_BOX';
 
-// eslint-disable-next-line import/prefer-default-export
 export const INITIAL_STATE = {
   consents: {
     consentBoxDismissed: false,

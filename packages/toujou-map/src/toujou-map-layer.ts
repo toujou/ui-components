@@ -2,7 +2,7 @@ import { UpdatingElement } from 'lit';
 import mapboxgl from 'mapbox-gl';
 
 class ToujouMapLayer extends UpdatingElement {
-  
+
   public layerId: string;
   public source: string;
   public type: string;
@@ -10,8 +10,8 @@ class ToujouMapLayer extends UpdatingElement {
   public maxZoom = 24;
   public beforeLayerId: string;
   public filter: any[];
-  public layout: {};
-  public paint: {};
+  public layout: any;
+  public paint: any;
   public layer: mapboxgl.AnyLayer;
 
   protected _map: mapboxgl.Map|any;

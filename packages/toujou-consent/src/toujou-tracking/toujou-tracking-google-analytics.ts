@@ -4,12 +4,12 @@ import { Subscription } from 'rxjs';
 
 class ToujouTrackingGoogleAnalytics extends HTMLElement {
   public store: any;
-  
+
   public consentState: any;
   private _storeSubscription: Subscription;
   private gaIsInstantiated: any;
   private _ga: any;
-  
+
   get analyticsid() {
     return this.getAttribute('analyticsid');
   }
@@ -81,7 +81,7 @@ class ToujouTrackingGoogleAnalytics extends HTMLElement {
 
     (window as any).dataLayer = (window as any).dataLayer || [];
     function gtag(...args) {
-      (window as any).dataLayer.push(arguments);
+      (window as any).dataLayer.push(...args);
     }
     (window as any).gtag = gtag;
 

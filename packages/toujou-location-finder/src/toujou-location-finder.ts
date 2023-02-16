@@ -41,7 +41,7 @@ export class ToujouLocationFinder extends LitElement {
 
   public reducedMotion = false;
 
-  public store: any
+  public store: any;
 
   public isLoading: any;
 
@@ -70,7 +70,7 @@ export class ToujouLocationFinder extends LitElement {
   protected _deviceCanHover: boolean;
   protected _layers = [];
 
-  protected _state: any
+  protected _state: any;
   protected _map: mapboxgl.Map;
   private minZoom: any;
   private mapStyle: any;

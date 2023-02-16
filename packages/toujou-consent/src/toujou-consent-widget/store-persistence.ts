@@ -87,7 +87,6 @@ const prepareConsentsDataToSave = (consentsData) => {
   const dataToSaveOnSessionStorage = {};
   const dataToSaveOnLocalStorage = {};
 
-  // eslint-disable-next-line no-restricted-syntax
   for (const key in consentsData) {
     if (key === 'consentBoxDismissed') { // consentBoxDismissed
       dataToSaveOnLocalStorage[key] = consentsData[key];
@@ -112,7 +111,6 @@ const prepareConsentsDataToSave = (consentsData) => {
  * This function gets the 'state' from the consents reducer, just before it returns the new state
  */
 export const handlePersistanceDataToSave = (state) => {
-  // eslint-disable-next-line no-restricted-syntax,guard-for-in
   for (const key in state) {
     if (key !== 'consents') {
       console.error('Unknown data "key" found while saving to session / local Storage');
