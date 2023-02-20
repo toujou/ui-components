@@ -1,9 +1,9 @@
 import { expect, fixture, html } from '@open-wc/testing';
 
-import '../src/index.js';
+import '../src/index';
 
 describe('{{component_title}}', () => {
-    let element = null;
+    let element: Element;
     beforeEach(async () => {
         element = await fixture(html`
             <{{package_name}}></{{package_name}}>`);
