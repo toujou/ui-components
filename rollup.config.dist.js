@@ -3,7 +3,7 @@ import {commonPlugins, handleEnvironment} from './etc/common.rollup.js';
 
 let config = {
     context: 'window',
-    input: 'src/index.js',
+    input: 'src/index.ts',
     output: {
         dir: `./dist/`,
         format: 'esm',

@@ -8,12 +8,16 @@ import summary from 'rollup-plugin-summary';
 import babel from '@rollup/plugin-babel';
 import * as babelCore from '@babel/core';
 import {terser} from 'rollup-plugin-terser';
+import typescript from '@rollup/plugin-typescript';
 
 export const commonPlugins = [
+    typescript({
+        tsconfig: '../../tsconfig.json'
+    }),
     alias({
-        resolve: ['', './index.js', '.js'],
+        resolve: ['', './index.js', '.js', '.ts'],
         entries: {
-            '@mapbox/mapbox-gl-geocoder': `${__dirname}/node_modules/@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.min.js`,
+             '@mapbox/mapbox-gl-geocoder': `${__dirname}/node_modules/@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.min.js`,
         },
     }),
     replace({

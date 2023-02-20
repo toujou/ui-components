@@ -4,8 +4,6 @@
   "author": "toujou",
   "license": "MIT",
   "description": "The {{package_name}} package of toujou ui components",
-  "main": "./lib/index.js",
-  "module": "./src/index.js",
   "type": "module",
   "publishConfig": {
     "access": "public"

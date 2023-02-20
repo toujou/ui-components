@@ -1,0 +1,35 @@
+{
+	"compilerOptions": {
+		"target": "es2018",
+		"module": "esnext",
+		"moduleResolution": "node",
+		"noEmitOnError": true,
+		"lib": [
+			"es2017",
+			"dom"
+		],
+		"strict": false,
+		"esModuleInterop": false,
+		"allowSyntheticDefaultImports": true,
+		"skipLibCheck": true,
+		"noImplicitAny": false,
+		"allowJs": true,
+		"noEmit": true,
+		"noUnusedLocals": false,
+		"resolveJsonModule": true,
+		"typeRoots": [
+			"./node_modules/@types/",
+			"./types/"
+		],
+		"types": [
+			"node",
+			"mocha",
+			"css",
+			"mapbox-gl"
+		]
+	},
+	"include": [
+		"**/*.ts",
+		"node_modules/@webcomponents/shadycss/externs/shadycss.d.ts"
+	]
+}

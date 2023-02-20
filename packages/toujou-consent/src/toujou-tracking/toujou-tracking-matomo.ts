@@ -1,0 +1,145 @@
+import Cookies from 'js-cookie';
+import { consentsStore } from '../toujou-consent-widget/consentsStore';
+import { Subscription } from 'rxjs';
+
+class ToujouTrackingMatomo extends HTMLElement {
+
+  public store: any;
+
+  public consentState: any;
+
+  public matomoIsInstantiated: any;
+
+  private _matomo: boolean;
+  private _storeSubscription: Subscription;
+
+
+  get url() {
+    return this.getAttribute('url').replace(/^\/\//, `${window.location.protocol}//`);
+  }
+
+  get siteid() {
+    return this.getAttribute('siteid');
+  }
+
+  constructor() {
+    super();
+    this.hidden = true;
+    this.style.display = 'contents';
+
+    this.onStateChange = this.onStateChange.bind(this);
+
+    this.store = consentsStore;
+    this.store.subscribe(this.onStateChange);
+    this.consentState = this.store.getState().consents.tracking;
+  }
+
+  /**
+   * This function fires when the component is appended to the document.
+   */
+  connectedCallback() {
+    this._handleConsentState(this.consentState);
+    this._storeSubscription = this.store.subscribe(this.onStateChange);
+  }
+
+  disconnectedCallback() {
+    if (this._storeSubscription) {
+      this._storeSubscription.unsubscribe();
+    }
+  }
+
+  /**
+   * This function runs each time the store changes
+   */
+  onStateChange() {
+    this.consentState = this.store.getState().consents.tracking || null;
+    this._handleConsentState(this.consentState);
+  }
+
+  /**
+   * Handle Google Analytics (check if cookies need to be added or removed)
+   */
+  _handleConsentState(consentState) {
+    if (typeof consentState === 'object'
+      && consentState !== null
+      && consentState.consentGiven
+    ) {
+      this._instantiateMatomo(consentState);
+    } else {
+      this._disableMatomoTracking();
+    }
+  }
+
+  /**
+   * Call the function to start the Google Tracking
+   */
+  _instantiateMatomo(consentState) {
+    if (this.matomoIsInstantiated) {
+      return;
+    }
+
+    const matomoUrl = new URL(this.url);
+    const trackerUrl = new URL(matomoUrl);
+    trackerUrl.pathname = '/matomo.php';
+    const scriptSrc = new URL(matomoUrl);
+    scriptSrc.pathname = '/matomo.js';
+
+    (window as any)._paq = (window as any)._paq || [];
+    const { _paq } = (window as any);
+    _paq.push(['requireConsent']);
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    _paq.push(['setTrackerUrl', trackerUrl.toString()]);
+    _paq.push(['setSiteId', this.siteid]);
+
+    if (consentState.consentLifetime === 0) { // session
+      _paq.push(['setConsentGiven']);
+    } else {
+      _paq.push(['rememberConsentGiven', consentState.consentLifetime / 1000 / 60 / 60]); // in hours
+    }
+
+    if (!this._matomo) {
+      this._matomo = this._addMatomoScriptTag(scriptSrc);
+    }
+
+    this.matomoIsInstantiated = true;
+    this._dispatchMatomoLoadedEvent();
+  }
+
+  _addMatomoScriptTag(scriptSrc) {
+    const scriptTag = document.createElement('script');
+    const firstScriptTag = document.getElementsByTagName('script')[0];
+    scriptTag.async = true;
+    scriptTag.src = scriptSrc.toString();
+    firstScriptTag.parentNode.insertBefore(scriptTag, firstScriptTag);
+    return true;
+  }
+
+  _disableMatomoTracking() {
+    if (this.matomoIsInstantiated) {
+      (window as any)._paq = (window as any)._paq || [];
+      const { _paq } = (window as any);
+      _paq.push(['forgetConsentGiven']);
+    }
+
+    Object.keys(Cookies.get()).forEach((cookieName) => {
+      if (cookieName.match(/^pk.*$/)) {
+        Cookies.remove(cookieName, { path: '/', domain: window.location.hostname });
+      }
+    });
+    this.matomoIsInstantiated = false;
+  }
+
+  /**
+   * Dispatch a custom event when the gtag is loaded
+   */
+  _dispatchMatomoLoadedEvent() {
+    const matomoLoadedEvent = new CustomEvent('toujou-matomo-loaded', {
+      bubbles: true,
+      composed: true,
+    });
+    this.dispatchEvent(matomoLoadedEvent);
+  }
+}
+
+customElements.define('toujou-tracking-matomo', ToujouTrackingMatomo);
