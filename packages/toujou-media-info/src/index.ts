@@ -1,0 +1,1 @@
+import './toujou-media-info';
