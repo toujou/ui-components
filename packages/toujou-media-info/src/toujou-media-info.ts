@@ -13,16 +13,15 @@ export class ToujouMediaInfo extends LitElement {
 
   render() {
     return html`
-            <slot name="open-button" class="open-button"></slot>
-            <slot name="close-button" class="close-button"></slot>
+            <slot name="open-button" class="open-button"  @click="${this.handleToggleClick}"></slot>
+            <slot name="close-button" class="close-button" @click="${this.handleToggleClick}"></slot>
             <slot name="figcaption"></slot>
             <slot name="copyright"></slot>
         `;
   }
 
-  constructor() {
-    super();
-
+  connectedCallback() {
+    super.connectedCallback();
     this.addEventListener('click', this._handleClick);
   }
 
@@ -40,19 +39,10 @@ export class ToujouMediaInfo extends LitElement {
   _handleClick = (event: MouseEvent): void => {
     event.preventDefault();
     event.stopPropagation();
-    const clickedTarget = event.target as HTMLElement;
-
-    if (clickedTarget.closest('[slot="open-button"], [slot="close-button"]')) {
-      this._toggleIsOpen();
-    }
-  };
-
-  /**
-   * Toggle to "isOpen" property, which also reflects as an attribute on the element
-   * @private
-   */
-  private _toggleIsOpen(): void {
-    this.isOpen = !this.isOpen;
   }
+
+  handleToggleClick = (): void => {
+    this.isOpen = !this.isOpen;
+  };
 }
 
