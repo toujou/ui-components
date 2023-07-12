@@ -94,6 +94,7 @@ export class ToujouLocationFinder extends LitElement {
   private isMobile: any;
   private _geocoder: MapboxGeocoder;
   private _breakpoint: any;
+  private _hideMap: boolean;
 
   static get is() {
     return 'toujou-location-finder';
@@ -178,6 +179,11 @@ export class ToujouLocationFinder extends LitElement {
       minZoom: {
         type: Number,
       },
+      _hideMap: {
+        type: Boolean,
+        attribute: 'map-is-hidden',
+        reflect: true
+      },
     };
   }
 
@@ -221,6 +227,8 @@ export class ToujouLocationFinder extends LitElement {
 
       <div class="geocoder-container search"></div>
       <button class="sidebar__ui-button sidebar__ui-button--locator" @click="${this._onLocatorClick}" ?locatorIsLoading="${this._locatorIsLoading}"></button>
+
+      <slot name="location-finder-map-toggle" @click="${this._handleMapToggleClick}"></slot>
 
       <div class="sidebar__panel">
         ${this._teasersData ? this._renderTeasers() : ''}
@@ -752,6 +760,10 @@ export class ToujouLocationFinder extends LitElement {
 
   _updateMapPadding() {
     this._map && this._map.setPadding(this.isMobile ? this._mapPaddingMobile : this._mapPaddingDesktop);
+  }
+  
+  _handleMapToggleClick() {
+    this._hideMap = !this._hideMap;
   }
 }
 

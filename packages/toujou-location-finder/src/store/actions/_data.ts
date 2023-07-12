@@ -50,12 +50,37 @@ const requestGeojsonData = async (endpoint) => fetch(endpoint).then((response) =
 const sortFeaturesBySearchBoostAndName = (a, b) => b.properties.search_boost - a.properties.search_boost || a.properties.name.localeCompare(b.properties.name);
 
 /**
+ * Get a list of unique features by eliminating duplicate instances of features with identical IDs.
+ *
+ * @param features
+ * @returns {*|null}
+ */
+const getUniqueFeatures = (features) => {
+  if (!features.length) return null;
+
+  const uniqueIds = {};
+
+  const uniqueFeatures = features.filter((feature) => {
+    const { uid } = feature.properties;
+    if (!uniqueIds[uid]) {
+      uniqueIds[uid] = true;
+      return true;
+    }
+
+    return false;
+  });
+
+  return uniqueFeatures;
+};
+
+/**
  * Request the teaser data for some (feature) uids
  *    - Request must be in format: placesteaser.html?ids=1,2,3,4
  *    - Returns a string with the ready html for the teasers
  *
- * @param newGeojson
+ * @param visibleFeatures
  * @param teasersEndpoint
+ * @param offsets
  * @returns {Promise<string|null>}
  */
 const requestTeasersData = async (visibleFeatures, teasersEndpoint, offsets) => {
@@ -82,6 +107,7 @@ const requestTeasersData = async (visibleFeatures, teasersEndpoint, offsets) => 
  *
  * @param newGeojson
  * @param map
+ * @param layerIds
  * @returns {[]}
  */
 const getVisibleFeatures = (newGeojson, map, layerIds) => {
@@ -131,6 +157,10 @@ const getClusterLeaves = (clusterSource, clusterId, limit, offset) => new Promis
  *
  * @param featuresEndpoint
  * @param teasersEndpoint
+ * @param map
+ * @param layerIds
+ * @param currentVisibleFeaturesUids
+ * @param maxTeasersPerPage
  * @returns {function(*): Promise<void>}
  */
 export const getMapData = (featuresEndpoint, teasersEndpoint, map, layerIds, currentVisibleFeaturesUids, maxTeasersPerPage) => async (dispatch, getState) => {
@@ -155,22 +185,28 @@ export const getMapData = (featuresEndpoint, teasersEndpoint, map, layerIds, cur
         } else {
           visibleFeatures.push(feature);
         }
-      }
-      const visibleFeaturesUids = visibleFeatures.map((feature) => feature.properties.uid);
 
-      dispatch(visibleFeaturesUids.length > maxTeasersPerPage ? setHasPagination() : setHasNoPagination());
-      dispatch(setCurrentVisibleFeatures(visibleFeaturesUids));
+        /* UniqueFeatures is a feature array whre multiple instances of the same features have been removed */
+        const uniqueFeatures = getUniqueFeatures(visibleFeatures);
+        const visibleFeaturesUids = uniqueFeatures.map((feature) => feature.properties.uid);
 
-      if (!areArraysEqual(currentVisibleFeaturesUids, visibleFeaturesUids)) {
-        const offsets = createOffsets(currentPage, maxTeasersPerPage);
-        const newTeasersData = await requestTeasersData(visibleFeatures, teasersEndpoint, offsets);
-        dispatch(setDataTeasers(newTeasersData));
-        dispatch(setCurrentVisibleFeatures(visibleFeaturesUids.sort()));
+        dispatch(visibleFeaturesUids.length > maxTeasersPerPage ? setHasPagination() : setHasNoPagination());
+        dispatch(setCurrentVisibleFeatures(visibleFeaturesUids));
+
+        if (!areArraysEqual(currentVisibleFeaturesUids, visibleFeaturesUids)) {
+          const offsets = createOffsets(currentPage, maxTeasersPerPage);
+          const newTeasersData = await requestTeasersData(uniqueFeatures, teasersEndpoint, offsets);
+          dispatch(setDataTeasers(newTeasersData));
+          dispatch(setCurrentVisibleFeatures(visibleFeaturesUids.sort()));
+        }
+        dispatch(setDataLoadEnd());
       }
-      dispatch(setDataLoadEnd());
-    });
-  } catch (error) {
-    console.error('Could not load the location finder geoJSON', error);
-  }
-  dispatch(setDataLoadEnd());
-};
+
+    })
+  } catch
+    (error)
+    {
+      console.error('Could not load the location finder geoJSON', error);
+    }
+    dispatch(setDataLoadEnd());
+  };

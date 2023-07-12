@@ -1,11 +1,16 @@
 /* TEASER */
 .teaser {
-    padding: var(--toujou-location-finder-teaser-padding, .5rem);
-    display: var(--toujou-location-finder-teaser-display, grid);
-    grid-template-columns: var(--toujou-location-finder-teaser-grid-columns, 1fr var(--toujou-location-finder-teaser-image-size));
+    --toujou-location-finder-teaser-border-bottom: 1px solid var(--font-color--light);
+
+    padding: .5rem;
+    display: grid;
+    grid-template-columns: var(--toujou-location-finder-teaser-grid-columns, 1fr var(--toujou-location-finder-image-size));
     grid-gap: var(--toujou-location-finder-teaser-gap, .5rem);
-    text-decoration: var(--toujou-location-finder-teaser-text-decoration, none);
-    border-bottom: var(--toujou-location-finder-teaser-border-bottom, none);
+    text-decoration: none;
+}
+
+toujou-location-finder-teaser:not(:last-child) .teaser {
+    border-bottom: var(--toujou-location-finder-teaser-border-bottom);
 }
 
 .teaser[teaserhasnoimage] {
@@ -18,36 +23,36 @@
 
 .teaser__image,
 .teaser__logo-container {
-    min-height: var(--toujou-location-finder-teaser-image-size, 80px);
-    height: var(--toujou-location-finder-teaser-image-size, 80px);
-    width: var(--toujou-location-finder-teaser-image-size, 80px);
+    min-height: var(--toujou-location-finder-image-size, 80px);
+    height: var(--toujou-location-finder-image-size, 80px);
+    width: var(--toujou-location-finder-image-size, 80px);
     object-fit: cover;
     border-radius: var(--toujou-location-finder-teaser-image-radius, 2px);
 }
 
 .teaser__image--logo {
-    object-fit: var(--toujou-location-finder-teaser-image-object-fit, contain);
+    object-fit: contain;
 }
 
 .teaser__title {
-    display: var(--toujou-location-finder-teaser-title-display, grid);
-    grid-template-columns: var(--toujou-location-finder-teaser-title-grid-template-columns, auto 1fr);
-    margin-bottom: var(--toujou-location-finder-teaser-title-margin-bottom, 0);
+    display: grid;
+    grid-template-columns: auto 1fr;
+    margin-bottom: 0;
 }
 
 .teaser__name {
     font-weight: var(--toujou-location-finder-teaser-name-font-weight, var(--paragraph__bold));
-    font-size: var(--toujou-location-finder-teaser-name-font-size, 1rem);
+    font-size: var(--toujou-location-finder-teaser-name-font-size, 1.25rem);
     font-family: var(--toujou-location-finder-teaser-name-font-family, var(--headline__family));
     margin-top: var(--toujou-location-finder-teaser-name-margin-top, 0);
     margin-bottom: var(--toujou-location-finder-teaser-name-margin-bottom, 0);
     color: var(--toujou-location-finder-teaser-name-color, var(--primary-color));
-    display: var(--toujou-location-finder-teaser-name-display, block);
+    display: block;
 }
 
 .teaser__branch {
-    font-size: var(--toujou-location-finder-teaser-branch-font-size, .875rem);
-    display: var(--toujou-location-finder-teaser-branch-display, block);
+    font-size: var(--toujou-location-finder-teaser-branch-font-size, 1rem);
+    display: block;
     font-weight:var(--toujou-location-finder-teaser-branch-font-weight,  var(--paragraph__normal));
     font-family: var(--toujou-location-finder-teaser-branch-font-family, var(--paragraph__family));
     margin-top: var(--toujou-location-finder-teaser-branch-margin-top, .125rem);
@@ -56,8 +61,7 @@
 }
 
 .teaser__type {
-    font-size: var(--toujou-location-finder-teaser-type-font-size, .6rem);
-    font-family: var(--toujou-location-finder-teaser-type-font-family);
+    font-size: var(--toujou-location-finder-teaser-type-font-size, .75rem);
     text-transform: var(--toujou-location-finder-teaser-type-text-transform, uppercase);
     opacity: var(--toujou-location-finder-teaser-type-opacity, .5);
     margin: var(--toujou-location-finder-teaser-type-margin, .5rem 0 0);
@@ -66,9 +70,8 @@
 }
 
 .teaser__description {
-    display: var(--toujou-location-finder-teaser-description-display, block);
+    display: block;
     font-size: var(--toujou-location-finder-teaser-description-font-size, .875rem);
-    font-family: var(--toujou-location-finder-teaser-description-font-family, var(--paragraph__family));
     margin: var(--toujou-location-finder-teaser-description-margin, .5rem 0 0);
     overflow: var(--toujou-location-finder-teaser-description-overflow, hidden);
     text-overflow: var(--toujou-location-finder-teaser-description-text-overflow, ellipsis);
@@ -81,28 +84,23 @@
 }
 
 .teaser__address {
-    margin-bottom: var(--toujou-location-finder-teaser-address-margin-bottom, .5rem);
-    margin-top: var(--toujou-location-finder-teaser-address-margin-top, .5rem);
-    font-size: var(--toujou-location-finder-teaser-address-font-size, .875rem);
-    font-family: var(--toujou-location-finder-teaser-address-font-family, var(--paragraph__family));
+    margin-bottom: var(--toujou-location-finder-teaser-address-margin-bottom, .25rem);
+    margin-top: var(--toujou-location-finder-teaser-address-margin-top, .25rem);
 }
 
 .teaser__address-meta,
 .teaser__time {
     display: inline-block;
-    font-size: var(--toujou-location-finder-teaser-meta-font-size, .75rem);
-    font-family: var(--toujou-location-finder-teaser-meta-font-family, var(--paragraph__family));
+    font-size: var(--toujou-location-finder-teaser-meta-font-size, .875rem);
+    font-family: var(--paragraph__family);
     color: var(--toujou-location-finder-teaser-meta-color, var(--font-color));
-    font-style: var(--toujou-location-finder-teaser-meta-font-style, normal);
+    font-style: normal;
     opacity: var(--toujou-location-finder-teaser-meta-opacity, .75);
     line-height: var(--toujou-location-finder-teaser-meta-line-height, 1.2);
 }
 
 .teaser__times {
     line-height: 1;
-    font-size: var(--toujou-location-finder-teaser-times-font-size, .75rem);
-    font-family: var(--toujou-location-finder-teaser-times-font-family, var(--paragraph__family));
-    color: var(--toujou-location-finder-teaser-times-color, var(--font-color));
 }
 
 .teaser__address-meta--country,
@@ -114,16 +112,16 @@
 .teaser__address-meta--email,
 .teaser__address-meta--description {
     display: block;
-    margin-top: var(--toujou-location-finder-teaser-address-meta-margin-top, .5rem);
+    margin-top: .25rem;
 }
 
 .teaser > *:last-child {
-    margin-bottom: var(--toujou-location-finder-teaser-last-child-margin-bottom, .25rem);
+    margin-bottom: .25rem;
 }
 
 .teaser__day {
     display: inline-block;
-    width: var(--toujou-location-finder-teaser-day-width, 75px);
+    width: 75px;
 }
 
 toujou-location-finder-teaser[highlighted] .teaser {
@@ -135,11 +133,11 @@ toujou-location-finder-teaser[highlighted] .teaser .teaser__title {
 }
 
 @media (hover: hover) {
-    .teaser:hover {
+    .teaser:hover, .teaser[is-highlighted] {
         background-color: var(--toujou-location-finder-teaser-highlighted-bg-color);
     }
 
-    .teaser:hover .teaser__title {
+    :is(.teaser:hover, .teaser[is-highlighted]) .teaser__title {
         color: var(--toujou-location-finder-teaser-highlighted-title-color, var(--primary-color));
     }
 }

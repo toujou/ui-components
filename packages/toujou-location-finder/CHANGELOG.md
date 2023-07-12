@@ -2,6 +2,12 @@
 
 All notable changes to the `@toujou/location-finder` package will be documented in this file
 
+## [2.0.7] - 12-07-12
+
+### Added
+- Add the ts and css for the map toggle buttons
+- Update changelog version to match package version
+
 ## [0.0.6] - 2023-01-26
 
 ### Added
@@ -10,7 +16,7 @@ All notable changes to the `@toujou/location-finder` package will be documented 
 ## [0.0.5] - 2023-01-26
 
 ### Changed
-- **Breaking:** Change the "location-finder-teaser" border variable to border-bottom 
+- **Breaking:** Change the "location-finder-teaser" border variable to border-bottom
 
 ## [0.0.4] - 2023-01-25
 

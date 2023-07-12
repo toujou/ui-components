@@ -1,5 +1,3 @@
-@import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
-
 .search {
     display: var(--toujou-location-finder-search-display, block);
     position: relative;
@@ -17,6 +15,10 @@
     margin: var(--toujou-location-finder-search-margin, 0);
     z-index: 2;
     grid-row: 1;
+}
+
+:host([ismobile][map-is-hidden]) {
+    --toujou-location-finder-search-display: none;
 }
 
 /* GEOCODER */
