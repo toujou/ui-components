@@ -1,16 +1,13 @@
 import { LitElement, html } from 'lit';
 import mapboxgl from 'mapbox-gl';
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
-// @ts-ignore
-import MapboxGeocoderStyles from '@mapbox/mapbox-gl-geocoder-css';
-
 import './toujou-location-finder-teaser';
 
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import styles from './css/toujou-location-finder.css';
 import teaserStyles from './css/toujou-location-finder-teaser.css';
 import popupStyles from './css/_location-finder-popup.css';
-import toujouGeocoderStyles from './css/_location-finder-geocoder.css';
+import geocoderStyles from './css/_location-finder-geocoder.css';
 import { locationFinderStore } from './store/locationFinderStore';
 import { isLoading } from './store/selectors/global';
 
@@ -103,7 +100,7 @@ export class ToujouLocationFinder extends LitElement {
   }
 
   static get styles() {
-    return [styles, teaserStyles, popupStyles, MapboxGeocoderStyles, toujouGeocoderStyles];
+    return [styles, teaserStyles, popupStyles, geocoderStyles];
   }
 
   static get properties() {
