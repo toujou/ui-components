@@ -5,16 +5,16 @@
 }
 
 :host {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-gap: 1rem;
-    position: relative;
+    display: var(--toujou-location-finder-host-display, grid);
+    grid-template-columns: var(--toujou-location-finder-host-grid-template-columns, 1fr);
+    grid-gap: var(--toujou-location-finder-host-grid-gap, 1rem);
+    position: var(--toujou-location-finder-host-position, relative);
 }
 
 .location-finder__map {
     height: var(--toujou-location-finder-map-height, auto);
     max-height: var(--toujou-location-finder-map-max-height, 50vh);
-    grid-row: 2;
+    grid-row: var(--toujou-location-finder-map-grid-row, 2);
 }
 
 .sidebar__ui-button {
@@ -23,34 +23,34 @@
     width: var(--toujou-location-finder-search-ui-button-width, var(--toujou-location-finder-search-height));
     border-radius: var(--toujou-location-finder-search-border-radius, .25rem);
     background-color: var(--toujou-location-finder-sidebar-buttons-bg, var(--bg-color));
-    position: absolute;
+    position: var(--toujou-location-finder-sidebar-buttons-position, absolute);
     border: var(--toujou-location-finder-sidebar-buttons-border, none);
     outline: var(--toujou-location-finder-sidebar-buttons-outline, none);
     box-shadow: var(--toujou-location-finder-search-shadow, 0 2px 4px rgba(150, 150, 150, .2));
-    cursor: pointer;
+    cursor: var(--toujou-location-finder-sidebar-buttons-cursor, pointer);
 }
 
 .sidebar__ui-button:after {
     content: '';
-    height: 1rem;
-    width: 1rem;
-    background-color: var(--font-color);
-    -webkit-mask-size: contain;
-    mask-size: contain;
-    -webkit-mask-position: center;
-    mask-position: center;
-    -webkit-mask-repeat: no-repeat;
-    mask-repeat: no-repeat;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    opacity: .5;
+    height: var(--toujou-location-finder-sidebar-io-button-after-height, 1rem);
+    width: var(--toujou-location-finder-sidebar-io-button-after-width, 1rem);
+    background-color: var(--toujou-location-finder-sidebar-io-button-after-background-color, var(--font-color));
+    -webkit-mask-size: var(--toujou-location-finder-sidebar-io-button-after-mask-size, contain);
+    mask-size: var(--toujou-location-finder-sidebar-io-button-after-mask-size, contain);
+    -webkit-mask-position: var(--toujou-location-finder-sidebar-io-button-after-mask-position, center);
+    mask-position: var(--toujou-location-finder-sidebar-io-button-after-mask-position, center);
+    -webkit-mask-repeat: var(--toujou-location-finder-sidebar-io-button-after-mask-repeat, no-repeat);
+    mask-repeat: var(--toujou-location-finder-sidebar-io-button-after-mask-repeat, no-repeat);
+    position: var(--toujou-location-finder-sidebar-io-button-after-position, absolute);
+    top: var(--toujou-location-finder-sidebar-io-button-after-top, 50%);
+    left: var(--toujou-location-finder-sidebar-io-button-after-left, 50%);
+    opacity: var(--toujou-location-finder-sidebar-io-button-after-opacity, .5);
 }
 
 .sidebar__ui-button--locator {
-    top: calc(var(--toujou-location-finder-search-height) + 1rem + var(--toujou-location-finder-padding));
-    left: var(--toujou-location-finder-padding);
-    transition: transform var(--toujou-location-finder-transition-settings);
+    top: var(--toujou-location-finder-locator-top, calc(var(--toujou-location-finder-search-height) + 1rem + var(--toujou-location-finder-padding)));
+    left: var(--toujou-location-finder-locator-left, var(--toujou-location-finder-padding));
+    transition: var(--toujou-location-finder-locator-transform, transform var(--toujou-location-finder-transition-settings));
 }
 
 .sidebar__ui-button--locator:after {
@@ -58,12 +58,8 @@
     width: var(--toujou-location-finder-sidebar-locator-icon-width, 1.5rem);
     -webkit-mask-image: var(--toujou-location-finder-sidebar-locator-icon-image, var(--toujou-location-finder-icon-target));
     mask-image: var(--toujou-location-finder-sidebar-locator-icon-image, var(--toujou-location-finder-icon-target));
-    -webkit-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-    -webkit-transition: -webkit-transform .25s ease-in-out;
-    transition: -webkit-transform .25s ease-in-out;
-    transition: transform .25s ease-in-out;
-    transition: transform .25s ease-in-out, -webkit-transform .25s ease-in-out;
+    transform: var(--toujou-location-finder-sidebar-locator-icon-transform, translate(-50%, -50%));
+    transition: var(--toujou-location-finder-sidebar-locator-icon-transition, transform .25s ease-in-out);
 }
 
 .sidebar__ui-button--locator[locatorisloading]:after {
@@ -71,12 +67,12 @@
     width: var(--toujou-location-finder-sidebar-locator-loader-width, 1rem);
     mask-image: var(--toujou-location-finder-sidebar-locator-loader-image, none);
     -webkit-mask-image: var(--toujou-location-finder-sidebar-locator-loader-image, none);
-    border-radius: 50%;
+    border-radius: var(--toujou-location-finder-sidebar-locator-loader-border-radius, 50%);
     border: var(--toujou-location-finder-sidebar-locator-loader-border, 3px solid transparent);
     border-top-color: var(--toujou-location-finder-sidebar-locator-loader-border-top-color, var(--primary-color));
-    animation: locatorLoadingAnimation 1s linear infinite;
-    opacity: 1;
-    background-color: transparent;
+    animation: var(--toujou-location-finder-sidebar-locator-loader-animation, locatorLoadingAnimation 1s linear infinite);
+    opacity: var(--toujou-location-finder-sidebar-locator-loader-opacity, 1);
+    background-color: var(--toujou-location-finder-sidebar-locator-loader-background-color, transparent);
 }
 
 @keyframes locatorLoadingAnimation {
@@ -95,27 +91,27 @@
 
 /* SIDEBAR PANEL */
 .sidebar__panel {
-    position: relative;
+    position: var(--toujou-location-finder-panel-position, relative);
     background-color: var(--toujou-location-finder-panel-bg-color, var(--bg-color));
-    width: 100%;
+    width: var(--toujou-location-finder-panel-width, 100%);
     border-radius: var(--toujou-location-finder-panel-border-radius, var(--toujou-location-finder-radius));
     box-shadow: var(--toujou-location-finder-panel-shadow, var(--toujou-location-finder-shadow));
     display: var(--toujou-location-finder-panel-display, flex);
-    flex-direction: column;
+    flex-direction: var(--toujou-location-finder-panel-flex-direction, column);
     overflow: var(--toujou-location-finder-panel-overflow, hidden);
-    z-index: 1;
+    z-index: var(--toujou-location-finder-panel-z-index, 1);
     padding: var(--toujou-location-finder-panel-padding, 0);
 }
 
 /* TEASERS */
 .teasers {
     background-color: var(--toujou-location-finder-teasers-bg-color, var(--bg-color));
-    position: relative;
-    width: 100%;
+    position: var(--toujou-location-finder-teasers-position, relative);
+    width: var(--toujou-location-finder-teasers-width, 100%);
 }
 
 :host([hasPagination]) .teasers {
-    padding-bottom: 0;
+    padding-bottom: var(--toujou-location-finder-teasers-no-pagination-padding-bottom, 0);
 }
 
 /* LOADING BAR */
@@ -126,9 +122,9 @@
     top: calc(var(--toujou-location-finder-search-height) + 1rem );
     left: var(--toujou-location-finder-loading-bar-left, 0);
     background-color: var(--toujou-location-finder-loading-bar-bg-color, var(--font-color--light));
-    z-index: 1;
-    opacity: 0;
-    pointer-events: none;
+    z-index: var(--toujou-location-finder-loading-bar-z-index, 1);
+    opacity: var(--toujou-location-finder-loading-bar-opacity, 0);
+    pointer-events: var(--toujou-location-finder-loading-bar-pointer-events, none);
 }
 
 :host([isLoading]) .loading-bar {
@@ -140,14 +136,14 @@
     display: block;
     height: var(--toujou-location-finder-loading-bar-height);
     background-color: var(--toujou-location-finder-loading-bar-mover-color, var(--primary-color));
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 100%;
-    animation-name: loadingBarAnimation;
+    position: var(--toujou-location-finder-loading-bar-after-position, absolute);
+    top: var(--toujou-location-finder-loading-bar-top, 0);
+    left: var(--toujou-location-finder-loading-bar-left, 0);
+    right: var(--toujou-location-finder-loading-bar-right, 100%);
+    animation-name: var(--toujou-location-finder-loading-bar-animation-name, loadingBarAnimation);
     animation-duration: var(--toujou-location-finder-loading-bar-animation-duration, 1.5s);
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
+    animation-timing-function: var(--toujou-location-finder-loading-bar-animation-easing, linear);
+    animation-iteration-count: var(--toujou-location-finder-loading-bar-animation-iteration-count, infinite);
 }
 
 @keyframes loadingBarAnimation {
@@ -169,9 +165,9 @@
 .pagination {
     width: var(--toujou-location-finder-pagination-width, var(--toujou-location-finder-sidebar-width));
     height: var(--toujou-location-finder-pagination-height, var(--toujou-location-finder-search-height));
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    display: var(--toujou-location-finder-pagination-display, flex);
+    align-items: var(--toujou-location-finder-pagination-align-items, center);
+    justify-content: var(--toujou-location-finder-pagination-justify-content, space-between);
     background-color: var(--toujou-location-finder-pagination-bg-color, var(--bg-color));
     padding: var(--toujou-location-finder-pagination-padding, 0 calc(var(--toujou-location-finder-padding) / 4));
     border-top: var(--toujou-location-finder-pagination-border-top, 1px solid var(--font-color--light));
@@ -183,16 +179,16 @@
     height: var(--toujou-location-finder-pagination-button-height, 1.5rem);
     width: var(--toujou-location-finder-pagination-button-width, 1.5rem);
     background-color: var(--toujou-location-finder-pagination-button-bg-color, var(--font-color));
-    mask-position: center;
-    -webkit-mask-position: center;
-    mask-repeat: no-repeat;
-    -webkit-mask-repeat: no-repeat;
-    mask-size: contain;
-    -webkit-mask-size: contain;
+    mask-position: var(--toujou-location-finder-pagination-button-mask-position, center);
+    -webkit-mask-position: var(--toujou-location-finder-pagination-button-mask-position, center);
+    mask-repeat: var(--toujou-location-finder-pagination-button--mask-repeat, no-repeat);
+    -webkit-mask-repeat: var(--toujou-location-finder-pagination-button--mask-repeat, no-repeat);
+    mask-size: var(--toujou-location-finder-pagination-button-mask-size, contain);
+    -webkit-mask-size: var(--toujou-location-finder-pagination-button-mask-size, contain);
     mask-image: var(--toujou-location-finder-pagination-button-image, var(--medatsu-icon-chevron-down));
     -webkit-mask-image: var(--toujou-location-finder-pagination-button-image, var(--medatsu-icon-chevron-down));
     opacity: var(--toujou-location-finder-pagination-button-opacity, .5);
-    cursor: pointer;
+    cursor: var(--toujou-location-finder-pagination-button-cursor, pointer);
 }
 
 .pagination__button[disabled] {
@@ -201,11 +197,11 @@
 }
 
 .pagination__button--prev {
-    transform: rotate(90deg);
+    transform: var(--toujou-location-finder-pagination-button-prev-transform, rotate(90deg));
 }
 
 .pagination__button--next {
-    transform: rotate(-90deg);
+    transform: var(--toujou-location-finder-pagination-button-next-transform, rotate(-90deg));
 }
 
 .pagination__text {
@@ -253,15 +249,15 @@
         width: var(--toujou-location-finder-panel-width, var(--toujou-location-finder-sidebar-width));
         top: var(--toujou-location-finder-panel-top, calc(var(--toujou-location-finder-padding) + var(--toujou-location-finder-search-height) + 2px));
         left: var(--toujou-location-finder-panel-left, var(--toujou-location-finder-padding));
-        transform: translateX(0);
-        transition: transform var(--toujou-location-finder-transition-settings);
-        max-height: calc(100% - calc(var(--toujou-location-finder-padding) * 3) - calc(var(--toujou-location-finder-search-height)) - 1.5rem);
+        transform: var(--toujou-location-finder-panel-transform, translateX(0));
+        transition: var(--toujou-location-finder-panel-transition, transform var(--toujou-location-finder-transition-settings));
+        max-height: var(--toujou-location-finder-panel-max-height, calc(100% - calc(var(--toujou-location-finder-padding) * 3) - calc(var(--toujou-location-finder-search-height)) - 1.5rem));
     }
 
     .teasers {
         width: var(--toujou-location-finder-teasers-width, var(--toujou-location-finder-sidebar-width));
         max-height: var(--toujou-location-finder-teasers-max-height, calc(var(--toujou-location-finder-map-height) - (var(--toujou-location-finder-padding) * 3) - var(--toujou-location-finder-search-height)));
-        overflow: auto;
+        overflow: var(--toujou-location-finder-teasers--overflow, auto);
         padding: var(--toujou-location-finder-teasers-padding, calc(var(--toujou-location-finder-padding) / 4) 0);
     }
 }

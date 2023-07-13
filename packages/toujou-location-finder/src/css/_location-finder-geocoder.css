@@ -2,21 +2,21 @@
 
 .search {
     display: var(--toujou-location-finder-search-display, block);
-    position: relative;
+    position: var(--toujou-location-finder-search-position, relative);
     background-color: var(--toujou-location-finder-search-bg-color, var(--bg-color));
-    width: 100%;
-    max-width: 100%;
+    width: var(--toujou-location-finder-search-width, 100%);
+    max-width: var(--toujou-location-finder-search-max-width, 100%);
     height: var(--toujou-location-finder-search-height, 2.5rem);
     border-radius: var(--toujou-location-finder-search-border-radius, .25rem);
     box-shadow: var(--toujou-location-finder-search-shadow, 0 2px 4px rgba(150, 150, 150, .2));
     padding: var(--toujou-location-finder-search-padding, 0);
     border: var(--toujou-location-finder-search-border, none);
     outline: var(--toujou-location-finder-search-outline, none);
-    transform: translateX(0);
+    transform: var(--toujou-location-finder-search-transform, translateX(0));
     transition: transform var(--toujou-location-finder-transition-settings);
     margin: var(--toujou-location-finder-search-margin, 0);
-    z-index: 2;
-    grid-row: 1;
+    z-index: var(--toujou-location-finder-search-z-index, 2);
+    grid-row: var(--toujou-location-finder-search-grid-row, 1);
 }
 
 :host([ismobile][map-is-hidden]) {
@@ -25,15 +25,15 @@
 
 /* GEOCODER */
 .search .mapboxgl-ctrl-geocoder {
-    min-height: 100%;
-    width: 100%;
-    max-width: 100%;
+    min-height: var(--toujou-location-finder-search-geocoder-min-height, 100%);
+    width: var(--toujou-location-finder-search-geocoder-width, 100%);
+    max-width: var(--toujou-location-finder-search-geocoder-max-width. 100%);
     outline: var(--toujou-location-finder-search-outline, none);
-    box-shadow: none;
-    font-family: var(--paragraph__family);
-    font-weight: var(--paragraph__normal);
+    box-shadow: var(--toujou-location-finder-search-geocoder-box-shadow, none);
+    font-family: var(--toujou-location-finder-search-geocoder-font-family, var(--paragraph__family));
+    font-weight: var(--toujou-location-finder-search-geocoder-font-weight, var(--paragraph__normal));
     color: var(toujou-location-finder-search-input-color, var(--font-color));
-    border: 1px solid var(--font-color--light);
+    border: var(--toujou-location-finder-search-geocoder-border, 1px solid var(--font-color--light));
 }
 
 .search .mapboxgl-ctrl-geocoder--input {
@@ -41,6 +41,9 @@
     background-color: var(--toujou-location-finder-search-bg-color, transparent);
     font-family: var(--toujou-location-finder-search-input-font-family, var(--paragraph__family));
     font-weight: var(--toujou-location-finder-search-input-font-weight, var(--headline__weight));
+    border-radius: var(--toujou-location-finder-search-input-border-radius, 0);
+    border: var(--toujou-location-finder-search-input-border, none);
+    padding: var(--toujou-location-finder-search-input-padding, none);
 }
 
 .search .mapboxgl-ctrl-geocoder--input:focus {
@@ -48,8 +51,8 @@
 }
 
 .search .mapboxgl-ctrl-geocoder--icon-search {
-    top: 50%;
-    transform: translateY(-50%);
+    top: var(--toujou-location-finder-search-geocoder-icon-search-top, 50%);
+    transform: var(--toujou-location-finder-search-geocoder-icon-search-transform, translateY(-50%));
 }
 
 .search .mapboxgl-ctrl-geocoder--icon-search path {
@@ -58,12 +61,12 @@
 }
 
 .search .mapboxgl-ctrl-geocoder--pin-right > * {
-    top: 50%;
-    transform: translateY(-50%);
+    top: var(--toujou-location-finder-search-geocoder-pin-right-top, 50%);
+    transform: var(--toujou-location-finder-search-geocoder-pin-right-transform, translateY(-50%));
 }
 
 .search .mapboxgl-ctrl-geocoder--icon-close {
-    margin-top: 0;
+    margin-top: var(--toujou-location-finder-search-geocoder-icon-close-margin-top, 0);
 }
 
 .search .mapboxgl-ctrl-geocoder--icon-close path {
@@ -72,7 +75,7 @@
 }
 
 .search .mapboxgl-ctrl-geocoder--pin-right .mapboxgl-ctrl-geocoder--icon-loading {
-    top: 6px;
+    top: var(--toujou-location-finder-search-geocoder-icon-loading-top, 6px);
 }
 
 .search .mapboxgl-ctrl-geocoder--icon-loading path {
@@ -96,6 +99,6 @@
     }
 
     .search .mapboxgl-ctrl-geocoder {
-        border: none;
+        border: var(--toujou-location-finder-search-geocoder--border, none);
     }
 }

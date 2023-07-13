@@ -14,7 +14,7 @@
 }
 
 .location-finder-popup .teaser[teaserhasnoimage] {
-    padding: 0 .25rem;
+    padding: var(--toujou-location-finder-popop-teaser-no-image-padding, 0 .25rem);
 }
 
 .location-finder-popup .teaser__details {

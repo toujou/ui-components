@@ -2,23 +2,23 @@
 .teaser {
     --toujou-location-finder-teaser-border-bottom: 1px solid var(--font-color--light);
 
-    padding: .5rem;
-    display: grid;
+    padding: var(--toujou-location-finder-teaser--padding, .5rem);
+    display: var(--toujou-location-finder-teaser-display, grid);
     grid-template-columns: var(--toujou-location-finder-teaser-grid-columns, 1fr var(--toujou-location-finder-image-size));
     grid-gap: var(--toujou-location-finder-teaser-gap, .5rem);
-    text-decoration: none;
+    text-decoration: var(--toujou-location-finder-teaser-text-decoration, none);
 }
 
 toujou-location-finder-teaser:not(:last-child) .teaser {
-    border-bottom: var(--toujou-location-finder-teaser-border-bottom);
+    border-bottom: var(--toujou-location-finder-teaser-not-last-child-teaser-border-bottom, var(--toujou-location-finder-teaser-border-bottom));
 }
 
 .teaser[teaserhasnoimage] {
-    grid-template-columns: var(--toujou-location-finder-teaser-grid-columns-no-image, 1fr);
+    grid-template-columns: var(--toujou-location-finder-teaser-no-image-grid-template-columns, var(--toujou-location-finder-teaser-grid-columns-no-image, 1fr));
 }
 
 .teaser:not(:last-child) {
-    border-bottom: var(--toujou-location-finder-teaser-border-bottom, var(--toujou-location-finder-teaser-separator));
+    border-bottom: var(--toujou-location-finder-teaser-last-child-border-bottom, var(--toujou-location-finder-teaser-separator));
 }
 
 .teaser__image,
@@ -26,18 +26,18 @@ toujou-location-finder-teaser:not(:last-child) .teaser {
     min-height: var(--toujou-location-finder-image-size, 80px);
     height: var(--toujou-location-finder-image-size, 80px);
     width: var(--toujou-location-finder-image-size, 80px);
-    object-fit: cover;
+    object-fit: var(--toujou-location-finder-image-object-fit, cover);
     border-radius: var(--toujou-location-finder-teaser-image-radius, 2px);
 }
 
 .teaser__image--logo {
-    object-fit: contain;
+    object-fit: var(--toujou-location-finder-logo-object-fit, contain);
 }
 
 .teaser__title {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    margin-bottom: 0;
+    display: var(--toujou-location-finder-title-display, grid);
+    grid-template-columns: var(--toujou-location-finder-title-grid-template-columns, auto 1fr);
+    margin-bottom: var(--toujou-location-finder-title-margin-bottom, 0);
 }
 
 .teaser__name {
@@ -47,12 +47,12 @@ toujou-location-finder-teaser:not(:last-child) .teaser {
     margin-top: var(--toujou-location-finder-teaser-name-margin-top, 0);
     margin-bottom: var(--toujou-location-finder-teaser-name-margin-bottom, 0);
     color: var(--toujou-location-finder-teaser-name-color, var(--primary-color));
-    display: block;
+    display: var(--toujou-location-finder-teaser-name-display, block);
 }
 
 .teaser__branch {
     font-size: var(--toujou-location-finder-teaser-branch-font-size, 1rem);
-    display: block;
+    display: var(--toujou-location-finder-teaser-branch-display, block);
     font-weight:var(--toujou-location-finder-teaser-branch-font-weight,  var(--paragraph__normal));
     font-family: var(--toujou-location-finder-teaser-branch-font-family, var(--paragraph__family));
     margin-top: var(--toujou-location-finder-teaser-branch-margin-top, .125rem);
@@ -70,15 +70,14 @@ toujou-location-finder-teaser:not(:last-child) .teaser {
 }
 
 .teaser__description {
-    display: block;
     font-size: var(--toujou-location-finder-teaser-description-font-size, .875rem);
     margin: var(--toujou-location-finder-teaser-description-margin, .5rem 0 0);
     overflow: var(--toujou-location-finder-teaser-description-overflow, hidden);
     text-overflow: var(--toujou-location-finder-teaser-description-text-overflow, ellipsis);
     white-space: var(--toujou-location-finder-teaser-description-white-space, initial);
-    display: -webkit-box;
+    display: var(--toujou-location-finder-teaser-description-display, -webkit-box);
     -webkit-line-clamp: var(--toujou-location-finder-teaser-description-line-clamp, 2);
-    -webkit-box-orient: vertical;
+    -webkit-box-orient: var(--toujou-location-finder-teaser-description-box-orient, vertical);
     color: var(--toujou-location-finder-teaser-description-color, var(--font-color));
     line-height: var(--toujou-location-finder-teaser-description-line-height, 1.25);
 }
@@ -90,38 +89,38 @@ toujou-location-finder-teaser:not(:last-child) .teaser {
 
 .teaser__address-meta,
 .teaser__time {
-    display: inline-block;
+    display:  var(--toujou-location-finder-teaser-meta-display, inline-block);
     font-size: var(--toujou-location-finder-teaser-meta-font-size, .875rem);
-    font-family: var(--paragraph__family);
+    font-family:  var(--toujou-location-finder-teaser-meta-font-family, var(--paragraph__family));
     color: var(--toujou-location-finder-teaser-meta-color, var(--font-color));
-    font-style: normal;
+    font-style:  var(--toujou-location-finder-teaser-meta-font-style, normal);
     opacity: var(--toujou-location-finder-teaser-meta-opacity, .75);
     line-height: var(--toujou-location-finder-teaser-meta-line-height, 1.2);
 }
 
 .teaser__times {
-    line-height: 1;
+    line-height:  var(--toujou-location-finder-teaser-times-line-height, 1);
 }
 
 .teaser__address-meta--country,
 .teaser__address-meta--region {
-    display: block;
+    display:  var(--toujou-location-finder-teaser-meta-country-display, block);
 }
 
 .teaser__address-meta--telephone,
 .teaser__address-meta--email,
 .teaser__address-meta--description {
-    display: block;
-    margin-top: .25rem;
+    display:  var(--toujou-location-finder-teaser-meta-phone-display, block);
+    margin-top:  var(--toujou-location-finder-teaser-meta-phone-margin-top, .25rem);
 }
 
 .teaser > *:last-child {
-    margin-bottom: .25rem;
+    margin-bottom:  var(--toujou-location-finder-teaser-last-child-inside-margin-bottom, .25rem);
 }
 
 .teaser__day {
-    display: inline-block;
-    width: 75px;
+    display:  var(--toujou-location-finder-teaser-day-display, inline-block);
+    width:  var(--toujou-location-finder-teaser-day-width, 75px);
 }
 
 toujou-location-finder-teaser[highlighted] .teaser {
