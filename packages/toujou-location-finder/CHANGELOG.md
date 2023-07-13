@@ -2,6 +2,11 @@
 
 All notable changes to the `@toujou/location-finder` package will be documented in this file
 
+## [2.0.12] - 13-07-12
+
+### Fix
+- Correct typos on the css variables names
+
 ## [2.0.8 - 2.0.11] - 13-07-12
 
 ### Added
