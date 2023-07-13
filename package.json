@@ -22,7 +22,7 @@
     "watch-components": "lerna run watch",
     "release": "lerna clean --yes && git clean -dfxq -e .idea -e .vscode && npm ci && npm run build && lerna run --parallel genPackagelock && lerna version --include-merged-tags --exact && lerna publish from-package && git clean -dfxq -e .idea -e .vscode && npm install && git add -A && git commit -m \"release: update package locks\" && git push",
     "generate": "node scripts/generate/index.js",
-	"lint": "npx eslint packages"
+    "lint": "npx eslint packages"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
