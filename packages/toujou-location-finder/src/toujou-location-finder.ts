@@ -1,6 +1,7 @@
 import { LitElement, html } from 'lit';
 import mapboxgl from 'mapbox-gl';
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
+import MapboxGeocoderStyles from '@mapbox/mapbox-gl-geocoder.css';
 
 import './toujou-location-finder-teaser';
 
@@ -101,7 +102,7 @@ export class ToujouLocationFinder extends LitElement {
   }
 
   static get styles() {
-    return [styles, teaserStyles, popupStyles, toujouGeocoderStyles];
+    return [styles, teaserStyles, popupStyles, MapboxGeocoderStyles, toujouGeocoderStyles];
   }
 
   static get properties() {
@@ -761,7 +762,7 @@ export class ToujouLocationFinder extends LitElement {
   _updateMapPadding() {
     this._map && this._map.setPadding(this.isMobile ? this._mapPaddingMobile : this._mapPaddingDesktop);
   }
-  
+
   _handleMapToggleClick() {
     this._hideMap = !this._hideMap;
   }
