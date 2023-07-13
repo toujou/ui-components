@@ -27,7 +27,7 @@
 .search .mapboxgl-ctrl-geocoder {
     min-height: var(--toujou-location-finder-search-geocoder-min-height, 100%);
     width: var(--toujou-location-finder-search-geocoder-width, 100%);
-    max-width: var(--toujou-location-finder-search-geocoder-max-width. 100%);
+    max-width: var(--toujou-location-finder-search-geocoder-max-width, 100%);
     outline: var(--toujou-location-finder-search-outline, none);
     box-shadow: var(--toujou-location-finder-search-geocoder-box-shadow, none);
     font-family: var(--toujou-location-finder-search-geocoder-font-family, var(--paragraph__family));

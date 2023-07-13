@@ -2,7 +2,13 @@
 
 All notable changes to the `@toujou/location-finder` package will be documented in this file
 
-## [2.0.7] - 12-07-12
+## [2.0.8 - 2.0.11] - 13-07-12
+
+### Added
+- Add missing mapbox geocoder styles import
+- Add css variables to all available css rules
+
+ ## [2.0.7] - 12-07-12
 
 ### Added
 - Add the ts and css for the map toggle buttons
