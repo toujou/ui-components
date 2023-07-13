@@ -12,7 +12,7 @@ On the root folder run:
 3. `npm run build`
 
 ## Create a new release
-- `npm release` (need to log in to npm with `npm login`)
+- `npm run release` (need to log in to npm with `npm login`)
 
 > The package will be published to npm at `https://www.npmjs.com/package/@toujou/{packageName}`
 
