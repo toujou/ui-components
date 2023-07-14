@@ -32,9 +32,9 @@ class ToujouSnackbar extends LitElement {
 
   static get properties() {
     return {
-      // showing: {
-      //   type: Boolean,
-      // },
+      showing: {
+        type: Boolean,
+      },
       cue: {
         type: Array,
       },
