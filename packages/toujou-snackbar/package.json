@@ -1,6 +1,6 @@
 {
   "name": "@toujou/toujou-snackbar",
-  "version": "0.0.0-beta.0",
+  "version": "2.0.16",
   "author": "toujou",
   "license": "MIT",
   "description": "The toujou-snackbar package of toujou ui components",
