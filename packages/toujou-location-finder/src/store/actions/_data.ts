@@ -202,11 +202,11 @@ export const getMapData = (featuresEndpoint, teasersEndpoint, map, layerIds, cur
         dispatch(setDataLoadEnd());
       }
 
-    })
+    });
   } catch
-    (error)
-    {
-      console.error('Could not load the location finder geoJSON', error);
-    }
-    dispatch(setDataLoadEnd());
-  };
+  (error)
+  {
+    console.error('Could not load the location finder geoJSON', error);
+  }
+  dispatch(setDataLoadEnd());
+};

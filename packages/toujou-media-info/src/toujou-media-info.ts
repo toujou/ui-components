@@ -39,7 +39,7 @@ export class ToujouMediaInfo extends LitElement {
   _handleClick = (event: MouseEvent): void => {
     event.preventDefault();
     event.stopPropagation();
-  }
+  };
 
   handleToggleClick = (): void => {
     this.isOpen = !this.isOpen;
