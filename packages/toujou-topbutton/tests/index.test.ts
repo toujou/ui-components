@@ -3,8 +3,12 @@ import { stub } from 'sinon';
 
 import '../src/index';
 
+interface ToujouTopbuttonElement extends HTMLElement {
+  visible: boolean;
+}
+
 describe('Toujou Topbutton', () => {
-  let element: HTMLElement;
+  let element: ToujouTopbuttonElement;
 
   beforeEach(async () => {
     element = await fixture(html`
@@ -28,7 +32,6 @@ describe('Toujou Topbutton', () => {
 
   it('will show button on visible',  async () => {
     // unfortunately I was not able to mock document height and execute scroll event
-    // @ts-ignore
     element.visible = true;
     await elementUpdated(element);
 
