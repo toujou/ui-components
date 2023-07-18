@@ -21,6 +21,10 @@ If you want to install one of the packages on a project, run:
 - `npm install @toujou/{packageName}`
 - ex: `npm install @toujou/toujou-burger`
 
+## Test packages
+To run the tests, run:
+- `npm run test`
+
 ## Released Components
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
 
