@@ -7,7 +7,7 @@ describe('Toujou Spinner', () => {
 
   beforeEach(async () => {
     element = await fixture(html`
-      <toujou-spinner"></toujou-spinner>`);
+      <toujou-spinner></toujou-spinner>`);
   });
 
   it('can create component', async () => {
