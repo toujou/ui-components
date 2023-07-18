@@ -102,10 +102,10 @@ class ToujouSnackbar extends LitElement {
       this._showSnackbar();
     } else {
       if (_changedProperties.has('cue') && this.cue.length > 1 && this.cue[0].type === 'auto') {
-            this._checkAutoReplacement();
-          } else if (_changedProperties.has('cue') && this.cue.length === 0) {
-            this._resetVisibleValues();
-          }
+        this._checkAutoReplacement();
+      } else if (_changedProperties.has('cue') && this.cue.length === 0) {
+        this._resetVisibleValues();
+      }
     }
   }
 
