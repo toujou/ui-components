@@ -14,12 +14,12 @@ describe('toujou-input-date-mask', () => {
                        id="facade"
                        slot="facade"
                 />
-                <input type="hidden" 
-                       slot="input" 
+                <input type="hidden"
+                       slot="input"
                        id="hidden"
                        value="2022-01-03"
                 />
-                
+
             </toujou-input-date-mask>
         `);
   });
@@ -75,5 +75,9 @@ describe('toujou-input-date-mask', () => {
   it('will prefill facade on preset hidden input value', async () => {
     const inputElement = element.querySelector('#facade') as HTMLInputElement;
     expect(inputElement.value).to.be.equal('03.01.2022');
+  });
+
+  it('passes the a11y audit', () => {
+    expect(element).to.be.accessible();
   });
 });

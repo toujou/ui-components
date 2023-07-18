@@ -15,6 +15,10 @@ describe('toujou-location-finder basics', () => {
     expect(element.nodeName).to.equal('TOUJOU-LOCATION-FINDER');
   });
 
+  it('passes the a11y audit', () => {
+    expect(element).to.be.accessible();
+  });
+
   it('has mapbox access token', async () => {
     const accessToken = element.accessToken;
     expect(accessToken).to.be.eq('xo');
