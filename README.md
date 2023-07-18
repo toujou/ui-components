@@ -21,6 +21,10 @@ If you want to install one of the packages on a project, run:
 - `npm install @toujou/{packageName}`
 - ex: `npm install @toujou/toujou-burger`
 
+## Test packages
+To run the tests, run:
+- `npm run test`
+
 ## Released Components
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
 
@@ -34,6 +38,7 @@ If you want to install one of the packages on a project, run:
 | [toujou-map](./packages/toujou-map)                                     | [![npm version](https://img.shields.io/npm/v/@toujou/toujou-map.svg?style=flat)](https://www.npmjs.com/package/@toujou/toujou-map)                                     |
 | [toujou-media-info](./packages/toujou-media-info)                       | [![npm version](https://img.shields.io/npm/v/@toujou/toujou-media-info.svg?style=flat)](https://www.npmjs.com/package/@toujou/toujou-media-info)                       |
 | [toujou-spinner](./packages/toujou-spinner)                             | [![npm version](https://img.shields.io/npm/v/@toujou/toujou-spinner.svg?style=flat)](https://www.npmjs.com/package/@toujou/toujou-spinner)                             |
+| [toujou-topbutton](./packages/toujou-topbutton)                         | [![npm version](https://img.shields.io/npm/v/@toujou/toujou-topbutton.svg?style=flat)](https://www.npmjs.com/package/@toujou/toujou-topbutton)                         |
 
 ## Create new package/component (via cli)
 
