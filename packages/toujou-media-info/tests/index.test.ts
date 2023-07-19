@@ -4,6 +4,7 @@ import '../src/index';
 
 describe('Toujou Media Info', () => {
   let element: Element;
+
   beforeEach(async () => {
     element = await fixture(html`
               <toujou-media-info class="media-info">
@@ -35,5 +36,9 @@ describe('Toujou Media Info', () => {
     (element.shadowRoot?.querySelector('slot[name="open-button"]') as HTMLElement).click();
     await elementUpdated(element);
     expect(element.parentElement).to.have.attribute('media-info-child-is-open');
+  });
+
+  it('passes the a11y audit', () => {
+    expect(element).to.be.accessible();
   });
 });

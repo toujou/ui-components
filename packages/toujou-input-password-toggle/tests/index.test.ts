@@ -42,4 +42,8 @@ describe('Toujou Input Password Toggle', () => {
     expect(showButton).to.be.null;
     expect(hideButton).not.to.be.null;
   });
+
+  it('passes the a11y audit', () => {
+    expect(element).to.be.accessible();
+  });
 });
