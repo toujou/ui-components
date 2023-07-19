@@ -1,0 +1,33 @@
+{
+	"name": "@toujou/toujou-inpage-nav",
+	"version": "2.0.18",
+	"description": "A inpage navigation element",
+	"main": "./dist/toujou-inpage-nav.js",
+	"module": "./src/toujou-inpage-nav.js",
+	"type": "module",
+	"publishConfig": {
+		"access": "public"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/toujou/ui-components.git",
+		"directory": "packages/toujou-inpage-nav"
+	},
+	"scripts": {
+		"build:lib": "rollup --silent --config ../../rollup.config.js",
+		"build:dist": "rollup --config ../../rollup.config.dist.js",
+		"genPackagelock": "npm i --package-lock-only",
+		"watch": "rollup --watch --silent --config ../../rollup.config.js"
+	},
+	"dependencies": {
+		"lit": "^2.0.0-rc.2"
+	},
+	"keywords": [
+		"toujou",
+		"inpage navigation",
+		"navigation"
+	],
+	"author": "toujou",
+	"license": "MIT",
+	"gitHead": "e1bfcc508966aac0d1391d2b19e9fd692c5070fc"
+}
