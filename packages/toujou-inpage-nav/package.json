@@ -1,6 +1,6 @@
 {
 	"name": "@toujou/toujou-inpage-nav",
-	"version": "2.0.18",
+	"version": "2.0.19",
 	"description": "A inpage navigation element",
 	"main": "./dist/toujou-inpage-nav.js",
 	"module": "./src/toujou-inpage-nav.js",
