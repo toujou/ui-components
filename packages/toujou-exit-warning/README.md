@@ -1,6 +1,6 @@
 # Toujou Exit Warning
 
-@todo add description
+Show a modal warning to the user when they are about to leave the page
 
 ## Installation
 
