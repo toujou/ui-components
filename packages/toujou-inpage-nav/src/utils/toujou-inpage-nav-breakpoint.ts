@@ -1,11 +1,13 @@
+import { navItemsInterface } from '../toujou-inpage-nav';
+
 /**
  * Get the combined width of all navigation items
  *
  * @param navItems
  * @returns {number}
  */
-function getNavItemsWidth(navItems: Object): number {
-  let navWidth: number = 0;
+function getNavItemsWidth(navItems: navItemsInterface): number {
+  let navWidth = 0;
 
   Object.keys(navItems).forEach((navItem: string) => {
     const itemCS: CSSStyleDeclaration = getComputedStyle(navItems[navItem].item);
@@ -54,7 +56,7 @@ function getElementWidth(element: HTMLElement): number {
  * @returns number
  */
 export default function getNavBreakpoint(
-  navItems: Object,
+  navItems: navItemsInterface,
   navLabel: HTMLElement,
   ctaElement: HTMLElement,
   isCentered: boolean

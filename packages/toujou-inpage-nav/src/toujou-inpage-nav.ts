@@ -1,29 +1,24 @@
-import { LitElement, html } from "lit";
+import { LitElement, html } from 'lit';
 import styles from './css/toujou-inpage-nav.css';
-import { customElement, property } from "lit/decorators.js";
-import getNavBreakpoint from "./utils/toujou-inpage-nav-breakpoint";
+import { customElement, property } from 'lit/decorators.js';
+import getNavBreakpoint from './utils/toujou-inpage-nav-breakpoint';
 
-interface navItemsItemInterface {
+export interface navItemsItemInterface {
   item: HTMLElement,
   link: string,
   target: HTMLElement,
 }
 
-interface navItemsInterface {
+export interface navItemsInterface {
   [key: string]: navItemsItemInterface
 }
 
 @customElement('toujou-inpage-nav')
 export class ToujouInpageNav extends LitElement {
 
-  @property({ type: Boolean, reflect: true })
-  isMobile: Boolean = false;
-
-  @property({ type: Boolean, reflect: true })
-  mobileOpen: Boolean = false;
-
-  @property({ type: Map })
-  _targetSections: Map<HTMLElement, boolean> | undefined = new Map();
+  @property({ type: Boolean, reflect: true }) isMobile = false;
+  @property({ type: Boolean, reflect: true }) mobileOpen = false;
+  @property({ type: Map }) _targetSections: Map<HTMLElement, boolean> | undefined = new Map();
 
   private _navItems: navItemsInterface;
   private _previousCurrentSectionID: null;
@@ -36,7 +31,7 @@ export class ToujouInpageNav extends LitElement {
   private _cta: HTMLElement;
   private _navBreakpoint: number;
   private observer: IntersectionObserver;
-  private intersectionObserverNumberOfSteps: number = 50;
+  private intersectionObserverNumberOfSteps = 50;
 
   set _currentSectionID(value) {
     if (!this._navItems) return;
