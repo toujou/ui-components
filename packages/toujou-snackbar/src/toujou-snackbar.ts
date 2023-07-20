@@ -1,6 +1,13 @@
 import { LitElement, html } from 'lit';
 import ToujouSnackbarStyles from './css/toujou-snackbar.css';
 
+interface SnackbarDataInterface {
+  message: string;
+  type: string;
+  duration?: number;
+  variant?: 'success' | 'warning' | 'error' | 'info';
+}
+
 class ToujouSnackbar extends LitElement {
   private keyCodes = {
     escape: 27,
@@ -8,7 +15,7 @@ class ToujouSnackbar extends LitElement {
   };
   private message: string;
   private buttonText: string;
-  private cue: any[];
+  private cue: SnackbarDataInterface[];
   private _animationStart: number | null;
   private _possibleVariants: string[];
   private _wasReplaced: boolean;
