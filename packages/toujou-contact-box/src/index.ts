@@ -1,1 +1,1 @@
-import './toujou-contact-box'
+import './toujou-contact-box';
