@@ -6,7 +6,13 @@ describe('Toujou Exit Warning', () => {
   let element: Element;
   beforeEach(async () => {
     element = await fixture(html`
-      <toujou-exit-warning></toujou-exit-warning>`);
+      <exit-warning title="Sie sind dabei die Seite zu verlassen">
+        <template>
+          <span id="c283"></span>
+          <p>Sie werden in <strong>${secondsRemaining} Sekunden</strong> auf die Seite <a href="${targetUrl}">${targetUrl}</a> weitergeleitet. Wenn Sie dies abbrechen wollen, schließen Sie dieses Popup.</p>
+        </template>
+      </exit-warning>
+    `);
   });
 
   it('can create component', async () => {
