@@ -1,12 +1,12 @@
-import { html, LitElement } from 'lit-element'
-import { render } from 'lit-html'
-import styles from "./css/toujou-exit-warning.css";
-import { customElement } from "lit/decorators.js";
+import { html, LitElement } from 'lit-element';
+import { render } from 'lit-html';
+import styles from './css/toujou-exit-warning.css';
+import { customElement } from 'lit/decorators.js';
 
 interface ModalInterface extends HTMLElement {
   opened: boolean,
-  open: Function,
-  close: Function
+  open: () => void,
+  close: () => void
 }
 
 @customElement('exit-warning')
@@ -19,7 +19,7 @@ export class ToujouExitWarning extends LitElement {
   private _modalOpenedObserver: MutationObserver;
   private secondsRemaining: number;
 
-  static styles = [ styles ]
+  static styles = [ styles ];
 
   static get properties() {
     return {
@@ -41,7 +41,7 @@ export class ToujouExitWarning extends LitElement {
       _messageTemplate: {
         type: Object
       }
-    }
+    };
   }
 
   constructor () {
@@ -67,7 +67,7 @@ export class ToujouExitWarning extends LitElement {
           <slot></slot>
         </div>
       </toujou-modal>
-    `
+    `;
   }
 
   connectedCallback () {
@@ -91,7 +91,7 @@ export class ToujouExitWarning extends LitElement {
 
   firstUpdated (_changedProperties) {
     this._modal = this.shadowRoot.querySelector('toujou-modal');
-    this._modal && this._modalOpenedObserver.observe(this._modal, {attributeFilter: ['opened']})
+    this._modal && this._modalOpenedObserver.observe(this._modal, {attributeFilter: ['opened']});
   }
 
   onModalOpenedChanged() {
