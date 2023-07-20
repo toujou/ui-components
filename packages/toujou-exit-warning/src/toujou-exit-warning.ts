@@ -9,8 +9,8 @@ interface ModalInterface extends HTMLElement {
   close: Function
 }
 
-@customElement('toujou-exit-warning')
-class ToujouExitWarning extends LitElement {
+@customElement('exit-warning')
+export class ToujouExitWarning extends LitElement {
   targetUrl: string;
   private readonly redirectDelay: number;
   private _secondsRemainingInterval: number | null;
@@ -18,8 +18,6 @@ class ToujouExitWarning extends LitElement {
   private _modal: ModalInterface | null;
   private _modalOpenedObserver: MutationObserver;
   private secondsRemaining: number;
-
-  static get is () { return 'exit-warning'; }
 
   static styles = [ styles ]
 
@@ -48,6 +46,7 @@ class ToujouExitWarning extends LitElement {
 
   constructor () {
     super();
+
     this.targetUrl = 'http://www.dfau.de';
     this.redirectDelay = 50;
 
@@ -135,6 +134,7 @@ function getOpenerFromEvent(event) {
 }
 
 function openExitWarning(targetUrlString) {
+  console.log('11111');
   const exitWarning: ToujouExitWarning = document.querySelector('exit-warning');
   if (!exitWarning) {
     return false;
