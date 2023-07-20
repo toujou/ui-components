@@ -33,7 +33,8 @@ module.exports = {
         'semi': [
             'error',
             'always'
-        ]
+        ],
+        '@typescript-eslint/ban-types': "warn"
     },
     ignorePatterns: ['*.js'],
 

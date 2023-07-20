@@ -1,9 +1,9 @@
 {
-  "name": "@toujou/toujou-media-info",
+  "name": "@toujou/toujou-exit-warning",
   "version": "2.0.20",
   "author": "toujou",
   "license": "MIT",
-  "description": "The toujou-media-info package of toujou ui components",
+  "description": "The toujou-exit-warning package of toujou ui components",
   "type": "module",
   "publishConfig": {
     "access": "public"
@@ -17,7 +17,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/toujou/ui-components.git",
-    "directory": "packages/toujou-media-info"
+    "directory": "packages/toujou-exit-warning"
   },
   "dependencies": {
     "lit": "^2.0.0-rc.2"

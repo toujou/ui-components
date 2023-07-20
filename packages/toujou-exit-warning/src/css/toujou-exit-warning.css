@@ -1,0 +1,5 @@
+.exit-warning__message {
+    background-color: var(--toujou-exist-warning-message-bg-color, var(--bg-color));
+    overflow: var(--toujou-exist-warning-message-overflow, hidden);
+    padding: var(--toujou-exist-warning-message-padding, var(--spacing-normal) var(--spacing-normal) var(--spacing-l));
+}

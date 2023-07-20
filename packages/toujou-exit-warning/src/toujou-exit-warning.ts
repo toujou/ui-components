@@ -1,0 +1,192 @@
+import { html, LitElement } from 'lit-element';
+import { render } from 'lit-html';
+import styles from './css/toujou-exit-warning.css';
+import { customElement } from 'lit/decorators.js';
+
+interface ModalInterface extends HTMLElement {
+  opened: boolean,
+  open: () => void,
+  close: () => void
+}
+
+@customElement('exit-warning')
+export class ToujouExitWarning extends LitElement {
+  targetUrl: string;
+  private readonly redirectDelay: number;
+  private _secondsRemainingInterval: number | null;
+  private _messageTemplate: Function;
+  private _modal: ModalInterface | null;
+  private _modalOpenedObserver: MutationObserver;
+  private secondsRemaining: number;
+
+  static styles = [ styles ];
+
+  static get properties() {
+    return {
+      title: {
+        type: String
+      },
+      targetUrl: {
+        type: String
+      },
+      redirectDelay: {
+        type: Number
+      },
+      secondsRemaining: {
+        type: Number
+      },
+      opened: {
+        type: Boolean
+      },
+      _messageTemplate: {
+        type: Object
+      }
+    };
+  }
+
+  constructor () {
+    super();
+
+    this.targetUrl = 'http://www.dfau.de';
+    this.redirectDelay = 50;
+
+    this.onIntervalTick = this.onIntervalTick.bind(this);
+    this.onModalOpenedChanged = this.onModalOpenedChanged.bind(this);
+
+    this._secondsRemainingInterval = null;
+    this._messageTemplate = null;
+    this._modal = null;
+
+    this._modalOpenedObserver = new MutationObserver(this.onModalOpenedChanged);
+  }
+
+  render () {
+    return html`
+      <toujou-modal title="${this.title}" is-exit-warning>
+        <div class="exit-warning__message">
+          <slot></slot>
+        </div>
+      </toujou-modal>
+    `;
+  }
+
+  connectedCallback () {
+    const template = this.querySelector('template');
+    if (template) {
+      this._messageTemplate = new Function('html', 'targetUrl', 'secondsRemaining', 'return html`' + template.innerHTML + '`');
+    }
+    super.connectedCallback();
+  }
+
+  disconnectedCallback () {
+    super.disconnectedCallback();
+    this._modalOpenedObserver.disconnect();
+  }
+
+  updated (_changedProperties) {
+    if (this._messageTemplate) {
+      render(this._messageTemplate(html, this.targetUrl, this.secondsRemaining), this);
+    }
+  }
+
+  firstUpdated (_changedProperties) {
+    this._modal = this.shadowRoot.querySelector('toujou-modal');
+    this._modal && this._modalOpenedObserver.observe(this._modal, {attributeFilter: ['opened']});
+  }
+
+  onModalOpenedChanged() {
+    if (this._modal.opened) {
+      this.secondsRemaining = this.redirectDelay;
+      this._secondsRemainingInterval = window.setInterval(this.onIntervalTick, 1000);
+    } else {
+      this._secondsRemainingInterval && window.clearInterval(this._secondsRemainingInterval);
+      this._secondsRemainingInterval = null;
+    }
+  }
+
+  onIntervalTick() {
+    this.secondsRemaining--;
+    if (this.secondsRemaining <= 0) {
+      window.location.href = this.targetUrl;
+      this.close();
+    }
+  }
+
+  open () {
+    this._modal && this._modal.open();
+  }
+
+  close () {
+    this._modal && this._modal.close();
+  }
+}
+
+
+// eslint-disable-next-line consistent-return
+function getOpenerFromEvent(event) {
+  const path = event.composedPath();
+  for (let i = 0; i < path.indexOf(document.body); i++) {
+    const target = path[i];
+    if (target.hasAttribute && target.hasAttribute('target') && target !== document.body) {
+      return target;
+    }
+  }
+}
+
+function openExitWarning(targetUrlString) {
+  console.log('11111');
+  const exitWarning: ToujouExitWarning = document.querySelector('exit-warning');
+  if (!exitWarning) {
+    return false;
+  }
+
+  if (window.location.href.match(/toujou-ajax-modal=/) && window.self !== window.parent) {
+    window.parent.postMessage({action: 'toujou-exit-warning', targetUrl:targetUrlString}, window.location.origin);
+    return true;
+  }
+
+  const targetUrl = new URL(targetUrlString);
+
+  if (targetUrl.hostname === window.location.hostname) {
+    window.location.href = targetUrlString;
+  } else {
+    exitWarning.targetUrl = targetUrlString;
+    exitWarning.open();
+  }
+
+  return true;
+}
+
+function openModalOnToujouExitWarningTargetClick(event) {
+  if (event.metaKey || event.ctrlKey) {
+    return;
+  }
+
+  const opener = getOpenerFromEvent(event);
+  if (!(opener instanceof HTMLElement) || opener instanceof HTMLFormElement) {
+    return;
+  }
+
+  if (opener.getAttribute('target') === 'toujou-exit-warning') {
+    const targetUrl= opener.getAttribute('href');
+
+    if (openExitWarning(targetUrl)) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }
+}
+
+function openModalOnToujouExitWarningTargetClickInToujouModal(event) {
+  if (event.origin !== window.location.origin
+    || event.data.action === undefined
+    || event.data.action !== 'toujou-exit-warning'
+    || !event.data.targetUrl) {
+    return;
+  }
+
+  openExitWarning(event.data.targetUrl);
+}
+
+document.addEventListener('click', openModalOnToujouExitWarningTargetClick);
+window.addEventListener('message', openModalOnToujouExitWarningTargetClickInToujouModal);
