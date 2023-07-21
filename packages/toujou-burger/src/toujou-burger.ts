@@ -1,7 +1,7 @@
 import { html, LitElement } from 'lit';
 
 class ToujouBurger extends LitElement {
-  private _elementToToggle: any;
+  private _elementToToggle: HTMLElement | undefined;
   private toggleElement: string;
   private listenTo: string;
   private _stateInput: Element;
