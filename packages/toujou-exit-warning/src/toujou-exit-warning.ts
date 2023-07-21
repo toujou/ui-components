@@ -83,13 +83,13 @@ export class ToujouExitWarning extends LitElement {
     this._modalOpenedObserver.disconnect();
   }
 
-  updated (_changedProperties) {
+  updated () {
     if (this._messageTemplate) {
       render(this._messageTemplate(html, this.targetUrl, this.secondsRemaining), this);
     }
   }
 
-  firstUpdated (_changedProperties) {
+  firstUpdated () {
     this._modal = this.shadowRoot.querySelector('toujou-modal');
     this._modal && this._modalOpenedObserver.observe(this._modal, {attributeFilter: ['opened']});
   }
