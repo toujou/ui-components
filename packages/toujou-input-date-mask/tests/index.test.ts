@@ -1,6 +1,11 @@
 import { expect, fixture, html } from '@open-wc/testing';
 
 import '../src';
+import Inputmask from 'inputmask/dist/inputmask.es6.js';
+
+interface elementWithInputMask extends HTMLElement {
+  inputmask: Inputmask;
+}
 
 describe('toujou-input-date-mask', () => {
   let element: Element;
@@ -31,7 +36,7 @@ describe('toujou-input-date-mask', () => {
   });
 
   it('will initialize input element with input mask', async () => {
-    const inputElement = element.querySelector('#facade') as any;
+    const inputElement = element.querySelector('#facade') as elementWithInputMask;
 
     expect(inputElement.inputmask).to.not.be.null;
     expect(inputElement.inputmask.userOptions.mask).to.be.equal('99.99.9999');

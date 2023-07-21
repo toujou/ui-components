@@ -1,7 +1,7 @@
 import { html, LitElement } from 'lit';
 
 class ToujouBurger extends LitElement {
-  private _elementToToggle: any;
+  private _elementToToggle: HTMLElement | undefined;
   private toggleElement: string;
   private listenTo: string;
   private _stateInput: Element;
@@ -36,7 +36,7 @@ class ToujouBurger extends LitElement {
   set _status(value) {
     this.setAttribute('aria-pressed', value);
     this.setAttribute('aria-expanded', value);
-    this._elementToToggle.setAttribute('aria-hidden', !value);
+    this._elementToToggle.setAttribute('aria-hidden', String(!value));
   }
 
   connectedCallback() {

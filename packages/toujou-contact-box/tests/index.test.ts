@@ -3,10 +3,8 @@ import { expect, fixture, html } from '@open-wc/testing';
 import '../src/index';
 
 describe('Toujou Contact Box', () => {
-  let testPage: Element;
-
   beforeEach(async () => {
-    testPage = await fixture(html`
+    await fixture(html`
       <input type="checkbox" name="contact-state" id="contact-state" class="state-input" aria-hidden="true">
       <label for="contact-state" class="button">Open contact box</label>
       <toujou-contact-box class="contact-box">
