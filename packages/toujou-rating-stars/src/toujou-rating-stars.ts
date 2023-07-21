@@ -1,6 +1,8 @@
-import { LitElement, html, PropertyValues } from 'lit'
-import { customElement, property } from 'lit/decorators.js'
-import styles from "./css/toujou-rating-stars.css";
+import { LitElement, html, PropertyValues } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
+import styles from './css/toujou-rating-stars.css';
+
+/* eslint-disable indent */
 
 @customElement('toujou-rating-stars')
 export class ToujouRatingStars extends LitElement {
@@ -10,28 +12,28 @@ export class ToujouRatingStars extends LitElement {
   entities: string[] = [];
 
   @property({ type: String, attribute: 'rating-entity' })
-  ratingEntity: string = '★';
+  ratingEntity = '★';
 
   @property({ type: Number, attribute: 'rating-total' })
-  ratingTotal: number = 5;
+  ratingTotal = 5;
 
   @property({ type: Number, attribute: 'rating-value' })
-  ratingValue: number = 0;
+  ratingValue = 0;
 
   @property({ type: Number })
-  percentage: number = 0;
+  percentage = 0;
 
-  private readonly percentageCssVariable = `--rating-stars-percentage`;
+  private readonly percentageCssVariable = '--rating-stars-percentage';
 
   render() {
     return html`
       ${this.entities.map((entity: string) => {
         return html`
           <span class="entity">${entity}</span>
-        `
+        `;
       })}
       <span class="overlay"></span>
-    `
+    `;
   }
 
   /**
@@ -56,7 +58,7 @@ export class ToujouRatingStars extends LitElement {
   updatePercentage = () => {
     this.percentage = (this.ratingValue / this.ratingTotal) * 100;
     this.style.setProperty(this.percentageCssVariable, `${100 - this.percentage}%`);
-  }
+  };
 }
 
 declare global {
