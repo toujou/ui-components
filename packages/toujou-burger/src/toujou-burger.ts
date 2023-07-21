@@ -36,7 +36,7 @@ class ToujouBurger extends LitElement {
   set _status(value) {
     this.setAttribute('aria-pressed', value);
     this.setAttribute('aria-expanded', value);
-    this._elementToToggle.setAttribute('aria-hidden', !value);
+    this._elementToToggle.setAttribute('aria-hidden', String(!value));
   }
 
   connectedCallback() {

@@ -2,6 +2,10 @@ import './toujou-contact-box';
 import { LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
+interface ContactStateInputInterface extends HTMLElement {
+  checked?: boolean;
+}
+
 @customElement('toujou-contact-box')
 export class ToujouContactBox extends LitElement {
   // Constants
@@ -20,7 +24,7 @@ export class ToujouContactBox extends LitElement {
   private _closeButton: HTMLButtonElement | null = null;
 
   @property({ type: HTMLInputElement })
-  private _contactStateInput: HTMLInputElement | null = null;
+  private _contactStateInput: ContactStateInputInterface | null = null;
 
   @property({ type: Boolean })
   private state = false;
@@ -59,7 +63,7 @@ export class ToujouContactBox extends LitElement {
       this.focus();
     } else {
       this.removeAttribute('tabindex');
-      this._contactStateInput!.checked = false;
+      this._contactStateInput.checked = false;
       document.body.removeAttribute(this.openContactBoxBodyAttribute);
       window.removeEventListener('keydown', this._handleKeyDown);
       this._prevContentFocusEl?.focus();
