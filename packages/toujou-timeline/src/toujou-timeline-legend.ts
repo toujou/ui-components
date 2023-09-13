@@ -5,7 +5,7 @@ import {
   timelineLegendReadyEventName,
   timelineLegendYearClickEventName,
   TimelineObservation,
-} from "./utils/_utils";
+} from './utils/_utils';
 
 @customElement('toujou-timeline-legend')
 export class ToujouTimelineLegend extends LitElement {
@@ -20,7 +20,7 @@ export class ToujouTimelineLegend extends LitElement {
   connectedCallback() {
     super.connectedCallback();
 
-    this._yearLinks = this.querySelectorAll(".timeline-legend__link");
+    this._yearLinks = this.querySelectorAll('.timeline-legend__link');
     if (!this._yearLinks) return;
 
     this._init();
@@ -43,14 +43,14 @@ export class ToujouTimelineLegend extends LitElement {
     this._isHorizontalTimeline = !!this.closest('.timeline[timeline-direction="horizontal"]');
 
     if (this._isHorizontalTimeline) {
-      this._initYearClicks()
+      this._initYearClicks();
     }
 
     this.dispatchEvent(new CustomEvent(timelineLegendReadyEventName, {
       bubbles: true,
       composed: true,
       detail: this
-    }))
+    }));
   }
 
   /**
@@ -59,7 +59,7 @@ export class ToujouTimelineLegend extends LitElement {
   _initYearClicks() {
     this._yearLinks.forEach((yearLink) => {
       yearLink.addEventListener('click', this._onYearLinkClick);
-    })
+    });
   }
 
   /**
@@ -78,7 +78,7 @@ export class ToujouTimelineLegend extends LitElement {
       observation.isIntersecting
         ? targetLink.setAttribute(this.isActiveAttribute, '')
         : targetLink.removeAttribute(this.isActiveAttribute);
-    })
+    });
   }
 
   /**

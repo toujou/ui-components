@@ -5,7 +5,7 @@ import {
   timelineLegendYearClickEventName,
   timelineReadyEventName,
   TimelineObservation
-} from "./utils/_utils";
+} from './utils/_utils';
 
 @customElement('toujou-timeline')
 export class ToujouTimeline extends LitElement {
@@ -43,14 +43,14 @@ export class ToujouTimeline extends LitElement {
     const options = {
       rootMargin: '-100px -100px -100px -100px',
       threshold: this._createThresholdList(50),
-    }
+    };
 
     this.observer = new IntersectionObserver(this._handleObserver.bind(this), options);
 
     // Watch for any visibility changes on any of the "year" items
     this._years.forEach((year) => {
       this.observer.observe(year);
-    })
+    });
 
     // Timeline ready event dispatch
     this.dispatchEvent(new CustomEvent(timelineReadyEventName, {
@@ -83,7 +83,7 @@ export class ToujouTimeline extends LitElement {
         composed: true,
         detail: observations
       }));
-    })
+    });
   }
 
   /**
@@ -121,7 +121,7 @@ export class ToujouTimeline extends LitElement {
     this._timelineContainerEl.scrollTo({
       left: timelineParentItemOffsetLeft,
       behavior: 'smooth'
-    })
+    });
   }
 
   /**
@@ -137,14 +137,14 @@ export class ToujouTimeline extends LitElement {
 
     if (targetYearEl) {
       // Means the hash corresponds to a child element's id, and we should scroll it into view
-      this._timelineContainerEl.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
-      this._scrollToYear(yearHash.substring(1))
+      this._timelineContainerEl.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
+      this._scrollToYear(yearHash.substring(1));
 
       setTimeout(() => {
         console.log('TODO: this has been called from inside a timeout!!!');
-        this.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
+        this.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
       }, 1000);
     }
-  }
+  };
 }
 
