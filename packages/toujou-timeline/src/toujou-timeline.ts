@@ -139,11 +139,6 @@ export class ToujouTimeline extends LitElement {
       // Means the hash corresponds to a child element's id, and we should scroll it into view
       this._timelineContainerEl.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
       this._scrollToYear(yearHash.substring(1));
-
-      setTimeout(() => {
-        console.log('TODO: this has been called from inside a timeout!!!');
-        this.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
-      }, 1000);
     }
   };
 }
