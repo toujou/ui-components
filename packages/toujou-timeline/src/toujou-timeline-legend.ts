@@ -42,7 +42,7 @@ export class ToujouTimelineLegend extends LitElement {
 
     this._yearLinks.forEach((yearLink) => {
       yearLink.addEventListener('keyup', this._handleYearLinkKeyUp);
-    })
+    });
 
     this._isHorizontalTimeline = !!this.closest('.timeline[timeline-direction="horizontal"]');
 
