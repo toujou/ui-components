@@ -40,6 +40,10 @@ export class ToujouTimelineLegend extends LitElement {
   _init() {
     window.addEventListener(timelineNewObservationEventName, this._onTimelineObservations.bind(this));
 
+    this._yearLinks.forEach((yearLink) => {
+      yearLink.addEventListener('keyup', this._handleYearLinkKeyUp);
+    })
+
     this._isHorizontalTimeline = !!this.closest('.timeline[timeline-direction="horizontal"]');
 
     if (this._isHorizontalTimeline) {
@@ -111,6 +115,19 @@ export class ToujouTimelineLegend extends LitElement {
       composed: true,
       detail: yearHash
     }));
+  }
+
+  /**
+   * Handle Space and Enter key press when year link is focused
+   * @param event
+   */
+  _handleYearLinkKeyUp(event: KeyboardEvent): void {
+    if (event.key === 'Enter' || event.code === 'Enter' || event.code === 'Space' || event.key === ' ') {
+      event.preventDefault();
+      event.stopPropagation();
+      const currentTarget = (event.currentTarget as HTMLInputElement);
+      currentTarget.click();
+    }
   }
 }
 
