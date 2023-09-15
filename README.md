@@ -43,6 +43,7 @@ To run the tests, run:
 | [toujou-rating-stars](./packages/toujou-rating-stars)                   | [![npm version](https://img.shields.io/npm/v/@toujou/toujou-rating-stars.svg?style=flat)](https://www.npmjs.com/package/@toujou/toujou-rating-stars)                   |
 | [toujou-snackbar](./packages/toujou-snackbar)                           | [![npm version](https://img.shields.io/npm/v/@toujou/toujou-snackbar.svg?style=flat)](https://www.npmjs.com/package/@toujou/toujou-snackbar)                           |
 | [toujou-spinner](./packages/toujou-spinner)                             | [![npm version](https://img.shields.io/npm/v/@toujou/toujou-spinner.svg?style=flat)](https://www.npmjs.com/package/@toujou/toujou-spinner)                             |
+| [toujou-timeline](./packages/toujou-timeline)                           | [![npm version](https://img.shields.io/npm/v/@toujou/toujou-timeline.svg?style=flat)](https://www.npmjs.com/package/@toujou/toujou-timeline)                           |
 | [toujou-topbutton](./packages/toujou-topbutton)                         | [![npm version](https://img.shields.io/npm/v/@toujou/toujou-topbutton.svg?style=flat)](https://www.npmjs.com/package/@toujou/toujou-topbutton)                         |
 
 ## Create new package/component (via cli)
