@@ -13,6 +13,6 @@ describe('toujou accordion', () => {
   it('can create component', async () => {
     expect(element).to.not.be.null;
     expect(element).to.not.be.undefined;
-    expect(element.nodeName).to.equal('{{package_name}}'.toUpperCase());
+    expect(element.nodeName).to.equal('toujou-accordion'.toUpperCase());
   });
 });
