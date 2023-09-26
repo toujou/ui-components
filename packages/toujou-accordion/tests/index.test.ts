@@ -40,7 +40,7 @@ describe('toujou-accordion', () => {
   });
 
   it('dispatches `toujou-accordion-ready` on firstUpdated', async () => {
-    const el = fixtureSync(`<toujou-accordion></toujou-accordion>`);
+    const el = fixtureSync('<toujou-accordion></toujou-accordion>');
     const ev = await oneEvent(el, 'toujou-accordion-ready');
     expect(ev).to.exist;
   });
