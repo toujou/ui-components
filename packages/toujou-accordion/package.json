@@ -1,6 +1,6 @@
 {
   "name": "@toujou/toujou-accordion",
-  "version": "2.0.27",
+  "version": "2.0.1",
   "description": "A customisable accordion element",
   "type": "module",
   "publishConfig": {
