@@ -30,6 +30,7 @@ To run the tests, run:
 
 | Component                                                               | npmjs.com                                                                                                                                                              |
 |-------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [toujou-accordion](./packages/toujou-accordion)                         | [![npm version](https://img.shields.io/npm/v/@toujou/toujou-accordion.svg?style=flat)](https://www.npmjs.com/package/@toujou/toujou-accordion)                         |
 | [toujou-burger](./packages/toujou-burger)                               | [![npm version](https://img.shields.io/npm/v/@toujou/toujou-burger.svg?style=flat)](https://www.npmjs.com/package/@toujou/toujou-burger)                               |
 | [toujou-consent](./packages/toujou-consent)                             | [![npm version](https://img.shields.io/npm/v/@toujou/toujou-consent.svg?style=flat)](https://www.npmjs.com/package/@toujou/toujou-consent)                             |
 | [toujou-contact-box](./packages/toujou-contact-box)                     | [![npm version](https://img.shields.io/npm/v/@toujou/toujou-contact-box.svg?style=flat)](https://www.npmjs.com/package/@toujou/toujou-contact-box)                     |
