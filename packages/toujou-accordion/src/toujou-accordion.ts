@@ -1,10 +1,16 @@
 import { LitElement, PropertyValues } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
 
-@customElement('toujou-accordion')
 export class ToujouAccordion extends LitElement {
-  @property({ type: Boolean, attribute: 'expand-mode-single'})
-    expandModeSingle = false;
+  private expandModeSingle: boolean;
+
+  static get properties() {
+    return {
+      expandModeSingle: {
+        type: Boolean,
+        attribute: 'expand-mode-single'
+      },
+    };
+  }
 
   private settings = {
     panelSelector: '.accordion__panel',
@@ -12,6 +18,10 @@ export class ToujouAccordion extends LitElement {
     panelActiveClass: 'accordion__panel--active',
     contentActiveClass: 'accordion__content--active'
   };
+
+  static get is() {
+    return 'toujou-accordion';
+  }
 
   createRenderRoot() {
     return this;
@@ -96,6 +106,8 @@ export class ToujouAccordion extends LitElement {
     this.dispatchEvent(event);
   }
 }
+
+customElements.define(ToujouAccordion.is, ToujouAccordion);
 
 declare global {
   interface HTMLElementTagNameMap {
