@@ -20,7 +20,8 @@
     "directory": "packages/toujou-rating-stars"
   },
   "dependencies": {
-    "lit": "^2.0.0-rc.2"
+    "lit": "^2.0.0-rc.2",
+    "tslib": "^2.5.0"
   },
   "keywords": [
     "toujou",
