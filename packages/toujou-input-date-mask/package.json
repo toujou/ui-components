@@ -24,7 +24,7 @@
   "dependencies": {
     "inputmask": "^5.0.7",
     "lit": "^2.0.0-rc.2",
-    "tslib": "^2.6.2"
+    "tslib": "^2.5.0"
   },
   "keywords": [
     "toujou",
