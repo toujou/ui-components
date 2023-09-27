@@ -22,6 +22,7 @@
   "dependencies": {
     "@mapbox/mapbox-gl-language": "^1.0.0",
     "lit": "^2.0.0-rc.2",
+    "tslib": "^2.6.2",
     "mapbox-gl": "^1.13.1"
   },
   "keywords": [

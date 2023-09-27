@@ -20,7 +20,8 @@
     "directory": "packages/{{package_name}}"
   },
   "dependencies": {
-    "lit": "^2.0.0-rc.2"
+    "lit": "^2.0.0-rc.2",
+    "tslib": "^2.6.2"
   },
   "keywords": [
     "toujou",

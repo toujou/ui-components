@@ -26,7 +26,8 @@
     "mapbox-gl": "^1.13.1",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
-    "reselect": "^4.0.0"
+    "reselect": "^4.0.0",
+    "tslib": "^2.6.2"
   },
   "keywords": [
     "toujou",
