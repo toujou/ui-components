@@ -248,6 +248,7 @@ export class ToujouMap extends LitElement {
 
   connectedCallback() {
     super.connectedCallback();
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     window.maplibregl = maplibregl;
     this.loaded = true;
@@ -299,17 +300,18 @@ export class ToujouMap extends LitElement {
       if (this.stylesCompatibleWithMapboxLanguage) {
         const language = document.documentElement.lang.slice(0, 2) || 'de';
         this.map.getStyle().layers
-            .map(layer => layer.id)
-            .filter(layerId => /label$/.test(layerId))
-            .forEach((layerId) => {
-              try {
-                this.map.setLayoutProperty(layerId, 'text-field', [
-                  'get',
-                  `name_${language}`
-                ]);
-              } catch (e) {
-              }
-            });
+          .map(layer => layer.id)
+          .filter(layerId => /label$/.test(layerId))
+          .forEach((layerId) => {
+            try {
+              this.map.setLayoutProperty(layerId, 'text-field', [
+                'get',
+                `name_${language}`
+              ]);
+            } catch (e) {
+              console.warn(e);
+            }
+          });
       }
 
       this.dispatchEvent(new CustomEvent('toujou-map-loaded', { detail: e }));

@@ -713,14 +713,12 @@ export class ToujouLocationFinder extends LitElement {
    * @private
    */
   _initGeocoder() {
-
-    console.log('init geocoder');
     const geocoderApi = {
       forwardGeocode: async (config) => {
         let features = [];
         try {
           const request = `https://nominatim.openstreetmap.org/search?q=${
-              config.query
+            config.query
           }&format=geojson&polygon_geojson=1&addressdetails=1`;
           const response = await fetch(request);
           const geojson = await response.json();
