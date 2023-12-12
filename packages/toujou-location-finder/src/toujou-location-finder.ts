@@ -329,6 +329,7 @@ export class ToujouLocationFinder extends LitElement {
 
     this.onStateChange = this.onStateChange.bind(this);
     this._onLocatorSuccess = this._onLocatorSuccess.bind(this);
+    this._onLocatorError = this._onLocatorError.bind(this);
     this._onMapFeatureHoverEnter = this._onMapFeatureHoverEnter.bind(this);
     this._onMapFeatureHoverLeave = this._onMapFeatureHoverLeave.bind(this);
     this._onMapMoveEnd = this._onMapMoveEnd.bind(this);
