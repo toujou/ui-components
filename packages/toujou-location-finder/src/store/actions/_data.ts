@@ -50,18 +50,15 @@ const requestGeojsonData = async (endpoint) => fetch(endpoint).then((response) =
 const sortFeaturesBySearchBoostAndName = (a, b) => b.properties.search_boost - a.properties.search_boost || a.properties.name.localeCompare(b.properties.name);
 
 /**
- * Get a list of unique features by eliminating duplicate instances of features with identical IDs.
- *
- * @param features
- * @returns {*|null}
+ * Get a list of unique features by eliminating duplicate instances of features with identical IDs.*
  */
-const getUniqueFeatures = (features) => {
-  if (!features.length) return null;
+const getUniqueFeatures = (features): any[] => {
+  if (!features.length) return [];
 
   const uniqueIds = {};
 
-  const uniqueFeatures = features.filter((feature) => {
-    const { uid } = feature.properties;
+  return features.filter((feature) => {
+    const {uid} = feature.properties;
     if (!uniqueIds[uid]) {
       uniqueIds[uid] = true;
       return true;
@@ -69,8 +66,6 @@ const getUniqueFeatures = (features) => {
 
     return false;
   });
-
-  return uniqueFeatures;
 };
 
 /**
