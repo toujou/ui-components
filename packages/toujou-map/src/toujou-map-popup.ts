@@ -1,5 +1,5 @@
 import { LitElement, html } from 'lit';
-import mapboxgl from 'mapbox-gl';
+import maplibregl from 'maplibre-gl';
 import styles from './toujou-map-popup.css';
 
 function makeid(length) {
@@ -21,14 +21,13 @@ class ToujouMapPopup extends LitElement {
 
   public popupSlotName = `popup-${makeid(6)}`;
 
-  public popup: mapboxgl.Popup;
+  public popup: maplibregl.Popup;
 
-  protected _map: mapboxgl.Map|any;
+  protected _map: maplibregl.Map|any;
 
-  protected _lngLat: mapboxgl.LngLatLike = [0, 0];
+  protected _lngLat: maplibregl.LngLatLike = [0, 0];
 
-  protected _marker?: mapboxgl.Marker;
-
+  protected _marker?: maplibregl.Marker;
 
   static get is() { return 'toujou-map-popup'; }
 
@@ -120,7 +119,7 @@ class ToujouMapPopup extends LitElement {
   }
 
   initPopup() {
-    this.popup = new mapboxgl.Popup(this.initialPopupOptions);
+    this.popup = new maplibregl.Popup(this.initialPopupOptions);
     this.popup.setLngLat(this._lngLat);
     this.popup.on('open', this.forwardPopupEvent);
     this.popup.on('close', this.forwardPopupEvent);

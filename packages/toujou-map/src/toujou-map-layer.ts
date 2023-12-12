@@ -1,5 +1,5 @@
 import { UpdatingElement } from 'lit';
-import mapboxgl from 'mapbox-gl';
+import maplibregl from 'maplibre-gl';
 
 class ToujouMapLayer extends UpdatingElement {
 
@@ -12,9 +12,9 @@ class ToujouMapLayer extends UpdatingElement {
   public filter: any[];
   public layout: any;
   public paint: any;
-  public layer: mapboxgl.AnyLayer;
+  public layer: maplibregl.AddLayerObject;
 
-  protected _map: mapboxgl.Map|any;
+  protected _map: maplibregl.Map|any;
   static get is() { return 'toujou-map-layer'; }
 
   static get properties() {
@@ -74,7 +74,7 @@ class ToujouMapLayer extends UpdatingElement {
     return this._map;
   }
 
-  get layerConf(): mapboxgl.Layer {
+  get layerConf(): maplibregl.AddLayerObject {
     const conf = {
       id: this.layerId,
       source: this.source,
@@ -85,9 +85,9 @@ class ToujouMapLayer extends UpdatingElement {
       metadata: {
         beforeLayerId: this.beforeLayerId,
       },
-    } as mapboxgl.Layer;
+    } as maplibregl.FillLayerSpecification;
 
-    this.filter && this.filter.length > 0 && (conf.filter = this.filter);
+    this.filter && this.filter.length > 0 && (conf.filter = (this.filter as maplibregl.FilterSpecification));
     this.layout && (conf.layout = this.layout);
     this.paint && (conf.paint = this.paint);
 

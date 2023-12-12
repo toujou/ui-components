@@ -1,17 +1,18 @@
 import { LitElement, html } from 'lit';
-import mapboxgl from 'mapbox-gl';
-import MapboxLanguage from '@mapbox/mapbox-gl-language';
+import maplibregl from 'maplibre-gl';
 import styles from './toujou-map.css';
+import { isMapboxURL, transformMapboxUrl } from 'maplibregl-mapbox-request-transformer';
 
 export class ToujouMap extends LitElement {
   public accessToken = null; // Mapbox access token
-  public initialMapOptions: mapboxgl.MapboxOptions|any = {
+  public initialMapOptions: maplibregl.MapOptions|any = {
     style: 'mapbox://styles/mapbox/light-v10',
     minZoom: 0,
     maxZoom: 20,
     pitch: 0,
     bearing: 0,
     attributionControl: false,
+
   };
   public initialControls = {
     noNavigation: false,
@@ -26,11 +27,11 @@ export class ToujouMap extends LitElement {
   public fullscreenControl = false;
   public reducedMotion = false;
   public layers = [];
-  public map: mapboxgl.Map;
+  public map: maplibregl.Map;
 
   public initialBounds: any;
   public fitBoundsMaxZoom: any;
-  protected _navigationControl: mapboxgl.NavigationControl;
+  protected _navigationControl: maplibregl.NavigationControl;
 
   static get is() { return 'toujou-map'; }
 
@@ -197,7 +198,7 @@ export class ToujouMap extends LitElement {
     }
     if (!noNavigation) {
       // eslint-disable-next-line no-unused-expressions
-      !this._navigationControl && (this._navigationControl = new mapboxgl.NavigationControl());
+      !this._navigationControl && (this._navigationControl = new maplibregl.NavigationControl());
       this.map.addControl(this._navigationControl);
     } else if (noNavigation && this._navigationControl) {
       this.map.removeControl(this._navigationControl);
@@ -241,13 +242,14 @@ export class ToujouMap extends LitElement {
 
   get stylesCompatibleWithMapboxLanguage() {
     return this.initialMapOptions
-      && this.initialMapOptions.style
-      && this.initialMapOptions.style.startsWith('mapbox://');
+        && this.initialMapOptions.style
+        && this.initialMapOptions.style.startsWith('mapbox://');
   }
 
   connectedCallback() {
     super.connectedCallback();
-    window.mapboxgl = mapboxgl;
+    // @ts-ignore
+    window.maplibregl = maplibregl;
     this.loaded = true;
   }
 
@@ -261,16 +263,24 @@ export class ToujouMap extends LitElement {
   }
 
   createMap() {
-    mapboxgl.accessToken = this.accessToken;
-    this.map = new mapboxgl.Map({
+    const transformRequest = (url: string, resourceType: string) => {
+      if (isMapboxURL(url)) {
+        return transformMapboxUrl(url, resourceType, this.accessToken);
+      }
+      return { url };
+    };
+
+
+    this.map = new maplibregl.Map({
       container: this.shadowRoot.querySelector('#map'),
       ...this.initialMapOptions,
+      transformRequest,
     });
     if (this.fullscreenControl) {
-      this.map.addControl(new mapboxgl.FullscreenControl());
+      this.map.addControl(new maplibregl.FullscreenControl());
     }
 
-    this.map.addControl(new mapboxgl.AttributionControl({
+    this.map.addControl(new maplibregl.AttributionControl({
       compact: true,
     }));
 
@@ -285,13 +295,25 @@ export class ToujouMap extends LitElement {
       animate: !this.reducedMotion,
     });
 
-    if (this.stylesCompatibleWithMapboxLanguage) {
-      this.map.addControl(new MapboxLanguage({
-        defaultLanguage: document.documentElement.lang.slice(0, 2) || 'de',
-      }));
-    }
+    this.map.on('load', (e) => {
+      if (this.stylesCompatibleWithMapboxLanguage) {
+        const language = document.documentElement.lang.slice(0, 2) || 'de';
+        this.map.getStyle().layers
+            .map(layer => layer.id)
+            .filter(layerId => /label$/.test(layerId))
+            .forEach((layerId) => {
+              try {
+                this.map.setLayoutProperty(layerId, 'text-field', [
+                  'get',
+                  `name_${language}`
+                ]);
+              } catch (e) {
+              }
+            });
+      }
 
-    this.map.on('load', (e) => { this.dispatchEvent(new CustomEvent('toujou-map-loaded', { detail: e })); });
+      this.dispatchEvent(new CustomEvent('toujou-map-loaded', { detail: e }));
+    });
     this.map.on('error', (e) => {
       this.dispatchEvent(new CustomEvent('toujou-map-error', { detail: e }));
       console.error(e);
@@ -327,17 +349,11 @@ export class ToujouMap extends LitElement {
   }
 
   reorderLayers() {
-    const requirementsMet = this.layers
-      .map((layerConf) => layerConf.metadata.beforeLayerId)
-      .every((beforeLayerId) => this.map.getLayer(beforeLayerId));
-
-    if (!requirementsMet) {
-      return;
-    }
     this.layers.forEach((layerConf) => {
       if (layerConf.id
-        && layerConf.metadata
-        && layerConf.metadata.beforeLayerId
+          && layerConf.metadata
+          && layerConf.metadata.beforeLayerId
+          && this.map.getLayer(layerConf.metadata.beforeLayerId)
       ) {
         this.map.moveLayer(layerConf.id, layerConf.metadata.beforeLayerId);
       }

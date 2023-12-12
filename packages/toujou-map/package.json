@@ -23,6 +23,8 @@
     "@mapbox/mapbox-gl-language": "^1.0.0",
     "lit": "^2.0.0-rc.2",
     "mapbox-gl": "^1.13.1",
+    "maplibre-gl": "^3.6.2",
+    "maplibregl-mapbox-request-transformer": "^0.0.2",
     "tslib": "^2.5.0"
   },
   "keywords": [

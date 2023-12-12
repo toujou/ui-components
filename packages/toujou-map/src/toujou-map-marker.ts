@@ -1,6 +1,5 @@
 import { LitElement, html, css } from 'lit';
-import mapboxgl from 'mapbox-gl';
-
+import maplibregl from 'maplibre-gl';
 /**
  * Add a marker to a map, to pinpoint a location.
  * We can define the color, coordinates and offset of the marker
@@ -8,16 +7,16 @@ import mapboxgl from 'mapbox-gl';
  * @element toujou-map-marker
  */
 class ToujouMapMarker extends LitElement {
-  public marker?: mapboxgl.Marker;
+  public marker?: maplibregl.Marker;
 
-  public initialMarkerOptions: mapboxgl.MarkerOptions = {
+  public initialMarkerOptions: maplibregl.MarkerOptions = {
     element: null,
     offset: [0, 0],
     color: '#77b800',
   };
 
-  public _lngLat: mapboxgl.LngLatLike = [0, 0];
-  protected  _map: mapboxgl.Map|any;
+  public _lngLat: maplibregl.LngLatLike = [0, 0];
+  protected  _map: maplibregl.Map|any;
   protected _element: any;
 
 
@@ -120,7 +119,7 @@ class ToujouMapMarker extends LitElement {
   }
 
   initMarker(map) {
-    this.marker = new mapboxgl.Marker(this.initialMarkerOptions).setLngLat(this._lngLat);
+    this.marker = new maplibregl.Marker(this.initialMarkerOptions).setLngLat(this._lngLat);
     !this._element && (this.marker.getElement().style.position = 'absolute');
     this.marker.addTo(map);
   }
