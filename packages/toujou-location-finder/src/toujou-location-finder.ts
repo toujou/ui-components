@@ -1,6 +1,6 @@
 import { LitElement, html } from 'lit';
-import mapboxgl from 'mapbox-gl';
-import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
+import maplibregl from 'maplibre-gl';
+import MaplibreGeocoder from '@maplibre/maplibre-gl-geocoder';
 import './toujou-location-finder-teaser';
 
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
@@ -73,7 +73,7 @@ export class ToujouLocationFinder extends LitElement {
   protected _deviceCanHover: boolean;
   protected _layers = [];
   protected _state: any;
-  protected _map: mapboxgl.Map;
+  protected _map: maplibregl.Map;
 
   private _clusterRadius: number;
   private _clusterMaxZoom: any;
@@ -91,7 +91,7 @@ export class ToujouLocationFinder extends LitElement {
 
   private _currentlyVisibleFeaturesUids: any;
   private isMobile: any;
-  private _geocoder: MapboxGeocoder;
+  private _geocoder: MaplibreGeocoder;
   private _breakpoint: any;
   private _hideMap: boolean;
 
@@ -450,7 +450,7 @@ export class ToujouLocationFinder extends LitElement {
     this._map.setPadding(this.isMobile ? this._mapPaddingMobile : this._mapPaddingDesktop);
 
     if (this.bounds) {
-      this._map.fitBounds((this.bounds as mapboxgl.LngLatBoundsLike), { animate: !this.reducedMotion });
+      this._map.fitBounds((this.bounds as maplibregl.LngLatBoundsLike), { animate: !this.reducedMotion });
     }
 
     this._initGeocoder();
@@ -712,13 +712,53 @@ export class ToujouLocationFinder extends LitElement {
    * @private
    */
   _initGeocoder() {
-    this._geocoder = new MapboxGeocoder({
-      accessToken: this.accessToken,
-      mapboxgl,
-      marker: {
-        color: this._mapPointColor,
-        element: this._createCustomGeocoderIcon(),
+
+    console.log('init geocoder');
+    const geocoderApi = {
+      forwardGeocode: async (config) => {
+        let features = [];
+        try {
+          const request = `https://nominatim.openstreetmap.org/search?q=${
+              config.query
+          }&format=geojson&polygon_geojson=1&addressdetails=1`;
+          const response = await fetch(request);
+          const geojson = await response.json();
+
+          features = geojson.features.map((feature) => {
+            const center = [
+              feature.bbox[0]
+              + (feature.bbox[2] - feature.bbox[0]) / 2,
+              feature.bbox[1]
+              + (feature.bbox[3] - feature.bbox[1]) / 2,
+            ];
+
+            return {
+              type: 'Feature',
+              geometry: {
+                type: 'Point',
+                coordinates: center,
+              },
+              place_name: feature.properties.display_name,
+              properties: feature.properties,
+              text: feature.properties.display_name,
+              place_type: ['place'],
+              center,
+            };
+          });
+        } catch (e) {
+          console.error(`Failed to forwardGeocode with error: ${e}`);
+        }
+        return {
+          features,
+        };
       },
+    };
+
+    this._geocoder = new MaplibreGeocoder(geocoderApi, {
+      maplibregl,
+      showResultsWhileTyping: true,
+      showResultMarkers: false,
+      marker: false,
     });
 
     this.shadowRoot.querySelector('.geocoder-container').appendChild(this._geocoder.onAdd(this._map));

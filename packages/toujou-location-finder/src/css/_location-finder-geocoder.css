@@ -1,4 +1,4 @@
-@import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
+@import '@maplibre/maplibre-gl-geocoder/dist/maplibre-gl-geocoder.css';
 
 .search {
     display: var(--toujou-location-finder-search-display, block);
