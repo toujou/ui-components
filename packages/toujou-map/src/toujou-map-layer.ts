@@ -87,9 +87,17 @@ class ToujouMapLayer extends UpdatingElement {
       },
     } as maplibregl.FillLayerSpecification;
 
-    this.filter && this.filter.length > 0 && (conf.filter = (this.filter as maplibregl.FilterSpecification));
-    this.layout && (conf.layout = this.layout);
-    this.paint && (conf.paint = this.paint);
+    if (this.filter && this.filter.length > 0) {
+      conf.filter = (this.filter as maplibregl.FilterSpecification);
+    }
+
+    if (this.layout) {
+      conf.layout = this.layout;
+    }
+
+    if (this.paint) {
+      conf.paint = this.paint;
+    }
 
     return conf;
   }
