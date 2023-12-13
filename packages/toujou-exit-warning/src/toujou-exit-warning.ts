@@ -134,7 +134,6 @@ function getOpenerFromEvent(event) {
 }
 
 function openExitWarning(targetUrlString) {
-  console.log('11111');
   const exitWarning: ToujouExitWarning = document.querySelector('exit-warning');
   if (!exitWarning) {
     return false;
