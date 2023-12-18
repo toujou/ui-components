@@ -1,6 +1,6 @@
 {
   "name": "@toujou/toujou-spinner",
-  "version": "2.1.0",
+  "version": "3.0.0",
   "description": "A spinner element to show that something is loading",
   "main": "./dist/toujou-spinner.js",
   "module": "./src/toujou-spinner.js",
