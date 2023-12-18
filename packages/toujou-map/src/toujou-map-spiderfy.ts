@@ -1,5 +1,5 @@
 import { UpdatingElement } from 'lit';
-import mapboxgl from 'mapbox-gl';
+import maplibregl from 'maplibre-gl';
 
 /**
  * Element to spiderfy overlapping markers in the map.
@@ -17,9 +17,9 @@ class ToujouMapSpiderfy extends UpdatingElement {
   public sourceId: string;
   public selectedCluster = null;
   public selectedClusterFeatures = [];
-  public spiderfySource?: mapboxgl.GeoJSONSource;
+  public spiderfySource?: maplibregl.GeoJSONSource;
 
-  protected _map: mapboxgl.Map|any;
+  protected _map: maplibregl.Map|any;
 
 
   static get is() { return 'toujou-map-spiderfy'; }
@@ -189,7 +189,7 @@ class ToujouMapSpiderfy extends UpdatingElement {
       angle = theta * i;
       const x = this.leavesSeparation * Math.cos(angle) + this.leavesOffset[0];
       const y = this.leavesSeparation * Math.sin(angle) + this.leavesOffset[1];
-      points.push(new mapboxgl.Point(x, y));
+      points.push(new maplibregl.Point(x, y));
     }
     return points;
   }

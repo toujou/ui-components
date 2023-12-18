@@ -14,6 +14,7 @@ let config = {
         ...commonPlugins,
         nodeResolve({
             mainFields: ['module', 'main', 'browser'],
+            preferBuiltins: false
         }),
     ]
 };

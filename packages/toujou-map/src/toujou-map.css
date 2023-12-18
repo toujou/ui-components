@@ -1,4 +1,4 @@
-@import "mapbox-gl/dist/mapbox-gl.css";
+@import "maplibre-gl/dist/maplibre-gl.css";
 
 :host {
     position: relative;
@@ -16,13 +16,13 @@ slot:not([name]) {
 }
 
 /* OVERWRITE SOME MAPBOX DEFAULT STYLES */
-#map .mapboxgl-popup {
+#map .maplibregl-popup {
     will-change: auto;
     max-width: 90vw !important;
     width: 320px;
 }
 
-#map .mapboxgl-popup-content {
+#map .maplibregl-popup-content {
     padding: 0;
 }
 
@@ -40,22 +40,22 @@ slot:not([name]) {
     -webkit-mask-image: var(--toujou-location-finder-geocoder-icon-image);
 }
 
-#map .mapboxgl-control-container {
+#map .maplibregl-control-container {
     display: var(--toujou-map-control-container-display, inherit);
 }
 
-#map .mapboxgl-ctrl-top-left {
+#map .maplibregl-ctrl-top-left {
     display: var(--toujou-map-ctrl-top-left-display, inherit);
 }
 
-#map .mapboxgl-ctrl-top-right {
+#map .maplibregl-ctrl-top-right {
     display: var(--toujou-map-ctrl-top-right-display, inherit);
 }
 
-#map .mapboxgl-ctrl-bottom-left {
+#map .maplibregl-ctrl-bottom-left {
     display: var(--toujou-map-ctrl-bottom-left-display, inherit);
 }
 
-#map .mapboxgl-ctrl-bottom-right {
+#map .maplibregl-ctrl-bottom-right {
     display: var(--toujou-map-ctrl-bottom-right-display, inherit);
 }

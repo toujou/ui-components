@@ -70,11 +70,11 @@
     "@webcomponents/shadycss": "^1.9.5"
   },
   "peerDependencies": {
-    "@mapbox/mapbox-gl-geocoder": "^4.7.1",
-    "@mapbox/mapbox-gl-language": "^1.0.0",
+    "@maplibre/maplibre-gl-geocoder": "^1.5.0",
     "js-cookie": "^3.0.1",
     "lit": "^2.0.0-rc.2",
-    "mapbox-gl": "^1.13.1",
+    "maplibre-gl": "^3.6.2",
+    "maplibregl-mapbox-request-transformer": "^0.0.2",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0"

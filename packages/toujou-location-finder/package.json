@@ -20,10 +20,10 @@
     "watch": "rollup --watch --silent --config ../../rollup.config.js"
   },
   "dependencies": {
-    "@mapbox/mapbox-gl-geocoder": "^4.7.1",
-    "@mapbox/mapbox-gl-language": "^1.0.0",
+    "@maplibre/maplibre-gl-geocoder": "^1.5.0",
+    "events": "^3.3.0",
     "lit": "^2.0.0-rc.2",
-    "mapbox-gl": "^1.13.1",
+    "maplibre-gl": "^3.6.2",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0",
@@ -37,5 +37,9 @@
   ],
   "author": "toujou",
   "license": "MIT",
-  "gitHead": "e1bfcc508966aac0d1391d2b19e9fd692c5070fc"
+  "gitHead": "e1bfcc508966aac0d1391d2b19e9fd692c5070fc",
+  "devDependencies": {
+    "@types/events": "^3.0.3",
+    "@types/node": "^20.10.4"
+  }
 }
