@@ -117,6 +117,13 @@ class ToujouConsentWidget extends LitElement {
         this._dismissConsentBox();
         this._dispatchConsentDeactivated();
       });
+    } else {
+      setTimeout(() => {
+        const focusable = this.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+        if (focusable.length > 0) {
+          (focusable[0] as HTMLElement).focus();
+        }
+      });
     }
   }
 
