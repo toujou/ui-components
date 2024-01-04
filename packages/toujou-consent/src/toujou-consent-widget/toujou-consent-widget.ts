@@ -8,17 +8,24 @@ import {
   undismissConsentBox,
 } from './actions/consent-actions';
 
+import { Store } from 'redux';
+import { ConsentSetting } from '../utils/ConsentSetting';
+
 class ToujouConsentWidget extends LitElement {
 
   public inPage = false;
   public deactivated = false;
 
-  public store: any;
+  public store: Store;
   public consentTypeNames = ['tracking', 'html', 'maps', 'video'];
 
   public listenOn = '*';
 
-  public _state: any;
+  public _state: {
+    consents: {
+      [key: string]: boolean | ConsentSetting
+    }
+  };
 
   static get is() {
     return 'toujou-consent-widget';
