@@ -1,17 +1,24 @@
 import Cookies from 'js-cookie';
 import { consentsStore } from '../toujou-consent-widget/consentsStore';
-import { Subscription } from 'rxjs';
+import { Store, Unsubscribe } from 'redux';
+import { ConsentSetting } from '../utils/ConsentSetting';
+
+declare global {
+  interface Window {
+    _paq?: object[];
+  }
+}
 
 class ToujouTrackingMatomo extends HTMLElement {
 
-  public store: any;
+  public store: Store;
 
-  public consentState: any;
+  public consentState: ConsentSetting;
 
-  public matomoIsInstantiated: any;
+  public matomoIsInstantiated: boolean;
 
   private _matomo: boolean;
-  private _storeSubscription: Subscription;
+  private _storeUnsubscribe: Unsubscribe;
 
 
   get url() {
@@ -39,12 +46,12 @@ class ToujouTrackingMatomo extends HTMLElement {
    */
   connectedCallback() {
     this._handleConsentState(this.consentState);
-    this._storeSubscription = this.store.subscribe(this.onStateChange);
+    this._storeUnsubscribe = this.store.subscribe(this.onStateChange);
   }
 
   disconnectedCallback() {
-    if (this._storeSubscription) {
-      this._storeSubscription.unsubscribe();
+    if (this._storeUnsubscribe) {
+      this._storeUnsubscribe();
     }
   }
 
@@ -84,8 +91,8 @@ class ToujouTrackingMatomo extends HTMLElement {
     const scriptSrc = new URL(matomoUrl);
     scriptSrc.pathname = '/matomo.js';
 
-    (window as any)._paq = (window as any)._paq || [];
-    const { _paq } = (window as any);
+    window._paq = window._paq || [];
+    const { _paq } = window;
     _paq.push(['requireConsent']);
     _paq.push(['trackPageView']);
     _paq.push(['enableLinkTracking']);
@@ -117,8 +124,8 @@ class ToujouTrackingMatomo extends HTMLElement {
 
   _disableMatomoTracking() {
     if (this.matomoIsInstantiated) {
-      (window as any)._paq = (window as any)._paq || [];
-      const { _paq } = (window as any);
+      window._paq = window._paq || [];
+      const { _paq } = window;
       _paq.push(['forgetConsentGiven']);
     }
 

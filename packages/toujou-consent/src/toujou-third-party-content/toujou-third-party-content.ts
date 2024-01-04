@@ -3,15 +3,21 @@ import styles from './toujou-third-party-content.css';
 
 import { consentsStore } from '../toujou-consent-widget/consentsStore';
 import { saveSingleConsent } from '../toujou-consent-widget/actions/consent-actions';
+import { Store } from 'redux';
+import { ConsentSetting } from '../utils/ConsentSetting';
 
 class ToujouThirdPartyContent extends LitElement {
-  public store: any;
+  public store: Store;
   public contentTypeAllowed = false;
   public isIntersecting = false;
   public show = false;
-  public contentType: any;
+  public contentType: string;
 
-  protected _state: any;
+  protected _state: {
+    consents: {
+      [key: string]: boolean | ConsentSetting
+    }
+  };
 
   static get is() {
     return 'toujou-third-party-content';
@@ -313,7 +319,7 @@ class ToujouThirdPartyContent extends LitElement {
    */
   _isContentTypeAllowed() {
     if (this._state.consents[this.contentType]) {
-      this.contentTypeAllowed = this._state.consents[this.contentType].consentGiven || false;
+      this.contentTypeAllowed = (this._state.consents[this.contentType] as ConsentSetting).consentGiven || false;
     } else {
       this.contentTypeAllowed = false;
     }

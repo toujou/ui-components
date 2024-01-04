@@ -8,6 +8,12 @@ import {
   UNDISMISS_CONSENT_BOX,
 } from '../actions/consent-actions';
 
+declare global {
+  interface Window {
+    dataLayer?: object[];
+  }
+}
+
 function consentReducers(state, action) {
   switch (action.type) {
   case CLEAR_CONSENT_TYPE_DATA: {
@@ -64,8 +70,8 @@ export default function consentReducersExport(state = INITIAL_STATE, action) {
   const reducedState = consentReducers(state, action);
   handlePersistanceDataToSave(reducedState);
 
-  if (typeof (window as any).dataLayer === 'object' && (!initialStatePushedToDataLayer || (reducedState.consents.consentBoxDismissed !== undefined && reducedState.consents.consentBoxDismissed))) {
-    (window as any).dataLayer.push({ event: 'consent-changed', ...reducedState.consents });
+  if (typeof window.dataLayer === 'object' && (!initialStatePushedToDataLayer || (reducedState.consents.consentBoxDismissed !== undefined && reducedState.consents.consentBoxDismissed))) {
+    window.dataLayer.push({ event: 'consent-changed', ...reducedState.consents });
     initialStatePushedToDataLayer = true;
   }
 

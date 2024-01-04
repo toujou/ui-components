@@ -1,14 +1,22 @@
 import Cookies from 'js-cookie';
 import { consentsStore } from '../toujou-consent-widget/consentsStore';
-import { Subscription } from 'rxjs';
+import { Store, Unsubscribe } from 'redux';
+
+declare global {
+  interface Window {
+    dataLayer?: object[];
+    gtag: () => void;
+  }
+}
+
 
 class ToujouTrackingGoogleAnalytics extends HTMLElement {
-  public store: any;
-  public consentState: any;
+  public store: Store;
+  public consentState: string;
   public gaIsInstantiated: boolean;
 
-  private _ga: any;
-  private _storeSubscription: Subscription;
+  private _ga: unknown;
+  private _storeUnsubscribe: Unsubscribe;
 
   get analyticsid() {
     return this.getAttribute('analyticsid');
@@ -32,12 +40,12 @@ class ToujouTrackingGoogleAnalytics extends HTMLElement {
    */
   connectedCallback() {
     this._handleConsentState(this.consentState);
-    this._storeSubscription = this.store.subscribe(this.onStateChange);
+    this._storeUnsubscribe = this.store.subscribe(this.onStateChange);
   }
 
   disconnectedCallback() {
-    if (this._storeSubscription) {
-      this._storeSubscription.unsubscribe();
+    if (this._storeUnsubscribe) {
+      this._storeUnsubscribe();
     }
   }
 
@@ -79,11 +87,11 @@ class ToujouTrackingGoogleAnalytics extends HTMLElement {
       anonymize_ip: true,
     };
 
-    (window as any).dataLayer = (window as any).dataLayer || [];
+    window.dataLayer = window.dataLayer || [];
     function gtag(...args) {
-      (window as any).dataLayer.push(...args);
+      window.dataLayer.push(...args);
     }
-    (window as any).gtag = gtag;
+    window.gtag = gtag;
 
     if (!this._ga) {
       this._ga = this._addAnalyticsScriptTag(analyticsID);
