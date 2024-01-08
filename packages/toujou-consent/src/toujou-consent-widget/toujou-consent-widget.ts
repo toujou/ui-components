@@ -8,17 +8,24 @@ import {
   undismissConsentBox,
 } from './actions/consent-actions';
 
+import { Store } from 'redux';
+import { ConsentSetting } from '../utils/ConsentSetting';
+
 class ToujouConsentWidget extends LitElement {
 
   public inPage = false;
   public deactivated = false;
 
-  public store: any;
+  public store: Store;
   public consentTypeNames = ['tracking', 'html', 'maps', 'video'];
 
   public listenOn = '*';
 
-  public _state: any;
+  public _state: {
+    consents: {
+      [key: string]: boolean | ConsentSetting
+    }
+  };
 
   static get is() {
     return 'toujou-consent-widget';
@@ -116,6 +123,13 @@ class ToujouConsentWidget extends LitElement {
         this._prepareToSaveConsents();
         this._dismissConsentBox();
         this._dispatchConsentDeactivated();
+      });
+    } else {
+      setTimeout(() => {
+        const focusable = this.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+        if (focusable.length > 0) {
+          (focusable[0] as HTMLElement).focus();
+        }
       });
     }
   }

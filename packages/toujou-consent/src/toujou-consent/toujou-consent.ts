@@ -7,7 +7,6 @@ class ToujouConsent extends LitElement {
   public listenOn: string;
 
   protected _consentType: string;
-  protected _consentInputType: any;
 
   static get is() {
     return 'toujou-consent';
@@ -55,7 +54,7 @@ class ToujouConsent extends LitElement {
     this._handleEvent = this._handleEvent.bind(this);
     this.listenOn = '*';
     this._consentType = this.getAttribute('consenttype');
-    this._consentInputType = this._getConsentInputType();
+    this._getConsentInputType();
     this.consentState = null;
   }
 
