@@ -1,4 +1,4 @@
-import Cookies from 'js-cookie';
+import { cookieStore } from 'cookie-store';
 import { consentsStore } from '../toujou-consent-widget/consentsStore';
 import { Store, Unsubscribe } from 'redux';
 import { ConsentSetting } from '../utils/ConsentSetting';
@@ -129,11 +129,14 @@ class ToujouTrackingMatomo extends HTMLElement {
       _paq.push(['forgetConsentGiven']);
     }
 
-    Object.keys(Cookies.get()).forEach((cookieName) => {
-      if (cookieName.match(/^pk.*$/)) {
-        Cookies.remove(cookieName, { path: '/', domain: window.location.hostname });
-      }
-    });
+    cookieStore.getAll().then(
+      (cookies) => cookies.forEach((cookie) => {
+        if (cookie.name.match(/^_pk.*$/)) {
+          cookieStore.delete(cookie.name);
+        }
+      })
+    );
+
     this.matomoIsInstantiated = false;
   }
 

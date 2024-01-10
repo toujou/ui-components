@@ -1,4 +1,4 @@
-import Cookies from 'js-cookie';
+import { cookieStore } from 'cookie-store';
 import { consentsStore } from '../toujou-consent-widget/consentsStore';
 import { Store, Unsubscribe } from 'redux';
 
@@ -123,7 +123,7 @@ class ToujouTrackingGoogleAnalytics extends HTMLElement {
    */
   _removeGoogleAnalyticsCookies() {
     ['_ga', '_gid', '_gat'].forEach((gaCookie) => {
-      Cookies.remove(gaCookie, { path: '/', domain: window.location.hostname });
+      cookieStore.delete(gaCookie);
     });
     window[`ga-disable-${this.analyticsid}`] = true;
     this.gaIsInstantiated = false;

@@ -20,7 +20,7 @@
     "watch": "rollup --watch --silent --config ../../rollup.config.js "
   },
   "dependencies": {
-    "js-cookie": "^3.0.1",
+    "cookie-store": "^4.0.0-next.2",
     "lit": "^2.0.0-rc.2",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
