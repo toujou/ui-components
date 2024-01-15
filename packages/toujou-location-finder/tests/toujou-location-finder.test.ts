@@ -1,6 +1,7 @@
 import { expect, fixture, html } from '@open-wc/testing';
 
 import '../src/toujou-location-finder';
+import { ToujouLocationFinder } from '../src/toujou-location-finder';
 
 describe('toujou-location-finder basics', () => {
   let element = null;
@@ -157,7 +158,7 @@ describe('toujou-location-finder store', () => {
 describe('toujou-location-finder attributes', () => {
   it('accepts bounds attribute', async () => {
     const testBounds = '[[5.148824, 46.437102], [14.91567, 52.065327]]';
-    const elementWithBounds = await fixture(html`<toujou-location-finder bounds="${testBounds}"></toujou-location-finder>`) as any;
+    const elementWithBounds = await fixture(html`<toujou-location-finder bounds="${testBounds}"></toujou-location-finder>`) as ToujouLocationFinder;
     expect(elementWithBounds.bounds).to.not.be.null;
     expect(elementWithBounds.bounds).to.not.be.undefined;
     expect(typeof elementWithBounds.bounds).to.equal('object');
@@ -166,7 +167,7 @@ describe('toujou-location-finder attributes', () => {
 
   it('accepts teaserURL attribute', async () => {
     const teaserURL = '/placesteaser.html?details=name%2Cdescription';
-    const elementWithTeaserURL = await fixture(html`<toujou-location-finder teaserUrl="${teaserURL}"></toujou-location-finder>`) as any;
+    const elementWithTeaserURL = await fixture(html`<toujou-location-finder teaserUrl="${teaserURL}"></toujou-location-finder>`) as ToujouLocationFinder;
     expect(elementWithTeaserURL.teaserUrl).to.not.be.null;
     expect(elementWithTeaserURL.teaserUrl).to.not.be.undefined;
     expect(elementWithTeaserURL.teaserUrl).to.equal(teaserURL);
@@ -174,7 +175,7 @@ describe('toujou-location-finder attributes', () => {
 
   it('accepts geoJsonUrl attribute', async () => {
     const geoJsonURL = '/placesgeo.json';
-    const elementWithGeojsonURL = await fixture(html`<toujou-location-finder geoJsonUrl="${geoJsonURL}"></toujou-location-finder>`) as any;
+    const elementWithGeojsonURL = await fixture(html`<toujou-location-finder geoJsonUrl="${geoJsonURL}"></toujou-location-finder>`) as ToujouLocationFinder;
     expect(elementWithGeojsonURL.geoJsonUrl).to.not.be.null;
     expect(elementWithGeojsonURL.geoJsonUrl).to.not.be.undefined;
     expect(elementWithGeojsonURL.geoJsonUrl).to.equal(geoJsonURL);
