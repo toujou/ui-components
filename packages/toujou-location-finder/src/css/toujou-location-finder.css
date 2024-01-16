@@ -240,7 +240,7 @@
         left: var(--toujou-location-finder-panel-left, var(--toujou-location-finder-padding));
         transform: var(--toujou-location-finder-panel-transform, translateX(0));
         transition: var(--toujou-location-finder-panel-transition, transform var(--toujou-location-finder-transition-settings));
-        max-height: var(--toujou-location-finder-panel-max-height, calc(100% - calc(var(--toujou-location-finder-padding) * 3) - calc(var(--toujou-location-finder-search-height)) - 1.5rem));
+        height: var(--toujou-location-finder-panel-height, calc(100% - calc(var(--toujou-location-finder-padding) * 3) - calc(var(--toujou-location-finder-search-height)) - 1.5rem));
     }
 
     .teasers {
