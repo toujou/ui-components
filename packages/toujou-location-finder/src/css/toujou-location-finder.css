@@ -123,8 +123,8 @@
     left: var(--toujou-location-finder-loading-bar-left, 0);
     background-color: var(--toujou-location-finder-loading-bar-bg-color, var(--font-color--light));
     z-index: var(--toujou-location-finder-loading-bar-z-index, 1);
-    opacity: var(--toujou-location-finder-loading-bar-opacity, 0);
     pointer-events: var(--toujou-location-finder-loading-bar-pointer-events, none);
+    opacity: 0;
 }
 
 :host([isLoading]) .loading-bar {

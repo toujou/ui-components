@@ -1,5 +1,5 @@
-import { LitElement, html } from 'lit';
-import maplibregl from 'maplibre-gl';
+import { LitElement, html, TemplateResult } from 'lit';
+import maplibregl, { MapLayerMouseEvent } from 'maplibre-gl';
 import MaplibreGeocoder from '@maplibre/maplibre-gl-geocoder';
 import './toujou-location-finder-teaser';
 
@@ -26,7 +26,7 @@ import {
   setPopupCoordinates,
 } from './store/actions/_popup';
 import { getGeoJsonWithHighlights } from './store/selectors/data';
-import { convertToLegacyColorString } from './utils/_utils';
+import { Store } from 'redux';
 
 export class ToujouLocationFinder extends LitElement {
 
@@ -40,13 +40,13 @@ export class ToujouLocationFinder extends LitElement {
 
   public reducedMotion = false;
 
-  public store: any;
+  public store: Store;
 
-  public isLoading: any;
-  public minZoom: any;
+  public isLoading: boolean;
+  public minZoom: number;
   public mapStyle: any;
-  public maxZoom: any;
-  public fitBoundsMaxZoom: any;
+  public maxZoom: number;
+  public fitBoundsMaxZoom: boolean;
 
   protected _geoJsonData = null;
   protected _teasersData = null;
@@ -173,7 +173,7 @@ export class ToujouLocationFinder extends LitElement {
       _hideMap: {
         type: Boolean,
         attribute: 'map-is-hidden',
-        reflect: true
+        reflect: true,
       },
     };
   }
@@ -324,7 +324,10 @@ export class ToujouLocationFinder extends LitElement {
     this._onLocatorError = this._onLocatorError.bind(this);
     this._onMapFeatureHoverEnter = this._onMapFeatureHoverEnter.bind(this);
     this._onMapFeatureHoverLeave = this._onMapFeatureHoverLeave.bind(this);
+    this._onMapFeatureClick = this._onMapFeatureClick.bind(this);
+    this._onMapClick = this._onMapClick.bind(this);
     this._onMapMoveEnd = this._onMapMoveEnd.bind(this);
+    this._initGeocoder = this._initGeocoder.bind(this);
 
     this.geoJsonUrl = '';
     this.filterParams = '';
@@ -341,6 +344,7 @@ export class ToujouLocationFinder extends LitElement {
     this._locatorIsLoading = false;
     this.accessToken = null;
     this._mql = null;
+    this._hideMap = false;
     this._deviceCanHover = window.matchMedia('(hover: hover)').matches;
     this._layers = [];
 
@@ -435,6 +439,7 @@ export class ToujouLocationFinder extends LitElement {
     }
 
     this._initGeocoder();
+    this._initFullscreenControl();
 
     this._map.on('moveend', this._onMapMoveEnd);
 
@@ -446,6 +451,8 @@ export class ToujouLocationFinder extends LitElement {
     this._layers.push(layerId);
     this._map.on('mouseover', layerId, this._onMapFeatureHoverEnter);
     this._map.on('mouseleave', layerId, this._onMapFeatureHoverLeave);
+    this._map.on('click', layerId, this._onMapFeatureClick);
+    this._map.on('click', this._onMapClick);
   }
 
   onMapLayerRemoved(event) {
@@ -453,6 +460,8 @@ export class ToujouLocationFinder extends LitElement {
     this._layers = this._layers.filter((existingLayerId) => existingLayerId !== layerId);
     this._map.off('mouseover', layerId, this._onMapFeatureHoverEnter);
     this._map.off('mouseleave', layerId, this._onMapFeatureHoverLeave);
+    this._map.off('click', layerId, this._onMapFeatureClick);
+    this._map.off('click', this._onMapClick);
   }
 
   /**
@@ -528,45 +537,36 @@ export class ToujouLocationFinder extends LitElement {
     if (this._deviceCanHover) {
       this._map.getCanvas().style.cursor = 'pointer';
       this._setHighlightedFeatureID(event.features[0].properties.uid);
+    }
+  }
+
+  _onMapFeatureClick(event: MapLayerMouseEvent) {
+    if (event.features[0].properties.uid) {
       this._showPopup(event);
     }
   }
 
-  /**
-   * When we stop hovering a map feature:
-   *     - change cursor to grab (default map cursor)
-   *     - reset highlighted featured uid to null
-   *
-   * @param event
-   * @private
-   */
-  _onMapFeatureHoverLeave() {
-    if (this._deviceCanHover) {
-      this._map.getCanvas().style.cursor = 'grab';
-      this._resetHighlightedFeatureID();
+  _onMapClick() {
+    if (this._popupFeature) {
       this.store.dispatch(resetPopupFeature());
       this.store.dispatch(resetPopupCoordinates());
     }
   }
 
-  /**
-   * When the map move stops we reset the pagination and get the new data for the visible area
-   *
-   * @private
-   */
+  _onMapFeatureHoverLeave() {
+    if (this._deviceCanHover) {
+      this._map.getCanvas().style.cursor = 'grab';
+      this._resetHighlightedFeatureID();
+    }
+  }
+
   _onMapMoveEnd() {
     this.store.dispatch(resetPagination());
     this._fetchData();
   }
 
-  /**
-   * Listen to click on the pagination prev and next buttons and set new current page accordingly
-   *
-   * @param event
-   * @private
-   */
-  _onPaginationButtonClick(event) {
-    const paginationAction = event.currentTarget.getAttribute('paginationAction');
+  _onPaginationButtonClick(event: MouseEvent) {
+    const paginationAction = (event.currentTarget as HTMLElement).getAttribute('paginationAction');
     if (paginationAction === 'prev') {
       this.store.dispatch(setPrevPaginationPage());
     }
@@ -575,20 +575,14 @@ export class ToujouLocationFinder extends LitElement {
     }
   }
 
-  /**
-   * Show popup for a feature
-   *    - If feature is of type point: anchor on middle of point
-   *    - If feature of type polygon or line, anchor or current mouse position
-   *
-   * @param event
-   * @private
-   */
-  _showPopup(event) {
+
+  _showPopup(event: MapLayerMouseEvent) {
     const featureType = event.features[0].geometry.type;
     const popupCoordinates = (featureType === 'Point')
       ? event.features[0].geometry.coordinates
       : event.lngLat;
-
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     this.store.dispatch(getPopupFeature(event.features[0].properties.uid, this.teaserUrl));
     popupCoordinates && this.store.dispatch(setPopupCoordinates(popupCoordinates));
   }
@@ -600,18 +594,18 @@ export class ToujouLocationFinder extends LitElement {
    */
   _getCustomProperties() {
     const bodyStyles = window.getComputedStyle(document.body);
-    this._mapPointColor = convertToLegacyColorString(bodyStyles.getPropertyValue('--toujou-location-finder-map-point-color'));
-    this._mapPointColorHover = convertToLegacyColorString(bodyStyles.getPropertyValue('--toujou-location-finder-map-point-color-hover'));
-    this._mapPolygonColor = convertToLegacyColorString(bodyStyles.getPropertyValue('--toujou-location-finder-map-polygon-color'));
-    this._mapPolygonColorHover = convertToLegacyColorString(bodyStyles.getPropertyValue('--toujou-location-finder-map-polygon-color-hover'));
-    this._mapLineColor = convertToLegacyColorString(bodyStyles.getPropertyValue('--toujou-location-finder-map-line-color'));
-    this._mapLineColorHover = convertToLegacyColorString(bodyStyles.getPropertyValue('--toujou-location-finder-map-line-color-hover'));
+    this._mapPointColor = bodyStyles.getPropertyValue('--toujou-location-finder-map-point-color');
+    this._mapPointColorHover = bodyStyles.getPropertyValue('--toujou-location-finder-map-point-color-hover');
+    this._mapPolygonColor = bodyStyles.getPropertyValue('--toujou-location-finder-map-polygon-color');
+    this._mapPolygonColorHover = bodyStyles.getPropertyValue('--toujou-location-finder-map-polygon-color-hover');
+    this._mapLineColor = bodyStyles.getPropertyValue('--toujou-location-finder-map-line-color');
+    this._mapLineColorHover = bodyStyles.getPropertyValue('--toujou-location-finder-map-line-color-hover');
     this._breakpoint = bodyStyles.getPropertyValue('--toujou-location-finder-breakpoint');
 
-    this._clusterBgColor = convertToLegacyColorString(bodyStyles.getPropertyValue('--toujou-location-finder-cluster-background-color'));
+    this._clusterBgColor = bodyStyles.getPropertyValue('--toujou-location-finder-cluster-background-color');
     this._clusterBorderWidth = bodyStyles.getPropertyValue('--toujou-location-finder-cluster-border-width');
-    this._clusterBorderColor = convertToLegacyColorString(bodyStyles.getPropertyValue('--toujou-location-finder-cluster-border-color'));
-    this._clusterTextColor = convertToLegacyColorString(bodyStyles.getPropertyValue('--toujou-location-finder-cluster-text-color'));
+    this._clusterBorderColor = bodyStyles.getPropertyValue('--toujou-location-finder-cluster-border-color');
+    this._clusterTextColor = bodyStyles.getPropertyValue('--toujou-location-finder-cluster-text-color');
     this._clusterTextSize = bodyStyles.getPropertyValue('--toujou-location-finder-cluster-text-size');
     this._clusterRadius = parseInt(bodyStyles.getPropertyValue('--toujou-location-finder-cluster-radius'), 10);
     this._clusterMaxZoom = bodyStyles.getPropertyValue('--toujou-location-finder-cluster-max-zoom');
@@ -639,6 +633,8 @@ export class ToujouLocationFinder extends LitElement {
    * @private
    */
   _fetchData() {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     this.store.dispatch(getMapData(
       this._geoJsonEndpointFull,
       this.teaserUrl,
@@ -663,20 +659,13 @@ export class ToujouLocationFinder extends LitElement {
     `;
   }
 
-  /**
-   * Render the pagination element
-   *
-   * @returns {TemplateResult<1>}
-   * @private
-   */
-  _renderPagination() {
+  _renderPagination(): TemplateResult {
     return html`
       <div class="pagination">
         <button class="pagination__button pagination__button--prev"
                 paginationAction="prev"
                 @click="${this._onPaginationButtonClick}"
                 ?disabled="${this._currentPage === 1}">
-
         </button>
         <div class="pagination__text">${(this._currentPage - 1) * this._maxTeasersPerPage + 1} - ${this._currentPage * this._maxTeasersPerPage}</div>
         <button class="pagination__button pagination__button--next"
@@ -687,13 +676,7 @@ export class ToujouLocationFinder extends LitElement {
     `;
   }
 
-  /**
-   * Render content of the popup element
-   *
-   * @returns {TemplateResult<1>}
-   * @private
-   */
-  _renderPopupContent() {
+  _renderPopupContent(): TemplateResult {
     return html`
         <div class="location-finder-popup">
           ${unsafeHTML(this._popupFeature)}
@@ -701,11 +684,6 @@ export class ToujouLocationFinder extends LitElement {
     `;
   }
 
-  /**
-   * Initialize the mapbox geocoder element
-   *
-   * @private
-   */
   _initGeocoder() {
     const geocoderApi = {
       forwardGeocode: async (config) => {
@@ -761,18 +739,15 @@ export class ToujouLocationFinder extends LitElement {
     this._geocoder.on('results', () => {
       this.store.dispatch(setSearchLoadingEnd());
     });
+
+    const geocoderPlaceholder = document.documentElement.lang === 'en' ? 'Search location' : 'Standort suchen';
+    this._geocoder.setPlaceholder(geocoderPlaceholder);
   }
 
-  /**
-   * Create a custom icon element for the geocoder
-   *
-   * @returns {HTMLDivElement}
-   * @private
-   */
-  _createCustomGeocoderIcon() {
-    const icon = document.createElement('div');
-    icon.className = 'geocoder__custom-icon';
-    return icon;
+  _initFullscreenControl(): void {
+    this._map.addControl(new maplibregl.FullscreenControl({
+      container: this,
+    }));
   }
 
   /**

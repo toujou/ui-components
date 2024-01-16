@@ -43,7 +43,7 @@
     font-weight: var(--toujou-location-finder-search-input-font-weight, var(--headline__weight));
     border-radius: var(--toujou-location-finder-search-input-border-radius, 0);
     border: var(--toujou-location-finder-search-input-border, none);
-    padding: var(--toujou-location-finder-search-input-padding, none);
+    padding: var(--toujou-location-finder-search-input-padding, inherit);
 }
 
 .search .mapboxgl-ctrl-geocoder--input:focus {
