@@ -1,5 +1,11 @@
 :host {
     display: block;
-    max-width: var(--toujou-map-popup-max-width, 90vw);
+    max-width: var(--toujou-map-popup-max-width, 100%);
     width: var(--toujou-map-popup-width, 320px);
+}
+
+@media screen and (max-width: 479px) {
+    :host {
+        width: var(--toujou-map-popup-width, 240px);
+    }
 }
