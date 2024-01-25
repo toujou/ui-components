@@ -1,8 +1,5 @@
 import { LitElement, html } from 'lit';
 
-/**
- * Custom element that renders its content lazily when it becomes visible in the viewport.
- */
 export class ToujouLazyRender extends LitElement {
   private intersectionObserver: IntersectionObserver;
 
@@ -10,9 +7,6 @@ export class ToujouLazyRender extends LitElement {
     return 'toujou-lazy-render';
   }
 
-  /**
-   * Returns an array of template elements from the assigned nodes of the #slot element
-   * */
   get templates(): HTMLTemplateElement[] {
     const slot: HTMLSlotElement = this.shadowRoot.querySelector('#slot');
     const nodes = slot.assignedNodes({ flatten: true }) as HTMLElement[];
