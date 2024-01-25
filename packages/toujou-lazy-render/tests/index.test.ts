@@ -23,7 +23,7 @@ describe('Toujou Lazy Render with templated content', () => {
     element = await fixture(html`
       <toujou-lazy-render>
         <template>
-          <p>This is come templated content</p>
+          <p>This is example templated content</p>
         </template>
       </toujou-lazy-render>
     `);
