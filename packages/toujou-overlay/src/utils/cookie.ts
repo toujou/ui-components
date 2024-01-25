@@ -1,4 +1,4 @@
-const cookieName = (overlayId): string => `toujou-overlay${overlayId}`;
+const cookieName = (overlayId: string): string => `toujou-overlay-${overlayId}`;
 
 export const setOverlayCookie = (overlayID: string, choice: string): void => {
   document.cookie = cookieName(overlayID) + '=' + choice + ';path=/;';
