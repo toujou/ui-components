@@ -88,8 +88,9 @@ class ToujouTrackingGoogleAnalytics extends HTMLElement {
     };
 
     window.dataLayer = window.dataLayer || [];
+
     function gtag(...args) {
-      window.dataLayer.push(...args);
+      window.dataLayer.push(args);
     }
     window.gtag = gtag;
 
