@@ -90,7 +90,8 @@ class ToujouTrackingGoogleAnalytics extends HTMLElement {
     window.dataLayer = window.dataLayer || [];
 
     function gtag(...args) {
-      window.dataLayer.push(args);
+      // eslint-disable-next-line prefer-rest-params
+      window.dataLayer.push(arguments);
     }
     window.gtag = gtag;
 
