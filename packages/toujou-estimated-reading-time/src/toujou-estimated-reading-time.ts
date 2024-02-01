@@ -16,7 +16,7 @@ export class ToujouEstimatedReadingTime extends LitElement {
     minutesSingularText = 'minute';
 
   @property({ type: String, attribute: 'minutes-plural-text' })
-    minutesPluralText = 'minute';
+    minutesPluralText = 'minutes';
 
   @property({ type: String, attribute: 'less-than-text' })
     lessThanText = 'under';

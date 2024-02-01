@@ -152,10 +152,35 @@ describe('Toujou Estimated Reading Time - with target', () => {
     const element: ToujouEstimatedReadingTime = container.querySelector('.estimated-reading-time');
     expect(element.result).to.equal('3 minutes');
   });
+});
 
-  it('gets correct result with custom reading time', async () => {
+describe('Toujou Estimated Reading Time - with target and custom attributes', () => {
+  let container: HTMLElement;
+
+  beforeEach(async () => {
+    container = await fixture(html`
+      <div class='container'>
+        <p class='some-text'>${testText}</p>
+        <toujou-estimated-reading-time
+          class='estimated-reading-time'
+          target-selector='.container .some-text'
+          reading-speed="50"
+          minutes-plural-text="minutos"
+        >
+          <span slot='label'>Estimated reading time:</span>
+        </toujou-estimated-reading-time>
+      </div>
+    `);
+    await new Promise(resolve => setTimeout(resolve, 100));
+  });
+
+  it('can calculate reading time', async () => {
     const element: ToujouEstimatedReadingTime = container.querySelector('.estimated-reading-time');
-    element.readingSpeed = 100;
-    expect(element.result).to.equal('3 minutes');
+    expect(element.duration).to.equal(15);
+  });
+
+  it('gets correct result', async () => {
+    const element: ToujouEstimatedReadingTime = container.querySelector('.estimated-reading-time');
+    expect(element.result).to.equal('15 minutos');
   });
 });
