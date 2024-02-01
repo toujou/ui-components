@@ -2,7 +2,7 @@ import { expect, fixture, html } from '@open-wc/testing';
 
 import '../src/index';
 
-describe('Toujou Exit Warning', () => {
+describe('Toujou Exit Warning - with ', () => {
   let element: Element;
   beforeEach(async () => {
     element = await fixture(html`
