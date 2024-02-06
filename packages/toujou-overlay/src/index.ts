@@ -8,6 +8,8 @@ export class ToujouOverlay extends LitElement {
 
   protected opened = false;
 
+  protected delay = 0;
+
   static styles = [styles];
 
   static get is() {
@@ -19,6 +21,10 @@ export class ToujouOverlay extends LitElement {
         type: Boolean,
         reflect: true,
       },
+      delay: {
+        type: Number,
+        reflect: true,
+      }
     };
   }
 
@@ -30,7 +36,15 @@ export class ToujouOverlay extends LitElement {
       return;
     }
 
-    this.opened = checkOverlayCookie(this.id) !== 'accepted';
+    const opened = checkOverlayCookie(this.id) !== 'accepted';
+
+    if (this.delay > 0) {
+      setTimeout(()=> {
+        this.opened = opened;
+      }, this.delay);
+    } else {
+      this.opened = opened;
+    }
   }
 
   protected updated(changedProperties: PropertyValues) {
