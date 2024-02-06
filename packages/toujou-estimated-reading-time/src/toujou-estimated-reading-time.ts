@@ -1,83 +1,83 @@
-import { LitElement, html, PropertyValues } from 'lit'
-import { customElement, property } from 'lit/decorators.js'
+import { LitElement, html, PropertyValues } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
 
 @customElement('toujou-estimated-reading-time')
 export class ToujouEstimatedReadingTime extends LitElement {
-    @property({ type: Number })
-    wordCount: number = 0;
+  @property({ type: Number })
+    wordCount = 0;
 
-    @property({ type: Number })
-    duration: number = 0;
+  @property({ type: Number })
+    duration = 0;
 
-    @property({ type: String, attribute: 'target-selector'})
-    targetSelector: string = 'body';
+  @property({ type: String, attribute: 'target-selector' })
+    targetSelector = 'body';
 
-    @property({ type: String, attribute: 'minutes-singular-text' })
-    minutesSingularText: string = "minute";
+  @property({ type: String, attribute: 'minutes-singular-text' })
+    minutesSingularText = 'minute';
 
-    @property({ type: String, attribute: 'minutes-plural-text' })
-    minutesPluralText: string = "minutes"
+  @property({ type: String, attribute: 'minutes-plural-text' })
+    minutesPluralText = 'minutes';
 
-    @property({ type: String, attribute: 'less-than-text' })
-    lessThanText: string = "under";
+  @property({ type: String, attribute: 'less-than-text' })
+    lessThanText = 'under';
 
-    @property({ type: Number, attribute: 'reading-speed' })
-    readingSpeed: number = 250;
+  @property({ type: Number, attribute: 'reading-speed' })
+    readingSpeed = 250;
 
-    targetEl: HTMLElement | undefined;
+  targetEl: HTMLElement | undefined;
 
-    get result() {
-        const durationInMinutes = Math.round(this.duration);
-        if (durationInMinutes === 0) {
-            return `${this.lessThanText} 1 ${this.minutesSingularText}`;
-        } else if (durationInMinutes === 1) {
-            return `1 ${this.minutesSingularText}`;
-        } else {
-            return `${durationInMinutes} ${this.minutesPluralText}`
-        }
+  get result() {
+    const durationInMinutes = Math.round(this.duration);
+    if (durationInMinutes === 0) {
+      return `${this.lessThanText} 1 ${this.minutesSingularText}`;
+    } else if (durationInMinutes === 1) {
+      return `1 ${this.minutesSingularText}`;
+    } else {
+      return `${durationInMinutes} ${this.minutesPluralText}`;
     }
+  }
 
-    render() {
-        return html`
-            <slot name="label" class="label"></slot>
-            ${this.result}
-        `
+  render() {
+    return html`
+      <slot name="label" class="label"></slot>
+      ${this.result}
+    `;
+  }
+
+  constructor() {
+    super();
+
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+      setTimeout(this.#init);
+    } else {
+      document.addEventListener('DOMContentLoaded', this.#init);
     }
+  }
 
-    constructor() {
-        super();
-
-        if (document.readyState === "complete" || document.readyState === "interactive") {
-            setTimeout(this.#init);
-        } else {
-            document.addEventListener("DOMContentLoaded", this.#init);
-        }
+  updated(changed: PropertyValues<this>) {
+    if (changed.has('wordCount')) {
+      this.duration = Math.ceil(this.wordCount / this.readingSpeed);
     }
+  }
 
-    updated(changed: PropertyValues<this>) {
-        if (changed.has('wordCount')) {
-            this.duration = Math.ceil(this.wordCount / this.readingSpeed);
-        }
-    }
+  #init = () => {
+    this.targetEl = document.querySelector(`${this.targetSelector}`);
+    if (!this.targetEl) return;
 
-    #init = () => {
-      this.targetEl = document.querySelector(`${this.targetSelector}`);
-        if (!this.targetEl) return;
+    this.wordCount += this.#getWordsInElement(this.targetEl as HTMLElement);
+  };
 
-        this.wordCount += this.#getWordsInElement(this.targetEl as HTMLElement);
-    }
-
-    #getWordsInElement(el: HTMLElement): number {
-        const textContent = el.textContent;
-        const cleanedUpText = textContent?.replace(/[\n\r]+|[\s]{2,}/g, ' ');
-        const trimmedText = cleanedUpText?.trim();
-        const textWithoutSpaces = trimmedText?.split(" ");
-        return textWithoutSpaces?.length || 0;
-    }
+  #getWordsInElement(el: HTMLElement): number {
+    const textContent = el.textContent;
+    const cleanedUpText = textContent?.replace(/[\n\r]+|[\s]{2,}/g, ' ');
+    const trimmedText = cleanedUpText?.trim();
+    const textWithoutSpaces = trimmedText?.split(' ');
+    return textWithoutSpaces?.length || 0;
+  }
 }
 
 declare global {
-    interface HTMLElementTagNameMap {
-        'toujou-estimated-reading-time': ToujouEstimatedReadingTime
-    }
+  interface HTMLElementTagNameMap {
+    'toujou-estimated-reading-time': ToujouEstimatedReadingTime
+  }
 }
