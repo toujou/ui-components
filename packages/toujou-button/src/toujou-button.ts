@@ -1,24 +1,6 @@
-export enum ToujouButtonVariant {
-  PRIMARY ='primary',
-  SECONDARY = 'secondary',
-  FONT = 'font'
-}
-
-export enum ToujouButtonType {
-  DEFAULT = 'default',
-  BORDER = 'border',
-  GHOST = 'ghost'
-}
-
-export enum ToujouButtonSize {
-  TINY = 'tiny',
-  SMALL = 'small',
-  NORMAL = 'normal',
-  LARGE = 'large'
-}
+import { ToujouButtonVariant, ToujouButtonSize, ToujouButtonType } from './toujou-button.types';
 
 export class ToujouButton extends HTMLButtonElement {
-
   defaultButtonVariant: string = ToujouButtonVariant.PRIMARY;
   defaultButtonType: string = ToujouButtonType.DEFAULT;
   defaultButtonSize: string = ToujouButtonSize.NORMAL;
@@ -33,11 +15,10 @@ export class ToujouButton extends HTMLButtonElement {
 
   /**
    * Check if the element has the correct attribute.
-   * If not, print a warning and add the default attributes
+   * If not, print a warning and add the default values to the attributes
    * @private
    */
   private _checkRequiredAttributes() {
-    // Button variant
     const variant = this.getAttribute('button-variant');
     if (!variant) {
       this.setAttribute('button-variant', this.defaultButtonVariant);
@@ -46,7 +27,6 @@ export class ToujouButton extends HTMLButtonElement {
       this.setAttribute('button-variant', this.defaultButtonVariant);
     }
 
-    // Button size
     const size = this.getAttribute('button-size');
     if (!size) {
       this.setAttribute('button-size', this.defaultButtonSize);
@@ -55,7 +35,6 @@ export class ToujouButton extends HTMLButtonElement {
       this.setAttribute('button-size', this.defaultButtonSize);
     }
 
-    // Button size
     const type = this.getAttribute('button-type');
     if (!type) {
       this.setAttribute('button-type', this.defaultButtonType);
