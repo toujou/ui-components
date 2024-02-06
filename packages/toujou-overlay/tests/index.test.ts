@@ -1,4 +1,4 @@
-import { elementUpdated, expect, fixture, html } from '@open-wc/testing';
+import { aTimeout, elementUpdated, expect, fixture, html } from '@open-wc/testing';
 
 import '../src/index';
 import { setOverlayCookie } from '../src/utils/cookie';
@@ -83,6 +83,25 @@ describe('Toujou Overlay', () => {
     expect(element).not.to.have.attribute('opened');
   });
 
+  it('it will open overlay with delay', async () => {
+    element = await fixture(html`
+      <toujou-overlay id="overlay" delay="5">
+        <template><!--
+         <div class="overlay__text">
+            Hello World
+         </div>
+        --></template>
+      </toujou-overlay>
+    `);
+
+    expect(element.querySelector('.overlay__text')).to.be.null;
+
+    await aTimeout(5);
+
+    expect(element).to.have.attribute('opened');
+    expect(element.querySelector('.overlay__text')).not.to.be.null;
+  });
+
   it('it will hide overlay if #aas is  ', async () => {
     window.location.hash = '#aaa';
     element = await fixture(html`
@@ -104,4 +123,5 @@ describe('Toujou Overlay', () => {
     expect(element.querySelector('.overlay__text')).to.be.null;
     expect(element.querySelector('.overlay__buttons')).to.be.null;
   });
+
 });
