@@ -1,4 +1,4 @@
-import { ToujouButtonVariant, ToujouButtonSize, ToujouButtonType } from './toujou-button.types';
+import { ToujouButtonVariant, ToujouButtonSize, ToujouButtonType } from './toujou-button-types';
 
 export class ToujouButton extends HTMLButtonElement {
   defaultButtonVariant: string = ToujouButtonVariant.PRIMARY;
