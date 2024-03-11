@@ -2,6 +2,7 @@ import { LitElement, html } from 'lit';
 import maplibregl from 'maplibre-gl';
 import styles from './toujou-map.css';
 import { isMapboxURL, transformMapboxUrl } from 'maplibregl-mapbox-request-transformer';
+import { getLegacyTransformOptions } from './utils/style-helper';
 
 export class ToujouMap extends LitElement {
   public accessToken = null; // Mapbox access token
@@ -144,7 +145,7 @@ export class ToujouMap extends LitElement {
 
   set mapStyle(mapStyle) {
     // eslint-disable-next-line no-unused-expressions
-    this.map && this.map.setStyle(mapStyle);
+    this.map && this.map.setStyle(mapStyle, getLegacyTransformOptions);
     this.initialMapOptions.style = mapStyle;
   }
 
@@ -275,8 +276,11 @@ export class ToujouMap extends LitElement {
     this.map = new maplibregl.Map({
       container: this.shadowRoot.querySelector('#map'),
       ...this.initialMapOptions,
+      style: null,
       transformRequest,
     });
+    this.map.setStyle(this.initialMapOptions.style, getLegacyTransformOptions);
+
     if (this.fullscreenControl) {
       this.map.addControl(new maplibregl.FullscreenControl());
     }
