@@ -713,7 +713,8 @@ export class ToujouLocationFinder extends LitElement {
               properties: feature.properties,
               text: feature.properties.display_name,
               place_type: ['place'],
-              center,
+              bbox: feature.bbox,
+              center
             };
           });
         } catch (e) {
