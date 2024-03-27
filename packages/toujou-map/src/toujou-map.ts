@@ -2,7 +2,7 @@ import { LitElement, html } from 'lit';
 import maplibregl from 'maplibre-gl';
 import styles from './toujou-map.css';
 import { isMapboxURL, transformMapboxUrl } from 'maplibregl-mapbox-request-transformer';
-import { getLegacyTransformOptions } from './utils/style-helper';
+import { updateLabelLanguageCoalesce, getLegacyTransformOptions } from './utils/style-helper';
 
 export class ToujouMap extends LitElement {
   public accessToken = null; // Mapbox access token
@@ -308,10 +308,13 @@ export class ToujouMap extends LitElement {
           .filter(layerId => /label$/.test(layerId))
           .forEach((layerId) => {
             try {
-              this.map.setLayoutProperty(layerId, 'text-field', [
-                'get',
-                `name_${language}`
-              ]);
+              const currentLayoutProperty = this.map.getLayoutProperty(layerId, 'text-field');
+              this.map.setLayoutProperty(
+                layerId,
+                'text-field',
+                updateLabelLanguageCoalesce(currentLayoutProperty, language)
+              );
+
             } catch (e) {
               console.warn(e);
             }
