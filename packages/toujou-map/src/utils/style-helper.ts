@@ -26,3 +26,12 @@ export const getLegacyTransformOptions = {
     ]
   })
 };
+
+export const updateLabelLanguageCoalesce = (currentProperty: any[], language: string): any[] => {
+  if ('coalesce' === currentProperty[0]) {
+    currentProperty.splice(1, 0, ['get', `name_${language}`]);
+    return currentProperty;
+  }
+
+  return currentProperty;
+};
