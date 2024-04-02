@@ -1,6 +1,6 @@
 {
 	"name": "@toujou/toujou-button",
-	"version": "0.0.0-beta.0",
+	"version": "3.8.2",
 	"author": "toujou",
 	"license": "MIT",
 	"description": "The toujou-button package of toujou ui components",
