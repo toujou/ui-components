@@ -21,6 +21,7 @@ class ToujouSnackbar extends LitElement {
   private _wasReplaced: boolean;
   private _duration: number;
   private _animationRequest: number;
+  buttonAriaLabel: string;
 
   static get is() {
     return 'toujou-snackbar';
@@ -29,7 +30,11 @@ class ToujouSnackbar extends LitElement {
   render() {
     return html`
       <p class="snackbar__message">${this.message}</p>
-      <button class="snackbar__button" @click="${this._handleButtonClick}">${this.buttonText}</button>
+      <button
+        class="snackbar__button"
+        @click="${this._handleButtonClick}"
+        aria-label="${this.buttonAriaLabel}"
+      >${this.buttonText}</button>
     `;
   }
 
@@ -54,6 +59,10 @@ class ToujouSnackbar extends LitElement {
       snackbarType: {
         type: String,
       },
+      buttonAriaLabel: {
+        type: String,
+        attribute: 'button-aria-label'
+      }
     };
   }
 
@@ -84,14 +93,12 @@ class ToujouSnackbar extends LitElement {
     this.cue = [];
     this._animationStart = null;
     this._possibleVariants = ['success', 'warning', 'error', 'info'];
+    this.buttonAriaLabel = 'Close the snackbar';
 
     window.addEventListener('toujou-add-snackbar', () => { this._removeHiddenState(); }, { once: true });
     window.addEventListener('toujou-add-snackbar', (event) => { this._handleAddSnackbar(event); });
   }
 
-  /**
-   * This function fires when the component is appended to the document.
-   */
   connectedCallback() {
     super.connectedCallback();
 
@@ -101,9 +108,6 @@ class ToujouSnackbar extends LitElement {
     this.addEventListener('keydown', this._handleKeyDown.bind(this));
   }
 
-  /**
-   * This function runs every time one of the element's properties is updated
-   */
   updated(_changedProperties) {
     if (_changedProperties.has('cue') && this.cue.length > 0) {
       this._showSnackbar();
