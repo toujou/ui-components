@@ -217,7 +217,12 @@ export class ToujouLocationFinder extends LitElement {
       </toujou-map>
 
       <div class="geocoder-container search"></div>
-      <button class="sidebar__ui-button sidebar__ui-button--locator" @click="${this._onLocatorClick}" ?locatorIsLoading="${this._locatorIsLoading}"></button>
+      <button
+        class="sidebar__ui-button sidebar__ui-button--locator"
+        @click="${this._onLocatorClick}"
+        ?locatorIsLoading="${this._locatorIsLoading}"
+        aria-label="Find my location"
+      ></button>
 
       <slot name="location-finder-map-toggle" @click="${this._handleMapToggleClick}"></slot>
 
