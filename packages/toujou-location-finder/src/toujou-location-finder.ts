@@ -88,6 +88,8 @@ export class ToujouLocationFinder extends LitElement {
   private _hideMap: boolean;
   locatorButtonLabel: string;
 
+  private _defaultMapPadding = 16;
+
   static get is() {
     return 'toujou-location-finder';
   }
@@ -622,17 +624,17 @@ export class ToujouLocationFinder extends LitElement {
     this._clusterMaxZoom = bodyStyles.getPropertyValue('--toujou-location-finder-cluster-max-zoom');
 
     this._mapPaddingMobile = {
-      top: parseInt(bodyStyles.getPropertyValue('--toujou-location-finder-map-padding-mobile-top'), 10),
-      bottom: parseInt(bodyStyles.getPropertyValue('--toujou-location-finder-map-padding-mobile-bottom'), 10),
-      left: parseInt(bodyStyles.getPropertyValue('--toujou-location-finder-map-padding-mobile-left'), 10),
-      right: parseInt(bodyStyles.getPropertyValue('--toujou-location-finder-map-padding-mobile-right'), 10),
+      top: parseInt(bodyStyles.getPropertyValue('--toujou-location-finder-map-padding-mobile-top'), 10) || this._defaultMapPadding,
+      bottom: parseInt(bodyStyles.getPropertyValue('--toujou-location-finder-map-padding-mobile-bottom'), 10) || this._defaultMapPadding,
+      left: parseInt(bodyStyles.getPropertyValue('--toujou-location-finder-map-padding-mobile-left'), 10) || this._defaultMapPadding,
+      right: parseInt(bodyStyles.getPropertyValue('--toujou-location-finder-map-padding-mobile-right'), 10) || this._defaultMapPadding,
     };
 
     this._mapPaddingDesktop = {
-      top: parseInt(bodyStyles.getPropertyValue('--toujou-location-finder-map-padding-desktop-top'), 10),
-      bottom: parseInt(bodyStyles.getPropertyValue('--toujou-location-finder-map-padding-desktop-bottom'), 10),
-      left: parseInt(bodyStyles.getPropertyValue('--toujou-location-finder-map-padding-desktop-left'), 10),
-      right: parseInt(bodyStyles.getPropertyValue('--toujou-location-finder-map-padding-desktop-right'), 10),
+      top: parseInt(bodyStyles.getPropertyValue('--toujou-location-finder-map-padding-desktop-top'), 10) || this._defaultMapPadding,
+      bottom: parseInt(bodyStyles.getPropertyValue('--toujou-location-finder-map-padding-desktop-bottom'), 10) || this._defaultMapPadding,
+      left: parseInt(bodyStyles.getPropertyValue('--toujou-location-finder-map-padding-desktop-left'), 10) || this._defaultMapPadding,
+      right: parseInt(bodyStyles.getPropertyValue('--toujou-location-finder-map-padding-desktop-right'), 10) || this._defaultMapPadding,
     };
 
     this._initMatchMedia();
