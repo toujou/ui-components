@@ -86,6 +86,7 @@ export class ToujouLocationFinder extends LitElement {
   private _geocoder: MaplibreGeocoder;
   private _breakpoint: any;
   private _hideMap: boolean;
+  locatorButtonLabel: string;
 
   static get is() {
     return 'toujou-location-finder';
@@ -175,6 +176,10 @@ export class ToujouLocationFinder extends LitElement {
         attribute: 'map-is-hidden',
         reflect: true,
       },
+      locatorButtonLabel: {
+        type: String,
+        attribute: 'locator-button-label'
+      }
     };
   }
 
@@ -221,7 +226,7 @@ export class ToujouLocationFinder extends LitElement {
         class="sidebar__ui-button sidebar__ui-button--locator"
         @click="${this._onLocatorClick}"
         ?locatorIsLoading="${this._locatorIsLoading}"
-        aria-label="Find my location"
+        aria-label="${this.locatorButtonLabel}"
       ></button>
 
       <slot name="location-finder-map-toggle" @click="${this._handleMapToggleClick}"></slot>
@@ -352,6 +357,7 @@ export class ToujouLocationFinder extends LitElement {
     this._hideMap = false;
     this._deviceCanHover = window.matchMedia('(hover: hover)').matches;
     this._layers = [];
+    this.locatorButtonLabel = 'Find my location';
 
     this.store = locationFinderStore;
     this.store.subscribe(this.onStateChange);
