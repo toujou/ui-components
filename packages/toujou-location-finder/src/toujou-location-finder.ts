@@ -88,6 +88,24 @@ export class ToujouLocationFinder extends LitElement {
   private _hideMap: boolean;
   locatorButtonLabel: string;
 
+  private _cssVarsFallbacks = {
+    mapPadding: 16,
+    mapPointColor: 'var(--primary-color)',
+    mapPointColorHover: 'var(--primary-color--dark)',
+    mapPolygonColor: 'var(--primary-color)',
+    mapPolygonColorHover: 'var(--primary-color--dark)',
+    mapLineColor: 'var(--primary-color)',
+    mapLineColorHover: 'var(--primary-color--dark)',
+    breakpoint: '840px',
+    clusterBgColor: 'var(--primary-color)',
+    clusterBorderWidth: 2,
+    clusterBorderColor: 'var(--primary-color)',
+    clusterTextColor: 'var(--bg-color)',
+    clusterTextSize: 16,
+    clusterRadius: 50,
+    clusterMaxZoom: 20
+  };
+
   static get is() {
     return 'toujou-location-finder';
   }
@@ -605,34 +623,34 @@ export class ToujouLocationFinder extends LitElement {
    */
   _getCustomProperties() {
     const bodyStyles = window.getComputedStyle(document.body);
-    this._mapPointColor = bodyStyles.getPropertyValue('--toujou-location-finder-map-point-color');
-    this._mapPointColorHover = bodyStyles.getPropertyValue('--toujou-location-finder-map-point-color-hover');
-    this._mapPolygonColor = bodyStyles.getPropertyValue('--toujou-location-finder-map-polygon-color');
-    this._mapPolygonColorHover = bodyStyles.getPropertyValue('--toujou-location-finder-map-polygon-color-hover');
-    this._mapLineColor = bodyStyles.getPropertyValue('--toujou-location-finder-map-line-color');
-    this._mapLineColorHover = bodyStyles.getPropertyValue('--toujou-location-finder-map-line-color-hover');
-    this._breakpoint = bodyStyles.getPropertyValue('--toujou-location-finder-breakpoint');
+    this._mapPointColor = bodyStyles.getPropertyValue('--toujou-location-finder-map-point-color') || this._cssVarsFallbacks.mapPointColor;
+    this._mapPointColorHover = bodyStyles.getPropertyValue('--toujou-location-finder-map-point-color-hover') || this._cssVarsFallbacks.mapPointColorHover;
+    this._mapPolygonColor = bodyStyles.getPropertyValue('--toujou-location-finder-map-polygon-color')|| this._cssVarsFallbacks.mapPolygonColor;
+    this._mapPolygonColorHover = bodyStyles.getPropertyValue('--toujou-location-finder-map-polygon-color-hover') || this._cssVarsFallbacks.mapPolygonColorHover;
+    this._mapLineColor = bodyStyles.getPropertyValue('--toujou-location-finder-map-line-color')|| this._cssVarsFallbacks.mapLineColor;
+    this._mapLineColorHover = bodyStyles.getPropertyValue('--toujou-location-finder-map-line-color-hover') || this._cssVarsFallbacks.mapLineColorHover;
+    this._breakpoint = bodyStyles.getPropertyValue('--toujou-location-finder-breakpoint') || this._cssVarsFallbacks.breakpoint;
 
-    this._clusterBgColor = bodyStyles.getPropertyValue('--toujou-location-finder-cluster-background-color');
-    this._clusterBorderWidth = bodyStyles.getPropertyValue('--toujou-location-finder-cluster-border-width');
-    this._clusterBorderColor = bodyStyles.getPropertyValue('--toujou-location-finder-cluster-border-color');
-    this._clusterTextColor = bodyStyles.getPropertyValue('--toujou-location-finder-cluster-text-color');
-    this._clusterTextSize = bodyStyles.getPropertyValue('--toujou-location-finder-cluster-text-size');
-    this._clusterRadius = parseInt(bodyStyles.getPropertyValue('--toujou-location-finder-cluster-radius'), 10);
-    this._clusterMaxZoom = bodyStyles.getPropertyValue('--toujou-location-finder-cluster-max-zoom');
+    this._clusterBgColor = bodyStyles.getPropertyValue('--toujou-location-finder-cluster-background-color') || this._cssVarsFallbacks.clusterBgColor;
+    this._clusterBorderWidth = bodyStyles.getPropertyValue('--toujou-location-finder-cluster-border-width') || this._cssVarsFallbacks.clusterBorderWidth;
+    this._clusterBorderColor = bodyStyles.getPropertyValue('--toujou-location-finder-cluster-border-color') || this._cssVarsFallbacks.clusterBorderColor;
+    this._clusterTextColor = bodyStyles.getPropertyValue('--toujou-location-finder-cluster-text-color') || this._cssVarsFallbacks.clusterTextColor;
+    this._clusterTextSize = bodyStyles.getPropertyValue('--toujou-location-finder-cluster-text-size') || this._cssVarsFallbacks.clusterTextSize;
+    this._clusterRadius = parseInt(bodyStyles.getPropertyValue('--toujou-location-finder-cluster-radius'), 10) || this._cssVarsFallbacks.clusterRadius;
+    this._clusterMaxZoom = bodyStyles.getPropertyValue('--toujou-location-finder-cluster-max-zoom') || this._cssVarsFallbacks.clusterMaxZoom;
 
     this._mapPaddingMobile = {
-      top: parseInt(bodyStyles.getPropertyValue('--toujou-location-finder-map-padding-mobile-top'), 10),
-      bottom: parseInt(bodyStyles.getPropertyValue('--toujou-location-finder-map-padding-mobile-bottom'), 10),
-      left: parseInt(bodyStyles.getPropertyValue('--toujou-location-finder-map-padding-mobile-left'), 10),
-      right: parseInt(bodyStyles.getPropertyValue('--toujou-location-finder-map-padding-mobile-right'), 10),
+      top: parseInt(bodyStyles.getPropertyValue('--toujou-location-finder-map-padding-mobile-top'), 10) || this._cssVarsFallbacks.mapPadding,
+      bottom: parseInt(bodyStyles.getPropertyValue('--toujou-location-finder-map-padding-mobile-bottom'), 10) || this._cssVarsFallbacks.mapPadding,
+      left: parseInt(bodyStyles.getPropertyValue('--toujou-location-finder-map-padding-mobile-left'), 10) || this._cssVarsFallbacks.mapPadding,
+      right: parseInt(bodyStyles.getPropertyValue('--toujou-location-finder-map-padding-mobile-right'), 10) || this._cssVarsFallbacks.mapPadding,
     };
 
     this._mapPaddingDesktop = {
-      top: parseInt(bodyStyles.getPropertyValue('--toujou-location-finder-map-padding-desktop-top'), 10),
-      bottom: parseInt(bodyStyles.getPropertyValue('--toujou-location-finder-map-padding-desktop-bottom'), 10),
-      left: parseInt(bodyStyles.getPropertyValue('--toujou-location-finder-map-padding-desktop-left'), 10),
-      right: parseInt(bodyStyles.getPropertyValue('--toujou-location-finder-map-padding-desktop-right'), 10),
+      top: parseInt(bodyStyles.getPropertyValue('--toujou-location-finder-map-padding-desktop-top'), 10) || this._cssVarsFallbacks.mapPadding,
+      bottom: parseInt(bodyStyles.getPropertyValue('--toujou-location-finder-map-padding-desktop-bottom'), 10) || this._cssVarsFallbacks.mapPadding,
+      left: parseInt(bodyStyles.getPropertyValue('--toujou-location-finder-map-padding-desktop-left'), 10) || this._cssVarsFallbacks.mapPadding,
+      right: parseInt(bodyStyles.getPropertyValue('--toujou-location-finder-map-padding-desktop-right'), 10) || this._cssVarsFallbacks.mapPadding,
     };
 
     this._initMatchMedia();
