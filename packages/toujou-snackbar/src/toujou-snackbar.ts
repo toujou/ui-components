@@ -29,7 +29,11 @@ class ToujouSnackbar extends LitElement {
   render() {
     return html`
       <p class="snackbar__message">${this.message}</p>
-      <button class="snackbar__button" @click="${this._handleButtonClick}">${this.buttonText}</button>
+      <button
+        class="snackbar__button"
+        @click="${this._handleButtonClick}"
+        aria-label="Close the snackbar"
+      >${this.buttonText}</button>
     `;
   }
 
