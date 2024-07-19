@@ -1,6 +1,6 @@
 import { LitElement, PropertyValues } from 'lit';
-import { easeOutQuad } from "./utils/_animationFunction";
-import { counterSettings, counterEventNames } from "./utils/_settings";
+import { easeOutQuad } from './utils/_animationFunction';
+import { counterSettings, counterEventNames } from './utils/_settings';
 
 export class ToujouCounter extends LitElement {
   private startNumber: string;
@@ -22,7 +22,7 @@ export class ToujouCounter extends LitElement {
         this._animate();
         observer.unobserve(this);
       }
-    })
+    });
   }, { threshold: counterSettings.intersectionThreshold });
 
   static get is() {
@@ -42,7 +42,7 @@ export class ToujouCounter extends LitElement {
       type: String,
       attribute: 'animation-speed'
     },
-  }
+  };
 
   protected createRenderRoot(): Element | ShadowRoot {
     return this;
@@ -67,7 +67,7 @@ export class ToujouCounter extends LitElement {
     }
 
     // Check if user has "reduced motion" active
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       this._numberEl.textContent = this.endNumber;
     } else {
       this._init();
@@ -84,7 +84,7 @@ export class ToujouCounter extends LitElement {
     this._observer.observe(this._numberEl);
 
     this._dispatchCounterEvent(counterEventNames.init);
-  }
+  };
 
   /**
    * Create an animation loop to animate from the start to the end values in the selected speed
@@ -115,7 +115,7 @@ export class ToujouCounter extends LitElement {
     };
 
     requestAnimationFrame(animationLoop);
-  }
+  };
 
   /**
    * Get the animation speed from the correct CSS variable
@@ -131,7 +131,7 @@ export class ToujouCounter extends LitElement {
     }
 
     return durationVariable;
-  }
+  };
 
   _dispatchCounterEvent = (eventName: string) => {
     this.dispatchEvent(new CustomEvent(eventName, {
@@ -141,7 +141,7 @@ export class ToujouCounter extends LitElement {
         counter: this
       }
     }));
-  }
+  };
 }
 
 customElements.define(ToujouCounter.is, ToujouCounter);

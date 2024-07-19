@@ -1,1 +1,1 @@
-import "./toujou-counter";
+import './toujou-counter';

@@ -10,4 +10,4 @@ export const counterEventNames = {
   init: 'toujou-counter-init',
   animationStart: 'toujou-counter-animation-start',
   animationEnd: 'toujou-counter-animation-end',
-}
+};
