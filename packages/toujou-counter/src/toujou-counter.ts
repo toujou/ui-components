@@ -20,7 +20,7 @@ export class ToujouCounter extends LitElement {
       if (entry.isIntersecting && entry.intersectionRatio >= counterSettings.intersectionRatio) {
         this._dispatchCounterEvent(counterEventNames.animationStart);
         this._animate();
-        observer.unobserve(this);
+        this._observer.unobserve(this._numberEl);
       }
     });
   }, { threshold: counterSettings.intersectionThreshold });
