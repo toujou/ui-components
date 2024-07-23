@@ -1,7 +1,7 @@
 import { html, LitElement } from 'lit';
 import { iframeResizer } from 'iframe-resizer';
 
-class ToujouIframeResizer extends LitElement {
+export class ToujouIframeResizer extends LitElement {
   static get is() {
     return 'toujou-iframe-resizer';
   }
