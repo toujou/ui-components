@@ -12,9 +12,10 @@ class ToujouIframeResizer extends LitElement {
   }
 
   handleSlotChange(event: Event) {
-    event.target.assignedNodes({ flatten: true })
-      .filter((node) => node instanceof HTMLIFrameElement)
-      .forEach((iframe) => {
+    const eventTarget: HTMLSlotElement = <HTMLSlotElement>event.target;
+    eventTarget.assignedNodes({ flatten: true })
+      .filter((node: Node) => node instanceof HTMLIFrameElement)
+      .forEach((iframe: HTMLIFrameElement) => {
         let iframeOptions = {};
         try {
           iframeOptions = JSON.parse(iframe.getAttribute('toujou-iframe'))

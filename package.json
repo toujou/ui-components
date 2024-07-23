@@ -71,7 +71,7 @@
   "peerDependencies": {
     "@maplibre/maplibre-gl-geocoder": "^1.5.0",
     "cookie-store": "^4.0.0-next.2",
-  	"iframe-resizer": "^4.4.5",
+    "iframe-resizer": "^4.4.5",
     "lit": "^2.0.0-rc.2",
     "maplibre-gl": "^3.6.2",
     "maplibregl-mapbox-request-transformer": "^0.0.2",
