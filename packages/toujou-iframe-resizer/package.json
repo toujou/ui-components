@@ -1,6 +1,6 @@
 {
 	"name": "@toujou/toujou-iframe-resizer",
-	"version": "0.0.0-beta.0",
+	"version": "3.10.0",
 	"author": "toujou",
 	"license": "MIT",
 	"description": "The toujou-iframe-resizer package of toujou ui components",
