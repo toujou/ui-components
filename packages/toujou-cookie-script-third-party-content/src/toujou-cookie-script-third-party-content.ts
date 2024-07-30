@@ -13,10 +13,10 @@ export class ToujouCookieScriptThirdPartyContent extends LitElement {
   COOKIE_NAME = 'CookieScriptConsent';
   CATEGORY_NAME = 'functionality';
   FUNCTIONALITY_STATE_CHANGE_EVENT_NAME = 'CookieScriptCategory-functionality';
-  TEMPLATED_CONTENT_SELECTOR= '.toujou-cookie-script-third-party-content__templated-content';
+  TEMPLATED_CONTENT_SELECTOR = '.toujou-cookie-script-third-party-content__templated-content';
 
   @property({ type: String })
-  contentType: undefined | string = undefined;
+    contentType: undefined | string = undefined;
 
   render() {
     return html`
@@ -29,7 +29,7 @@ export class ToujouCookieScriptThirdPartyContent extends LitElement {
 
   _onSlotChange = () => {
     this._checkIfShouldShow();
-  }
+  };
 
   connectedCallback() {
     super.connectedCallback();
@@ -51,7 +51,7 @@ export class ToujouCookieScriptThirdPartyContent extends LitElement {
     }
 
     window.CookieScript.instance.show();
-  }
+  };
 
   _checkIfShouldShow = () => {
     const cookieValue = this._getCookieValue();
@@ -59,7 +59,7 @@ export class ToujouCookieScriptThirdPartyContent extends LitElement {
     if (cookieValue && cookieValue.categories && cookieValue.categories.includes(this.CATEGORY_NAME)) {
       this._showContent();
     }
-  }
+  };
 
   _getCookieValue = () => {
     let cookieValue = null;
@@ -69,13 +69,13 @@ export class ToujouCookieScriptThirdPartyContent extends LitElement {
     const parts = cookies.split(`; ${this.COOKIE_NAME}=`);
     if (parts.length === 2) {
       cookieValue = parts.pop().split(';').shift();
-      const parsedCookieValue = JSON.parse(cookieValue)
+      const parsedCookieValue = JSON.parse(cookieValue);
 
       return (!parsedCookieValue || !parsedCookieValue.categories)
         ? null
         : parsedCookieValue;
     }
-  }
+  };
 
   /**
    * Check if the template content is commented out

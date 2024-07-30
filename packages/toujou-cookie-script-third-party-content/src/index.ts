@@ -1,1 +1,1 @@
-import "./toujou-cookie-script-third-party-content";
+import './toujou-cookie-script-third-party-content';
