@@ -1,0 +1,26 @@
+:host {
+    display: var(--toujou-cookie-script-third-party-content-display, flex);
+    align-items: var(--toujou-cookie-script-third-party-content-align-items, stretch);
+    justify-content: var(--toujou-cookie-script-third-party-content-justify-content, center);
+    flex-direction: var(--toujou-cookie-script-third-party-content-flex-direction, column);
+    position: var(--toujou-cookie-script-third-party-content-position, relative);
+    top: var(--toujou-cookie-script-third-party-content-top, 0);
+    left: var(--toujou-cookie-script-third-party-content-left, 0);
+    height: var(--toujou-cookie-script-third-party-content-height, 100%);
+    width: var(--toujou-cookie-script-third-party-content-width, 100%);
+}
+
+:host([contenttype='maps']) {
+    position: var(--toujou-cookie-script-third-party-content-maps-position, absolute);
+}
+
+iframe {
+    border: var(--toujou-cookie-script-third-party-content-iframe-border, none);
+    position: var(--toujou-cookie-script-third-party-content-iframe-position, absolute);
+    height: var(--toujou-cookie-script-third-party-content-iframe-height, 100%);
+    width: var(--toujou-cookie-script-third-party-content-iframe-width, 100%);
+}
+
+:host([contenttype='html']) iframe {
+    position: var(--toujou-cookie-script-third-party-content-html-iframe-position, relative);
+}
