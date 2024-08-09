@@ -342,7 +342,7 @@ class ToujouThirdPartyContent extends LitElement {
       .filter((el) => (el as HTMLTemplateElement).tagName === 'TEMPLATE') as HTMLTemplateElement[];
 
     templates.forEach((template) => {
-      if (this.contentType === 'html') {
+      if (this._isCommentedTemplate(template.innerHTML)) {
         const uncommentedTemplateContent = this._uncommentTemplate(template);
         const templateTags = this._getTemplateTags(uncommentedTemplateContent);
         this._appendTags(templateTags);
@@ -358,10 +358,10 @@ class ToujouThirdPartyContent extends LitElement {
   /**
    * Remove the comment marks from the template content
    */
-  _uncommentTemplate(template) {
+  _uncommentTemplate(template: HTMLTemplateElement) {
     return this._isCommentedTemplate(template.innerHTML)
       ? template.innerHTML.substr(4, template.innerHTML.length - 7)
-      : null;
+      : template;
   }
 }
 
