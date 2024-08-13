@@ -1,5 +1,6 @@
 import { LitElement, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
+import styles from './toujou-cookie-script-third-party-content.css';
 
 declare global {
   interface Window {
@@ -17,6 +18,10 @@ export class ToujouCookieScriptThirdPartyContent extends LitElement {
 
   @property({ type: String })
     contentType: undefined | string = undefined;
+
+  static get styles() {
+    return styles;
+  }
 
   render() {
     return html`
