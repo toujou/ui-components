@@ -17,7 +17,7 @@ export class ToujouCookieScriptThirdPartyContent extends LitElement {
   TEMPLATED_CONTENT_SELECTOR = '.toujou-cookie-script-third-party-content__templated-content';
 
   @property({ type: String })
-  contentType: undefined | string = undefined;
+    contentType: undefined | string = undefined;
 
   static get styles() {
     return styles;
