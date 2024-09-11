@@ -15,7 +15,10 @@ let config = {
         nodeResolve({
             mainFields: ['module', 'main'],
             // threat all node_modules as external apart css files
-            resolveOnly: [/^\.{0,2}\/|\.css$/i],
+            resolveOnly: [
+              /^\.{0,2}\/|\.css$/i,
+              'cookie-store'
+            ],
         }),
         ...commonPlugins,
     ],
