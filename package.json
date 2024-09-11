@@ -22,7 +22,8 @@
     "watch-components": "lerna run watch",
     "release": "npm run lint && lerna clean --yes && git clean -dfxq -e .idea -e .vscode && npm ci && npm run build && lerna run --parallel genPackagelock && lerna version --include-merged-tags --exact && lerna publish from-package && git clean -dfxq -e .idea -e .vscode && npm install && git add -A && git commit -m \"release: update package locks\" && git push",
     "generate": "node scripts/generate/index.js",
-    "lint": "npx eslint packages"
+    "lint": "npx eslint packages",
+    "postinstall": "patch-package"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
@@ -49,6 +50,7 @@
     "lerna": "^6.4.1",
     "lit": "^2.0.0-rc.2",
     "outdent": "^0.8.0",
+    "patch-package": "^8.0.0",
     "postcss": "^8.4.20",
     "postcss-cli": "^10.1.0",
     "postcss-import": "^15.1.0",

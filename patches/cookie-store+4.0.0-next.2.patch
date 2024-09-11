@@ -1,0 +1,16 @@
+diff --git a/node_modules/cookie-store/dist/index.js b/node_modules/cookie-store/dist/index.js
+index fb07813..4b88170 100644
+--- a/node_modules/cookie-store/dist/index.js
++++ b/node_modules/cookie-store/dist/index.js
+@@ -275,7 +275,10 @@ class CookieStoreManager {
+         workerSubscriptions.set(this, currentSubcriptions);
+     }
+ }
+-if (!('cookies' in ServiceWorkerRegistration.prototype)) {
++if (
++  typeof ServiceWorkerRegistration !== 'undefined' &&
++  !('cookies' in ServiceWorkerRegistration.prototype)
++) {
+     Object.defineProperty(ServiceWorkerRegistration.prototype, 'cookies', {
+         configurable: true,
+         enumerable: true,
