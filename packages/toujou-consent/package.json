@@ -1,6 +1,6 @@
 {
   "name": "@toujou/toujou-consent",
-  "version": "3.11.1",
+  "version": "3.13.1",
   "description": "A consent element",
   "main": "./dist/toujou-consent.js",
   "module": "./src/toujou-consent.js",
