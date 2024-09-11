@@ -1,6 +1,6 @@
 {
   "name": "@toujou/toujou-consent",
-  "version": "3.13.1",
+  "version": "3.13.2",
   "description": "A consent element",
   "main": "./dist/toujou-consent.js",
   "module": "./src/toujou-consent.js",
@@ -35,5 +35,5 @@
   ],
   "author": "toujou",
   "license": "MIT",
-  "gitHead": "e1bfcc508966aac0d1391d2b19e9fd692c5070fc"
+  "gitHead": "242425541a2e519e6291c43948ad0015e8861efb"
 }
