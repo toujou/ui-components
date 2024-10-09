@@ -1,6 +1,6 @@
 {
 	"name": "@toujou/toujou-datepicker",
-	"version": "3.9.1",
+	"version": "0.0.0-beta.0",
 	"author": "toujou",
 	"license": "MIT",
 	"description": "The toujou-datepicker package of toujou ui components",
