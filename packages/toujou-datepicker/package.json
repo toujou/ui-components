@@ -28,6 +28,7 @@
 	},
 	"keywords": [
 		"toujou",
-		"web-component"
+		"web-component",
+		"date-picker"
 	]
 }
