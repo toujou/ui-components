@@ -1,0 +1,34 @@
+{
+	"name": "@toujou/toujou-datepicker",
+	"version": "3.14.1",
+	"author": "toujou",
+	"license": "MIT",
+	"description": "The toujou-datepicker package of toujou ui components",
+	"type": "module",
+	"main": "./dist/toujou-datepicker.js",
+	"module": "./src/toujou-datepicker.js",
+	"publishConfig": {
+		"access": "public"
+	},
+	"scripts": {
+		"build:lib": "rollup --silent --config ../../rollup.config.js",
+		"build:dist": "rollup --config ../../rollup.config.dist.js",
+		"genPackagelock": "npm i --package-lock-only",
+		"watch": "rollup --watch --silent --config ../../rollup.config.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/toujou/ui-components.git",
+		"directory": "packages/toujou-datepicker"
+	},
+	"dependencies": {
+		"flatpickr": "^4.6.13",
+		"lit": "^2.0.0-rc.2",
+		"tslib": "^2.5.0"
+	},
+	"keywords": [
+		"toujou",
+		"web-component",
+		"date-picker"
+	]
+}

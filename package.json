@@ -73,6 +73,7 @@
   },
   "peerDependencies": {
     "@maplibre/maplibre-gl-geocoder": "^1.5.0",
+    "flatpickr": "^4.6.13",
     "iframe-resizer": "^4.4.5",
     "lit": "^2.0.0-rc.2",
     "maplibre-gl": "^3.6.2",
