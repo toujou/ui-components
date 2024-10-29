@@ -27,6 +27,7 @@ export class ToujouCollectionLoadMore extends LitElement {
   private _handleLoadMoreClick(event: MouseEvent) {
     event.preventDefault();
 
+    let firstNewCardFigure;
     const eventTarget = event.target as HTMLLinkElement|null;
 
     if (null === eventTarget) {
@@ -50,14 +51,16 @@ export class ToujouCollectionLoadMore extends LitElement {
         return dummyElement;
       })
       .then((htmlElement) => {
-        const cards = [].slice.call(htmlElement.querySelector(this.itemsContainerSelector).children);
-        const loadMoreButton = htmlElement.querySelector(ToujouCollectionLoadMore.is);
-        const cardCollection = this.parentNode.querySelector(this.itemsContainerSelector);
+        const newCards = [].slice.call(htmlElement.querySelector(this.itemsContainerSelector).children);
+        const firstNewCard = newCards[0];
+        firstNewCardFigure = firstNewCard?.querySelector('a');
+        const newLoadMoreButton = htmlElement.querySelector(ToujouCollectionLoadMore.is);
+        const cardCollection = document.querySelector(this.itemsContainerSelector);
 
-        cardCollection.append(...cards);
+        cardCollection.append(...newCards);
 
-        if (loadMoreButton) {
-          this.replaceWith(loadMoreButton);
+        if (newLoadMoreButton) {
+          this.replaceWith(newLoadMoreButton);
         } else {
           this.remove();
         }
@@ -71,6 +74,12 @@ export class ToujouCollectionLoadMore extends LitElement {
       })
       .finally(() => {
         this.isLoading = false;
+
+        if (firstNewCardFigure) {
+          requestAnimationFrame(() => {
+            firstNewCardFigure.focus();
+          });
+        }
 
         window.dispatchEvent(new CustomEvent('toujou-collection-load-more-done', {
           bubbles: true,
