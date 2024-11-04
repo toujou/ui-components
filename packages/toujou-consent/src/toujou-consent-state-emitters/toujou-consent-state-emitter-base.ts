@@ -1,8 +1,8 @@
 import { LitElement } from 'lit';
-import { consentsStore } from '../toujou-consent-widget/consentsStore'
+import { consentsStore } from '../toujou-consent-widget/consentsStore';
 import { Store } from 'redux';
-import { ConsentSetting } from "../utils/ConsentSetting";
-import { consentTypeNames } from "../utils/consentTypeNames";
+import { ConsentSetting } from '../utils/ConsentSetting';
+import { consentTypeNames } from '../utils/consentTypeNames';
 
 /**
  * Base class for creating custom web components that handle consent state changes.
@@ -55,7 +55,9 @@ export class ToujouConsentStateEmitterBase extends LitElement {
    * This function is meant to be overridden by derived classes that will implement
    * specific logic for managing consent updates.
    */
-  protected onStateChange() {}
+  protected onStateChange() {
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+  }
 }
 
 customElements.define(ToujouConsentStateEmitterBase.is, ToujouConsentStateEmitterBase);

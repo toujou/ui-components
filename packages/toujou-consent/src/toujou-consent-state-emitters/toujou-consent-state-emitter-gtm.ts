@@ -1,5 +1,5 @@
-import { ToujouConsentStateEmitterBase } from "./toujou-consent-state-emitter-base";
-import { ConsentSetting } from "../utils/ConsentSetting";
+import { ToujouConsentStateEmitterBase } from './toujou-consent-state-emitter-base';
+import { ConsentSetting } from '../utils/ConsentSetting';
 
 interface GtmAdsConsentObject {
   ad_storage: boolean;
@@ -52,7 +52,7 @@ class ToujouConsentStateEmitterGTM extends ToujouConsentStateEmitterBase {
 
     const trackingConsentObject: GtmTrackingInterface = {
       'analytics_storage': consentState,
-    }
+    };
 
     this._updateConsent(trackingConsentObject);
   }
@@ -68,7 +68,7 @@ class ToujouConsentStateEmitterGTM extends ToujouConsentStateEmitterBase {
       'ad_storage': consentState,
       'ad_user_data': consentState,
       'ad_personalization': consentState
-    }
+    };
 
     this._updateConsent(adsConsentObject);
   }
@@ -77,6 +77,7 @@ class ToujouConsentStateEmitterGTM extends ToujouConsentStateEmitterBase {
    * Sends an update to the Google Tag Manager (GTM) consent settings using the `gtag` library.*
    */
   protected _updateConsent(consentObj: GtmAdsConsentObject | GtmTrackingInterface) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     window.gtag('consent', 'update', consentObj);
   }

@@ -10,7 +10,7 @@ import {
 
 import { Store } from 'redux';
 import { ConsentSetting } from '../utils/ConsentSetting';
-import { consentTypeNames } from "../utils/consentTypeNames";
+import { consentTypeNames } from '../utils/consentTypeNames';
 
 class ToujouConsentWidget extends LitElement {
 
