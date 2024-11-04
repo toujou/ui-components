@@ -1,14 +1,16 @@
 import { ToujouConsentStateEmitterBase } from './toujou-consent-state-emitter-base';
 import { ConsentSetting } from '../utils/ConsentSetting';
 
+type GtmOptionValue = 'granted' | 'denied';
+
 interface GtmAdsConsentObject {
-  ad_storage: boolean;
-  ad_user_data: boolean;
-  ad_personalization: boolean;
+  ad_storage: GtmOptionValue;
+  ad_user_data: GtmOptionValue;
+  ad_personalization: GtmOptionValue;
 }
 
 interface GtmTrackingInterface {
-  analytics_storage: boolean
+  analytics_storage: GtmOptionValue;
 }
 
 /**
@@ -48,7 +50,7 @@ class ToujouConsentStateEmitterGTM extends ToujouConsentStateEmitterBase {
    */
   protected _updateGtmTrackingState() {
     const trackingConsent = this._state.consents.tracking as ConsentSetting;
-    const consentState = trackingConsent?.consentGiven === true;
+    const consentState = trackingConsent?.consentGiven === true ? 'granted' : 'denied';
 
     const trackingConsentObject: GtmTrackingInterface = {
       'analytics_storage': consentState,
@@ -62,7 +64,7 @@ class ToujouConsentStateEmitterGTM extends ToujouConsentStateEmitterBase {
    */
   protected _updateGtmAdsState() {
     const adsConsent = this._state.consents.ads as ConsentSetting;
-    const consentState = adsConsent?.consentGiven === true;
+    const consentState = adsConsent?.consentGiven === true ? 'granted' : 'denied';
 
     const adsConsentObject: GtmAdsConsentObject = {
       'ad_storage': consentState,
