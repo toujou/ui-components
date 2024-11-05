@@ -59,5 +59,3 @@ export class ToujouConsentStateEmitterBase extends LitElement {
     // eslint-disable-next-line @typescript-eslint/no-empty-function
   }
 }
-
-customElements.define(ToujouConsentStateEmitterBase.is, ToujouConsentStateEmitterBase);
