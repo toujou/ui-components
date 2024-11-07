@@ -9,7 +9,7 @@ import { consentTypeNames } from '../utils/consentTypeNames';
  * This class sets up a subscription to a consent store, observes state changes,
  * and provides an interface for derived classes to customize consent management.
  */
-export class ToujouConsentStateEmitterBase extends LitElement {
+export abstract class ToujouConsentStateEmitterBase extends LitElement {
 
   /** List of consent type names available for managing various consent categories */
   public consentTypeNames = consentTypeNames;
