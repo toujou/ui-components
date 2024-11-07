@@ -24,46 +24,30 @@ class ToujouConsentStateEmitterGTM extends ToujouConsentStateEmitterBase {
     return 'toujou-consent-state-emitter-gtm';
   }
 
-  constructor() {
-    super();
-  }
-
-  /**
-   * Handles updates to the consent store state.
-   * This function is triggered each time the consent store changes.
-   * If the `gtag` library is available, it updates both GTM tracking and ads consent states accordingly.
-   */
-  protected onStateChange() {
-    this._state = this.store.getState();
+  public onStateChange() {
+    this.state = this.store.getState();
 
     if (!window.gtag) {
-      console.warn('TOUJOU: Could not get the gtag library to set the ads consent state!');
-      return;
+      throw new Error('TOUJOU: Could not get the gtag library to set the ads consent state!');
     }
 
     this._updateGtmTrackingState();
     this._updateGtmAdsState();
   }
 
-  /**
-   * Updates the GTM tracking consent state based on the current consent settings
-   */
   protected _updateGtmTrackingState() {
-    const trackingConsent = this._state.consents.tracking as ConsentSetting;
+    const trackingConsent = this.state.consents.tracking as ConsentSetting;
     const consentState = trackingConsent?.consentGiven === true ? 'granted' : 'denied';
 
     const trackingConsentObject: GtmTrackingInterface = {
       'analytics_storage': consentState,
     };
 
-    this._updateConsent(trackingConsentObject);
+    this._sendGtagConsentUpdate(trackingConsentObject);
   }
 
-  /**
-   * Updates the GTM ads consent state based on the current consent settings for ads
-   */
   protected _updateGtmAdsState() {
-    const adsConsent = this._state.consents.ads as ConsentSetting;
+    const adsConsent = this.state.consents.ads as ConsentSetting;
     const consentState = adsConsent?.consentGiven === true ? 'granted' : 'denied';
 
     const adsConsentObject: GtmAdsConsentObject = {
@@ -72,13 +56,13 @@ class ToujouConsentStateEmitterGTM extends ToujouConsentStateEmitterBase {
       'ad_personalization': consentState
     };
 
-    this._updateConsent(adsConsentObject);
+    this._sendGtagConsentUpdate(adsConsentObject);
   }
 
   /**
    * Sends an update to the Google Tag Manager (GTM) consent settings using the `gtag` library.*
    */
-  protected _updateConsent(consentObj: GtmAdsConsentObject | GtmTrackingInterface) {
+  protected _sendGtagConsentUpdate(consentObj: GtmAdsConsentObject | GtmTrackingInterface) {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     window.gtag('consent', 'update', consentObj);

@@ -38,11 +38,8 @@ export abstract class ToujouConsentStateEmitterBase extends LitElement {
 
     this.onStateChange = this.onStateChange.bind(this);
 
-    // Initialize the store and set up the subscription to listen to state changes
     this.store = consentsStore;
     this.store.subscribe(this.onStateChange);
-
-    // Retrieve the initial consent state from the store
     this.state = this.store.getState();
   }
 
