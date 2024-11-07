@@ -18,7 +18,7 @@ export abstract class ToujouConsentStateEmitterBase extends LitElement {
   public store: Store;
 
   /** Current state of the consents */
-  public _state: {
+  public state: {
     consents: {
       ads: ConsentSetting;
       tracking: ConsentSetting;
@@ -28,10 +28,6 @@ export abstract class ToujouConsentStateEmitterBase extends LitElement {
       consentBoxDismissed: boolean;
     };
   };
-
-  static get is() {
-    return 'toujou-consent-state-emitter-base';
-  }
 
   protected createRenderRoot(): Element | ShadowRoot {
     return this;
@@ -47,7 +43,7 @@ export abstract class ToujouConsentStateEmitterBase extends LitElement {
     this.store.subscribe(this.onStateChange);
 
     // Retrieve the initial consent state from the store
-    this._state = this.store.getState();
+    this.state = this.store.getState();
   }
 
   /**
