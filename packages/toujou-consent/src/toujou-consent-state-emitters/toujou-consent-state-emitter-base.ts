@@ -55,7 +55,5 @@ export abstract class ToujouConsentStateEmitterBase extends LitElement {
    * This function is meant to be overridden by derived classes that will implement
    * specific logic for managing consent updates.
    */
-  protected onStateChange() {
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-  }
+  abstract onStateChange(): void;
 }
