@@ -10,6 +10,7 @@ import {
 
 import { Store } from 'redux';
 import { ConsentSetting } from '../utils/ConsentSetting';
+import { consentTypeNames } from '../utils/consentTypeNames';
 
 class ToujouConsentWidget extends LitElement {
 
@@ -17,7 +18,7 @@ class ToujouConsentWidget extends LitElement {
   public deactivated = false;
 
   public store: Store;
-  public consentTypeNames = ['tracking', 'html', 'maps', 'video'];
+  public consentTypeNames = consentTypeNames;
 
   public listenOn = '*';
 
@@ -97,7 +98,6 @@ class ToujouConsentWidget extends LitElement {
 
     this.store = consentsStore;
     this.store.subscribe(this.onStateChange);
-    this.consentTypeNames = ['tracking', 'html', 'maps', 'video'];
 
     this._state = this.store.getState();
     this._warningVisible = this.inPage;
