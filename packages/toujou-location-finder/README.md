@@ -10,3 +10,6 @@ The `<toujou-location-finder>` an interactive map element with a list of availab
 - redux [^4.0.5]
 - redux-thunk [^2.3.0]
 - reselect [^4.0.0]
+
+## Parts
+The <toujou-location-finder> component exposes several part attributes, enabling customization of its elements' styles from outside the shadow DOM.

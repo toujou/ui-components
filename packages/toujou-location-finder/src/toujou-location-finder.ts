@@ -552,7 +552,7 @@ export class ToujouLocationFinder extends LitElement {
   }
 
   /**
-   * Log error if the was a problem getting the user's location
+   * Log error if there was a problem getting the user's location
    *
    * @param error
    * @private
