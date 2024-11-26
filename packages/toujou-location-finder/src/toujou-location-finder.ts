@@ -215,12 +215,19 @@ export class ToujouLocationFinder extends LitElement {
   render() {
     const hasLayersSlot = this.querySelectorAll('[slot="layers"]').length > 0;
     return html`
-      <div class="loading-bar"></div>
-      <toujou-map class="location-finder__map" @toujou-map-ready="${this._onToujouMapReady}"
-                  .accessToken="${this.accessToken}" .mapStyle="${this.mapStyle}"
-                  .minZoom="${this.minZoom}" .maxZoom="${this.maxZoom}" .fitBoundsMaxZoom="${this.fitBoundsMaxZoom}"
-                  @toujou-map-layer-added="${this.onMapLayerAdded}"
-                  @toujou-map-layer-removed="${this.onMapLayerRemoved}">
+      <div class="loading-bar" part="loading-bar"></div>
+      <toujou-map
+        class="location-finder__map"
+        @toujou-map-ready="${this._onToujouMapReady}"
+        .accessToken="${this.accessToken}"
+        .mapStyle="${this.mapStyle}"
+        .minZoom="${this.minZoom}"
+        .maxZoom="${this.maxZoom}"
+        .fitBoundsMaxZoom="${this.fitBoundsMaxZoom}"
+        @toujou-map-layer-added="${this.onMapLayerAdded}"
+        @toujou-map-layer-removed="${this.onMapLayerRemoved}"
+        part="map"
+      >
           ${hasLayersSlot ? html`<slot name="layers"></slot>` : this.renderLayers()}
 
           <toujou-map-geojson
@@ -233,23 +240,24 @@ export class ToujouLocationFinder extends LitElement {
           </toujou-map-geojson>
 
           ${this._popupFeature && this._popupCoordinates ? html`
-            <toujou-map-popup .coordinates="${this._popupCoordinates}">
+            <toujou-map-popup .coordinates="${this._popupCoordinates}" part="map-popup">
                 ${this._renderPopupContent()}
             </toujou-map-popup>
           ` : ''}
       </toujou-map>
 
-      <div class="geocoder-container search"></div>
+      <div class="geocoder-container search" part="geocoder-container"></div>
       <button
         class="sidebar__ui-button sidebar__ui-button--locator"
         @click="${this._onLocatorClick}"
         ?locatorIsLoading="${this._locatorIsLoading}"
         aria-label="${this.locatorButtonLabel}"
+        part="geocoder-container-locator-button"
       ></button>
 
       <slot name="location-finder-map-toggle" @click="${this._handleMapToggleClick}"></slot>
 
-      <div class="sidebar__panel">
+      <div class="sidebar__panel" part="sidebar-panel">
         ${this._teasersData ? this._renderTeasers() : ''}
         ${this.hasPagination ? this._renderPagination() : ''}
       </div>
@@ -682,7 +690,7 @@ export class ToujouLocationFinder extends LitElement {
    */
   _renderTeasers() {
     return html`
-        <div class="teasers">
+        <div class="teasers" part="teasers">
           ${unsafeHTML(this._teasersData)}
         </div>
     `;
@@ -690,24 +698,32 @@ export class ToujouLocationFinder extends LitElement {
 
   _renderPagination(): TemplateResult {
     return html`
-      <div class="pagination">
-        <button class="pagination__button pagination__button--prev"
-                paginationAction="prev"
-                @click="${this._onPaginationButtonClick}"
-                ?disabled="${this._currentPage === 1}">
-        </button>
-        <div class="pagination__text">${(this._currentPage - 1) * this._maxTeasersPerPage + 1} - ${this._currentPage * this._maxTeasersPerPage}</div>
-        <button class="pagination__button pagination__button--next"
-                paginationAction="next"
-                @click="${this._onPaginationButtonClick}"
-                ?disabled="${this._currentlyVisibleFeaturesUids.length / this._currentPage <= this._maxTeasersPerPage}"></button>
+      <div class="pagination" part="pagination">
+        <button
+          class="pagination__button pagination__button--prev"
+          paginationAction="prev"
+          @click="${this._onPaginationButtonClick}"
+          ?disabled="${this._currentPage === 1}"
+          part="pagination-button pagination-button-prev"
+        ></button>
+        <div
+          class="pagination__text"
+          part="pagination-text"
+        >${(this._currentPage - 1) * this._maxTeasersPerPage + 1} - ${this._currentPage * this._maxTeasersPerPage}</div>
+        <button
+          class="pagination__button pagination__button--next"
+          paginationAction="next"
+          @click="${this._onPaginationButtonClick}"
+          ?disabled="${this._currentlyVisibleFeaturesUids.length / this._currentPage <= this._maxTeasersPerPage}"
+          part="pagination-button pagination-button-next"
+        ></button>
       </div>
     `;
   }
 
   _renderPopupContent(): TemplateResult {
     return html`
-        <div class="location-finder-popup">
+        <div class="location-finder-popup" part="popup">
           ${unsafeHTML(this._popupFeature)}
         </div>
     `;
