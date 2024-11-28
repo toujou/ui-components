@@ -43,7 +43,7 @@ export class ToujouBreadcrumb extends LitElement {
         ${this.listItems
     ? repeat(
       this.listItems.slice(0, this.listItems.length - 1),
-      (item, index) => index, // Unique key based on index
+      (item, index) => index,
       (item) => html`${item.cloneNode(true)}`
     )
     : null}
@@ -79,27 +79,18 @@ export class ToujouBreadcrumb extends LitElement {
     }));
   }
 
-  /**
-   * Initializes the list and listItems properties by querying the DOM.
-   */
   private _initListAndItems() {
     this.list = this.querySelector(ToujouBreadcrumb.SELECTORS.LIST);
     this.listItems = Array.from(this.querySelectorAll(ToujouBreadcrumb.SELECTORS.ITEM));
   }
 
-  /**
-   * Sets up the media query listener to track the screen size and update the component state accordingly.
-   */
   private _initMediaQueryListener() {
     if (this._mql) return;
 
     this._mql = window.matchMedia(`(max-width: ${this.breakpoint}px)`);
     this._mql.addEventListener('change', debounce(this._onMediaQueryChange.bind(this), ToujouBreadcrumb.DEBOUNCE_DELAY));
   }
-
-  /**
-   * Handles changes in the media query state when the screen size crosses the breakpoint.
-   */
+  
   private _onMediaQueryChange(event: MediaQueryListEvent) {
     this.isMobile = event.matches;
     if (!event.matches) this.mobileMenuIsOpen = false;
@@ -131,9 +122,6 @@ export class ToujouBreadcrumb extends LitElement {
     this.breakpoint = Math.ceil(itemsWidth);
   }
 
-  /**
-   * Toggle the state whenever a button is clicked
-   */
   private _handleToggleClick() {
     this.mobileMenuIsOpen = !this.mobileMenuIsOpen;
 
