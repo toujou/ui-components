@@ -2,7 +2,12 @@
 
 All notable changes to the `@toujou/location-finder` package will be documented in this file
 
-## [3.9.4] - 2024-11-26
+## [3.9.5] - 2024-11-28
+
+### Added
+- Added labels for the location finder pagination buttons
+
+- ## [3.9.4] - 2024-11-26
 
 ### Added
 - Added part attributes to node inside the component for easier customization
