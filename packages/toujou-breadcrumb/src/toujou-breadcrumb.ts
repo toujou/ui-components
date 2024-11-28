@@ -1,18 +1,17 @@
-import { html, LitElement } from 'lit'
-import { customElement, property } from 'lit/decorators.js'
+import { html, LitElement } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
 import { repeat } from 'lit/directives/repeat.js';
-
-import { debounce } from "./utils/debounce";
+import { debounce } from './utils/debounce';
 import styles from './css/toujou-breadcrumb.css';
 
 @customElement('toujou-breadcrumb')
 export class ToujouBreadcrumb extends LitElement {
-  @property({ type: Number }) breakpoint: number = 0;
+  @property({ type: Number }) breakpoint = 0;
   @property({ type: Boolean, reflect: true }) isMobile = false;
   @property({ type: HTMLOListElement }) list: HTMLOListElement | null = null;
   @property({ type: Array }) listItems: HTMLLIElement[] | null = [];
   @property({ type: Array }) toggleButtons: HTMLButtonElement[] | null = [];
-  @property({ type: Boolean, reflect: true }) mobileMenuIsOpen: Boolean = false;
+  @property({ type: Boolean, reflect: true }) mobileMenuIsOpen = false;
 
   private _mql: MediaQueryList | undefined;
 
@@ -23,14 +22,14 @@ export class ToujouBreadcrumb extends LitElement {
     ITEM: '.breadcrumb__item',
     TOGGLE: '.breadcrumb__toggle',
     FAKE_LIST: '.breadcrumb__fake-list'
-  }
+  };
 
   private static EVENT_NAMES = {
     MODE_CHANGE: 'toujou-breadcrumb-mode-change',
     CONNECTED: 'toujou-breadcrumb-connected',
     MENU_OPEN: 'toujou-breadcrumb-menu-open',
     MENU_CLOSE: 'toujou-breadcrumb-menu-close',
-  }
+  };
 
   static get styles() {
     return styles;
@@ -42,14 +41,14 @@ export class ToujouBreadcrumb extends LitElement {
       <slot name="list"></slot>
       <div class="breadcrumb__fake-list" part="fake-list">
         ${this.listItems
-          ? repeat(
-            this.listItems.slice(0, this.listItems.length - 1),
-            (item, index) => index, // Unique key based on index
-            (item) => html`${item.cloneNode(true)}`
-          )
-          : null}
+    ? repeat(
+      this.listItems.slice(0, this.listItems.length - 1),
+      (item, index) => index, // Unique key based on index
+      (item) => html`${item.cloneNode(true)}`
+    )
+    : null}
       </div>
-    `
+    `;
   }
 
   constructor() {
@@ -65,7 +64,7 @@ export class ToujouBreadcrumb extends LitElement {
     this.toggleButtons = Array.from(this.querySelectorAll(ToujouBreadcrumb.SELECTORS.TOGGLE));
 
     if (this.breakpoint > 0) {
-      this._initMediaQueryListener()
+      this._initMediaQueryListener();
 
       this.isMobile = this._mql.matches;
     }
