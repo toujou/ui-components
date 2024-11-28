@@ -87,6 +87,8 @@ export class ToujouLocationFinder extends LitElement {
   private _breakpoint: any;
   private _hideMap: boolean;
   locatorButtonLabel: string;
+  paginationPrevButtonTitle: string;
+  paginationNextButtonTitle: string;
 
   private _cssVarsFallbacks = {
     mapPadding: 16,
@@ -197,7 +199,15 @@ export class ToujouLocationFinder extends LitElement {
       locatorButtonLabel: {
         type: String,
         attribute: 'locator-button-label'
-      }
+      },
+      paginationPrevButtonTitle: {
+        type: String,
+        attribute: 'pagination-prev-button-title'
+      },
+      paginationNextButtonTitle: {
+        type: String,
+        attribute: 'pagination-next-button-title'
+      },
     };
   }
 
@@ -384,6 +394,8 @@ export class ToujouLocationFinder extends LitElement {
     this._deviceCanHover = window.matchMedia('(hover: hover)').matches;
     this._layers = [];
     this.locatorButtonLabel = 'Find my location';
+    this.paginationPrevButtonTitle = 'Previous page';
+    this.paginationNextButtonTitle = 'Next page';
 
     this.store = locationFinderStore;
     this.store.subscribe(this.onStateChange);
@@ -705,6 +717,7 @@ export class ToujouLocationFinder extends LitElement {
           @click="${this._onPaginationButtonClick}"
           ?disabled="${this._currentPage === 1}"
           part="pagination-button pagination-button-prev"
+          title="${this.paginationPrevButtonTitle}"
         ></button>
         <div
           class="pagination__text"
@@ -716,6 +729,7 @@ export class ToujouLocationFinder extends LitElement {
           @click="${this._onPaginationButtonClick}"
           ?disabled="${this._currentlyVisibleFeaturesUids.length / this._currentPage <= this._maxTeasersPerPage}"
           part="pagination-button pagination-button-next"
+          title="${this.paginationNextButtonTitle}"
         ></button>
       </div>
     `;
