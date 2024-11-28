@@ -3,12 +3,10 @@ import { customElement, property } from 'lit/decorators.js'
 import { repeat } from 'lit/directives/repeat.js';
 
 import { debounce } from "./utils/debounce";
-import { toujouBreadcrumbStyles } from "./toujou-breadcrumb.styles";
+import styles from './css/toujou-breadcrumb.css';
 
 @customElement('toujou-breadcrumb')
 export class ToujouBreadcrumb extends LitElement {
-  static styles = [toujouBreadcrumbStyles];
-
   @property({ type: Number }) breakpoint: number = 0;
   @property({ type: Boolean, reflect: true }) isMobile = false;
   @property({ type: HTMLOListElement }) list: HTMLOListElement | null = null;
@@ -32,6 +30,10 @@ export class ToujouBreadcrumb extends LitElement {
     CONNECTED: 'toujou-breadcrumb-connected',
     MENU_OPEN: 'toujou-breadcrumb-menu-open',
     MENU_CLOSE: 'toujou-breadcrumb-menu-close',
+  }
+
+  static get styles() {
+    return styles;
   }
 
   render() {
