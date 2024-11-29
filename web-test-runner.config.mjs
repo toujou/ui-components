@@ -48,5 +48,5 @@ export default {
             inject: false
         }),
         postcssLit({}),
-    ]
+    ],
 }
