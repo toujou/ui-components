@@ -17,7 +17,7 @@ export class ToujouClampedContent extends LitElement {
   render() {
     return html`
       <div class="clamped-content" part="clamped-content">
-        <slot name="clamped-content" @slotchange="${this.#updateClampEnabledState}"></slot>
+        <slot name="clamped-content" @slotchange="${this.updateClampEnabledState}"></slot>
       </div>
       <slot name="show-button" class="button-slot" @click="${this.toggleIsOpen}"></slot>
       <slot name="hide-button" class="button-slot" @click="${this.toggleIsOpen}"></slot>
@@ -25,7 +25,7 @@ export class ToujouClampedContent extends LitElement {
   }
 
   firstUpdated() {
-    this.#updateClampEnabledState();
+    this.updateClampEnabledState();
   }
 
   updated(changedProperties: Map<string | number | symbol, unknown>) {
@@ -46,7 +46,7 @@ export class ToujouClampedContent extends LitElement {
     }));
   };
 
-  #updateClampEnabledState = () => {
+  private updateClampEnabledState = () => {
     const contentSlot = this.shadowRoot?.querySelector('slot[name=clamped-content]') as HTMLSlotElement;
     const contentElements = contentSlot?.assignedElements({ flatten: true });
 
