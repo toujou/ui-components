@@ -64,9 +64,3 @@ export class ToujouClampedContent extends LitElement {
     }));
   };
 }
-
-declare global {
-  interface HTMLElementTagNameMap {
-    'toujou-clamped-content': ToujouClampedContent;
-  }
-}
