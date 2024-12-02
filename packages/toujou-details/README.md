@@ -5,7 +5,7 @@ It wraps around to a native <details> element and can be used independently or a
 
 This package has two components:
 - `toujou-details`
-- `toujou-detils-accordion`
+- `toujou-details-accordion`
 
 ## Installation
 
