@@ -15,10 +15,6 @@ export class ToujouDetailsAccordion extends LitElement {
   @property({ attribute: false })
     toujouDetailsElements: Set<ToujouDetails> = new Set();
 
-  constructor() {
-    super();
-  }
-
   connectedCallback() {
     super.connectedCallback();
 
@@ -35,6 +31,8 @@ export class ToujouDetailsAccordion extends LitElement {
   }
 
   disconnectedCallback() {
+    super.disconnectedCallback();
+
     this.removeEventListener(ToujouDetailsEventNames.DETAILS_CONNECTED, this._handleDetailsConnected);
     this.removeEventListener(ToujouDetailsEventNames.DETAILS_TOGGLE, this._handleDetailsToggle);
   }
@@ -58,11 +56,5 @@ export class ToujouDetailsAccordion extends LitElement {
 
   render() {
     return html`<slot></slot>`;
-  }
-}
-
-declare global {
-  interface HTMLElementTagNameMap {
-    'toujou-details-accordion': ToujouDetailsAccordion
   }
 }

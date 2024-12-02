@@ -23,10 +23,6 @@ export class ToujouDetails extends LitElement {
     return styles;
   }
 
-  constructor() {
-    super();
-  }
-
   connectedCallback() {
     super.connectedCallback();
     this.isAccordionItem = Boolean(this.closest(this.accordionParentTag));
@@ -87,11 +83,5 @@ export class ToujouDetails extends LitElement {
         } as ToujouDetailsEventToggleDetails,
       }));
     }
-  }
-}
-
-declare global {
-  interface HTMLElementTagNameMap {
-    'toujou-details': ToujouDetails
   }
 }
