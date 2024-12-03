@@ -18,7 +18,6 @@ export class ToujouDetailsAccordion extends LitElement {
   connectedCallback() {
     super.connectedCallback();
 
-    this.addEventListener(ToujouDetailsEventNames.DETAILS_CONNECTED, this._handleDetailsConnected);
     this.addEventListener(ToujouDetailsEventNames.DETAILS_TOGGLE, this._handleDetailsToggle);
 
     this.dispatchEvent(new CustomEvent(ToujouDetailsEventNames.DETAILS_ACCORDION_CONNECTED, {
@@ -33,14 +32,25 @@ export class ToujouDetailsAccordion extends LitElement {
   disconnectedCallback() {
     super.disconnectedCallback();
 
-    this.removeEventListener(ToujouDetailsEventNames.DETAILS_CONNECTED, this._handleDetailsConnected);
     this.removeEventListener(ToujouDetailsEventNames.DETAILS_TOGGLE, this._handleDetailsToggle);
   }
 
-  _handleDetailsConnected(event: Event): void {
-    const connectedEvent = event as CustomEvent<ToujouDetailsEventConnectedDetails>;
-    const detailsEl = connectedEvent.detail.detailsEl as ToujouDetails;
-    this.toujouDetailsElements.add(detailsEl);
+  firstUpdated() {
+    const slot = this.shadowRoot?.querySelector('slot');
+    if (!slot) return;
+
+    const nodes = slot.assignedElements({ flatten: true });
+
+    nodes.forEach((node) => {
+      if (node.nodeName === 'TOUJOU-DETAILS') {
+        this.toujouDetailsElements.add(node as ToujouDetails);
+      }
+    });
+
+    if (this.toujouDetailsElements.size === 0) {
+      this.setAttribute('has-no-children', '');
+      console.warn('TOUJOU-DETAILS-ACCORDION has no valid children!', this);
+    }
   }
 
   _handleDetailsToggle(event: Event) {

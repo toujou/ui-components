@@ -11,11 +11,6 @@ import {
 export class ToujouDetails extends LitElement {
   detailsEl: HTMLDetailsElement | null = null;
 
-  accordionParentTag = 'toujou-details-accordion';
-
-  @property({ type: Boolean })
-    isAccordionItem = false;
-
   @property({ type: Boolean, reflect: true, attribute: 'is-open' })
     isOpen = false;
 
@@ -25,17 +20,14 @@ export class ToujouDetails extends LitElement {
 
   connectedCallback() {
     super.connectedCallback();
-    this.isAccordionItem = Boolean(this.closest(this.accordionParentTag));
 
-    if (this.isAccordionItem) {
-      this.dispatchEvent(new CustomEvent(ToujouDetailsEventNames.DETAILS_CONNECTED, {
-        bubbles: true,
-        composed: true,
-        detail: {
-          detailsEl: this
-        } as ToujouDetailsEventConnectedDetails
-      }));
-    }
+    this.dispatchEvent(new CustomEvent(ToujouDetailsEventNames.DETAILS_CONNECTED, {
+      bubbles: true,
+      composed: true,
+      detail: {
+        detailsEl: this
+      } as ToujouDetailsEventConnectedDetails
+    }));
 
     // Open for printing
     if (typeof window !== 'undefined' && window.matchMedia('print').matches) {
@@ -73,15 +65,13 @@ export class ToujouDetails extends LitElement {
 
     this.isOpen = eventTarget.hasAttribute('open') || false;
 
-    if (this.isAccordionItem) {
-      this.dispatchEvent(new CustomEvent(ToujouDetailsEventNames.DETAILS_TOGGLE, {
-        bubbles: true,
-        composed: true,
-        detail: {
-          detailsEl: this,
-          state: this.isOpen
-        } as ToujouDetailsEventToggleDetails,
-      }));
-    }
+    this.dispatchEvent(new CustomEvent(ToujouDetailsEventNames.DETAILS_TOGGLE, {
+      bubbles: true,
+      composed: true,
+      detail: {
+        detailsEl: this,
+        state: this.isOpen
+      } as ToujouDetailsEventToggleDetails,
+    }));
   }
 }

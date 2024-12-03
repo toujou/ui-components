@@ -27,30 +27,6 @@ describe('Toujou Details', () => {
     expect(details.hasAttribute('open')).to.be.false;
   });
 
-  it('sets is-accordion-item to true when placed inside an accordion', async () => {
-    const parent = document.createElement('div');
-    parent.innerHTML = `
-      <toujou-details-accordion>
-        <toujou-details></toujou-details>
-      </toujou-details-accordion>
-    `;
-    document.body.appendChild(parent);
-
-    const details: ToujouDetails = parent.querySelector('toujou-details');
-    await details.updateComplete;
-    expect(details.isAccordionItem).to.be.true;
-  });
-
-  it('sets is-accordion-item to false when not placed inside an accordion', async () => {
-    const parent = document.createElement('div');
-    parent.innerHTML = '<toujou-details></toujou-details>';
-    document.body.appendChild(parent);
-
-    const details: ToujouDetails = parent.querySelector('toujou-details');
-    await details.updateComplete;
-    expect(details.isAccordionItem).to.be.false;
-  });
-
   it('dispatches "toujou-details-connected" when added to an accordion', async () => {
     const parent = document.createElement('div');
     parent.innerHTML = `
