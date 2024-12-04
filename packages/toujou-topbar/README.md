@@ -56,5 +56,5 @@ example:
 ```html
 <toujou-topbar style="--toujou-topbar-breakpoint: 600px;"></toujou-topbar>
 ```
-In this example, the mobile view will be triggered when the window width is less than 600px (`matchMedia((width < 600px)`).
+In this example, the mobile view will be triggered when the window width is less than 600px (`matchMedia(width < 600px)`).
 By default, the breakpoint is set to 840px if the CSS variable is not provided.

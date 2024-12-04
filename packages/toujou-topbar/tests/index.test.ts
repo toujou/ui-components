@@ -119,7 +119,7 @@ describe('Toujou Topbar', () => {
       const listener = sinon.spy();
       element.addEventListener('toujou-topbar-breakpoint-change', listener);
 
-      let changeEvent = new MediaQueryListEvent('change', {
+      const changeEvent = new MediaQueryListEvent('change', {
         matches: true,
         media: `(width < ${testBreakpoint})`,
       });

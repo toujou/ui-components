@@ -14,7 +14,7 @@ export class ToujouTopbar extends LitElement {
     _isMobile = false;
 
   public _mql: MediaQueryList;
-  public _breakpoint = `840px`;
+  public _breakpoint = '840px';
   private _handleBurgerButtonClickBound = this._handleBurgerButtonClick.bind(this);
   private _handleMqlChangeBound = this._handleMqlChange.bind(this);
 
@@ -49,7 +49,7 @@ export class ToujouTopbar extends LitElement {
     }
 
     this._mql = window.matchMedia(`(width < ${this._breakpoint})`);
-  }
+  };
 
   _handleBurgerButtonClick(event: CustomEvent<{ state: boolean }>) {
     this._isOpen = event.detail.state;
