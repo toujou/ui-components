@@ -19,8 +19,8 @@ describe('Toujou Topbar', () => {
   it('should have default property values', async () => {
     element = await fixture(html`<toujou-topbar></toujou-topbar>`);
     expect(element._isOpen).to.be.false;
-    expect(element._isMobile).to.equal(window.matchMedia('(max-width: 839px)').matches);
-    expect(element._mql.media).to.equal('(max-width: 839px)');
+    expect(element._isMobile).to.equal(window.matchMedia('(width < 840px)').matches);
+    expect(element._mql.media).to.equal('(width < 840px)');
   });
 
   it('should handle burger button state change event', async () => {
@@ -47,7 +47,7 @@ describe('Toujou Topbar', () => {
 
     let changeEvent = new MediaQueryListEvent('change', {
       matches: true,
-      media: 'max-width: 839px',
+      media: 'width < 840px',
     });
     element._handleMqlChange(changeEvent);
 
@@ -59,7 +59,7 @@ describe('Toujou Topbar', () => {
 
     changeEvent = new MediaQueryListEvent('change', {
       matches: false,
-      media: '(max-width: 839px)',
+      media: '(width < 840px)',
     });
     element._handleMqlChange(changeEvent);
 
@@ -97,5 +97,37 @@ describe('Toujou Topbar', () => {
 
   it('should not use shadow DOM', async () => {
     expect(element.shadowRoot).to.be.null;
+  });
+
+  it('should use default breakpoint if no CSS variable is set', async () => {
+    element.style.removeProperty('--toujou-topbar-breakpoint');
+    element._mql = window.matchMedia('(width < 840px)');
+
+    expect(element._mql.media).to.equal('(width < 840px)');
+    expect(element._isMobile).to.equal(window.matchMedia('(width < 840px)').matches);
+  });
+
+  it('allows custom breakpoint via CSS variable', async () => {
+    const testBreakpoints = ['600px', '50rem', '50vw', '1024px'];
+
+    for (const testBreakpoint of testBreakpoints) {
+      element = await fixture(html`<toujou-topbar style="--toujou-topbar-breakpoint: ${testBreakpoint};"></toujou-topbar>`);
+
+      expect(element._mql.media).to.equal(`(width < ${testBreakpoint})`);
+      expect(element._isMobile).to.equal(window.matchMedia(`(width < ${testBreakpoint})`).matches);
+
+      const listener = sinon.spy();
+      element.addEventListener('toujou-topbar-breakpoint-change', listener);
+
+      let changeEvent = new MediaQueryListEvent('change', {
+        matches: true,
+        media: `(width < ${testBreakpoint})`,
+      });
+      element._handleMqlChange(changeEvent);
+
+      expect(element._isMobile).to.be.true;
+      expect(listener.calledOnce).to.be.true;
+    }
+
   });
 });

@@ -10,12 +10,11 @@ export class ToujouTopbar extends LitElement {
   @property({ type: Boolean, reflect: true, attribute: 'open-nav' })
     _isOpen = false;
 
-  @property({ type: MediaQueryList })
-    _mql: MediaQueryList = window.matchMedia('(max-width: 839px)');
+  @property({ type: Boolean })
+    _isMobile = false;
 
-  @property({ type: Boolean, })
-    _isMobile = this._mql.matches;
-
+  public _mql: MediaQueryList;
+  public _breakpoint = `840px`;
   private _handleBurgerButtonClickBound = this._handleBurgerButtonClick.bind(this);
   private _handleMqlChangeBound = this._handleMqlChange.bind(this);
 
@@ -26,6 +25,10 @@ export class ToujouTopbar extends LitElement {
   connectedCallback() {
     super.connectedCallback();
 
+    this._setMediaQuery();
+
+    this._isMobile = this._mql.matches;
+
     window.addEventListener(this.burgerButtonStateChangeEvent, this._handleBurgerButtonClickBound);
     this._mql.addEventListener('change', this._handleMqlChangeBound);
   }
@@ -35,6 +38,17 @@ export class ToujouTopbar extends LitElement {
 
     window.removeEventListener(this.burgerButtonStateChangeEvent, this._handleBurgerButtonClickBound);
     this._mql.removeEventListener('change', this._handleMqlChangeBound);
+  }
+
+  _setMediaQuery = () => {
+    const computedStyle = getComputedStyle(this);
+    const customBreakpoint = computedStyle.getPropertyValue('--toujou-topbar-breakpoint');
+
+    if (customBreakpoint) {
+      this._breakpoint = customBreakpoint;
+    }
+
+    this._mql = window.matchMedia(`(width < ${this._breakpoint})`);
   }
 
   _handleBurgerButtonClick(event: CustomEvent<{ state: boolean }>) {

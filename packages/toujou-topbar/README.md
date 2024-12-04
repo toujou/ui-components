@@ -46,3 +46,15 @@ npm install @toujou/toujou-topbar
 ## Events
 - `toujou-burger-button-state-change`: Fired when the burger button's state changes. The event's detail contains a state property that indicates whether the navigation is open (`true`) or closed (`false`).
 - `toujou-topbar-breakpoint-change`: Fired when the media query breakpoint changes. The event's detail contains a state property that indicates whether the screen is mobile (`true`) or not (`false`).
+
+## Breakpoint
+You can customize the breakpoint for the mobile view using the `--toujou-topbar-breakpoint` CSS variable.
+This allows you to change the width threshold at which the top bar switches to the mobile layout.
+It must be a valid CSS width value, for instance `1024px` or `60rem`.
+
+example:
+```html
+<toujou-topbar style="--toujou-topbar-breakpoint: 600px;"></toujou-topbar>
+```
+In this example, the mobile view will be triggered when the window width is less than 600px (`matchMedia((width < 600px)`).
+By default, the breakpoint is set to 840px if the CSS variable is not provided.
