@@ -128,6 +128,30 @@ describe('Toujou Topbar', () => {
       expect(element._isMobile).to.be.true;
       expect(listener.calledOnce).to.be.true;
     }
+  });
 
+  it('allows custom breakpoint via CSS variable on root element', async () => {
+    const testBreakpoints = ['600px', '50rem', '50vw', '1024px'];
+
+    for (const testBreakpoint of testBreakpoints) {
+      const rootStyle = document.documentElement.style;
+      rootStyle.setProperty('--toujou-topbar-breakpoint', testBreakpoint);
+      element = await fixture(html`<toujou-topbar></toujou-topbar>`);
+
+      expect(element._mql.media).to.equal(`(width < ${testBreakpoint})`);
+      expect(element._isMobile).to.equal(window.matchMedia(`(width < ${testBreakpoint})`).matches);
+
+      const listener = sinon.spy();
+      element.addEventListener('toujou-topbar-breakpoint-change', listener);
+
+      const changeEvent = new MediaQueryListEvent('change', {
+        matches: true,
+        media: `(width < ${testBreakpoint})`,
+      });
+      element._handleMqlChange(changeEvent);
+
+      expect(element._isMobile).to.be.true;
+      expect(listener.calledOnce).to.be.true;
+    }
   });
 });
