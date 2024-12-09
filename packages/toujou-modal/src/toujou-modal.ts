@@ -2,7 +2,7 @@ import { LitElement, html } from 'lit';
 import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
 import { iframeResizer } from 'iframe-resizer';
 import { handleToujouModalTargetClick } from './toujou-modal-target';
-import styles from './toujou-modal.css';
+import styles from './css/toujou-modal.css';
 import { property } from 'lit/decorators.js';
 import { IframeOptions, ToujouModalEvents } from './types';
 
