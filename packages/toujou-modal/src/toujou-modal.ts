@@ -69,7 +69,6 @@ export class ToujouModal extends LitElement {
 
     window.addEventListener('keydown', this.onKeyDown.bind(this));
     window.addEventListener('message', this.onWindowPostMessage.bind(this));
-    console.log('3333')
   }
 
   render() {

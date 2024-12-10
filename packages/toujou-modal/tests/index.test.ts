@@ -1,6 +1,6 @@
 import { expect, fixture, html, aTimeout } from '@open-wc/testing';
 import '../src/index';
-import { ToujouModal } from "../src/toujou-modal";
+import { ToujouModal } from '../src/toujou-modal';
 
 it('renders the modal with default properties', async () => {
   const el: ToujouModal = await fixture(html`<toujou-modal></toujou-modal>`);
@@ -10,7 +10,7 @@ it('renders the modal with default properties', async () => {
 });
 
 it('opens and closes the modal', async () => {
-    const el: ToujouModal = await fixture(html`<toujou-modal></toujou-modal>`);
+  const el: ToujouModal = await fixture(html`<toujou-modal></toujou-modal>`);
 
   el.open();
   await el.updateComplete;
