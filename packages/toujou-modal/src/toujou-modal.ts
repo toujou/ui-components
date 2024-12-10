@@ -56,17 +56,20 @@ export class ToujouModal extends LitElement {
 
   constructor() {
     super();
+
     this.opened = false;
     this.loading = false;
     this.keepOnClose = false;
+
     this.intersectionObserver = new IntersectionObserver((entries) => {
       entries[0] && this.onPosition(entries[0]);
     });
+
     this.iframeResizerMap = new Map();
+
     window.addEventListener('keydown', this.onKeyDown.bind(this));
     window.addEventListener('message', this.onWindowPostMessage.bind(this));
-
-    this.setAttribute('exportparts', 'scroller, content, modal-content, modal-header, headline, dog-ear-close, modal-header-close, progress-bar');
+    console.log('3333')
   }
 
   render() {
