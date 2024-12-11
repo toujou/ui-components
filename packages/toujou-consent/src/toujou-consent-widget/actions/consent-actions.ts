@@ -1,3 +1,4 @@
+export const CHECK_CONSENT_EXPIRY = 'CHECK_CONSENT_EXPIRY';
 export const CLEAR_CONSENT_TYPE_DATA = 'CLEAR_CONSENT_TYPE_DATA';
 export const SAVE_ALL_CONSENTS = 'SAVE_ALL_CONSENTS';
 export const SAVE_SINGLE_CONSENT = 'SAVE_SINGLE_CONSENT';
@@ -9,6 +10,10 @@ export const INITIAL_STATE = {
     consentBoxDismissed: false,
   },
 };
+
+export const checkConsentExpiry = () => ({
+  type: CHECK_CONSENT_EXPIRY
+});
 
 export const clearConsentTypeData = (consentType) => ({
   type: CLEAR_CONSENT_TYPE_DATA,

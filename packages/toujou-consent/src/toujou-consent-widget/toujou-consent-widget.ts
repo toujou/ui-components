@@ -2,7 +2,6 @@ import { LitElement, html } from 'lit';
 import styles from './css/toujou-consent-widget.css';
 import { consentsStore } from './consentsStore';
 import {
-  clearConsentTypeData,
   saveAllConsents,
   dismissConsentBox,
   undismissConsentBox,
@@ -237,11 +236,12 @@ class ToujouConsentWidget extends LitElement {
     }
     const consentLifetime = this._createConsentLifeInMillis(consentElement.getAttribute('consenttype'), consentElement.getAttribute('consentlifetime'));
     const consentStatus = consentCheckbox.checked;
+    const now = Date.now();
 
     return {
       consentGiven: consentStatus,
-      consentCreationDate: Date.now(),
-      consentExpirationDate: Date.now() + consentLifetime,
+      consentCreationDate: now,
+      consentExpirationDate: now + consentLifetime,
       consentLifetime,
     };
   }
@@ -321,9 +321,7 @@ class ToujouConsentWidget extends LitElement {
   _getConsentTypeState(state, consentType, preChecked) {
     let consentTypeData = null;
 
-    if (!state || !state.consents || !state.consents[consentType]) {
-      consentTypeData = null;
-    } else {
+    if (state?.consents[consentType] ?? null) {
       consentTypeData = state.consents[consentType];
     }
 
@@ -331,42 +329,7 @@ class ToujouConsentWidget extends LitElement {
       return preChecked;
     }
 
-    if (consentTypeData && this._isConsentExpired(consentTypeData)) {
-      this.store.dispatch(clearConsentTypeData(consentType));
-      this._dispatchConsentExpiredEvent(consentType);
-      this._undismissConsentBox();
-      return preChecked;
-    }
-
-    if (consentTypeData && !this._isConsentExpired(consentTypeData)) {
-      return consentTypeData.consentGiven;
-    }
-
-    return consentTypeData;
-  }
-
-  /**
-   * Check if a consent's lifetime has expired
-   * @returns {boolean}
-   */
-  // eslint-disable-next-line class-methods-use-this
-  _isConsentExpired(consentData) {
-    // eslint-disable-next-line max-len
-    return (consentData.consentCreationDate + consentData.consentLifetime > consentData.consentExpirationDate);
-  }
-
-  /**
-   * Dispatch a custom event when a consent expires, so other elements can react to it.
-   */
-  _dispatchConsentExpiredEvent(consentType) {
-    const consentExpiredEvent = new CustomEvent('toujou-consent-expired', {
-      bubbles: true,
-      composed: true,
-      detail: {
-        consentType,
-      },
-    });
-    this.dispatchEvent(consentExpiredEvent);
+    return consentTypeData.consentGiven;
   }
 
   /**
@@ -387,7 +350,7 @@ class ToujouConsentWidget extends LitElement {
   }
 
   /**
-   * Dispatch a custom event when a consent expires,
+   * Dispatch a custom event when a consent box is dismissed,
    * so other elements can react to it.
    */
   _dispatchConsentWidgetDismissedEvent() {

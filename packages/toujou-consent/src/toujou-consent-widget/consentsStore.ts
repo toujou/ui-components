@@ -1,6 +1,7 @@
 import { createStore, compose } from 'redux';
 import consentReducer from './reducers/consent-reducers';
 import { toujouLoadStorageState } from './store-persistence';
+import {checkConsentExpiry} from './actions/consent-actions';
 
 function configureStore() {
   const composeEnhancers = window['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__']
@@ -8,11 +9,12 @@ function configureStore() {
     : compose;
   const composedEnhancers = composeEnhancers();
   const persistedState = toujouLoadStorageState();
-
-  return createStore(
+  const store = createStore(
     consentReducer,
     persistedState,
     composedEnhancers,
   );
+  store.dispatch(checkConsentExpiry());
+  return store;
 }
 export const consentsStore = configureStore();
