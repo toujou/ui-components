@@ -1,6 +1,7 @@
 import { handlePersistanceDataToSave } from '../store-persistence';
 import {
   INITIAL_STATE,
+  CHECK_CONSENT_EXPIRY,
   CLEAR_CONSENT_TYPE_DATA,
   DISMISS_CONSENT_BOX,
   SAVE_ALL_CONSENTS,
@@ -16,6 +17,25 @@ declare global {
 
 function consentReducers(state, action) {
   switch (action.type) {
+  case CHECK_CONSENT_EXPIRY: {
+    const now = Date.now();
+    const consentsData = { ...state.consents };
+    for (const key in consentsData) {
+      // We can only expire non-session consents
+      if (key !== 'consentBoxDismissed'
+        && (consentsData[key]?.consentLifetime ?? 0) > 0
+        && (consentsData[key]?.consentExpirationDate ?? 0) <= now
+      ) {
+        delete consentsData[key];
+        consentsData.consentBoxDismissed = false;
+      }
+    }
+    return {
+      ...state,
+      consents: consentsData,
+    };
+  }
+
   case CLEAR_CONSENT_TYPE_DATA: {
     const newClearedConsents = { ...state.consents };
     delete newClearedConsents[action.payload];

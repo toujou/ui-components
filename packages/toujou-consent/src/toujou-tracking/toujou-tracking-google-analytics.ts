@@ -9,6 +9,7 @@ declare global {
   }
 }
 
+window.dataLayer = window.dataLayer || [];
 
 class ToujouTrackingGoogleAnalytics extends HTMLElement {
   public store: Store;
@@ -29,18 +30,15 @@ class ToujouTrackingGoogleAnalytics extends HTMLElement {
     this.style.display = 'contents';
 
     this.onStateChange = this.onStateChange.bind(this);
-
     this.store = consentsStore;
-    this.store.subscribe(this.onStateChange);
-    this.consentState = this.store.getState().consents.tracking;
   }
 
   /**
    * This function fires when the component is appended to the document.
    */
   connectedCallback() {
-    this._handleConsentState(this.consentState);
     this._storeUnsubscribe = this.store.subscribe(this.onStateChange);
+    this.onStateChange();
   }
 
   disconnectedCallback() {
@@ -53,8 +51,11 @@ class ToujouTrackingGoogleAnalytics extends HTMLElement {
    * This function runs each time the store changes
    */
   onStateChange() {
-    this.consentState = this.store.getState().consents.tracking || null;
-    this._handleConsentState(this.consentState);
+    const changedConsentState = this.store.getState().consents.tracking || null;
+    if (JSON.stringify(changedConsentState) !== JSON.stringify(this.consentState)) {
+      this.consentState = changedConsentState;
+      this._handleConsentState(this.consentState);
+    }
   }
 
   /**
@@ -67,7 +68,7 @@ class ToujouTrackingGoogleAnalytics extends HTMLElement {
     ) {
       this._instantiateGoogleAnalytics(consentState);
     } else {
-      this._removeGoogleAnalyticsCookies();
+      this._disableGoogleAnalytics();
     }
   }
 
@@ -86,8 +87,6 @@ class ToujouTrackingGoogleAnalytics extends HTMLElement {
       cookie_expires: consentState.consentExpirationDate,
       anonymize_ip: true,
     };
-
-    window.dataLayer = window.dataLayer || [];
 
     function gtag(...args) {
       // eslint-disable-next-line prefer-rest-params
@@ -123,7 +122,7 @@ class ToujouTrackingGoogleAnalytics extends HTMLElement {
   /**
    * Remove Google Analytics Cookies
    */
-  _removeGoogleAnalyticsCookies() {
+  _disableGoogleAnalytics() {
     ['_ga', '_gid', '_gat'].forEach((gaCookie) => {
       cookieStore.delete(gaCookie);
     });

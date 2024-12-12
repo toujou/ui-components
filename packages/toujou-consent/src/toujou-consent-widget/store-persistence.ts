@@ -90,10 +90,6 @@ const prepareConsentsDataToSave = (consentsData) => {
   for (const key in consentsData) {
     if (key === 'consentBoxDismissed') { // consentBoxDismissed
       dataToSaveOnLocalStorage[key] = consentsData[key];
-    } else if (key === 'tracking' && consentsData[key].consentLifetime === 0) { // tracking: session
-      dataToSaveOnSessionStorage[key] = consentsData[key];
-    } else if (key === 'tracking' && consentsData[key].consentLifetime > 0) { // session: local
-      dataToSaveOnLocalStorage[key] = consentsData[key];
     } else if (consentsData[key].consentLifetime === 0) { // externals: session
       dataToSaveOnSessionStorage[key] = consentsData[key];
     } else if (consentsData[key].consentLifetime > 0) { // externals: LOCAL
