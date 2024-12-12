@@ -9,6 +9,8 @@ declare global {
   }
 }
 
+window._paq = window._paq || [];
+
 class ToujouTrackingMatomo extends HTMLElement {
 
   public store: Store;
@@ -35,18 +37,16 @@ class ToujouTrackingMatomo extends HTMLElement {
     this.style.display = 'contents';
 
     this.onStateChange = this.onStateChange.bind(this);
-
     this.store = consentsStore;
-    this.store.subscribe(this.onStateChange);
-    this.consentState = this.store.getState().consents.tracking;
   }
 
   /**
    * This function fires when the component is appended to the document.
    */
   connectedCallback() {
-    this._handleConsentState(this.consentState);
+    this._instantiateMatomo();
     this._storeUnsubscribe = this.store.subscribe(this.onStateChange);
+    this.onStateChange();
   }
 
   disconnectedCallback() {
@@ -59,28 +59,48 @@ class ToujouTrackingMatomo extends HTMLElement {
    * This function runs each time the store changes
    */
   onStateChange() {
-    this.consentState = this.store.getState().consents.tracking || null;
-    this._handleConsentState(this.consentState);
-  }
-
-  /**
-   * Handle Google Analytics (check if cookies need to be added or removed)
-   */
-  _handleConsentState(consentState) {
-    if (typeof consentState === 'object'
-      && consentState !== null
-      && consentState.consentGiven
-    ) {
-      this._instantiateMatomo(consentState);
-    } else {
-      this._disableMatomoTracking();
+    const changedConsentState = this.store.getState().consents.tracking || null;
+    if (JSON.stringify(changedConsentState) !== JSON.stringify(this.consentState)) {
+      this.consentState = changedConsentState;
+      this._handleConsentState(this.consentState);
     }
   }
 
   /**
-   * Call the function to start the Google Tracking
+   * Handle Matomo (check if cookies need to be added or removed)
    */
-  _instantiateMatomo(consentState) {
+  private _handleConsentState(consentState) {
+    const { _paq } = window;
+
+    if (typeof consentState === 'object'
+      && consentState !== null
+      && consentState.consentGiven
+    ) {
+      this._enableAnonymizedTracking(consentState, _paq);
+    } else {
+      this._disableAnonymizedTracking(_paq);
+    }
+  }
+
+  private _enableAnonymizedTracking(consentState, _paq: object[]) {
+    _paq.push(['setCookieConsentGiven']);
+  }
+
+  private _disableAnonymizedTracking(_paq: object[]) {
+    _paq.push(['forgetCookieConsentGiven']);
+    cookieStore.getAll().then(
+      (cookies) => cookies.forEach((cookie) => {
+        if (cookie.name.match(/^_pk_.*$/) || cookie.name.match(/^_mtm_.*$/) || cookie.name.match(/^MATOMO.*$/)) {
+          cookieStore.delete(cookie.name);
+        }
+      })
+    );
+  }
+
+  /**
+   * Call the function to start the Matomo Tracking
+   */
+  private _instantiateMatomo() {
     if (this.matomoIsInstantiated) {
       return;
     }
@@ -91,19 +111,12 @@ class ToujouTrackingMatomo extends HTMLElement {
     const scriptSrc = new URL(matomoUrl);
     scriptSrc.pathname = '/matomo.js';
 
-    window._paq = window._paq || [];
     const { _paq } = window;
-    _paq.push(['requireConsent']);
+    _paq.push(['requireCookieConsent']);
     _paq.push(['trackPageView']);
     _paq.push(['enableLinkTracking']);
     _paq.push(['setTrackerUrl', trackerUrl.toString()]);
     _paq.push(['setSiteId', this.siteid]);
-
-    if (consentState.consentLifetime === 0) { // session
-      _paq.push(['setConsentGiven']);
-    } else {
-      _paq.push(['rememberConsentGiven', consentState.consentLifetime / 1000 / 60 / 60]); // in hours
-    }
 
     if (!this._matomo) {
       this._matomo = this._addMatomoScriptTag(scriptSrc);
@@ -113,7 +126,7 @@ class ToujouTrackingMatomo extends HTMLElement {
     this._dispatchMatomoLoadedEvent();
   }
 
-  _addMatomoScriptTag(scriptSrc) {
+  private _addMatomoScriptTag(scriptSrc) {
     const scriptTag = document.createElement('script');
     const firstScriptTag = document.getElementsByTagName('script')[0];
     scriptTag.async = true;
@@ -122,28 +135,10 @@ class ToujouTrackingMatomo extends HTMLElement {
     return true;
   }
 
-  _disableMatomoTracking() {
-    if (this.matomoIsInstantiated) {
-      window._paq = window._paq || [];
-      const { _paq } = window;
-      _paq.push(['forgetConsentGiven']);
-    }
-
-    cookieStore.getAll().then(
-      (cookies) => cookies.forEach((cookie) => {
-        if (cookie.name.match(/^_pk.*$/)) {
-          cookieStore.delete(cookie.name);
-        }
-      })
-    );
-
-    this.matomoIsInstantiated = false;
-  }
-
   /**
    * Dispatch a custom event when the gtag is loaded
    */
-  _dispatchMatomoLoadedEvent() {
+  private _dispatchMatomoLoadedEvent() {
     const matomoLoadedEvent = new CustomEvent('toujou-matomo-loaded', {
       bubbles: true,
       composed: true,
