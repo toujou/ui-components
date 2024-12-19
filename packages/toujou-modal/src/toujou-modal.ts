@@ -1,10 +1,9 @@
 import { LitElement, html } from 'lit';
 import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
-import { iframeResizer } from 'iframe-resizer';
 import { handleToujouModalTargetClick } from './toujou-modal-target';
 import styles from './css/toujou-modal.css';
 import { property } from 'lit/decorators.js';
-import { IframeOptions, ToujouModalEvents } from './types';
+import { ToujouModalEvents } from './types';
 
 const bodyScrollLockOptions = {
   reserveScrollBarGap: true,
@@ -25,9 +24,6 @@ function popFromOpenStack(modal: ToujouModal): void {
   }
 }
 
-/**
- * @todo use toujou-iframe-resizer
- */
 export class ToujouModal extends LitElement {
   static get is() {
     return 'toujou-modal';
@@ -46,7 +42,6 @@ export class ToujouModal extends LitElement {
   @property({ type: Boolean, attribute: 'keep-on-close', reflect: true }) keepOnClose = false;
 
   private intersectionObserver: IntersectionObserver;
-  private iframeResizerMap: Map<HTMLElement, any>;
   private $!: {
     scroller: HTMLElement | null;
     content: HTMLElement | null;
@@ -60,12 +55,11 @@ export class ToujouModal extends LitElement {
     this.opened = false;
     this.loading = false;
     this.keepOnClose = false;
+    console.log('343434');
 
     this.intersectionObserver = new IntersectionObserver((entries) => {
       entries[0] && this.onPosition(entries[0]);
     });
-
-    this.iframeResizerMap = new Map();
 
     window.addEventListener('keydown', this.onKeyDown.bind(this));
     window.addEventListener('message', this.onWindowPostMessage.bind(this));
@@ -86,7 +80,9 @@ export class ToujouModal extends LitElement {
                 `}
               <div id="progress-bar" part="progress-bar"></div>
             </div>
-            <slot id="slot" @slotchange="${this.onSlotchange}"></slot>
+            <toujou-iframe-resizer>
+                <slot id="slot"></slot>
+            </toujou-iframe-resizer>
           </div>
         </div>
       </div>
@@ -183,62 +179,6 @@ export class ToujouModal extends LitElement {
     const potentialTop = Math.max(observerEntry.intersectionRect.y, Math.abs(observerEntry.boundingClientRect.y));
     this.$.content.style['min-height'] = `${observerEntry.intersectionRect.height}px`;
     this.$.content.style.top = potentialTop ? `${potentialTop}px` : '';
-  }
-
-  onSlotchange() {
-    const iframes = this.$.slot.assignedNodes().filter((node) => node instanceof HTMLIFrameElement);
-
-    this.iframeResizerMap.forEach((iframe) => {
-      if (!iframes.includes(iframe)) {
-        this.iframeResizerMap.delete(iframe);
-      }
-    });
-
-    iframes.forEach((iframe: HTMLIFrameElement) => {
-      this.loading = true;
-      iframe.addEventListener('load', () => {
-        if (!this.iframeResizerMap.has(iframe)) {
-          this.listenToIframeReadyState(iframe);
-        }
-      });
-    });
-  }
-
-  listenToIframeReadyState(iframe: HTMLIFrameElement) {
-    this.loading = true;
-    this.iframeResizerMap.set(iframe, this.createIframeResizer(iframe));
-
-    iframe.contentWindow.addEventListener('beforeunload', () => {
-      this.loading = true;
-    });
-
-    try {
-      this.title = iframe.contentWindow.document.title || this.title;
-    } catch (e) {
-      this.title = '';
-    }
-    this.loading = false;
-    this.dispatchModalEvent(ToujouModalEvents.LOADED);
-  }
-
-  createIframeResizer(iframe: HTMLIFrameElement) {
-    let iframeOptions: IframeOptions = {};
-
-    try {
-      iframeOptions = JSON.parse(iframe.getAttribute('toujou-iframe')) || {};
-    } catch (e) {
-      (console.error || console.log).call(console, e.stack || e);
-    }
-
-    iframeOptions.initCallback = () => {
-      this.loading = false;
-    };
-
-    iframeOptions.closedCallback = () => {
-      this.close();
-    };
-
-    return iframeResizer(iframeOptions, iframe);
   }
 
   dispatchModalEvent(eventName: string) {

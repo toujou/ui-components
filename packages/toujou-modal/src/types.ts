@@ -14,11 +14,6 @@ export interface IdHash {
 
 export type Body = [string, string][];
 
-export interface IframeOptions {
-  initCallback?: () => void;
-  closedCallback?: () => void;
-}
-
 export enum ToujouModalEvents {
   OPENED = 'toujou-modal-opened',
   CLOSED = 'toujou-modal-closed',
