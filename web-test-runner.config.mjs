@@ -35,7 +35,6 @@ export default {
             resolve: ['', './index.js', '.js', '.ts', './index.ts'],
             entries: {
                 '@mapbox/mapbox-gl-geocoder': `${nodeModulesPath}/@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.min.js`,
-                'iframe-resizer': `${nodeModulesPath}/iframe-resizer/index.js`,
             },
         }),
         replace({
