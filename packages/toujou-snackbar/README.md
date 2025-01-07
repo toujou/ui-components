@@ -12,9 +12,9 @@ We can customize the `toujou-snackbar` type ('auto' or 'action'), message, durat
 
 ## Events
 
-### `add-snackbar` event
-The toujou-snackbar element is triggered via the `add-snackbar` custom event (which can be dispatch by any other elements).
-The `add-snackbar` event needs:
+### `toujou-add-snackbar` event
+The toujou-snackbar element is triggered via the `toujou-add-snackbar` custom event (which can be dispatch by any other elements).
+The `toujou-add-snackbar` event needs:
 
 | Property | Type | Description | Accepted Values | Default | Required by |
 |----------|------|-------------|-----------------|---------|-------------|
@@ -24,13 +24,13 @@ The `add-snackbar` event needs:
 | `duration` | Number | Number of milliseconds to show the snackbar | - | 3000 | 'auto' |
 | `variant` | String | Name of variant to use | 'success', 'warning', 'error', 'info' | - | - |
 
-## Examples of `add-snackbar` custom events
+## Examples of `toujou-add-snackbar` custom events
 
 ### 'Auto' Snackbar.
 'Auto' Snackbars are dismissed automatically after a certain amount of time. The suggested values are between 3 and 10 seconds.
 
 ```javascript
-const addSnackbarEvent = new CustomEvent('add-snackbar', {
+const addSnackbarEvent = new CustomEvent('toujou-add-snackbar', {
    bubbles: true,
    composed: true,
    detail: {
@@ -46,7 +46,7 @@ const addSnackbarEvent = new CustomEvent('add-snackbar', {
 'Action' Snackbars are not dismissed automatically. The user needs to take action to dismiss them.
 
 ```javascript
-const addSnackbarEvent = new CustomEvent('add-snackbar', {
+const addSnackbarEvent = new CustomEvent('toujou-add-snackbar', {
    bubbles: true,
    composed: true,
    detail: {
@@ -123,7 +123,7 @@ Style the `.snackbar__button:hover` inside the `toujou-snackbar` element
 ## Variants
 The `toujou-snackbar` element has 5 variants: `default`, `success`, `warning`, `error` and `info`.
 
-To choose the variant you want to use you just need to add the `variant` property to the `add-snackbar` custom event.
+To choose the variant you want to use you just need to add the `variant` property to the `toujou-add-snackbar` custom event.
 
 If there is no `variant` property, the `default` variant will be used.
 
