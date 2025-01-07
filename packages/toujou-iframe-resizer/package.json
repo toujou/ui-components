@@ -21,7 +21,9 @@
 	},
 	"dependencies": {
 		"lit": "^2.0.0-rc.2",
-		"tslib": "^2.5.0"
+		"tslib": "^2.5.0",
+		"@types/iframe-resizer": "^3.5.13",
+		"iframe-resizer": "^4.4.5"
 	},
 	"keywords": [
 		"toujou",
