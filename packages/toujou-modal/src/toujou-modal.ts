@@ -72,9 +72,9 @@ export class ToujouModal extends LitElement {
           <div id="modal-content" part="modal-content">
             <div id="modal-header" part="modal-header">
               ${this.noHeader
-                ? html`
+    ? html`
                   <button id="dog-ear-close" dialog-dismiss part="dog-ear-close"></button>`
-                : html`
+    : html`
                   <h3 part="headline">${this.title}</h3>
                   <button id="modal-header-close" dialog-dismiss part="modal-header-close">×</button>
                 `}
