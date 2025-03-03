@@ -135,7 +135,7 @@ class ToujouThirdPartyContent extends LitElement {
   // eslint-disable-next-line class-methods-use-this
   _createNewConsentData(consentElement) {
     const elementLifetimeValue = consentElement.getAttribute('consentLifetime');
-    const consentLifetime = elementLifetimeValue * 24 * 60 * 60;
+    const consentLifetime = elementLifetimeValue * 24 * 60 * 60 * 1000;
 
     return {
       consentGiven: true,

@@ -258,7 +258,7 @@ class ToujouConsentWidget extends LitElement {
       return consentLifetime === '0' ? 24 * 60 * 60 * 1000 * 730 : 0;
     }
 
-    return consentLifetime * 24 * 60 * 60;
+    return consentLifetime * 24 * 60 * 60 * 1000;
   }
 
   /**
