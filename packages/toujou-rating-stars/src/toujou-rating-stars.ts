@@ -20,6 +20,9 @@ export class ToujouRatingStars extends LitElement {
   @property({ type: Number, attribute: 'rating-value' })
   ratingValue = 0;
 
+  @property({ type: String, attribute: 'rating-suffix' })
+  ratingSuffix = '';
+
   @property({ type: Number })
   percentage = 0;
 
@@ -27,12 +30,17 @@ export class ToujouRatingStars extends LitElement {
 
   render() {
     return html`
-      ${this.entities.map((entity: string) => {
-        return html`
-          <span class="entity">${entity}</span>
-        `;
-      })}
-      <span class="overlay"></span>
+      <span class="entities" part="entities">
+        ${this.entities.map((entity: string) => {
+          return html`
+            <span class="entity" part="entity">${entity}</span>
+          `;
+        })}
+        <span class="overlay" part="overlay"></span>
+      </span>
+      ${this.ratingSuffix ? html`
+        <span class="suffix" part="suffix">${this.ratingSuffix}</span>
+      ` : ''}
     `;
   }
 
