@@ -9,7 +9,16 @@
     --rating-stars-overlay-background-color: transparent;
     --rating-stars-overlay-backdrop-filter: grayscale(1);
 
+    --rating-stars-suffix-font-family: var(--font-family-text);
+    --rating-stars-suffix-color: var(--color-font);
+    --rating-stars-suffix-letter-spacing: normal;
+    --rating-stars-suffix-letter-margin: 0 0 0 var(--spacing-xs);
+
     position: var(--rating-stars-entity-position);
+}
+
+.entities {
+    position: relative;
 }
 
 .entity {
@@ -26,4 +35,11 @@
     background-color: var(--rating-stars-overlay-background-color);
     backdrop-filter: var(--rating-stars-overlay-backdrop-filter);
     display: block;
+}
+
+.suffix {
+    font-family: var(--rating-stars-suffix-font-family);
+    color: var(--rating-stars-suffix-color);
+    letter-spacing: --rating-stars-suffix-letter-spacing);
+    margin: var(--rating-stars-suffix-letter-margin);
 }
