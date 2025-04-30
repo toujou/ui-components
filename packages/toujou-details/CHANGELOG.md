@@ -2,7 +2,12 @@
 
 All notable changes to the `@toujou/toujou-details` package will be documented in this file
 
-## [1.0.1] - 2024-12-03
+## [1.0.2] - 2025-04-30
+
+### Fixed
+- Show outline on the details summary on ::focus-visible instead of on :focus
+
+- ## [1.0.1] - 2024-12-03
 
 ### Fixed
 - Remove is-accordion-item from the toujou-details
