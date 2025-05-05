@@ -1,76 +1,35 @@
-import { LitElement, html, PropertyValues } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
-import styles from './css/toujou-rating-stars.css';
-
-/* eslint-disable indent */
+import { html, LitElement } from "lit";
+import { customElement, property } from "lit/decorators.js";
 
 @customElement('toujou-rating-stars')
 export class ToujouRatingStars extends LitElement {
-  static styles = [styles];
+  @property({ type: Number, attribute: 'rating-value' }) rating = 0;
+  @property({ type: Number, attribute: 'rating-total' }) total = 5;
+  @property({ type: String, attribute: 'rating-suffix' }) suffix = '';
 
-  @property({ type: Array })
-  entities: string[] = [];
+  createRenderRoot() {
+    return this;
+  }
 
-  @property({ type: String, attribute: 'rating-entity' })
-  ratingEntity = '★';
+  protected render() {
+    const stars = [];
 
-  @property({ type: Number, attribute: 'rating-total' })
-  ratingTotal = 5;
+    for (let i = 0; i < this.total; i++) {
+      let value = 0;
+      if (this.rating >= i + 1) {
+        value = 100;
+      } else if (this.rating > i) {
+        value = Math.round((this.rating - i) * 100);
+      }
 
-  @property({ type: Number, attribute: 'rating-value' })
-  ratingValue = 0;
+      stars.push(html`
+        <span class="rating-stars__star" aria-hidden="true" star-value="${value}"></span>
+      `);
+    }
 
-  @property({ type: String, attribute: 'rating-suffix' })
-  ratingSuffix = '';
-
-  @property({ type: Number })
-  percentage = 0;
-
-  private readonly percentageCssVariable = '--rating-stars-percentage';
-
-  render() {
     return html`
-      <span class="entities" part="entities">
-        ${this.entities.map((entity: string) => {
-          return html`
-            <span class="entity" part="entity">${entity}</span>
-          `;
-        })}
-        <span class="overlay" part="overlay"></span>
-      </span>
-      ${this.ratingSuffix ? html`
-        <span class="suffix" part="suffix">${this.ratingSuffix}</span>
-      ` : ''}
+      ${stars}
+      ${this.suffix.length ? html`<span class="rating-stars__suffix" aria-hidden="true">${this.suffix}</span>` : '' }
     `;
-  }
-
-  /**
-   * Update the percentage when the relevant attributes change
-   * @param changed
-   */
-  updated(changed: PropertyValues<this>) {
-    if (changed.has('ratingTotal')) {
-      this.entities = Array(this.ratingTotal).fill(this.ratingEntity);
-      this.updatePercentage();
-    }
-    if (changed.has('ratingValue')) {
-      this.entities = Array(this.ratingTotal).fill(this.ratingEntity);
-      this.updatePercentage();
-    }
-  }
-
-  /**
-   * Calculate the "rest percentage" depending on the ratingValue and ratingTotal values.
-   * Set the correct value to the --rating-stars-percentage variable
-   */
-  updatePercentage = () => {
-    this.percentage = (this.ratingValue / this.ratingTotal) * 100;
-    this.style.setProperty(this.percentageCssVariable, `${100 - this.percentage}%`);
-  };
-}
-
-declare global {
-  interface HTMLElementTagNameMap {
-    'toujou-rating-stars': ToujouRatingStars
   }
 }
