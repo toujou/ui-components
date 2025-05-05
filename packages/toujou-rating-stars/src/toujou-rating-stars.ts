@@ -1,5 +1,5 @@
-import { html, LitElement } from "lit";
-import { customElement, property } from "lit/decorators.js";
+import { html, LitElement } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
 
 @customElement('toujou-rating-stars')
 export class ToujouRatingStars extends LitElement {
