@@ -53,9 +53,9 @@ export function observeStickyElement(
 
   const parent = stickyEl.parentElement;
   if (!parent) {
-    if (process.env.NODE_ENV !== 'production') {
-      console.warn('Sticky element has no parent, cannot observe sticky state');
-    }
+    console.warn('Sticky element has no parent, cannot observe sticky state');
+
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     return () => {};
   }
 

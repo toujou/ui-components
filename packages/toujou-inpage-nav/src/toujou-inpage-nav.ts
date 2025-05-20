@@ -2,7 +2,7 @@ import { LitElement, html } from 'lit';
 import styles from './css/toujou-inpage-nav.css';
 import { customElement, property } from 'lit/decorators.js';
 import getNavBreakpoint from './utils/toujou-inpage-nav-breakpoint';
-import { observeStickyElement } from "./utils/observe-sticky-element";
+import { observeStickyElement } from './utils/observe-sticky-element';
 
 export interface navItemsItemInterface {
   item: HTMLElement,
@@ -83,7 +83,7 @@ export class ToujouInpageNav extends LitElement {
 
     this.updateComplete.then(() => {
       this._setupStickyStateObserver();
-    })
+    });
 
     this.dispatchEvent(new CustomEvent(INPAGE_NAV_EVENTS.CONNECTED, {
       bubbles: true,
