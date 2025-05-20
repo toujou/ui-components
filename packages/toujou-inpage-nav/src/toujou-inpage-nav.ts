@@ -2,6 +2,7 @@ import { LitElement, html } from 'lit';
 import styles from './css/toujou-inpage-nav.css';
 import { customElement, property } from 'lit/decorators.js';
 import getNavBreakpoint from './utils/toujou-inpage-nav-breakpoint';
+import { observeStickyElement } from "./utils/observe-sticky-element";
 
 export interface navItemsItemInterface {
   item: HTMLElement,
@@ -13,15 +14,22 @@ export interface navItemsInterface {
   [key: string]: navItemsItemInterface
 }
 
+export enum INPAGE_NAV_EVENTS {
+  CONNECTED = 'toujou-inpage-nav-connected',
+  DISCONNECTED = 'toujou-inpage-nav-disconnected',
+  STUCK_STATE_CHANGE = 'toujou-inpage-nav-stuck-state-change',
+}
+
 @customElement('toujou-inpage-nav')
 export class ToujouInpageNav extends LitElement {
 
   @property({ type: Boolean, reflect: true }) isMobile = false;
   @property({ type: Boolean, reflect: true }) mobileOpen = false;
+  @property({ type: Boolean, reflect: true, attribute: 'is-stuck' }) isStuck = false;
   @property({ type: Map }) _targetSections: Map<HTMLElement, boolean> | undefined = new Map();
 
   private _navItems: navItemsInterface;
-  private _previousCurrentSectionID: null;
+  private _previousCurrentSectionID: string | null;
   private readonly mobileBreakpointOffset: number;
   private readonly _isCentered: boolean;
   private _isAuto: boolean;
@@ -32,15 +40,16 @@ export class ToujouInpageNav extends LitElement {
   private _navBreakpoint: number;
   private observer: IntersectionObserver;
   private intersectionObserverNumberOfSteps = 50;
+  private stickyObserverCleanup: (() => void) | null = null;
 
-  set _currentSectionID(value) {
+  set _currentSectionID(value: string) {
     if (!this._navItems) return;
 
     if (!value) {
       this._updateLabelVisibility(false);
       this._updateNavItemsState(null);
     } else if (this._previousCurrentSectionID !== value) {
-      this._updateLabelVisibility(value);
+      this._updateLabelVisibility(!!value);
       this._updateNavItemsState(value);
     }
   }
@@ -69,6 +78,19 @@ export class ToujouInpageNav extends LitElement {
     });
   }
 
+  connectedCallback() {
+    super.connectedCallback();
+
+    this.updateComplete.then(() => {
+      this._setupStickyStateObserver();
+    })
+
+    this.dispatchEvent(new CustomEvent(INPAGE_NAV_EVENTS.CONNECTED, {
+      bubbles: true,
+      composed: true
+    }));
+  }
+
   /**
    * Remove event listeners when the element disconnect from page
    */
@@ -78,6 +100,22 @@ export class ToujouInpageNav extends LitElement {
     window.removeEventListener('resize', this._checkIsMobileState.bind(this));
     this._toggle.removeEventListener('click', this._mobileOpenToggle.bind(this));
     this.addEventListener('click', this._handleNavClick.bind(this));
+
+    // Clean up sticky observer when component is removed
+    if (this.stickyObserverCleanup) {
+      this.stickyObserverCleanup();
+      this.stickyObserverCleanup = null;
+    }
+
+    // Clean up the intersection observer
+    if (this.observer) {
+      this.observer.disconnect();
+    }
+
+    this.dispatchEvent(new CustomEvent(INPAGE_NAV_EVENTS.DISCONNECTED, {
+      bubbles: true,
+      composed: true
+    }));
   }
 
   /**
@@ -92,6 +130,42 @@ export class ToujouInpageNav extends LitElement {
     super.attributeChangedCallback(name, _old, value);
     if (name === 'ismobile' || name === 'mobileopen') {
       this._updateAriaAttributes(name);
+    }
+  }
+
+  /**
+   * Setup the sticky state observer for this element
+   *
+   * @private
+   */
+  _setupStickyStateObserver() {
+    console.log('SETTING UP////');
+    // Clean up previous observer if it exists
+    if (this.stickyObserverCleanup) {
+      this.stickyObserverCleanup();
+    }
+
+    // Only observe if the element should have sticky behavior
+    if (this.hasAttribute('is-sticky')) {
+      // Setup new observer with options
+      this.stickyObserverCleanup = observeStickyElement(
+        this,
+        (isStuck: boolean) => {
+          this.isStuck = isStuck;
+
+          // Dispatch an event when sticky state changes
+          this.dispatchEvent(new CustomEvent(INPAGE_NAV_EVENTS.STUCK_STATE_CHANGE, {
+            detail: { isStuck },
+            bubbles: true,
+            composed: true
+          }));
+        },
+        {
+          threshold: 0.1, // Lower threshold for earlier detection
+          triggerImmediately: true,
+          rootMargin: '-1px 0px 0px 0px' // Slight offset to prevent flickering
+        }
+      );
     }
   }
 
@@ -193,7 +267,7 @@ export class ToujouInpageNav extends LitElement {
    * @returns {[number]}
    * @private
    */
-  _createThresholdList(numberOfSteps): number[] {
+  _createThresholdList(numberOfSteps: number): number[] {
     return [...Array(numberOfSteps).keys()].map((x) => x / numberOfSteps);
   }
 
@@ -204,7 +278,7 @@ export class ToujouInpageNav extends LitElement {
    * @param entries
    * @private
    */
-  _handleObserver(entries) {
+  _handleObserver(entries: any[]) {
     entries.forEach((entry) => {
       this._targetSections.set(entry.target, entry.isIntersecting);
     });
@@ -277,7 +351,7 @@ export class ToujouInpageNav extends LitElement {
    * @param propertyName
    * @private
    */
-  _updateAriaAttributes(propertyName) {
+  _updateAriaAttributes(propertyName: string) {
     if (propertyName === 'mobileopen') {
       this._toggle.setAttribute('aria-expanded', String(this.mobileOpen));
     } else if (propertyName === 'ismobile') {
@@ -291,9 +365,9 @@ export class ToujouInpageNav extends LitElement {
    * @param value
    * @private
    */
-  _updateLabelVisibility(value) {
+  _updateLabelVisibility(labelIsVisible: boolean) {
     if (this._navLabel) {
-      if (!value) {
+      if (!labelIsVisible) {
         this._navLabel.setAttribute('visible', '');
       } else {
         this._navLabel.removeAttribute('visible');
@@ -307,7 +381,7 @@ export class ToujouInpageNav extends LitElement {
    * @param value
    * @private
    */
-  _updateNavItemsState(value) {
+  _updateNavItemsState(value: string) {
     const currentActiveItem = this.querySelector('.inpage-nav__item[active]');
 
     if (currentActiveItem) {

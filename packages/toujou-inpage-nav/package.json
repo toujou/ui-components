@@ -30,5 +30,8 @@
 	],
 	"author": "toujou",
 	"license": "MIT",
-	"gitHead": "e1bfcc508966aac0d1391d2b19e9fd692c5070fc"
+	"gitHead": "e1bfcc508966aac0d1391d2b19e9fd692c5070fc",
+	"devDependencies": {
+		"@rollup/plugin-alias": "^5.1.1"
+	}
 }
