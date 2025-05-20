@@ -139,7 +139,6 @@ export class ToujouInpageNav extends LitElement {
    * @private
    */
   _setupStickyStateObserver() {
-    console.log('SETTING UP////');
     // Clean up previous observer if it exists
     if (this.stickyObserverCleanup) {
       this.stickyObserverCleanup();
