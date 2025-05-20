@@ -139,33 +139,26 @@ export class ToujouInpageNav extends LitElement {
    * @private
    */
   _setupStickyStateObserver() {
-    // Clean up previous observer if it exists
-    if (this.stickyObserverCleanup) {
-      this.stickyObserverCleanup();
-    }
+    if (!this.hasAttribute('is-sticky')) return;
 
-    // Only observe if the element should have sticky behavior
-    if (this.hasAttribute('is-sticky')) {
-      // Setup new observer with options
-      this.stickyObserverCleanup = observeStickyElement(
-        this,
-        (isStuck: boolean) => {
-          this.isStuck = isStuck;
+    // Setup new observer with options
+    this.stickyObserverCleanup = observeStickyElement(
+      this,
+      (isStuck: boolean) => {
+        this.isStuck = isStuck;
 
-          // Dispatch an event when sticky state changes
-          this.dispatchEvent(new CustomEvent(INPAGE_NAV_EVENTS.STUCK_STATE_CHANGE, {
-            detail: { isStuck },
-            bubbles: true,
-            composed: true
-          }));
-        },
-        {
-          threshold: 0.1, // Lower threshold for earlier detection
-          triggerImmediately: true,
-          rootMargin: '-1px 0px 0px 0px' // Slight offset to prevent flickering
-        }
-      );
-    }
+        this.dispatchEvent(new CustomEvent(INPAGE_NAV_EVENTS.STUCK_STATE_CHANGE, {
+          detail: { isStuck },
+          bubbles: true,
+          composed: true
+        }));
+      },
+      {
+        threshold: 0.1,
+        triggerImmediately: true,
+        rootMargin: '-1px 0px 0px 0px' // Slight offset to prevent flickering
+      }
+    );
   }
 
   /**
