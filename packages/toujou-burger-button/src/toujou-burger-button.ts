@@ -8,6 +8,7 @@ export class ToujouBurgerButton extends LitElement {
 
   private readonly stateChangeEventName = 'toujou-burger-button-state-change';
   private readonly topbarMqlChangeEventName = 'toujou-topbar-breakpoint-change';
+  private readonly mainNavCloseEventName = 'toujou-main-nav-close';
 
   private readonly _boundHandleMqlChange: EventListener = this._handleMqlChange.bind(this);
 
@@ -36,6 +37,7 @@ export class ToujouBurgerButton extends LitElement {
     this.addEventListener('keyup', this._handleKeyUp);
 
     window.addEventListener(this.topbarMqlChangeEventName, this._boundHandleMqlChange);
+    window.addEventListener(this.mainNavCloseEventName, this._handleMainNavCloseEvent);
   }
 
   disconnectedCallback() {
@@ -45,6 +47,7 @@ export class ToujouBurgerButton extends LitElement {
     this.removeEventListener('keyup', this._handleKeyUp);
 
     window.removeEventListener(this.topbarMqlChangeEventName, this._boundHandleMqlChange);
+    window.removeEventListener(this.mainNavCloseEventName, this._handleMainNavCloseEvent);
   }
 
   private _handleClickEvent = () => {
@@ -53,6 +56,12 @@ export class ToujouBurgerButton extends LitElement {
 
   private _handleKeyUp = (event: KeyboardEvent) => {
     if (event.key === 'Enter' || event.key === ' ') {
+      this._toggleState();
+    }
+  };
+
+  private _handleMainNavCloseEvent = () => {
+    if (this._state) {
       this._toggleState();
     }
   };
@@ -66,7 +75,7 @@ export class ToujouBurgerButton extends LitElement {
       detail: { state: this.state }
     }));
   };
-  
+
   private _handleMqlChange(event: Event) {
     if (!(<CustomEvent>event).detail.state) {
       this.state = false;
