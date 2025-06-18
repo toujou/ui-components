@@ -1,5 +1,6 @@
 import { LitElement, html, css } from 'lit';
 import maplibregl from 'maplibre-gl';
+import {queryAssignedElements} from 'lit/decorators.js';
 /**
  * Add a marker to a map, to pinpoint a location.
  * We can define the color, coordinates and offset of the marker
@@ -19,6 +20,8 @@ class ToujouMapMarker extends LitElement {
   protected  _map: maplibregl.Map|any;
   protected _element: any;
 
+  @queryAssignedElements()
+  protected markerElements!: Array<HTMLElement>;
 
   static get is() { return 'toujou-map-marker'; }
 
@@ -108,6 +111,12 @@ class ToujouMapMarker extends LitElement {
     return this.marker ? this.marker.getElement() : this.initialMarkerOptions.element;
   }
 
+  setElementToAssignedElementIfNotSet() {
+    if (this.element === null && this.markerElements !== null && this.markerElements.length > 0) {
+      this.element = this.markerElements[0];
+    }
+  }
+
   connectedCallback() {
     super.connectedCallback();
     this.dispatchEvent(new CustomEvent('toujou-map-element-attached', { detail: this, bubbles: true, composed: true }));
@@ -119,9 +128,12 @@ class ToujouMapMarker extends LitElement {
   }
 
   initMarker(map) {
-    this.marker = new maplibregl.Marker(this.initialMarkerOptions).setLngLat(this._lngLat);
-    !this._element && (this.marker.getElement().style.position = 'absolute');
-    this.marker.addTo(map);
+    setTimeout(() => {
+      this.setElementToAssignedElementIfNotSet();
+      this.marker = new maplibregl.Marker(this.initialMarkerOptions).setLngLat(this._lngLat);
+      !this._element && (this.marker.getElement().style.position = 'absolute');
+      this.marker.addTo(map);
+    });
   }
 }
 
