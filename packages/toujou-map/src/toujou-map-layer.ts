@@ -6,8 +6,8 @@ class ToujouMapLayer extends UpdatingElement {
   public layerId: string;
   public source: string;
   public type: string;
-  public minZoom = 0;
-  public maxZoom = 24;
+  public minzoom = 0;
+  public maxzoom = 24;
   public beforeLayerId: string;
   public filter: any[];
   public layout: any;
@@ -33,13 +33,12 @@ class ToujouMapLayer extends UpdatingElement {
       type: {
         type: String,
       },
-      minZoom: {
+      minzoom: {
         type: Number,
-        attribute: 'min-zoom',
       },
-      maxZoom: {
+      maxzoom: {
         type: Number,
-        attribute: 'max-zoom',
+        attribute: 'maxzoom',
       },
       filter: {
         type: Array,
@@ -80,8 +79,8 @@ class ToujouMapLayer extends UpdatingElement {
       source: this.source,
       // "source-layer": this.sourceLayer,
       type: this.type,
-      minZoom: this.minZoom,
-      maxZoom: this.maxZoom,
+      minzoom: this.minzoom,
+      maxzoom: this.maxzoom,
       metadata: {
         beforeLayerId: this.beforeLayerId,
       },
