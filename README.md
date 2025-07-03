@@ -25,6 +25,9 @@ If you want to install one of the packages on a project, run:
 To run the tests, run:
 - `npm run test`
 
+We can also test a single package:
+- `PACKAGE_NAME=toujou-accordion npm run test:single-package`
+
 ## Released Components
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
 
