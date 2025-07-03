@@ -1,3 +1,5 @@
+/* eslint-disable indent */
+
 import { LitElement, PropertyValues } from 'lit';
 
 export class ToujouAccordion extends LitElement {
@@ -63,7 +65,6 @@ export class ToujouAccordion extends LitElement {
       });
     });
 
-    // 💡 Add this
     this._addKeyboardInteractions(panels);
   }
 

@@ -6,8 +6,7 @@ import {
   oneEvent,
   fixtureSync,
 } from '@open-wc/testing';
-
-import { sendKeys } from "@web/test-runner-commands";
+import { sendKeys } from '@web/test-runner-commands';
 
 import '../src/toujou-accordion';
 
