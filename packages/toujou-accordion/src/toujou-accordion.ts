@@ -1,3 +1,5 @@
+/* eslint-disable indent */
+
 import { LitElement, PropertyValues } from 'lit';
 
 export class ToujouAccordion extends LitElement {
@@ -35,6 +37,8 @@ export class ToujouAccordion extends LitElement {
     contentElements.forEach((el) => el.setAttribute('aria-hidden', 'true'));
 
     panels.forEach((panel: HTMLElement) => {
+      panel.setAttribute('tabindex', '0');
+
       const identifier = panel.dataset.for;
       const openOnLoad = panel.dataset.open;
       panel.setAttribute('aria-expanded', 'false');
@@ -60,6 +64,8 @@ export class ToujouAccordion extends LitElement {
         window.dispatchEvent(new Event('resize'));
       });
     });
+
+    this._addKeyboardInteractions(panels);
   }
 
   firstUpdated(_changedProperties: PropertyValues<this>) {
@@ -104,6 +110,47 @@ export class ToujouAccordion extends LitElement {
     });
 
     this.dispatchEvent(event);
+  }
+
+  private _addKeyboardInteractions(panels: NodeListOf<HTMLElement>) {
+    const panelList = Array.from(panels);
+
+    panelList.forEach((panel, index) => {
+      panel.addEventListener('keydown', (event: KeyboardEvent) => {
+        switch (event.key) {
+          case 'Enter':
+          case ' ':
+            event.preventDefault();
+            panel.click();
+            break;
+
+          case 'ArrowDown':
+            event.preventDefault();
+            this._focusPanel(panelList, index + 1);
+            break;
+
+          case 'ArrowUp':
+            event.preventDefault();
+            this._focusPanel(panelList, index - 1);
+            break;
+
+          case 'Home':
+            event.preventDefault();
+            this._focusPanel(panelList, 0);
+            break;
+
+          case 'End':
+            event.preventDefault();
+            this._focusPanel(panelList, panelList.length - 1);
+            break;
+        }
+      });
+    });
+  }
+
+  private _focusPanel(panels: HTMLElement[], index: number) {
+    const targetIndex = (index + panels.length) % panels.length;
+    panels[targetIndex].focus();
   }
 }
 
