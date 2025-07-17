@@ -6,6 +6,7 @@ import styles from './toujou-third-party-content.css';
 import { store } from '../toujou-consent-widget/store';
 import { saveSingleConsent } from '../toujou-consent-widget/store/actions';
 import { ConsentSetting } from '../utils/ConsentSetting';
+import {TemplateRenderer} from '../utils/TemplateRenderer';
 
 export class ToujouThirdPartyContent extends LitElement {
 
@@ -99,7 +100,6 @@ export class ToujouThirdPartyContent extends LitElement {
    * This function runs each time the store changes
    */
   onStateChange() {
-    console.log(this._store.getState());
     this.consent = this._store.getState()?.consents?.[this.contentType] ?? false;
     this._isContentTypeAllowed(this.consent);
   }
@@ -234,23 +234,6 @@ export class ToujouThirdPartyContent extends LitElement {
   }
 
   /**
-   * Check if the template content is commented out
-   */
-  // eslint-disable-next-line class-methods-use-this
-  _isCommentedTemplate(template) {
-    const templateString = template.innerHTML.trim();
-    return templateString.startsWith('<!--') && templateString.endsWith('-->');
-  }
-
-  /**
-   * Remove the comment marks from the template content
-   */
-  _uncommentTemplate(template: HTMLTemplateElement) {
-    const templateString = template.innerHTML.trim();
-    return templateString.substring(4, templateString.length - 3).trim();
-  }
-
-  /**
    * Show the external content
    */
   _showContent() {
@@ -264,19 +247,12 @@ export class ToujouThirdPartyContent extends LitElement {
       .filter((el) => (el as HTMLTemplateElement).tagName === 'TEMPLATE') as HTMLTemplateElement[];
 
     const targetNode = this.querySelector('.toujou-third-party-content__templated-content');
+    const range = document.createRange();
+    range.selectNodeContents(targetNode);
 
     templates.forEach((template) => {
-      if (!this._isCommentedTemplate(template)) {
-        targetNode.appendChild(document.importNode(template.content, true));
-      } else {
-        const uncommentedTemplateContent = this._uncommentTemplate(template);
-        const range = document.createRange();
-        range.selectNode(targetNode);
-        targetNode.innerHTML = uncommentedTemplateContent;
-        this.templateFragment = [uncommentedTemplateContent, targetNode.innerHTML ];
-        const templateFragment = range.createContextualFragment(uncommentedTemplateContent);
-        range.insertNode(templateFragment);
-      }
+      const templateRenderer = new TemplateRenderer(template);
+      templateRenderer.renderInto(range);
     });
 
     this.setAttribute('showingcontent', '');

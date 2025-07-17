@@ -131,8 +131,10 @@ describe('ToujouThirdPartyContent - User Interactions', () => {
 describe('ToujouThirdPartyContent - Script Rendering', () => {
 
   interface TestEl extends ToujouThirdPartyContent {
-    scriptHasRun: boolean;
     scriptHasLoaded: boolean;
+  }
+  interface TestScript extends HTMLScriptElement {
+    scriptHasRun: boolean;
   }
 
   it('a script should be executed if its rendered', async () => {
@@ -141,19 +143,19 @@ describe('ToujouThirdPartyContent - Script Rendering', () => {
       <toujou-third-party-content contentType="tracking" isIntersecting .store="${testStore}">
         <template><!--
           <script>
-            document.currentScript.closest('toujou-third-party-content').scriptHasRun = true;
+            document.currentScript.scriptHasRun = true;
           </script>
         --></template>
         <div class="toujou-third-party-content__templated-content"></div>
       </toujou-third-party-content>
-    `) as TestEl;
+    `);
     await el.updateComplete;
 
-    const script = el.querySelector<HTMLIFrameElement>('.toujou-third-party-content__templated-content script');
+    const script = el.querySelector<TestScript>('.toujou-third-party-content__templated-content script');
 
     expect(script).to.exist;
+    expect(script.scriptHasRun).to.be.true;
     expect(el.hasAttribute('showingcontent')).to.be.true;
-    expect(el.scriptHasRun).to.be.true;
   });
 
   it('a script should be loaded if its rendered', async () => {
@@ -163,7 +165,7 @@ describe('ToujouThirdPartyContent - Script Rendering', () => {
         <template><!--
           <script
             src="data:text/javascript;base64,ZG9jdW1lbnQucXVlcnlTZWxlY3RvcigndG91am91LXRoaXJkLXBhcnR5LWNvbnRlbnQnKS5zY3JpcHRIYXNMb2FkZWQgPSB0cnVlOw=="
-            onload="this.closest('toujou-third-party-content').scriptHasRun = true"></script>
+            onload="this.scriptHasRun = true"></script>
         --></template>
         <div class="toujou-third-party-content__templated-content"></div>
       </toujou-third-party-content>
@@ -172,11 +174,11 @@ describe('ToujouThirdPartyContent - Script Rendering', () => {
 
     await waitUntil(() => el.scriptHasLoaded, 'Script has not loaded');
 
-    const script = el.querySelector<HTMLIFrameElement>('.toujou-third-party-content__templated-content script');
+    const script = el.querySelector<TestScript>('.toujou-third-party-content__templated-content script');
 
     expect(script).to.exist;
+    expect(script.scriptHasRun).to.be.true;
     expect(el.hasAttribute('showingcontent')).to.be.true;
     expect(el.scriptHasLoaded).to.be.true;
-    expect(el.scriptHasRun).to.be.true;
   });
 });
