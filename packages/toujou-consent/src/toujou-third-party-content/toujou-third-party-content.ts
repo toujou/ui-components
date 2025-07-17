@@ -37,13 +37,13 @@ export class ToujouThirdPartyContent extends LitElement {
   public isIntersecting = false;
 
   @state()
-  public contentTypeAllowed = false;
+  private contentTypeAllowed = false;
 
   @state()
-  public show = false;
+  private show = false;
 
   @state()
-  public consent: ConsentSetting = null;
+  private consent: ConsentSetting = null;
 
   static get is() {
     return 'toujou-third-party-content';
