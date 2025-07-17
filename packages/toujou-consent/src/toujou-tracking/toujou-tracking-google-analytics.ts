@@ -1,5 +1,5 @@
 import { cookieStore } from 'cookie-store';
-import { consentsStore } from '../toujou-consent-widget/consentsStore';
+import { store } from '../toujou-consent-widget/store';
 import { Store, Unsubscribe } from 'redux';
 
 declare global {
@@ -30,7 +30,7 @@ class ToujouTrackingGoogleAnalytics extends HTMLElement {
     this.style.display = 'contents';
 
     this.onStateChange = this.onStateChange.bind(this);
-    this.store = consentsStore;
+    this.store = store;
   }
 
   /**
@@ -90,7 +90,7 @@ class ToujouTrackingGoogleAnalytics extends HTMLElement {
 
     function gtag(...args) {
       // eslint-disable-next-line prefer-rest-params
-      window.dataLayer.push(arguments);
+      window.dataLayer.push(args);
     }
     window.gtag = gtag;
 

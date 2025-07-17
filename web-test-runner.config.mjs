@@ -1,4 +1,5 @@
 import { fromRollup } from '@web/dev-server-rollup';
+import { playwrightLauncher } from '@web/test-runner-playwright';
 import rollupReplace from '@rollup/plugin-replace';
 import postcssLitRollup from 'rollup-plugin-postcss-lit';
 import aliasRollup from '@rollup/plugin-alias';
@@ -17,6 +18,11 @@ const typescript = fromRollup(typescriptRollup);
 const nodeModulesPath = path.resolve('./node_modules');
 
 export default {
+    browsers: [
+        playwrightLauncher({product: 'chromium'}),
+        playwrightLauncher({product: 'firefox'}),
+        playwrightLauncher({product: 'webkit'})
+    ],
     rootDir: '.',
     nodeResolve: true,
     preserveSymlinks: true,

@@ -1,6 +1,8 @@
 // These functions are used so we can save and read our toujou redux state
 // using session and localStorage (so the state is persistent)
 
+import {Middleware} from 'redux';
+
 export const cookieStorage = {
 
   /**
@@ -106,7 +108,8 @@ const prepareConsentsDataToSave = (consentsData) => {
  * At the moment we want to make sure we only save the consents data
  * This function gets the 'state' from the consents reducer, just before it returns the new state
  */
-export const handlePersistanceDataToSave = (state) => {
+export const consentsStorePersistenceMiddleware: Middleware = ({ getState }) => next => action => {
+  const state = getState();
   for (const key in state) {
     if (key !== 'consents') {
       console.error('Unknown data "key" found while saving to session / local Storage');
@@ -115,4 +118,5 @@ export const handlePersistanceDataToSave = (state) => {
 
     prepareConsentsDataToSave(state.consents);
   }
+  return next(action);
 };

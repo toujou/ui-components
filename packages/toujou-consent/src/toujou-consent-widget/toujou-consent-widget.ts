@@ -1,11 +1,11 @@
 import { LitElement, html } from 'lit';
 import styles from './css/toujou-consent-widget.css';
-import { consentsStore } from './consentsStore';
+import { store } from './store';
 import {
   saveAllConsents,
   dismissConsentBox,
   undismissConsentBox,
-} from './actions/consent-actions';
+} from './store/actions';
 
 import { Store } from 'redux';
 import { ConsentSetting } from '../utils/ConsentSetting';
@@ -95,7 +95,7 @@ class ToujouConsentWidget extends LitElement {
     this.onStateChange = this.onStateChange.bind(this);
     this._handleEvent = this._handleEvent.bind(this);
 
-    this.store = consentsStore;
+    this.store = store;
     this.store.subscribe(this.onStateChange);
 
     this._state = this.store.getState();
