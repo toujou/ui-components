@@ -1,12 +1,12 @@
 import { LitElement, html, PropertyValues } from 'lit';
+import { FocusReturnMixin } from './utils/focus-return-mixin';
 import { checkOverlayCookie, setOverlayCookie } from './utils/cookie';
 import { uncommentTemplate } from './utils/template';
 
 import styles from './css/toujou-overlay.css';
 
-export class ToujouOverlay extends LitElement {
-
-  protected opened = false;
+export class ToujouOverlay extends FocusReturnMixin(LitElement) {
+  opened = false;
 
   protected delay = 0;
 
@@ -15,6 +15,7 @@ export class ToujouOverlay extends LitElement {
   static get is() {
     return 'toujou-overlay';
   }
+
   static get properties() {
     return {
       opened: {
@@ -48,9 +49,9 @@ export class ToujouOverlay extends LitElement {
   }
 
   protected updated(changedProperties: PropertyValues) {
-
     if (changedProperties.has('opened') && changedProperties.get('opened') !== undefined) {
       this.opened ? this.showOverlay() : this.hideOverlay();
+      this.setAttribute('aria-hidden', this.opened ? 'false' : 'true');
     }
 
     super.updated(changedProperties);
@@ -61,9 +62,9 @@ export class ToujouOverlay extends LitElement {
   }
 
   private showOverlay() {
-    const slot = this.shadowRoot
-      .querySelector('#templatedContent') as HTMLSlotElement;
+    this.captureFocus();
 
+    const slot = this.shadowRoot.querySelector('#templatedContent') as HTMLSlotElement;
     const templates = slot
       .assignedNodes({ flatten: true })
       .filter((el) => (el as HTMLTemplateElement).tagName === 'TEMPLATE') as HTMLTemplateElement[];
@@ -94,11 +95,14 @@ export class ToujouOverlay extends LitElement {
   hideOverlay() {
     document.body.classList.remove('toujou-overlay-open');
     document.dispatchEvent(new CustomEvent('toujou-overlay-hide', {detail: {overlay: this.id}, bubbles: true}));
+
     Array.from(this.children).forEach((element) => {
       if (element.tagName !== 'TEMPLATE') {
         element.remove();
       }
     });
+
+    this.restoreFocus();
   }
 
   showWarning() {
