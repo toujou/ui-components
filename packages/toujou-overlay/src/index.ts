@@ -6,9 +6,11 @@ import styles from './css/toujou-overlay.css';
 
 export class ToujouOverlay extends LitElement {
 
-  protected opened = false;
+  opened = false;
 
   protected delay = 0;
+
+  private previouslyFocusedElement: HTMLElement | null = null;
 
   static styles = [styles];
 
@@ -50,7 +52,15 @@ export class ToujouOverlay extends LitElement {
   protected updated(changedProperties: PropertyValues) {
 
     if (changedProperties.has('opened') && changedProperties.get('opened') !== undefined) {
-      this.opened ? this.showOverlay() : this.hideOverlay();
+      if (this.opened) {
+        this.showOverlay();
+        // make sure it's not hidden from screen readers
+        this.removeAttribute('aria-hidden');
+      } else {
+        this.hideOverlay();
+        // hide from screen readers when dismissed
+        this.setAttribute('aria-hidden', 'true');
+      }
     }
 
     super.updated(changedProperties);
@@ -61,8 +71,9 @@ export class ToujouOverlay extends LitElement {
   }
 
   private showOverlay() {
-    const slot = this.shadowRoot
-      .querySelector('#templatedContent') as HTMLSlotElement;
+    this.previouslyFocusedElement = document.activeElement as HTMLElement;
+
+    const slot = this.shadowRoot.querySelector('#templatedContent') as HTMLSlotElement;
 
     const templates = slot
       .assignedNodes({ flatten: true })
@@ -99,6 +110,14 @@ export class ToujouOverlay extends LitElement {
         element.remove();
       }
     });
+
+    // restore focus to whatever was active before
+    if (this.previouslyFocusedElement && typeof this.previouslyFocusedElement.focus === 'function') {
+      this.previouslyFocusedElement.focus();
+    }
+
+    // clear the reference
+    this.previouslyFocusedElement = null;
   }
 
   showWarning() {
