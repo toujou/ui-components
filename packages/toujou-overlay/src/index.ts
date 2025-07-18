@@ -1,22 +1,21 @@
 import { LitElement, html, PropertyValues } from 'lit';
+import { FocusReturnMixin } from "./utils/focus-return-mixin";
 import { checkOverlayCookie, setOverlayCookie } from './utils/cookie';
 import { uncommentTemplate } from './utils/template';
 
 import styles from './css/toujou-overlay.css';
 
-export class ToujouOverlay extends LitElement {
-
+export class ToujouOverlay extends FocusReturnMixin(LitElement) {
   opened = false;
 
   protected delay = 0;
-
-  private previouslyFocusedElement: HTMLElement | null = null;
 
   static styles = [styles];
 
   static get is() {
     return 'toujou-overlay';
   }
+
   static get properties() {
     return {
       opened: {
@@ -63,10 +62,9 @@ export class ToujouOverlay extends LitElement {
   }
 
   private showOverlay() {
-    this.previouslyFocusedElement = document.activeElement as HTMLElement;
+    this.captureFocus();
 
     const slot = this.shadowRoot.querySelector('#templatedContent') as HTMLSlotElement;
-
     const templates = slot
       .assignedNodes({ flatten: true })
       .filter((el) => (el as HTMLTemplateElement).tagName === 'TEMPLATE') as HTMLTemplateElement[];
@@ -97,19 +95,14 @@ export class ToujouOverlay extends LitElement {
   hideOverlay() {
     document.body.classList.remove('toujou-overlay-open');
     document.dispatchEvent(new CustomEvent('toujou-overlay-hide', {detail: {overlay: this.id}, bubbles: true}));
+
     Array.from(this.children).forEach((element) => {
       if (element.tagName !== 'TEMPLATE') {
         element.remove();
       }
     });
 
-    // restore focus to whatever was active before
-    if (this.previouslyFocusedElement && typeof this.previouslyFocusedElement.focus === 'function') {
-      this.previouslyFocusedElement.focus();
-    }
-
-    // clear the reference
-    this.previouslyFocusedElement = null;
+    this.restoreFocus();
   }
 
   showWarning() {
