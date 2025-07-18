@@ -11,9 +11,8 @@ import {TemplateRenderer} from '../utils/TemplateRenderer';
 export class ToujouThirdPartyContent extends LitElement {
 
   @property()
-    contentType: string;
+  public contentType: string;
 
-  public templateFragment: [string, string];
 
   @property()
   set store(store: Store | null) {

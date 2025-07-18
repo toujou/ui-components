@@ -1,12 +1,18 @@
 export class TemplateRenderer {
   public readonly templateElement: HTMLTemplateElement;
 
+  public isRendered = false;
+
   constructor(templateElement: HTMLTemplateElement) {
     this.templateElement = templateElement;
   }
 
-  public renderInto(range: Range): void {
+  renderInto(range: Range): void {
+    if (this.isRendered) {
+      return;
+    }
     range.insertNode(this.getContent(range));
+    this.isRendered = true;
   }
 
   private getContent(range: Range): DocumentFragment
