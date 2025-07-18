@@ -2,10 +2,8 @@ import { aTimeout, elementUpdated, expect, fixture, html } from '@open-wc/testin
 
 import '../src/index';
 import { setOverlayCookie } from '../src/utils/cookie';
-import { ToujouOverlay } from "../src";
-import sinon from "sinon";
-import { ToujouDetailsAccordion } from "@toujou/toujou-details/src/toujou-details-accordion/toujou-details-accordion";
-import { ToujouDetailsEventNames } from "@toujou/toujou-details/src/types/types";
+import { ToujouOverlay } from '../src';
+import sinon from 'sinon';
 
 describe('Toujou Overlay', () => {
   let element: ToujouOverlay;

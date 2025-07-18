@@ -1,5 +1,5 @@
 import { LitElement, html, PropertyValues } from 'lit';
-import { FocusReturnMixin } from "./utils/focus-return-mixin";
+import { FocusReturnMixin } from './utils/focus-return-mixin';
 import { checkOverlayCookie, setOverlayCookie } from './utils/cookie';
 import { uncommentTemplate } from './utils/template';
 
