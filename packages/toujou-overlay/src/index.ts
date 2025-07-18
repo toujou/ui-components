@@ -50,17 +50,9 @@ export class ToujouOverlay extends LitElement {
   }
 
   protected updated(changedProperties: PropertyValues) {
-
     if (changedProperties.has('opened') && changedProperties.get('opened') !== undefined) {
-      if (this.opened) {
-        this.showOverlay();
-        // make sure it's not hidden from screen readers
-        this.removeAttribute('aria-hidden');
-      } else {
-        this.hideOverlay();
-        // hide from screen readers when dismissed
-        this.setAttribute('aria-hidden', 'true');
-      }
+      this.opened ? this.showOverlay() : this.hideOverlay();
+      this.setAttribute('aria-hidden', this.opened ? 'false' : 'true');
     }
 
     super.updated(changedProperties);
