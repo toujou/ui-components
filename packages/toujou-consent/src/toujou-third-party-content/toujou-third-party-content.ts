@@ -1,23 +1,49 @@
 import { LitElement, html } from 'lit';
+import {property, state} from 'lit/decorators.js';
+import {Store, Unsubscribe} from 'redux';
+
 import styles from './toujou-third-party-content.css';
-
-import { consentsStore } from '../toujou-consent-widget/consentsStore';
-import { saveSingleConsent } from '../toujou-consent-widget/actions/consent-actions';
-import { Store } from 'redux';
+import { store } from '../toujou-consent-widget/store';
+import { saveSingleConsent } from '../toujou-consent-widget/store/actions';
 import { ConsentSetting } from '../utils/ConsentSetting';
+import {TemplateRenderer} from '../utils/TemplateRenderer';
 
-class ToujouThirdPartyContent extends LitElement {
-  public store: Store;
-  public contentTypeAllowed = false;
-  public isIntersecting = false;
-  public show = false;
+export class ToujouThirdPartyContent extends LitElement {
+
+  @property()
   public contentType: string;
 
-  protected _state: {
-    consents: {
-      [key: string]: boolean | ConsentSetting
+
+  @property()
+  set store(store: Store | null) {
+    if (this._storeUnsubscribe) {
+      this._storeUnsubscribe();
+      this._storeUnsubscribe = this._store = null;
+      this.consent = null;
     }
-  };
+    if (store) {
+      this._storeUnsubscribe = store.subscribe(this.onStateChange);
+      this._store = store;
+      this.onStateChange();
+    }
+  }
+
+  get store(): Store | null { return this._store; }
+
+  private _store: Store = null;
+  private _storeUnsubscribe: Unsubscribe = null;
+
+  @property({ type: Boolean })
+  public isIntersecting = false;
+
+  @state()
+  private contentTypeAllowed = false;
+
+  @state()
+  private show = false;
+
+  @state()
+  private consent: ConsentSetting = null;
 
   static get is() {
     return 'toujou-third-party-content';
@@ -36,35 +62,10 @@ class ToujouThirdPartyContent extends LitElement {
     `;
   }
 
-  static get properties() {
-    return {
-      contentType: {
-        type: String,
-      },
-      contentTypeAllowed: {
-        type: Boolean,
-      },
-      contentID: {
-        type: String,
-      },
-      isIntersecting: {
-        type: Boolean,
-      },
-      show: {
-        type: Boolean,
-      },
-    };
-  }
-
   constructor() {
     super();
-
     this.onStateChange = this.onStateChange.bind(this);
     this._handleConsentButtonClick = this._handleConsentButtonClick.bind(this);
-
-    this.store = consentsStore;
-    this.store.subscribe(this.onStateChange);
-    this._state = this.store.getState();
   }
 
   /**
@@ -72,8 +73,10 @@ class ToujouThirdPartyContent extends LitElement {
    */
   connectedCallback() {
     super.connectedCallback();
-    this._isContentTypeAllowed();
-    this._checkIfShouldShow();
+    if (!this.store) {
+      this.store = store;
+    }
+    this._isContentTypeAllowed(this.consent);
     this._addEventListeners();
     this._addIntersectionObserver();
   }
@@ -84,21 +87,20 @@ class ToujouThirdPartyContent extends LitElement {
    * so we load when only if visible
    */
   updated(_changedProperties) {
-    _changedProperties.forEach((oldValue, propertyName) => {
-      if (propertyName === 'isIntersecting' && this.isIntersecting && !this.show) {
-        this.show = true;
-        this._checkIfShouldShow();
-      }
-    });
+    if (_changedProperties.has('isIntersecting') && this.isIntersecting && !this.show) {
+      this.show = true;
+    }
+    if ((_changedProperties.has('contentTypeAllowed') || _changedProperties.has('show')) && this.contentTypeAllowed && this.show) {
+      this._showContent();
+    }
   }
 
   /**
    * This function runs each time the store changes
    */
   onStateChange() {
-    this._state = this.store.getState();
-    this._isContentTypeAllowed();
-    this._checkIfShouldShow();
+    this.consent = this._store.getState()?.consents?.[this.contentType] ?? false;
+    this._isContentTypeAllowed(this.consent);
   }
 
   /**
@@ -107,8 +109,7 @@ class ToujouThirdPartyContent extends LitElement {
    */
   _addEventListeners() {
     window.addEventListener('toujou-consent-widget-dismissed', () => {
-      this._isContentTypeAllowed();
-      this._checkIfShouldShow();
+      this._isContentTypeAllowed(this.consent);
     });
     window.addEventListener('toujou-consent-button-clicked', this._handleConsentButtonClick);
   }
@@ -201,61 +202,6 @@ class ToujouThirdPartyContent extends LitElement {
   }
 
   /**
-   * Append all elements (other that <script>) to the page
-   */
-  _appendNonScriptTag(templateTag) {
-    this.querySelector('.toujou-third-party-content__templated-content').appendChild(templateTag);
-  }
-
-  /**
-   * Append script element to the page
-   * We need to make sure external scripts are completely loaded
-   * before we can proceed to the next element
-   */
-  _appendScriptTag(templateTag) {
-    const newScript = document.createElement('script');
-    const readyScript = this._copyScriptAttributesAndContent(templateTag, newScript);
-
-    this.querySelector('.toujou-third-party-content__templated-content').appendChild(readyScript);
-
-    if (!readyScript.hasAttribute('src') || readyScript.hasAttribute('async') || readyScript.hasAttribute('defer')) {
-      return new Promise<void>((resolve) => {
-        resolve();
-      });
-    }
-
-    return new Promise((resolve) => {
-      readyScript.addEventListener('load', resolve);
-    });
-  }
-
-  /**
-   * Append elements inside the templated content in an asyncronous way
-   * so we can ensure the order in which the scripts are added and executed
-   */
-  async _appendTags(templateTags) {
-    for (let i = 0; i < templateTags.length; i++) {
-      // eslint-disable-next-line no-await-in-loop
-      await new Promise((resolve) => {
-        if (templateTags[i].tagName !== 'SCRIPT') {
-          resolve(this._appendNonScriptTag(templateTags[i]));
-        } else {
-          resolve(this._appendScriptTag(templateTags[i]));
-        }
-      });
-    }
-  }
-
-  /**
-   * Check if the element should show the external content
-   */
-  _checkIfShouldShow() {
-    if (this.contentTypeAllowed && this.show) {
-      this._showContent();
-    }
-  }
-
-  /**
    * Clear the #renderedContent slot.
    * This is used before we rerender the template,
    * so are are sure we always have the most recent template content
@@ -265,63 +211,21 @@ class ToujouThirdPartyContent extends LitElement {
   }
 
   /**
-   * Copy attributes and content from old script (from the template) to the readyScript ("clone")
-   */
-  // eslint-disable-next-line class-methods-use-this
-  _copyScriptAttributesAndContent(oldScript, readyScript) {
-    for (let i = 0; i < oldScript.attributes.length; i++) {
-      const attr = oldScript.attributes[i];
-      readyScript.setAttribute(attr.name, attr.value);
-    }
-    // eslint-disable-next-line no-param-reassign
-    readyScript.innerHTML = oldScript.innerHTML;
-    return readyScript;
-  }
-
-  /**
-   * Separate the uncommentedTemplateContent into an array of html elements (by Tag)
-   */
-  // eslint-disable-next-line class-methods-use-this
-  _getTemplateTags(uncommentedTemplateContent) {
-    const templateTags = [];
-    const dummyDiv = document.createElement('div');
-    dummyDiv.innerHTML = uncommentedTemplateContent;
-
-    // eslint-disable-next-line no-restricted-syntax
-    for (const key in dummyDiv.childNodes) {
-      // eslint-disable-next-line max-len
-      if (dummyDiv.childNodes[key].nodeType !== 3 && dummyDiv.childNodes[key].parentElement === dummyDiv) {
-        templateTags.push(dummyDiv.childNodes[key]);
-      }
-    }
-
-    return templateTags;
-  }
-
-  /**
    * This function run each time a change in the #templatedContent slot is detected
    */
   _handleSlotChange() {
-    this._checkIfShouldShow();
-  }
-
-  /**
-   * Check if the template content is commented out
-   */
-  // eslint-disable-next-line class-methods-use-this
-  _isCommentedTemplate(templateHTML) {
-    return templateHTML.startsWith('<!--') && templateHTML.endsWith('-->');
+    // TODO rerender
   }
 
   /**
    * Check if the content type is allowed
    * (if cookie exists and is true)
    */
-  _isContentTypeAllowed() {
-    if (this._state.consents[this.contentType]) {
-      this.contentTypeAllowed = (this._state.consents[this.contentType] as ConsentSetting).consentGiven || false;
-    } else {
+  _isContentTypeAllowed(consent: ConsentSetting | null) {
+    if (consent === null) {
       this.contentTypeAllowed = false;
+    } else {
+      this.contentTypeAllowed = consent.consentGiven || false;
     }
     if (window.location.hash === '#aaa') {
       this.contentTypeAllowed = true;
@@ -341,27 +245,16 @@ class ToujouThirdPartyContent extends LitElement {
       .assignedNodes({ flatten: true })
       .filter((el) => (el as HTMLTemplateElement).tagName === 'TEMPLATE') as HTMLTemplateElement[];
 
+    const targetNode = this.querySelector('.toujou-third-party-content__templated-content');
+    const range = document.createRange();
+    range.selectNodeContents(targetNode);
+
     templates.forEach((template) => {
-      if (this._isCommentedTemplate(template.innerHTML)) {
-        const uncommentedTemplateContent = this._uncommentTemplate(template);
-        const templateTags = this._getTemplateTags(uncommentedTemplateContent);
-        this._appendTags(templateTags);
-      } else {
-        const clone = document.importNode(template.content, true);
-        this.querySelector('.toujou-third-party-content__templated-content').appendChild(clone);
-      }
+      const templateRenderer = new TemplateRenderer(template);
+      templateRenderer.renderInto(range);
     });
 
     this.setAttribute('showingcontent', '');
-  }
-
-  /**
-   * Remove the comment marks from the template content
-   */
-  _uncommentTemplate(template: HTMLTemplateElement) {
-    return this._isCommentedTemplate(template.innerHTML)
-      ? template.innerHTML.substr(4, template.innerHTML.length - 7)
-      : template;
   }
 }
 

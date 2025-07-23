@@ -1,4 +1,3 @@
-import { handlePersistanceDataToSave } from '../store-persistence';
 import {
   INITIAL_STATE,
   CHECK_CONSENT_EXPIRY,
@@ -7,7 +6,7 @@ import {
   SAVE_ALL_CONSENTS,
   SAVE_SINGLE_CONSENT,
   UNDISMISS_CONSENT_BOX,
-} from '../actions/consent-actions';
+} from './actions';
 
 declare global {
   interface Window {
@@ -15,7 +14,7 @@ declare global {
   }
 }
 
-function consentReducers(state, action) {
+function reducers(state, action) {
   switch (action.type) {
   case CHECK_CONSENT_EXPIRY: {
     const now = Date.now();
@@ -87,9 +86,9 @@ function consentReducers(state, action) {
 let initialStatePushedToDataLayer = false;
 
 export default function consentReducersExport(state = INITIAL_STATE, action) {
-  const reducedState = consentReducers(state, action);
-  handlePersistanceDataToSave(reducedState);
+  const reducedState = reducers(state, action);
 
+  // TODO migrate to state emitter
   if (typeof window.dataLayer === 'object' && (!initialStatePushedToDataLayer || (reducedState.consents.consentBoxDismissed !== undefined && reducedState.consents.consentBoxDismissed))) {
     window.dataLayer.push({ event: 'consent-changed', ...reducedState.consents });
     initialStatePushedToDataLayer = true;

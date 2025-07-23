@@ -1,15 +1,16 @@
 import { LitElement, html } from 'lit';
 import styles from './css/toujou-consent-widget.css';
-import { consentsStore } from './consentsStore';
+import { store } from './store';
 import {
   saveAllConsents,
   dismissConsentBox,
   undismissConsentBox,
-} from './actions/consent-actions';
+} from './store/actions';
 
 import { Store } from 'redux';
 import { ConsentSetting } from '../utils/ConsentSetting';
 import { consentTypeNames } from '../utils/consentTypeNames';
+import {ToujouThirdPartyTemplateController} from '../toujou-third-party-content/toujou-third-party-template-controller';
 
 class ToujouConsentWidget extends LitElement {
 
@@ -21,11 +22,14 @@ class ToujouConsentWidget extends LitElement {
 
   public listenOn = '*';
 
+  // TODO: refactor this to use only consents with @state and the updated() callback
   public _state: {
     consents: {
       [key: string]: boolean | ConsentSetting
     }
   };
+
+  private templateController = new ToujouThirdPartyTemplateController(this);
 
   static get is() {
     return 'toujou-consent-widget';
@@ -95,11 +99,14 @@ class ToujouConsentWidget extends LitElement {
     this.onStateChange = this.onStateChange.bind(this);
     this._handleEvent = this._handleEvent.bind(this);
 
-    this.store = consentsStore;
+    this.store = store;
     this.store.subscribe(this.onStateChange);
 
     this._state = this.store.getState();
     this._warningVisible = this.inPage;
+
+    // TODO this should react on changes in a consents property of this class
+    this.templateController.onConsentsChanged(this._state.consents ?? {});
 
     if (window.location.hash === '#aaa') {
       this.deactivated = true;
@@ -157,7 +164,8 @@ class ToujouConsentWidget extends LitElement {
   onStateChange() {
     this._state = this.store.getState();
     this._dismissedBox = this._state.consents.consentBoxDismissed;
-
+    // TODO this should react on changes in a consents property of this class
+    this.templateController.onConsentsChanged(this._state.consents ?? {});
     this._updateAllConsentElementsStates();
   }
 

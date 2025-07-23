@@ -1,5 +1,5 @@
 import { LitElement } from 'lit';
-import { consentsStore } from '../toujou-consent-widget/consentsStore';
+import { store } from '../toujou-consent-widget/store';
 import { Store } from 'redux';
 import { ConsentSetting } from '../utils/ConsentSetting';
 import { consentTypeNames } from '../utils/consentTypeNames';
@@ -38,7 +38,7 @@ export abstract class ToujouConsentStateEmitterBase extends LitElement {
 
     this.onStateChange = this.onStateChange.bind(this);
 
-    this.store = consentsStore;
+    this.store = store;
     this.store.subscribe(this.onStateChange);
     this.state = this.store.getState();
   }

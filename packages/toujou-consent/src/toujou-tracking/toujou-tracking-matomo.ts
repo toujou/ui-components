@@ -1,5 +1,5 @@
 import { cookieStore } from 'cookie-store';
-import { consentsStore } from '../toujou-consent-widget/consentsStore';
+import { store } from '../toujou-consent-widget/store';
 import { Store, Unsubscribe } from 'redux';
 import { ConsentSetting } from '../utils/ConsentSetting';
 
@@ -37,7 +37,7 @@ class ToujouTrackingMatomo extends HTMLElement {
     this.style.display = 'contents';
 
     this.onStateChange = this.onStateChange.bind(this);
-    this.store = consentsStore;
+    this.store = store;
   }
 
   /**
