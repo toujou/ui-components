@@ -109,6 +109,7 @@ const prepareConsentsDataToSave = (consentsData) => {
  * This function gets the 'state' from the consents reducer, just before it returns the new state
  */
 export const consentsStorePersistenceMiddleware: Middleware = ({ getState }) => next => action => {
+  const result = next(action);
   const state = getState();
   for (const key in state) {
     if (key !== 'consents') {
@@ -118,5 +119,5 @@ export const consentsStorePersistenceMiddleware: Middleware = ({ getState }) => 
 
     prepareConsentsDataToSave(state.consents);
   }
-  return next(action);
+  return result;
 };
