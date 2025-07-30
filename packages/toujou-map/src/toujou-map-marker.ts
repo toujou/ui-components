@@ -132,6 +132,7 @@ class ToujouMapMarker extends LitElement {
       this.setElementToAssignedElementIfNotSet();
       this.marker = new maplibregl.Marker(this.initialMarkerOptions).setLngLat(this._lngLat);
       !this._element && (this.marker.getElement().style.position = 'absolute');
+      !this._element && (this.marker.getElement().setAttribute('role', 'img'));
       this.marker.addTo(map);
     });
   }
