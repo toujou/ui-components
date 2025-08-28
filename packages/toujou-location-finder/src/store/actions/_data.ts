@@ -130,12 +130,7 @@ const createOffsets = (currentPage, maxTeasersPerPage) => ({
   limit: maxTeasersPerPage,
 });
 
-const getClusterLeaves = (clusterSource, clusterId, limit, offset) => new Promise((resolve, reject) => {
-  clusterSource.getClusterLeaves(clusterId, limit, offset, (err, features) => {
-    if (err) reject(err);
-    else resolve(features);
-  });
-});
+const getClusterLeaves = (clusterSource, clusterId, limit, offset) => clusterSource.getClusterLeaves(clusterId, limit, offset);
 
 /**
  * Get data for the map:

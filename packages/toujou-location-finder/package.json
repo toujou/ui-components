@@ -20,10 +20,10 @@
     "watch": "rollup --watch --silent --config ../../rollup.config.js"
   },
   "dependencies": {
-    "@maplibre/maplibre-gl-geocoder": "^1.5.0",
+    "@maplibre/maplibre-gl-geocoder": "^1.9.0",
     "events": "^3.3.0",
     "lit": "^2.0.0-rc.2",
-    "maplibre-gl": "^3.6.2",
+    "maplibre-gl": "^5.7.0",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0",

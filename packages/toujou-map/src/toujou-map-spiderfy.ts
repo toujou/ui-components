@@ -8,7 +8,6 @@ import maplibregl from 'maplibre-gl';
  */
 class ToujouMapSpiderfy extends UpdatingElement {
 
-  public data = null;
   public source = null;
   public leavesSeparation = 50;
   public leavesOffset = [0, 0];
@@ -105,7 +104,6 @@ class ToujouMapSpiderfy extends UpdatingElement {
 
   /**
    * Initialize the geojson's source
-   * the "this.data" property needs to be geojson data
    */
   // eslint-disable-next-line consistent-return
   initSource() {
@@ -113,7 +111,7 @@ class ToujouMapSpiderfy extends UpdatingElement {
       this.sourceId,
       {
         type: 'geojson',
-        data: this.data,
+        data: { type: 'FeatureCollection', features: [] },
       },
     );
     this.spiderfySource = this.map.getSource(this.sourceId);
@@ -127,9 +125,9 @@ class ToujouMapSpiderfy extends UpdatingElement {
     }
   }
 
-  handleClusterSelection(event) {
+  async handleClusterSelection(event) {
     const renderedFeatures = this.map.queryRenderedFeatures(event.point);
-    const cluster = renderedFeatures.find((f) => f.properties && f.properties.cluster && f.source === this.source);
+    const cluster = renderedFeatures.find((f) => f.properties?.cluster && f.source === this.source);
     const spiderfyFeature = renderedFeatures.find((f) => f.properties && !f.properties.cluster && f.source === this.sourceId);
     if (spiderfyFeature) {
       return;
@@ -147,9 +145,8 @@ class ToujouMapSpiderfy extends UpdatingElement {
       return;
     }
     this.selectedCluster = cluster;
-    this.map.getSource(this.source).getClusterLeaves(cluster.properties.cluster_id, 99, 0, (error, features) => {
-      this.selectedClusterFeatures = (features || []).filter((feature) => feature.geometry.type === 'Point');
-    });
+    const features = await this.map.getSource(this.source).getClusterLeaves(cluster.properties.cluster_id, 99, 0);
+    this.selectedClusterFeatures = (features || []).filter((feature) => feature.geometry.type === 'Point');
   }
 
   renderFeatures() {

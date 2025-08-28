@@ -1,6 +1,9 @@
 import { LitElement, html, TemplateResult } from 'lit';
 import maplibregl, { MapLayerMouseEvent } from 'maplibre-gl';
-import MaplibreGeocoder from '@maplibre/maplibre-gl-geocoder';
+import MaplibreGeocoder, {
+  MaplibreGeocoderApiConfig,
+  MaplibreGeocoderFeatureResults
+} from '@maplibre/maplibre-gl-geocoder';
 import './toujou-location-finder-teaser';
 
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
@@ -105,7 +108,7 @@ export class ToujouLocationFinder extends LitElement {
     clusterTextColor: 'var(--bg-color)',
     clusterTextSize: 16,
     clusterRadius: 50,
-    clusterMaxZoom: 20
+    clusterMaxZoom: 12
   };
 
   static get is() {
@@ -244,7 +247,7 @@ export class ToujouLocationFinder extends LitElement {
             id="geoJsonSourcePolygons"
             ?cluster="${this._clusterRadius > 0}"
             .clusterRadius="${this._clusterRadius}"
-            .clusterMaxZoom="${this._clusterMaxZoom}"
+            .clusterMaxZoom="${Math.min(this._clusterMaxZoom, this.maxZoom)}"
             .sourceData='${this._geoJsonData}'
             source-id="geoJsonData">
           </toujou-map-geojson>
@@ -357,7 +360,7 @@ export class ToujouLocationFinder extends LitElement {
         source="geoJsonData"
         type="symbol"
         filter='["has", "point_count"]'
-        layout='{ "text-field": "{point_count_abbreviated}", "text-size": ${this._clusterTextSize} }'
+        layout='{ "text-font": ["Noto Sans Regular"], "text-field": "{point_count_abbreviated}", "text-size": ${this._clusterTextSize} }'
         paint='{ "text-color": "${this._clusterTextColor}" }'
       ></toujou-map-layer>`;
   }
@@ -438,7 +441,8 @@ export class ToujouLocationFinder extends LitElement {
   onStateChange() {
     this._state = this.store.getState();
     this.isLoading = isLoading(this._state);
-    this._geoJsonData = getGeoJsonWithHighlights(this._state);
+    const geoJsonData = getGeoJsonWithHighlights(this._state);
+    geoJsonData && (this._geoJsonData = geoJsonData);
     this._teasersData = this._state.data.teasers;
     this._currentlyVisibleFeaturesUids = this._state.data.currentlyVisibleFeatures;
     this.hasPagination = this._state.pagination.hasPagination;
@@ -541,7 +545,6 @@ export class ToujouLocationFinder extends LitElement {
   _onLocatorClick() {
     this._setLocatorLoadingStatus(true);
     this._geocoder.clear();
-    this._geocoder._inputEl.blur();
     if (!navigator.geolocation) {
       console.error('Cannot get your location because Geolocation is not supported by your browser');
     } else {
@@ -745,7 +748,7 @@ export class ToujouLocationFinder extends LitElement {
 
   _initGeocoder() {
     const geocoderApi = {
-      forwardGeocode: async (config) => {
+      forwardGeocode: async (config: MaplibreGeocoderApiConfig) => {
         let features = [];
         try {
           const request = `https://nominatim.openstreetmap.org/search?q=${
@@ -779,7 +782,8 @@ export class ToujouLocationFinder extends LitElement {
         } catch (e) {
           console.error(`Failed to forwardGeocode with error: ${e}`);
         }
-        return {
+        return <MaplibreGeocoderFeatureResults> {
+          type: 'FeatureCollection',
           features,
         };
       },

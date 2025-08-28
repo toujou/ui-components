@@ -260,7 +260,9 @@ export class ToujouMap extends LitElement {
       this.createMap();
     }
     if (changedProperties.has('layers')) {
-      this.reorderLayers();
+      setTimeout(() => {
+        this.reorderLayers();
+      });
     }
   }
 

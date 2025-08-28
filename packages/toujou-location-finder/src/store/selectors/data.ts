@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 
-const selectGeoJson = (state) => state.data.geojson;
+const selectGeoJson = (state) => state.data.geojson ?? {type: 'FeatureCollection', features: []};
 const selectHighlightedFeature = (state) => state.features.highlightedFeature;
 /**
  * @type {OutputSelector<unknown, unknown, (res: unknown) => unknown>}

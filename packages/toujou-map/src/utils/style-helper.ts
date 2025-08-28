@@ -2,6 +2,7 @@
 export const getLegacyTransformOptions = {
   transformStyle: (previousStyle, nextStyle) => ({
     ...nextStyle,
+    projection: (nextStyle.projection?.type ? {type: nextStyle.projection.type} : {}),
     layers: [
       ...nextStyle.layers.map(layer => {
         try {
