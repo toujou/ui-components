@@ -360,7 +360,7 @@ export class ToujouLocationFinder extends LitElement {
         source="geoJsonData"
         type="symbol"
         filter='["has", "point_count"]'
-        layout='{ "text-font": ["Noto Sans Regular"], "text-field": "{point_count_abbreviated}", "text-size": ${this._clusterTextSize} }'
+        layout='{ "text-field": "{point_count_abbreviated}", "text-size": ${this._clusterTextSize} }'
         paint='{ "text-color": "${this._clusterTextColor}" }'
       ></toujou-map-layer>`;
   }

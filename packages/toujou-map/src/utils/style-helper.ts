@@ -2,6 +2,7 @@
 export const getLegacyTransformOptions = {
   transformStyle: (previousStyle, nextStyle) => ({
     ...nextStyle,
+    glyphs: nextStyle?.glyphs.includes('mapbox') ? nextStyle?.glyphs : 'https://www.toujou.com/_map/fonts/{fontstack}/{range}.pbf',
     projection: (nextStyle.projection?.type ? {type: nextStyle.projection.type} : {}),
     layers: [
       ...nextStyle.layers.map(layer => {
