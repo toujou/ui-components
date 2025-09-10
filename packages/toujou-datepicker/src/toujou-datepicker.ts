@@ -16,6 +16,7 @@ export class ToujouDatepicker extends LitElement {
   @property({ type: String }) maxDate: string | null = null;
   @property({ type: Boolean }) enableTime = false;
   @property({ type: Boolean }) monthPicker = false;
+  @property({ type: Number, attribute: 'show-months' }) showMonths = 1;
 
   createRenderRoot() {
     return this;
@@ -46,17 +47,22 @@ export class ToujouDatepicker extends LitElement {
       time_24hr: true,
       allowInput: false,
       mode: this.mode,
+      showMonths: this.showMonths,
       onClose: (selectedDates, dateStr, instance) => {
         const closeEvent = new CustomEvent('close', {
           bubbles: true,
           composed: true,
-          detail: {
-            selectedDates,
-            dateStr,
-            instance,
-          },
+          detail: { selectedDates, dateStr, instance, },
         });
         inputElement.dispatchEvent(closeEvent);
+      },
+      onOpen: (selectedDates, dateStr, instance) => {
+        const openEvent = new CustomEvent('open', {
+          bubbles: true,
+          composed: true,
+          detail: { selectedDates, dateStr, instance },
+        });
+        inputElement.dispatchEvent(openEvent);
       },
     };
 
