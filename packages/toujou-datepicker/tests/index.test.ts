@@ -1,6 +1,6 @@
 import { expect, fixture, html, oneEvent, nextFrame } from '@open-wc/testing';
 import '../src/toujou-datepicker';
-import { ToujouDatepicker } from "../src/toujou-datepicker";
+import { ToujouDatepicker } from '../src/toujou-datepicker';
 
 describe('ToujouDatepicker', () => {
   it('can be created', async () => {
@@ -8,11 +8,11 @@ describe('ToujouDatepicker', () => {
         <toujou-datepicker>
           <input type="text" />
         </toujou-datepicker>
-    `)
+    `);
 
     expect(el).to.not.be.null;
     expect(el.nodeName).to.equal('TOUJOU-DATEPICKER');
-  })
+  });
 
   it('respects custom show-months attribute', async () => {
     const el: ToujouDatepicker = await fixture(html`
