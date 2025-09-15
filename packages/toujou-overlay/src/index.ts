@@ -1,9 +1,10 @@
 import { LitElement, html, PropertyValues } from 'lit';
 import { FocusReturnMixin } from './utils/focus-return-mixin';
-import { checkOverlayCookie, setOverlayCookie } from './utils/cookie';
+import { checkOverlayStorageValue, setOverlayStorageValue } from './utils/storage';
 import { uncommentTemplate } from './utils/template';
 
 import styles from './css/toujou-overlay.css';
+import { StorageMode } from './types/types/storageMode';
 
 export class ToujouOverlay extends FocusReturnMixin(LitElement) {
   opened = false;
@@ -11,6 +12,8 @@ export class ToujouOverlay extends FocusReturnMixin(LitElement) {
   protected delay = 0;
 
   static styles = [styles];
+
+  protected storageMode = StorageMode.SESSION;
 
   static get is() {
     return 'toujou-overlay';
@@ -25,6 +28,11 @@ export class ToujouOverlay extends FocusReturnMixin(LitElement) {
       delay: {
         type: Number,
         reflect: true,
+      },
+      storageMode: {
+        type: String,
+        reflect: true,
+        attribute: 'storage-mode',
       }
     };
   }
@@ -33,11 +41,11 @@ export class ToujouOverlay extends FocusReturnMixin(LitElement) {
     super.firstUpdated(_changedProperties);
 
     if (location.hash === '#aaa') {
-      setOverlayCookie(this.id, 'accepted');
+      setOverlayStorageValue(this.id, 'accepted', this.storageMode);
       return;
     }
 
-    const opened = checkOverlayCookie(this.id) !== 'accepted';
+    const opened = checkOverlayStorageValue(this.id, this.storageMode) !== 'accepted';
 
     if (this.delay > 0) {
       setTimeout(()=> {
@@ -119,10 +127,10 @@ export class ToujouOverlay extends FocusReturnMixin(LitElement) {
 
     document.dispatchEvent(new CustomEvent('toujou-overlay-button-click', {detail: {overlay: this.id, choice: choice}, bubbles: true}));
     if (choice === 'no') {
-      setOverlayCookie(this.id,'rejected');
+      setOverlayStorageValue(this.id,'rejected', this.storageMode);
       this.showWarning();
     } else if (choice === 'yes') {
-      setOverlayCookie(this.id, 'accepted');
+      setOverlayStorageValue(this.id, 'accepted', this.storageMode);
       this.opened = false;
     }
   }
@@ -130,7 +138,7 @@ export class ToujouOverlay extends FocusReturnMixin(LitElement) {
   private handleCloseButtonClick() {
     document.dispatchEvent(new CustomEvent('toujou-overlay-button-close-click', {detail: {overlay: this.id}, bubbles: true}));
 
-    setOverlayCookie(this.id, 'accepted');
+    setOverlayStorageValue(this.id, 'accepted', this.storageMode);
     this.opened = false;
   }
 
