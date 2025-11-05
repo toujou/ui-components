@@ -34,7 +34,8 @@ module.exports = {
             'error',
             'always'
         ],
-        '@typescript-eslint/ban-types': "warn"
+        '@typescript-eslint/ban-types': "warn",
+        '@typescript-eslint/ban-ts-comment': 'off'
     },
     ignorePatterns: ['*.js'],
 

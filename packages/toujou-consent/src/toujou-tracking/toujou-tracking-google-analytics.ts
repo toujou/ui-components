@@ -88,17 +88,19 @@ class ToujouTrackingGoogleAnalytics extends HTMLElement {
       anonymize_ip: true,
     };
 
-    function gtag(...args) {
+    function gtag() {
       // eslint-disable-next-line prefer-rest-params
-      window.dataLayer.push(args);
+      window.dataLayer.push(arguments);
     }
     window.gtag = gtag;
 
     if (!this._ga) {
       this._ga = this._addAnalyticsScriptTag(analyticsID);
+      // @ts-ignore
       gtag('js', new Date());
     }
 
+    // @ts-ignore
     gtag('config', analyticsID, gaConfig);
 
     this.gaIsInstantiated = true;
