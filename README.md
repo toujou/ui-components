@@ -28,6 +28,13 @@ To run the tests, run:
 We can also test a single package:
 - `PACKAGE_NAME=toujou-accordion npm run test:single-package`
 
+## Lint packages
+To run the tests, run:
+- `npm run lint`
+
+We can also lint a single package:
+- `PACKAGE_NAME=toujou-accordion npm run lint:single-package`
+
 ## Released Components
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
 
@@ -58,6 +65,7 @@ We can also test a single package:
 | [toujou-media-info](./packages/toujou-media-info)                                               | [![npm version](https://img.shields.io/npm/v/@toujou/toujou-media-info.svg?style=flat)](https://www.npmjs.com/package/@toujou/toujou-media-info)                                               |
 | [toujou-overlay](./packages/toujou-overlay)                                                     | [![npm version](https://img.shields.io/npm/v/@toujou/toujou-overlay.svg?style=flat)](https://www.npmjs.com/package/@toujou/toujou-overlay)                                                     |
 | [toujou-rating-stars](./packages/toujou-rating-stars)                                           | [![npm version](https://img.shields.io/npm/v/@toujou/toujou-rating-stars.svg?style=flat)](https://www.npmjs.com/package/@toujou/toujou-rating-stars)                                           |
+| [toujou-read-more](./packages/toujou-read-more)                                                 | [![npm version](https://img.shields.io/npm/v/@toujou/toujou-rating-stars.svg?style=flat)](https://www.npmjs.com/package/@toujou/toujou-read-more)                                              |
 | [toujou-snackbar](./packages/toujou-snackbar)                                                   | [![npm version](https://img.shields.io/npm/v/@toujou/toujou-snackbar.svg?style=flat)](https://www.npmjs.com/package/@toujou/toujou-snackbar)                                                   |
 | [toujou-spinner](./packages/toujou-spinner)                                                     | [![npm version](https://img.shields.io/npm/v/@toujou/toujou-spinner.svg?style=flat)](https://www.npmjs.com/package/@toujou/toujou-spinner)                                                     |
 | [toujou-timeline](./packages/toujou-timeline)                                                   | [![npm version](https://img.shields.io/npm/v/@toujou/toujou-timeline.svg?style=flat)](https://www.npmjs.com/package/@toujou/toujou-timeline)                                                   |

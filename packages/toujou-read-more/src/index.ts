@@ -139,10 +139,6 @@ export class ToujouReadMore extends LitElement {
   private _setupButtonAccessibility() {
     const content = this.shadowRoot?.querySelector('.content') as HTMLElement;
 
-    // Get all button slots
-    const openSlot = this.shadowRoot?.querySelector('slot[name="open-button"]') as HTMLSlotElement;
-    const closeSlot = this.shadowRoot?.querySelector('slot[name="close-button"]') as HTMLSlotElement;
-
     // Get ALL buttons from light DOM directly (they always exist)
     const allOpenButtons = Array.from(this.querySelectorAll('[slot="open-button"]')) as HTMLElement[];
     const allCloseButtons = Array.from(this.querySelectorAll('[slot="close-button"]')) as HTMLElement[];
@@ -184,7 +180,6 @@ export class ToujouReadMore extends LitElement {
    * Determines if content is overflowing its container, which controls button visibility.
    * This is done by temporarily removing clamping to measure full height,
    * then comparing it to the clamped height.
-   * @private
    */
   private async _checkOverflow() {
     const content = this.shadowRoot?.querySelector('.content') as HTMLElement | null;
@@ -229,19 +224,19 @@ export class ToujouReadMore extends LitElement {
   render() {
     return html`
       <div id="read-more-content" class="content" role="region" aria-label="Expandable content" part="content">
-          <slot></slot>
+        <slot></slot>
       </div>
 
       ${this.showButton
-      ? html`
+    ? html`
           <div class="buttons" @click=${this._toggleClamp} part="buttons">
             ${this.hasClampedText
-        ? html`<slot name="open-button"></slot>`
-        : html`<slot name="close-button"></slot>`
-      }
+    ? html`<slot name="open-button"></slot>`
+    : html`<slot name="close-button"></slot>`
+}
           </div>
         ` : ''
-    }
+}
     `;
   }
 }
