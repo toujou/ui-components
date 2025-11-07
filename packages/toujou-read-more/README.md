@@ -25,6 +25,7 @@ The buttons are **fully slottable**, allowing you to use any custom markup (e.g.
 - Customizable maximum line count (`max-lines`)
 - Accessible toggle buttons (ARIA attributes handled automatically)
 - Slottable buttons for “read more” and “read less”
+- Emits a custom event when ready
 - Emits a custom event when toggled
 - Works with any content (text, inline elements, etc.)
 
@@ -79,8 +80,8 @@ The buttons are **fully slottable**, allowing you to use any custom markup (e.g.
 
 | Event name | Detail | Description |
 | :--- | :--- | :--- |
-| **toujou-read-more-toggle** | `{ isClamped: boolean }` | Fired when the component toggles between clamped and expanded states. |
 | **toujou-read-more-ready** | *none* | Fired when the component has completed its initial setup (overflow check, accessibility, etc.). |
+| **toujou-read-more-toggle** | `{ isClamped: boolean }` | Fired when the component toggles between clamped and expanded states. |
 
 ---
 
@@ -96,6 +97,5 @@ You can override spacing and max lines via **CSS custom properties**:
 ```css
 toujou-read-more {
   --toujou-read-more-max-lines: 4;
-  --spacing-normal: 1rem;
 }
 ```
