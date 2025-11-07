@@ -16,29 +16,29 @@ export class ToujouReadMore extends LitElement {
   };
 
   static styles = css`
-        :host {
-            display: block;
-        }
+    :host {
+      display: block;
+    }
 
-        :host([has-clamped-text]) .content {
-            -webkit-line-clamp: var(--toujou-read-more-max-lines, 3);
-        }
+    :host([has-clamped-text]) .content {
+      -webkit-line-clamp: var(--toujou-read-more-max-lines, 3);
+    }
 
-        :host(:not([has-clamped-text])) .content {
-            -webkit-line-clamp: unset;
-        }
+    :host(:not([has-clamped-text])) .content {
+      -webkit-line-clamp: unset;
+    }
 
-        .content {
-            overflow: hidden;
-            display: -webkit-box;
-            -webkit-box-orient: vertical;
-        }
+    .content {
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+    }
 
-        .buttons {
-            margin-top: var(--spacing-normal);
-            display: inline-block;
-        }
-    `;
+    .buttons {
+      margin-top: var(--spacing-normal);
+      display: inline-block;
+    }
+  `;
 
   constructor() {
     super();
@@ -48,7 +48,6 @@ export class ToujouReadMore extends LitElement {
     this.style.setProperty('--toujou-read-more-max-lines', this.maxLines.toString());
     requestAnimationFrame(() => this._checkOverflow());
 
-    // Ensure last element in content slot has no margin-bottom
     const slot = this.shadowRoot?.querySelector('slot:not([name])') as HTMLSlotElement;
     if (slot) {
       slot.addEventListener('slotchange', () => {
@@ -60,6 +59,9 @@ export class ToujouReadMore extends LitElement {
         }
       });
     }
+
+    this._setupSlotListeners();
+    this._setupButtonAccessibility();
   }
 
   disconnectedCallback() {
@@ -71,6 +73,73 @@ export class ToujouReadMore extends LitElement {
       this.style.setProperty('--toujou-read-more-max-lines', this.maxLines.toString());
       requestAnimationFrame(() => this._checkOverflow());
     }
+
+    if (changedProps.has('hasClampedText') || changedProps.has('showButton')) {
+      this.updateComplete.then(() => {
+        this._setupButtonAccessibility();
+      });
+    }
+  }
+
+  private _setupSlotListeners() {
+    const openSlot = this.shadowRoot?.querySelector('slot[name="open-button"]') as HTMLSlotElement;
+    const closeSlot = this.shadowRoot?.querySelector('slot[name="close-button"]') as HTMLSlotElement;
+
+    if (openSlot) {
+      openSlot.addEventListener('slotchange', () => {
+        requestAnimationFrame(() => this._setupButtonAccessibility());
+      });
+    }
+
+    if (closeSlot) {
+      closeSlot.addEventListener('slotchange', () => {
+        requestAnimationFrame(() => this._setupButtonAccessibility());
+      });
+    }
+  }
+
+  private _setupButtonAccessibility() {
+    const content = this.shadowRoot?.querySelector('.content') as HTMLElement;
+
+    // Get all button slots
+    const openSlot = this.shadowRoot?.querySelector('slot[name="open-button"]') as HTMLSlotElement;
+    const closeSlot = this.shadowRoot?.querySelector('slot[name="close-button"]') as HTMLSlotElement;
+
+    // Get ALL buttons from light DOM directly (they always exist)
+    const allOpenButtons = Array.from(this.querySelectorAll('[slot="open-button"]')) as HTMLElement[];
+    const allCloseButtons = Array.from(this.querySelectorAll('[slot="close-button"]')) as HTMLElement[];
+
+    // Configure open buttons
+    allOpenButtons.forEach(button => {
+      button.setAttribute('aria-controls', content?.id || 'read-more-content');
+
+      if (this.hasClampedText && this.showButton) {
+        // Button is visible and active
+        button.setAttribute('aria-expanded', 'false');
+        button.removeAttribute('aria-hidden');
+        button.removeAttribute('tabindex');
+      } else {
+        // Button is hidden
+        button.setAttribute('aria-hidden', 'true');
+        button.setAttribute('tabindex', '-1');
+      }
+    });
+
+    // Configure close buttons
+    allCloseButtons.forEach(button => {
+      button.setAttribute('aria-controls', content?.id || 'read-more-content');
+
+      if (!this.hasClampedText && this.showButton) {
+        // Button is visible and active
+        button.setAttribute('aria-expanded', 'true');
+        button.removeAttribute('aria-hidden');
+        button.removeAttribute('tabindex');
+      } else {
+        // Button is hidden
+        button.setAttribute('aria-hidden', 'true');
+        button.setAttribute('tabindex', '-1');
+      }
+    });
   }
 
   private async _checkOverflow() {
@@ -108,22 +177,21 @@ export class ToujouReadMore extends LitElement {
 
   render() {
     return html`
-            <div class="content" part="content">
-                <slot></slot>
-            </div>
+      <div id="read-more-content" class="content" role="region" aria-label="Expandable content" part="content">
+          <slot></slot>
+      </div>
 
-            ${this.showButton
+      ${this.showButton
       ? html`
-                    <div class="buttons" @click=${this._toggleClamp} part="buttons">
-                        ${this.hasClampedText
+          <div class="buttons" @click=${this._toggleClamp} part="buttons">
+            ${this.hasClampedText
         ? html`<slot name="open-button"></slot>`
         : html`<slot name="close-button"></slot>`
       }
-                    </div>
-                `
-      : ''
+          </div>
+        ` : ''
     }
-        `;
+    `;
   }
 }
 

@@ -213,3 +213,165 @@ describe('Toujou Read More', () => {
   });
 
 });
+
+describe('Toujou Read More - Accessibility Tests', () => {
+  let element: any;
+
+  beforeEach(async () => {
+    element = await fixture(html`
+      <toujou-read-more max-lines="3">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet felis lorem. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet felis lorem. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet felis lorem.</p>
+        <button id="open-button" slot="open-button">Read more</button>
+        <button id="close-button" slot="close-button">Read less</button>
+      </toujou-read-more>
+    `);
+  });
+
+  it('content div has correct rola', () => {
+    const content = element.shadowRoot.querySelector('.content') as HTMLElement;
+    expect(content.getAttribute('role')).to.equal('region');
+  });
+
+  it('has aria-label content region', () => {
+    const content = element.shadowRoot.querySelector('.content') as HTMLElement;
+    expect(content.getAttribute('aria-label')).to.equal('Expandable content');
+  });
+
+  it('content region has id', () => {
+    const content = element.shadowRoot.querySelector('.content') as HTMLElement;
+    expect(content.id).to.equal('read-more-content');
+  });
+
+  it('sets aria-expanded="false" when clamped', async () => {
+    const content = element.shadowRoot!.querySelector('.content') as HTMLElement;
+    Object.defineProperty(content, 'scrollHeight', { get: () => 100 });
+    Object.defineProperty(content, 'clientHeight', { get: () => 50 });
+
+    await element._checkOverflow();
+    await element.updateComplete;
+
+    // Wait for requestAnimationFrame in _setupButtonAccessibility
+    await new Promise(resolve => setTimeout(resolve, 20));
+
+    const openButton = element.querySelector('#open-button') as HTMLElement;
+    expect(openButton.getAttribute('aria-expanded')).to.equal('false');
+  });
+
+  it('sets aria-expanded="true" when expanded', async () => {
+    const content = element.shadowRoot!.querySelector('.content') as HTMLElement;
+    Object.defineProperty(content, 'scrollHeight', { get: () => 100 });
+    Object.defineProperty(content, 'clientHeight', { get: () => 50 });
+
+    await element._checkOverflow();
+    await element.updateComplete;
+
+    // Click the actual button
+    const openButton = element.querySelector('#open-button') as HTMLElement;
+    console.log('Open button before click:', openButton);
+    console.log('Open button aria-expanded:', openButton?.getAttribute('aria-expanded'));
+
+    openButton.click();
+    await element.updateComplete;
+
+    // Wait for requestAnimationFrame in _setupButtonAccessibility
+    await new Promise(resolve => requestAnimationFrame(resolve));
+    await element.updateComplete;
+
+    const closeButton = element.querySelector('#close-button') as HTMLElement;
+
+    expect(closeButton.getAttribute('aria-expanded')).to.equal('true');
+  });
+
+  it('sets aria-controls on open button', async () => {
+    const content = element.shadowRoot!.querySelector('.content') as HTMLElement;
+    Object.defineProperty(content, 'scrollHeight', { get: () => 100 });
+    Object.defineProperty(content, 'clientHeight', { get: () => 50 });
+
+    await element._checkOverflow();
+    await element.updateComplete;
+
+    // Wait for requestAnimationFrame in _setupButtonAccessibility
+    await new Promise(resolve => setTimeout(resolve, 20));
+
+    const openButton = element.querySelector('#open-button') as HTMLElement;
+    expect(openButton.getAttribute('aria-controls')).to.equal('read-more-content');
+  });
+
+  it('sets aria-controls on close button', async () => {
+    const content = element.shadowRoot!.querySelector('.content') as HTMLElement;
+    Object.defineProperty(content, 'scrollHeight', { get: () => 100 });
+    Object.defineProperty(content, 'clientHeight', { get: () => 50 });
+
+    await element._checkOverflow();
+    await element.updateComplete;
+
+    // Click to expand
+    const openButton = element.querySelector('#open-button') as HTMLElement;
+    openButton.click();
+    await element.updateComplete;
+
+    // Wait for requestAnimationFrame in _setupButtonAccessibility
+    await new Promise(resolve => setTimeout(resolve, 20));
+
+    const closeButton = element.querySelector('#close-button') as HTMLElement;
+    expect(closeButton.getAttribute('aria-controls')).to.equal('read-more-content');
+  });
+
+  it('updates aria-expanded when toggling', async () => {
+    const content = element.shadowRoot!.querySelector('.content') as HTMLElement;
+    Object.defineProperty(content, 'scrollHeight', { get: () => 100 });
+    Object.defineProperty(content, 'clientHeight', { get: () => 50 });
+
+    await element._checkOverflow();
+    await element.updateComplete;
+    await new Promise(resolve => setTimeout(resolve, 20));
+
+    const openButton = element.querySelector('#open-button') as HTMLElement;
+    expect(openButton.getAttribute('aria-expanded')).to.equal('false');
+
+    // Expand
+    openButton.click();
+    await element.updateComplete;
+    await new Promise(resolve => setTimeout(resolve, 20));
+
+    const closeButton = element.querySelector('#close-button') as HTMLElement;
+    expect(closeButton.getAttribute('aria-expanded')).to.equal('true');
+
+    // Collapse
+    closeButton.click();
+    await element.updateComplete;
+    await new Promise(resolve => setTimeout(resolve, 20));
+
+    const openButtonAgain = element.querySelector('#open-button') as HTMLElement;
+    expect(openButtonAgain.getAttribute('aria-expanded')).to.equal('false');
+  });
+
+  it('handles multiple buttons in same slot', async () => {
+    element = await fixture(html`
+      <toujou-read-more max-lines="3">
+        <p>Content</p>
+        <button id="open-1" slot="open-button">Read more 1</button>
+        <button id="open-2" slot="open-button">Read more 2</button>
+        <button id="close-1" slot="close-button">Read less 1</button>
+        <button id="close-2" slot="close-button">Read less 2</button>
+      </toujou-read-more>
+    `);
+
+    const content = element.shadowRoot!.querySelector('.content') as HTMLElement;
+    Object.defineProperty(content, 'scrollHeight', { get: () => 100 });
+    Object.defineProperty(content, 'clientHeight', { get: () => 50 });
+
+    await element._checkOverflow();
+    await element.updateComplete;
+    await new Promise(resolve => setTimeout(resolve, 20));
+
+    // Both open buttons should have correct attributes
+    const openButton1 = element.querySelector('#open-1') as HTMLElement;
+    const openButton2 = element.querySelector('#open-2') as HTMLElement;
+
+    expect(openButton1.getAttribute('aria-expanded')).to.equal('false');
+    expect(openButton2.getAttribute('aria-expanded')).to.equal('false');
+    expect(openButton1.getAttribute('aria-controls')).to.equal('read-more-content');
+    expect(openButton2.getAttribute('aria-controls')).to.equal('read-more-content');
+  });
+});
