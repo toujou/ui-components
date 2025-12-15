@@ -105,11 +105,11 @@ class ToujouTrackingMatomo extends HTMLElement {
       return;
     }
 
-    const matomoUrl = new URL(this.url);
-    const trackerUrl = new URL(matomoUrl);
-    trackerUrl.pathname = '/matomo.php';
-    const scriptSrc = new URL(matomoUrl);
-    scriptSrc.pathname = '/matomo.js';
+    const trackerUrl = new URL(this.url);
+    const scriptSrc = new URL(this.url);
+
+    trackerUrl.pathname = trackerUrl.pathname.replace(/\/$/, '') + '/matomo.php';
+    scriptSrc.pathname = scriptSrc.pathname.replace(/\/$/, '') + '/matomo.js';
 
     const { _paq } = window;
     _paq.push(['requireCookieConsent']);
