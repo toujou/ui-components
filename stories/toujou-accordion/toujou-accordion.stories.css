@@ -1,0 +1,11 @@
+.accordion {
+    display: block;
+}
+
+.accordion__panel:not(:first-child) {
+    margin-top: 1rem;
+}
+
+.accordion__content[aria-hidden="true"] {
+    display: none;
+}

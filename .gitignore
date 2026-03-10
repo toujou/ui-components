@@ -3,3 +3,6 @@ node_modules
 packages/**/dist
 packages/**/lib
 lerna-debug.log
+
+*storybook.log
+storybook-static
