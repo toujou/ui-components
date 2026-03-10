@@ -24,7 +24,12 @@ const config: StorybookConfig = {
     const { mergeConfig } = await import('vite');
     const litcss = (await import('vite-plugin-lit-css')).default;
     return mergeConfig(config, {
-      plugins: [litcss()],
+      plugins: [
+        litcss({
+          include: ['**/packages/**/*.css'], // only apply to component CSS
+          exclude: ['**/stories/**/*.css'],  // never apply to story CSS
+        })
+      ],
       esbuild: {
         tsconfigRaw: {
           compilerOptions: {

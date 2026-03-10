@@ -1,3 +1,4 @@
+// @ts-ignore
 import type { Preview } from '@storybook/web-components-vite'
 
 const preview: Preview = {

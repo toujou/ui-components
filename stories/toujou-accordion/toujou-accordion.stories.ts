@@ -1,4 +1,4 @@
-import { html } from 'lit';
+import { fn } from 'storybook/test';
 import { Meta, StoryObj } from '@storybook/web-components';
 import '../../packages/toujou-accordion/src/index.ts';
 
@@ -21,39 +21,47 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj;
 
-const accordionContent = html`
-  <div class="accordion__panel" data-for="item-1" data-open="true">
-    Panel 1 — Click to toggle
-  </div>
-  <div class="accordion__content" data-content="item-1">
-    <div class="accordion__content-inner">
-      Content for panel 1. This is open by default because of <code>data-open="true"</code>.
-    </div>
-  </div>
-
-  <div class="accordion__panel" data-for="item-2">
-    Panel 2 — Click to toggle
-  </div>
-  <div class="accordion__content" data-content="item-2">
-    <div class="accordion__content-inner">
-      Content for panel 2.
-    </div>
-  </div>
-
-  <div class="accordion__panel" data-for="item-3">
-    Panel 3 — Click to toggle
-  </div>
-  <div class="accordion__content" data-content="item-3">
-    <div class="accordion__content-inner">
-      Content for panel 3.
-    </div>
-  </div>
-`;
+const onAccordionChange = fn().mockName('accordion-change');
+const onAccordionReady = fn().mockName('toujou-accordion-ready');
 
 export const Default: Story = {
-  render: (args) => html`
-    <toujou-accordion class="accordion" ?expand-mode-single=${args['expand-mode-single']}>
-      ${accordionContent}
-    </toujou-accordion>
-  `,
+  render: (args) => {
+    const wrapper = document.createElement('div');
+    wrapper.innerHTML = `
+      <toujou-accordion class="accordion" ${args['expand-mode-single'] ? 'expand-mode-single' : ''}>
+        <div class="accordion__panel" data-for="item-1" data-open="true">
+          Panel 1 — Click to toggle
+        </div>
+        <div class="accordion__content" data-content="item-1">
+          <div class="accordion__content-inner">
+            Content for panel 1.
+          </div>
+        </div>
+
+        <div class="accordion__panel" data-for="item-2">
+          Panel 2 — Click to toggle
+        </div>
+        <div class="accordion__content" data-content="item-2">
+          <div class="accordion__content-inner">
+            Content for panel 2.
+          </div>
+        </div>
+
+        <div class="accordion__panel" data-for="item-3">
+          Panel 3 — Click to toggle
+        </div>
+        <div class="accordion__content" data-content="item-3">
+          <div class="accordion__content-inner">
+            Content for panel 3.
+          </div>
+        </div>
+      </toujou-accordion>
+    `;
+
+    const accordion = wrapper.querySelector('toujou-accordion');
+    accordion.addEventListener('accordion-change', onAccordionChange);
+    accordion.addEventListener('toujou-accordion-ready', onAccordionReady);
+
+    return wrapper;
+  },
 };

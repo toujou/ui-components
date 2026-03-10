@@ -1,5 +1,6 @@
 .accordion {
     display: block;
+    /*border: 10px solid red;*/
 }
 
 .accordion__panel:not(:first-child) {

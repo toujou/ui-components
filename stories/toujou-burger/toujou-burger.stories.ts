@@ -1,0 +1,40 @@
+import { html } from 'lit';
+// @ts-ignore
+import { Meta, StoryObj } from '@storybook/web-components';
+// @ts-ignore
+import { fn } from 'storybook/test';
+import '../../packages/toujou-burger/src/index.ts';
+
+const meta: Meta = {
+  title: 'Components/Toujou Burger',
+  component: 'toujou-burger',
+};
+
+export default meta;
+type Story = StoryObj;
+
+export const Default: Story = {
+  render: (args) => {
+    const wrapper = document.createElement('div');
+    wrapper.innerHTML = `
+    <input type="checkbox" id="burger-state" />
+    <nav id="navigation" aria-hidden="true">
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
+    <toujou-burger
+      listen-to="#burger-state"
+      toggle-element="#navigation"
+    >
+      <label for="burger-state" style="cursor: pointer;">
+        ☰ Menu
+      </label>
+    </toujou-burger>
+  `;
+
+    return wrapper;
+  },
+};
