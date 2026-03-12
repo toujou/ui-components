@@ -2,7 +2,12 @@
 
 All notable changes to the `@toujou/location-finder` package will be documented in this file
 
-## [3.9.5] - 2024-11-28
+## [3.9.6] - 2026-03-09
+
+### Fix
+- Replace the custom mapboxgl-geocoder css selectors with maplibregl-geocoder selectors
+
+- ## [3.9.5] - 2024-11-28
 
 ### Added
 - Added labels for the location finder pagination buttons
