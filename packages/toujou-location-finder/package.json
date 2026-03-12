@@ -37,7 +37,7 @@
   ],
   "author": "toujou",
   "license": "MIT",
-  "gitHead": "56a4a77425557d82444100f4438cff764a3bbd53",
+  "gitHead": "f611907a8c5be707a5943073c30adb064123f4c5",
   "devDependencies": {
     "@types/events": "^3.0.3",
     "@types/node": "^20.10.4"
