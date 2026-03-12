@@ -1,0 +1,38 @@
+:root {
+    --color-bg: #ffffff;
+    --color-light-grey: #f9f9f9;
+
+    --color-primary: #007ce8;
+    --color-primary-dark: #0050b3;
+    --color-primary-light: #1f96ff;
+
+    --color-font: #1b1b1e;
+    --color-font-dark: #000000;
+    --color-font-light: #3a3a3a;
+
+    --font-size-base: 1rem;                                    /* 16px */
+    --font-size-xxl: calc(var(--font-size-base) * 2.5);     /* 40px */
+    --font-size-xl: calc(var(--font-size-base) * 2);        /* 32px */
+    --font-size-l: calc(var(--font-size-base) * 1.75);      /* 28px */
+    --font-size-m: calc(var(--font-size-base) * 1.5);       /* 24px */
+    --font-size-ms: calc(var(--font-size-base) * 1.25);     /* 20px */
+    --font-size-normal: calc(var(--font-size-base) * 1);    /* 16px */
+    --font-size-s: calc(var(--font-size-base) * .875);      /* 14px */
+    --font-size-xs: calc(var(--font-size-base) * .75);      /* 12px */
+
+    --line-height-normal: 1.4;
+    --line-height-s: 1.25;
+
+    --spacing-base: 1rem;
+    --spacing-xl: calc(var(--spacing-base) * 3);         /* 48px */
+    --spacing-l: calc(var(--spacing-base) * 2);          /* 32px */
+    --spacing-m: calc(var(--spacing-base) * 1.5);        /* 24px */
+    --spacing-ms: calc(var(--spacing-base) * 1.25);      /* 20px */
+    --spacing-normal: var(--spacing-base);               /* 16px */
+    --spacing-s: calc(var(--spacing-base) * .5);         /* 8px */
+    --spacing-xs: calc(var(--spacing-base) * .25);       /* 4px */
+    --spacing-xxs: calc(var(--spacing-base) * .125);     /* 2px */
+
+    --border-radius-m: .5rem;
+    --border-radius-normal: .25rem;
+}
