@@ -1,7 +1,7 @@
 import { fn } from 'storybook/test';
 import { Meta, StoryObj } from '@storybook/web-components';
 import '../../packages/toujou-burger-button/src/index.ts';
-import './toujou-burger-button.stories.css';
+import './toujou-burger-button.storyStyles.css';
 
 const meta: Meta = {
   title: 'Components/Toujou Burger Button',

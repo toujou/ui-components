@@ -7,6 +7,23 @@ import * as BurgerButtonStories from './toujou-burger-button.stories';
 
 A toggle button component for opening and closing the main navigation. It manages its own open/closed state and communicates with other components via custom events.
 
+## Usage
+```html
+<toujou-burger-button
+  role="button"
+  aria-pressed="false"
+  aria-haspopup="true"
+  aria-controls="mainNavigation"
+  aria-expanded="false"
+  aria-label="Menu button"
+  toggle-element-selector="#topbar"
+  tabindex="0"
+>
+  <span class="burger-button__line" line-position="top" aria-hidden="true" slot="content"></span>
+  <span class="burger-button__line" line-position="middle" aria-hidden="true" slot="content"></span>
+  <span class="burger-button__line" line-position="bottom" aria-hidden="true" slot="content"></span>
+</toujou-burger-button>
+```
 
 ## Attributes
 
@@ -19,7 +36,6 @@ A toggle button component for opening and closing the main navigation. It manage
 | `aria-haspopup` | `boolean` | `true` | Indicates the button controls a popup element |
 | `toggle-element-selector` | `string` | — | CSS selector of the element to toggle (e.g. `#topbar`) |
 | `tabindex` | `number` | `0` | Makes the element focusable via keyboard |
-
 
 ## Slots
 

@@ -20,10 +20,14 @@
     --font-size-s: calc(var(--font-size-base) * .875);      /* 14px */
     --font-size-xs: calc(var(--font-size-base) * .75);      /* 12px */
 
+    --font-family-text: sans-serif;
+
     --line-height-normal: 1.4;
     --line-height-s: 1.25;
 
     --spacing-base: 1rem;
+    --spacing-xxxl: calc(var(--spacing-base) * 6);       /* 96px */
+    --spacing-xxl: calc(var(--spacing-base) * 4);        /* 64px */
     --spacing-xl: calc(var(--spacing-base) * 3);         /* 48px */
     --spacing-l: calc(var(--spacing-base) * 2);          /* 32px */
     --spacing-m: calc(var(--spacing-base) * 1.5);        /* 24px */
@@ -32,7 +36,37 @@
     --spacing-s: calc(var(--spacing-base) * .5);         /* 8px */
     --spacing-xs: calc(var(--spacing-base) * .25);       /* 4px */
     --spacing-xxs: calc(var(--spacing-base) * .125);     /* 2px */
+    --spacing-between-consecutive-elements-normal: var(--spacing-l);
 
     --border-radius-m: .5rem;
     --border-radius-normal: .25rem;
+
+    --content-fullwidth: 100%;
+    --content-width-with-padding: calc(100% - calc(var(--content-padding-to-border) * 2));
+    --content-max-width: 960px;
+    --content-medium-max-width: 1200px;
+    --content-wide-max-width: 1440px;
+    --content-padding-to-border: var(--spacing-normal);
+    --content-spacing-between-elements: var(--spacing-xl);
+    --content-spacing-between-columns: var(--spacing-between-consecutive-elements-normal);
+    --content-inner-padding: var(--spacing-m);
+
+    --shadow-color: 286deg 0% 56%;
+    --shadow-color-1: hsl(0 0% 0% / 5%);
+    --shadow-color-2: hsl(0 0% 0% / 6%);
+    --shadow-color-3: hsl(0 0% 0% / 10%);
+
+    --shadow-s: 0 4px 5px 0 var(--shadow-color-1), 0 1px 10px 0 var(--shadow-color-2), 0 2px 4px -1px var(--shadow-color-3);
+    --shadow-normal: 0 6px 10px 0 var(--shadow-color-1), 0 1px 18px 0 var(--shadow-color-2), 0 3px 5px -1px var(--shadow-color-3);
+    --shadow-l: 0 12px 15px 2px var(--shadow-color-1), 0 4px 24px 4px var(--shadow-color-2), 0 9px 8px -4px var(--shadow-color-3);
+    --shadow-xl: 0 16px 24px 2px var(--shadow-color-1), 0 6px 30px 6px var(--shadow-color-2), 0 12px 12px -5px var(--shadow-color-3);
+
+    --z-index-content: 1;
+}
+
+@media screen and (min-width: 840px) {
+    :root {
+        --spacing-between-elements-normal: var(--spacing-xxxl);
+        --spacing-between-consecutive-elements-normal: var(--spacing-xl);
+    }
 }
