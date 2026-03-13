@@ -7,6 +7,9 @@ import './toujou-breadcrumb.storyStyles.css';
 const meta: Meta = {
   title: 'Components/Toujou Breadcrumb',
   component: 'toujou-breadcrumb',
+  parameters: {
+    toujouThemes: ['theme-kojo']
+  },
   args: {
     onModeChange: fn().mockName('toujou-breadcrumb-mode-change'),
     onMenuOpen: fn().mockName('toujou-breadcrumb-menu-open'),
