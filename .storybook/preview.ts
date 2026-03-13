@@ -1,9 +1,9 @@
 // @ts-ignore
 import type { Preview } from '@storybook/web-components-vite'
+export const globalTypes = {};
 
 // Globals
 import '../stories/globals/css/global.css';
-import '../stories/globals/js/story-info/story-info';
 
 const preview: Preview = {
   parameters: {

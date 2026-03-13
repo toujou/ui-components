@@ -7,9 +7,7 @@ const meta: Meta = {
   title: 'Components/Toujou Burger Button',
   component: 'toujou-burger-button',
   parameters: {
-    docs: {
-      storyDescription: 'sfdhdfghdg'
-    }
+    toujouThemes: ['theme-kojo']
   }
 };
 
@@ -22,15 +20,7 @@ export const Default: Story = {
   render: () => {
     const wrapper = document.createElement('div');
 
-    // initial state is closed
     wrapper.innerHTML = `
-      <story-info title="Burger Button" themes='["Kojo"]'>
-        <div slot="description">
-          <p>Click on the <strong>Burger Button</strong> toggles the main navigation state.</p>
-          <p>It supports keyboard interaction (Enter/Space) and updates ARIA attributes automatically.</p>
-        </div>
-      </story-info>
-
       <toujou-burger-button
             class="burger-button"
             role="button"

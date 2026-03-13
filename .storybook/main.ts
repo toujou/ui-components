@@ -2,9 +2,8 @@ import litcss from 'vite-plugin-lit-css';
 
 // @ts-ignore
 import type { StorybookConfig } from '@storybook/web-components-vite';
-
+import remarkGfm from 'remark-gfm';
 import { dirname } from "path"
-
 import { fileURLToPath } from "url"
 
 /**
@@ -16,9 +15,21 @@ function getAbsolutePath(value: string) {
 }
 const config: StorybookConfig = {
   "stories": [
+    '../stories/**/*.mdx',
     "../stories/**/*.stories.@(js|jsx|mjs|ts|tsx)"
   ],
-  "addons": [],
+  "addons": [
+    {
+      name: '@storybook/addon-docs',
+      options: {
+        mdxPluginOptions: {
+          mdxCompileOptions: {
+            remarkPlugins: [remarkGfm],
+          },
+        },
+      },
+    }
+  ],
   "framework": getAbsolutePath('@storybook/web-components-vite'),
   viteFinal: async (config) => {
     const { mergeConfig } = await import('vite');
