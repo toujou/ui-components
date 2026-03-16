@@ -2,18 +2,28 @@ import React from 'react';
 import { addons, types, useStorybookApi } from 'storybook/manager-api';
 
 /**
+ * Returns the background color for a given theme badge.
+ *
+ * @param {string} themeName - The name of the theme to get the color for
+ * @returns {string} A CSS color string
+ */
+const getBadgeColor = (themeName) => {
+  /** @type {string} Default color for themes not listed in the color map */
+  const defaultColor = '#007ce8';
+
+  /** @type {Record<string, string>} Map of custom colors for some theme options */
+  const colorMap = {
+    'deprecated': '#e80058',
+  };
+
+  return colorMap[themeName] ?? defaultColor;
+};
+
+/**
  * Storybook manager addon that displays the toujou themes a component is used
  * in as colored badge pills in the Storybook toolbar.
  *
- * Themes are defined per component via the `toujouThemes` parameter:
- * @example
- * export default {
- *   title: 'Components/Button',
- *   component: Button,
- *   parameters: {
- *     toujouThemes: ['theme-medatsu', 'theme-kojo'],
- *   },
- * };
+ * Themes are defined per component via the `toujouThemes` parameter
  */
 addons.register('theme-badges', () => {
   /**
@@ -54,7 +64,7 @@ addons.register('theme-badges', () => {
             {
               key: themeName,
               style: {
-                background: '#1a73e8',
+                background: getBadgeColor(themeName),
                 color: '#e8f0fe',
                 borderRadius: '4px',
                 padding: '3px 4px',

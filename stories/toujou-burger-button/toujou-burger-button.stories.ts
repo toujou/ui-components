@@ -8,8 +8,9 @@ const meta: Meta = {
   title: 'Components/Toujou Burger Button',
   component: 'toujou-burger-button',
   parameters: {
-    toujouThemes: THEME_NAMES.KOJO
-  }
+    toujouThemes: [THEME_NAMES.KOJO]
+  },
+  tags: ['kojo']
 };
 
 export default meta;

@@ -4,10 +4,15 @@ import { Meta, StoryObj } from '@storybook/web-components';
 // @ts-ignore
 import { fn } from 'storybook/test';
 import '../../packages/toujou-burger/src/index.ts';
+import { THEME_NAMES } from "../globals/js/constants";
 
 const meta: Meta = {
   title: 'Components/Toujou Burger',
   component: 'toujou-burger',
+  parameters: {
+    toujouThemes: [THEME_NAMES.DEPRECATED]
+  },
+  tags: ['deprecated']
 };
 
 export default meta;

@@ -6,6 +6,8 @@ export const globalTypes = {};
 import '../stories/globals/css/global.css';
 import '../stories/globals/css/preview.css';
 
+
+
 const preview: Preview = {
   parameters: {
     controls: {
@@ -28,3 +30,4 @@ const preview: Preview = {
 };
 
 export default preview;
+export { decorators } from './decorators';
