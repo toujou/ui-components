@@ -9,15 +9,23 @@ A responsive breadcrumb navigation component that automatically switches between
 
 ## Usage
 ```html
-<toujou-breadcrumb class="breadcrumb">
-  <div slot="toggle-buttons">
-    <button class="breadcrumb__toggle">☰</button>
-  </div>
-  <ol slot="list" class="breadcrumb__list">
-    <li class="breadcrumb__item"><a class="breadcrumb__link" href="#">Home</a></li>
-    <li class="breadcrumb__item"><a class="breadcrumb__link" href="#">Category</a></li>
-    <li class="breadcrumb__item"><a class="breadcrumb__link" href="#">Current Page</a></li>
-  </ol>
+<toujou-breadcrumb
+    class="breadcrumb"
+>
+    <button slot="toggle-buttons" class="breadcrumb__toggle breadcrumb__toggle--open">
+        <!-- Add icon... -->
+    </button>
+
+    <button slot="toggle-buttons" class="breadcrumb__toggle breadcrumb__toggle--close">
+        <!-- Add icon... -->
+    </button>
+
+    <ol slot="list" class="breadcrumb__list">
+        <li class="breadcrumb__item"><a class="breadcrumb__link" href="#">Home</a></li>
+        <li class="breadcrumb__item"><a class="breadcrumb__link" href="#">Category</a></li>
+        <li class="breadcrumb__item"><a class="breadcrumb__link" href="#">Subcategory</a></li>
+        <li class="breadcrumb__item"><a class="breadcrumb__link" href="#" aria-current="page">Current Page</a></li>
+    </ol>
 </toujou-breadcrumb>
 ```
 

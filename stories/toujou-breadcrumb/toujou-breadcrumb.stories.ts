@@ -9,8 +9,9 @@ const meta: Meta = {
   title: 'Components/Toujou Breadcrumb',
   component: 'toujou-breadcrumb',
   parameters: {
-    toujouThemes: [THEME_NAMES.TOUJOU, THEME_NAMES.HISSU]
+    toujouThemes: [THEME_NAMES.KOJO]
   },
+  tags: ['kojo'],
   args: {
     onModeChange: fn().mockName('toujou-breadcrumb-mode-change'),
     onMenuOpen: fn().mockName('toujou-breadcrumb-menu-open'),
@@ -29,14 +30,19 @@ export const Default: Story = {
       @toujou-breadcrumb-menu-open=${args.onMenuOpen}
       @toujou-breadcrumb-menu-close=${args.onMenuClose}
     >
-      <div slot="toggle-buttons">
-        <button class="breadcrumb__toggle">☰</button>
-      </div>
+      <button slot="toggle-buttons" class="breadcrumb__toggle breadcrumb__toggle--open">
+        <i class="icon icon--arrow-left breadcrumb__toggle-icon"></i>
+      </button>
+
+      <button slot="toggle-buttons" class="breadcrumb__toggle breadcrumb__toggle--close">
+        <i class="icon icon--close breadcrumb__toggle-icon"></i>
+      </button>
+
       <ol slot="list" class="breadcrumb__list">
         <li class="breadcrumb__item"><a class="breadcrumb__link" href="#">Home</a></li>
         <li class="breadcrumb__item"><a class="breadcrumb__link" href="#">Category</a></li>
         <li class="breadcrumb__item"><a class="breadcrumb__link" href="#">Subcategory</a></li>
-        <li class="breadcrumb__item"><a class="breadcrumb__link" href="#">Current Page</a></li>
+        <li class="breadcrumb__item"><a class="breadcrumb__link" href="#" aria-current="page">Current Page</a></li>
       </ol>
     </toujou-breadcrumb>
   `,

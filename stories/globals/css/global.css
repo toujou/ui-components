@@ -1,3 +1,7 @@
+/* Variables */
 @import url('./variables/_icons.css');
 @import url('./variables/_variables.css');
+
+/*elements */
+@import url('./elements/_icon.css');
 @import url('./elements/_type.css');

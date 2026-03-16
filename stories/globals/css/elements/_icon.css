@@ -1,0 +1,21 @@
+.icon {
+    --icon-size: var(--font-size-normal);
+    --icon-color: var(--color-primary);
+
+    mask-position: center;
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    display: inline-block;
+    height: var(--icon-size);
+    width: var(--icon-size);
+    mask-image: var(--icon-icon);
+    background-color: var(--icon-color);
+}
+
+.icon--arrow-left {
+    --icon-icon: url('../../icons/icon-arrow-left.svg');
+}
+
+.icon--close {
+    --icon-icon: url('../../icons/icon-close.svg');
+}
