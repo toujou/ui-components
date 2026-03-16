@@ -24,27 +24,25 @@ export const Default: Story = {
 
     wrapper.innerHTML = `
       <toujou-burger-button
-            class="burger-button"
-            role="button"
-            aria-pressed="false"
-            aria-haspopup="true"
-            aria-controls="mainNavigation"
-            aria-expanded="false"
-            aria-label="Menu button"
-            toggle-element-selector="#topbar"
-            tabindex="0"
+          class="burger-button"
+          role="button"
+          aria-pressed="false"
+          aria-haspopup="true"
+          aria-controls="mainNavigation"
+          aria-expanded="false"
+          aria-label="Menu button"
+          toggle-element-selector="#topbar"
+          tabindex="0"
         >
-            <span class="burger-button__line" line-position="top" aria-hidden="true" slot="content"></span>
-            <span class="burger-button__line" line-position="middle" aria-hidden="true" slot="content"></span>
-            <span class="burger-button__line" line-position="bottom" aria-hidden="true" slot="content"></span>
+          <span class="burger-button__line" line-position="top" aria-hidden="true" slot="content"></span>
+          <span class="burger-button__line" line-position="middle" aria-hidden="true" slot="content"></span>
+          <span class="burger-button__line" line-position="bottom" aria-hidden="true" slot="content"></span>
         </toujou-burger-button>
     `;
 
     const button = wrapper.querySelector('toujou-burger-button');
-    const slotContent = button.querySelector('[slot="content"]');
 
     button.addEventListener('toujou-burger-button-state-change', (event: CustomEvent) => {
-      const newState = event.detail.state;
       onStateChange(event);
     });
 

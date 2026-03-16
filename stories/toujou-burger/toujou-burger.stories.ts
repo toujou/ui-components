@@ -1,8 +1,4 @@
-import { html } from 'lit';
-// @ts-ignore
 import { Meta, StoryObj } from '@storybook/web-components';
-// @ts-ignore
-import { fn } from 'storybook/test';
 import '../../packages/toujou-burger/src/index.ts';
 import { THEME_NAMES } from "../globals/js/constants";
 
