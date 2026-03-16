@@ -1,0 +1,43 @@
+.accordion {
+    display: block;
+}
+
+.accordion__panel {
+    border-top: 1px solid var(--color-font);
+    padding: var(--spacing-normal) var(--spacing-normal) var(--spacing-s);
+    cursor: pointer;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: var(--spacing-s);
+    align-items: center;
+}
+
+.accordion__panel:not(:first-child) {
+    margin-top: var(--spacing-s);
+}
+
+.accordion__title {
+    font-family: var(--font-family-text), sans-serif;
+    color: var(--color-primary);
+    margin: 0;
+}
+
+.accordion__panel[aria-expanded="true"] .chevron {
+    rotate: 180deg;
+}
+
+.accordion__panel:is(:hover, :focus-visible) .accordion__panel__title {
+    color: var(--color-primary-dark);
+}
+
+.accordion__content {
+    padding: var(--spacing-s) var(--spacing-normal);
+}
+
+.accordion__content[aria-hidden="true"] {
+    display: none;
+}
+
+.accordion__content > *:last-child {
+    margin: 0;
+}

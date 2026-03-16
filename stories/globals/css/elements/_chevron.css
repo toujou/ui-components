@@ -1,0 +1,18 @@
+.chevron {
+    --chevron-size: var(--font-size-m);
+    --chevron-color: var(--color-primary);
+    --chevron-color-active: var(--color-primary-dark);
+
+    display: block;
+    width: var(--chevron-size);
+    height: var(--chevron-size);
+    background-color: var(--chevron-color);
+    mask-position: center;
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    mask-image: var(--ui-components-sb-icon-chevron-down);
+}
+
+.chevron:is(:hover, :focus-visible) {
+    background-color: var(--chevron-color-active);
+}

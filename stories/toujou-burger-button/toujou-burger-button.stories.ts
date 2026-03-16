@@ -2,12 +2,13 @@ import { fn } from 'storybook/test';
 import { Meta, StoryObj } from '@storybook/web-components';
 import '../../packages/toujou-burger-button/src/index.ts';
 import './toujou-burger-button.storyStyles.css';
+import { THEME_NAMES } from '../globals/js/constants';
 
 const meta: Meta = {
   title: 'Components/Toujou Burger Button',
   component: 'toujou-burger-button',
   parameters: {
-    toujouThemes: ['theme-kojo']
+    toujouThemes: THEME_NAMES.KOJO
   }
 };
 

@@ -1,0 +1,7 @@
+@import url('./elements/_chevron.css');
+
+body {
+    font-family: var(--font-family-text);
+    font-size: var(--font-size-normal);
+    color: var(--color-font);
+}

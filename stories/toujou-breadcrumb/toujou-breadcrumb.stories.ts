@@ -3,12 +3,13 @@ import { Meta, StoryObj } from '@storybook/web-components';
 import { fn } from 'storybook/test';
 import '../../packages/toujou-breadcrumb/src/index.ts';
 import './toujou-breadcrumb.storyStyles.css';
+import { THEME_NAMES } from '../globals/js/constants';
 
 const meta: Meta = {
   title: 'Components/Toujou Breadcrumb',
   component: 'toujou-breadcrumb',
   parameters: {
-    toujouThemes: ['theme-kojo']
+    toujouThemes: [THEME_NAMES.TOUJOU, THEME_NAMES.HISSU]
   },
   args: {
     onModeChange: fn().mockName('toujou-breadcrumb-mode-change'),

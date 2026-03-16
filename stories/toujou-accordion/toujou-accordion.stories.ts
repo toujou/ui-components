@@ -2,7 +2,8 @@ import { fn } from 'storybook/test';
 import { Meta, StoryObj } from '@storybook/web-components';
 import '../../packages/toujou-accordion/src/index.ts';
 
-import './toujou-accordion.stories.css';
+import './toujou-accordion.storyStyles.css';
+import { THEME_NAMES } from "../globals/js/constants";
 
 const meta: Meta = {
   title: 'Components/Toujou Accordion',
@@ -13,9 +14,13 @@ const meta: Meta = {
       description: 'Only one panel can be open at a time',
     },
   },
+  parameters: {
+    toujouThemes: [THEME_NAMES.TOUJOU_V1, THEME_NAMES.HISSU_V1, THEME_NAMES.TABI_V1, THEME_NAMES.MEDATSU_V1]
+  },
   args: {
     'expand-mode-single': false,
   },
+  tags: ['toujou v1', 'hissu v1', 'tabi v1', 'medatsu v1']
 };
 
 export default meta;
@@ -24,36 +29,35 @@ type Story = StoryObj;
 const onAccordionChange = fn().mockName('accordion-change');
 const onAccordionReady = fn().mockName('toujou-accordion-ready');
 
+const renderChevron = () => `<i class="chevron"></i>`;
+
 export const Default: Story = {
   render: (args) => {
     const wrapper = document.createElement('div');
     wrapper.innerHTML = `
       <toujou-accordion class="accordion" ${args['expand-mode-single'] ? 'expand-mode-single' : ''}>
         <div class="accordion__panel" data-for="item-1" data-open="true">
-          Panel 1 — Click to toggle
+          <h3 class="accordion__title">Panel 1 — Click to toggle</h3>
+          ${renderChevron()}
         </div>
         <div class="accordion__content" data-content="item-1">
-          <div class="accordion__content-inner">
-            Content for panel 1.
-          </div>
+          <p>Content for panel 1.</p>
         </div>
 
         <div class="accordion__panel" data-for="item-2">
-          Panel 2 — Click to toggle
+          <h3 class="accordion__title">Panel 2 — Click to toggle</h3>
+          ${renderChevron()}
         </div>
         <div class="accordion__content" data-content="item-2">
-          <div class="accordion__content-inner">
-            Content for panel 2.
-          </div>
+          <p>Content for panel 2.</p>
         </div>
 
         <div class="accordion__panel" data-for="item-3">
-          Panel 3 — Click to toggle
+          <h3 class="accordion__title">Panel 3 — Click to toggle</h3>
+          ${renderChevron()}
         </div>
         <div class="accordion__content" data-content="item-3">
-          <div class="accordion__content-inner">
-            Content for panel 3.
-          </div>
+          <p>Content for panel 3.</p>
         </div>
       </toujou-accordion>
     `;
