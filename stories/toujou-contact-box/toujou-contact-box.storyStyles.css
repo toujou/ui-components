@@ -1,0 +1,20 @@
+.contact-box {
+    display: none;
+}
+
+#contact-state:checked ~ .contact-box {
+    display: block;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+    padding: 2rem;
+    border: var(--spacing-s) solid var(--color-primary);
+    background-color: white;
+}
+
+body:has(#contact-state:checked) #storybook-root > div > *:not(.contact-box) {
+    opacity: 0;
+    pointer-events: none;
+}

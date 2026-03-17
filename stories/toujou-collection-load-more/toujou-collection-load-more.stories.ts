@@ -21,7 +21,8 @@ const meta: Meta = {
   },
   parameters: {
     toujouThemes: [THEME_NAMES.KOJO]
-  }
+  },
+  tags: ['kojo']
 };
 
 export default meta;

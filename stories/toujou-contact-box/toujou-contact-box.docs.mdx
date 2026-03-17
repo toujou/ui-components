@@ -1,0 +1,46 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as ContactBoxStories from './toujou-contact-box.stories';
+
+<Meta of={ContactBoxStories} />
+
+# Toujou Contact Box
+
+A modal contact panel that is controlled by a hidden checkbox input. It supports focus trapping, keyboard interactions, and backdrop click to close. When open, a body attribute is set that can be used to apply global styles (e.g. preventing scroll).
+
+## Required Elements
+
+The component looks for these elements in the DOM on `connectedCallback`. Both are required for the component to initialize correctly.
+
+| Selector | Description |
+|---|---|
+| `#contact-state` | Hidden checkbox input that controls the open/closed state |
+| `.contact-box__close` | Button inside the component that closes the contact box |
+
+## CSS Classes
+
+| Class | Element | Description |
+|---|---|---|
+| `contact-box__close` | `button` | The close button inside the contact box. Required for the component to initialize |
+| `contact-box__link` | `a` | Focusable link elements included in the focus trap |
+
+## Body Attribute
+
+| Attribute | Description |
+|---|---|
+| `contact-box-is-open` | Added to `document.body` when the contact box is open. Can be used to apply global styles such as preventing page scroll |
+
+## Keyboard Interactions
+
+| Key | Description |
+|---|---|
+| `Escape` | Closes the contact box |
+| `Tab` | Moves focus to the next focusable element inside the contact box |
+| `Shift + Tab` | Moves focus to the previous focusable element inside the contact box |
+
+## Accessibility
+
+- Focus is trapped inside the contact box while it is open
+- The previously focused element receives focus again when the contact box closes
+- Clicking the backdrop (the component element itself) closes the contact box
+- The `#contact-state` checkbox should have `aria-hidden="true"` since it is a purely functional element
+- Use `aria-label` on the close button to provide a meaningful description for screen readers
