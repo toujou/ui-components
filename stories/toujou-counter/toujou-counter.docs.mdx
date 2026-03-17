@@ -1,0 +1,52 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as CounterStories from './toujou-counter.stories';
+
+<Meta of={CounterStories} />
+
+# Toujou Counter
+
+A component that animates a number from a start value to an end value when it becomes visible in the viewport. The animation is triggered by an `IntersectionObserver` and respects the user's `prefers-reduced-motion` setting. Supports optional prefix and suffix elements around the number.
+
+## Attributes
+
+| Attribute | Type | Default | Description |
+|---|---|---|---|
+| `start-number` | `string` | — | The number to start counting from. Required |
+| `end-number` | `string` | — | The number to count up or down to. Required |
+| `animation-speed` | `string` | — | Maps to a CSS variable `--counter-animation-duration-{speed}` (e.g. `slow`, `medium`, `fast`) |
+
+## Required Child Elements
+
+| Selector | Description |
+|---|---|
+| `.counter__number-text` | The element whose text content is updated during the animation. Must be present in the light DOM |
+
+## CSS Variables
+
+| Variable | Description |
+|---|---|
+| `--counter-animation-duration-slow` | Animation duration for slow speed |
+| `--counter-animation-duration-medium` | Animation duration for medium speed |
+| `--counter-animation-duration-fast` | Animation duration for fast speed |
+
+## Events
+
+| Event | Detail | Description |
+|---|---|---|
+| `toujou-counter-init` | `{ counter }` | Fired when the counter is initialized and the observer is set up |
+| `toujou-counter-animation-start` | `{ counter }` | Fired when the counter enters the viewport and the animation begins |
+| `toujou-counter-animation-end` | `{ counter }` | Fired when the animation completes |
+
+## Behavior
+
+- The animation starts automatically when `.counter__number-text` enters the viewport
+- Counts up if `end-number` is greater than `start-number`, counts down otherwise
+- Numbers are formatted using `Intl.NumberFormat` based on the page's `lang` attribute
+- If the CSS variable for the selected `animation-speed` cannot be found, a fallback duration is used
+- If `start-number` or `end-number` are missing, the component logs an error and does not initialize
+
+## Accessibility
+
+- If the user has `prefers-reduced-motion: reduce` enabled, the end number is displayed immediately without animation
+- Use `aria-label` on the component to provide a meaningful description for screen readers
+- The component uses light DOM (`createRenderRoot` returns `this`), so global styles apply directly

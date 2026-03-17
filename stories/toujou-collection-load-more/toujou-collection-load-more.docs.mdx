@@ -7,14 +7,6 @@ import * as CollectionLoadMoreStories from './toujou-collection-load-more.storie
 
 A component that loads additional items into a collection by fetching the next page and appending the new cards to the existing container. While loading, the button is replaced by a spinner. Once loading is complete, the component either replaces itself with a new load more button (if more pages exist) or removes itself from the DOM.
 
-## Usage
-```html
-<toujou-collection-load-more items-container-selector=".card-collection">
-  <a href="/collection?page=2" class="button collection-load-more__button">Show more</a>
-  <toujou-spinner slot="spinner" class="collection-load-more__spinner"></toujou-spinner>
-</toujou-collection-load-more>
-```
-
 ## Attributes
 
 | Attribute | Type | Default | Description |

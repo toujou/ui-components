@@ -7,28 +7,6 @@ import * as BreadcrumbStories from './toujou-breadcrumb.stories';
 
 A responsive breadcrumb navigation component that automatically switches between desktop and mobile views based on the available width. On mobile, the full breadcrumb list is hidden behind a toggle button.
 
-## Usage
-```html
-<toujou-breadcrumb
-    class="breadcrumb"
->
-    <button slot="toggle-buttons" class="breadcrumb__toggle breadcrumb__toggle--open">
-        <!-- Add icon... -->
-    </button>
-
-    <button slot="toggle-buttons" class="breadcrumb__toggle breadcrumb__toggle--close">
-        <!-- Add icon... -->
-    </button>
-
-    <ol slot="list" class="breadcrumb__list">
-        <li class="breadcrumb__item"><a class="breadcrumb__link" href="#">Home</a></li>
-        <li class="breadcrumb__item"><a class="breadcrumb__link" href="#">Category</a></li>
-        <li class="breadcrumb__item"><a class="breadcrumb__link" href="#">Subcategory</a></li>
-        <li class="breadcrumb__item"><a class="breadcrumb__link" href="#" aria-current="page">Current Page</a></li>
-    </ol>
-</toujou-breadcrumb>
-```
-
 ## How it works
 
 The component measures the total width of all breadcrumb items on first render and uses that value as the breakpoint. When the viewport is narrower than the breakpoint, the component switches to mobile mode, hiding the full list and showing only the toggle button. Clicking the toggle button reveals the full list.
