@@ -1,0 +1,18 @@
+.storybook-spinner {
+    --storybook-spinner-size: 1rem;
+    --storybook-spinner-color: var(--color-primary);
+    --storybook-spinner-thickness: 4px;
+
+    display: inline-block;
+    height: var(--storybook-spinner-size);
+    width: var(--storybook-spinner-size);
+    border: var(--storybook-spinner-thickness) solid var(--storybook-spinner-color);
+    border-right: var(--storybook-spinner-thickness) solid transparent;
+    border-radius: 50%;
+    animation: storybookSpinnerAnimation 1s linear infinite;
+}
+
+@keyframes storybookSpinnerAnimation {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

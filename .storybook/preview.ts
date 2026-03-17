@@ -4,9 +4,6 @@ export const globalTypes = {};
 
 // Globals
 import '../stories/globals/css/global.css';
-import '../stories/globals/css/preview.css';
-
-
 
 const preview: Preview = {
   parameters: {

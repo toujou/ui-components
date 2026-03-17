@@ -1,7 +1,21 @@
+/*
+ * Styles that get loaded on the storybook preview
+ */
+
 /* Variables */
 @import url('./variables/_icons.css');
 @import url('./variables/_variables.css');
 
-/*elements */
+/* Elements */
+@import url('./elements/_chevron.css');
 @import url('./elements/_icon.css');
+@import url('./elements/_storybook-button.css');
+@import url('./elements/_storybook-spinner.css');
 @import url('./elements/_type.css');
+
+/* Custom styles */
+body {
+    font-family: var(--font-family-text);
+    font-size: var(--font-size-normal);
+    color: var(--color-font);
+}

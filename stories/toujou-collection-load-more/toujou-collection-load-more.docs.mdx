@@ -1,0 +1,50 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as CollectionLoadMoreStories from './toujou-collection-load-more.stories';
+
+<Meta of={CollectionLoadMoreStories} />
+
+# Toujou Collection Load More
+
+A component that loads additional items into a collection by fetching the next page and appending the new cards to the existing container. While loading, the button is replaced by a spinner. Once loading is complete, the component either replaces itself with a new load more button (if more pages exist) or removes itself from the DOM.
+
+## Usage
+```html
+<toujou-collection-load-more items-container-selector=".card-collection">
+  <a href="/collection?page=2" class="button collection-load-more__button">Show more</a>
+  <toujou-spinner slot="spinner" class="collection-load-more__spinner"></toujou-spinner>
+</toujou-collection-load-more>
+```
+
+## Attributes
+
+| Attribute | Type | Default | Description |
+|---|---|---|---|
+| `is-loading` | `boolean` | `false` | When `true`, hides the default slot and shows the spinner slot instead |
+| `items-container-selector` | `string` | `''` | CSS selector of the container element where new cards will be appended |
+
+## Slots
+
+| Slot | Description |
+|---|---|
+| *(default)* | The load more button or link. Must have a valid `href` pointing to the next page |
+| `spinner` | Content shown while loading is in progress, typically a spinner component |
+
+## Events
+
+| Event | Detail | Description |
+|---|---|---|
+| `toujou-collection-load-more-done` | — | Fired on `window` when the fetch completes, regardless of success or failure |
+| `toujou-collection-load-more-error` | `error` | Fired on `window` when the fetch fails |
+
+## Behavior
+
+- Clicking the default slot triggers a `fetch` to the link's `href`
+- New cards from the response are appended to the element matching `items-container-selector`
+- If the response contains a new `toujou-collection-load-more` element, the current one is replaced with it
+- If no new `toujou-collection-load-more` is found in the response, the component removes itself
+- After loading, focus is moved to the first new card's link element
+
+## Notes
+
+- The `href` on the link in the default slot is required and must be a valid URL — an empty or missing `href` will throw an error
+- Both events are dispatched on `window`, not on the component element itself

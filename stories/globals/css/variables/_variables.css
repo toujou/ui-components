@@ -41,6 +41,8 @@
     --border-radius-m: .5rem;
     --border-radius-normal: .25rem;
 
+    --border-width-normal: 1px;
+
     --content-fullwidth: 100%;
     --content-width-with-padding: calc(100% - calc(var(--content-padding-to-border) * 2));
     --content-max-width: 960px;

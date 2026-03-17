@@ -3,6 +3,7 @@ import { Meta, StoryObj } from '@storybook/web-components';
 import { fn } from 'storybook/test';
 import '../../packages/toujou-clamped-content/src/index.ts';
 import { THEME_NAMES } from "../globals/js/constants";
+import './toujou-clamped-content.storyStyles.css';
 
 const meta: Meta = {
   title: 'Components/Toujou Clamped Content',
@@ -29,6 +30,7 @@ type Story = StoryObj;
 export const Default: Story = {
   render: (args) => html`
     <toujou-clamped-content
+      class="clamped-content"
       ?is-open=${args['is-open']}
       @toujou-clamped-content-changed=${args.onChanged}
       @toujou-clamped-content-clamp-enabled-changed=${args.onClampEnabledChanged}
