@@ -1,0 +1,80 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as InpageNavStories from './toujou-inpage-nav.stories';
+
+<Meta of={InpageNavStories} />
+
+# Toujou Inpage Nav
+
+A navigation component that links to sections within the same page. It automatically detects which section is currently visible in the viewport and highlights the corresponding nav item. It also supports a mobile mode that collapses the nav items behind a toggle button, a sticky mode, and an optional CTA button.
+
+## Attributes
+
+| Attribute | Type | Default | Description |
+|---|---|---|---|
+| `alignment` | `left` \| `center` | `left` | Alignment of the nav items |
+| `element-width` | `text` \| `wide` \| `fullwidth` | `text` | Width of the nav element |
+| `is-sticky` | `boolean` | `false` | When present, the nav sticks to the top of the viewport when scrolling |
+| `centered` | `boolean` | `false` | Centers the nav items |
+| `is-auto` | `boolean` | `false` | Enables auto mode |
+
+## Reflected Properties
+
+| Property | Attribute | Type | Description |
+|---|---|---|---|
+| `isMobile` | `ismobile` | `boolean` | Set automatically when the nav items don't fit side by side |
+| `mobileOpen` | `mobileopen` | `boolean` | Whether the mobile nav is open |
+| `isStuck` | `is-stuck` | `boolean` | Set automatically when the nav is sticky and has scrolled past its original position |
+
+## Required Child Elements
+
+| Selector | Description |
+|---|---|
+| `.inpage-nav__toggle` | Toggle button for mobile mode. Required for the component to initialize |
+| `.inpage-nav__item` | Nav item elements, each containing an `<a>` with an `href` pointing to a section ID |
+| `.inpage-nav__link` | The anchor element inside each nav item |
+
+## Slots
+
+| Slot | Description |
+|---|---|
+| *(default)* | The main nav content — toggle button, label, and nav list |
+| `cta` | Optional CTA button shown alongside the nav items |
+
+## CSS Classes
+
+| Class | Description |
+|---|---|
+| `inpage-nav__toggle` | The mobile toggle button |
+| `inpage-nav__label` | Optional label shown before the nav items (e.g. "Auf dieser Seite") |
+| `inpage-nav__nav` | The `<nav>` wrapper element |
+| `inpage-nav__list` | The `<ul>` list of nav items |
+| `inpage-nav__item` | Individual nav item. Receives `active` and `aria-current` when its section is visible |
+| `inpage-nav__link` | The anchor element inside each nav item |
+
+## CSS Variables
+
+| Variable | Description |
+|---|---|
+| `--toujou-inpage-nav-breakpoint-offset` | Pixel offset used when calculating the mobile breakpoint. Defaults to `180` |
+
+## Events
+
+| Event | Detail | Description |
+|---|---|---|
+| `toujou-inpage-nav-connected` | — | Fired when the component connects to the DOM |
+| `toujou-inpage-nav-disconnected` | — | Fired when the component disconnects from the DOM |
+| `toujou-inpage-nav-stuck-state-change` | `{ isStuck: boolean }` | Fired when the sticky state changes. Only fires when `is-sticky` is set |
+
+## Keyboard & Accessibility
+
+- The toggle button manages `aria-expanded` and `aria-hidden` automatically based on mobile state
+- Each active nav item receives `aria-current="true"` when its target section is visible
+- Use `aria-controls` on the toggle button referencing the `<nav>` element's `id`
+- Clicking a nav link closes the mobile menu automatically
+
+## Notes
+
+- The component uses an `IntersectionObserver` to track which section is currently visible
+- The mobile breakpoint is calculated automatically based on the widths of the nav items
+- If `is-sticky` is not set, the stuck state observer is never initialized
+- Target sections are found via the `href` of each `.inpage-nav__link` — make sure the IDs exist in the DOM

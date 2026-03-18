@@ -12,6 +12,10 @@
     background-color: var(--icon-color);
 }
 
+.icon--color-font {
+    --icon-color: var(--color-font);
+}
+
 .icon--arrow-left {
     --icon-icon: url('../../icons/icon-arrow-left.svg');
 }
@@ -22,5 +26,9 @@
 
 .icon--close {
     --icon-icon: url('../../icons/icon-close.svg');
+}
+
+.icon--link {
+    --icon-icon: url('../../icons/icon-link.svg');
 }
 
