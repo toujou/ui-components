@@ -1,0 +1,42 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as IframeResizerStories from './toujou-iframe-resizer.stories';
+
+<Meta of={IframeResizerStories} />
+
+# Toujou Iframe Resizer
+
+A wrapper component that uses the [iframe-resizer](https://github.com/davidjbradshaw/iframe-resizer) library to automatically resize an iframe to fit its content. This eliminates the need for fixed iframe heights and prevents scrollbars inside the iframe.
+
+## Requirements
+
+`iframe-resizer` is a two-sided library. For resizing to work, **both** of the following must be in place:
+
+1. The `toujou-iframe-resizer` component wraps the `<iframe>` on the parent page
+2. The `iframeResizer.contentWindow` script is loaded inside the iframe content page:
+```html
+<script src="/node_modules/iframe-resizer/js/iframeResizer.contentWindow.min.js"></script>
+```
+
+Without the content window script, the iframe will not resize.
+
+## Iframe Options
+
+You can pass `iframe-resizer` options to the iframe via a `toujou-iframe` attribute as a JSON string:
+```html
+<toujou-iframe-resizer>
+  <iframe
+    src="https://your-content-url.com"
+    toujou-iframe='{"heightCalculationMethod": "bodyScroll"}'
+    width="100%"
+    style="border: none;"
+  ></iframe>
+</toujou-iframe-resizer>
+```
+
+Available options are documented in the [iframe-resizer documentation](https://github.com/davidjbradshaw/iframe-resizer/blob/master/docs/parent_page/options.md).
+
+## Notes
+
+- The component listens for `slotchange` events to initialize `iframe-resizer` when the iframe is added to the slot
+- Only `<iframe>` elements assigned to the slot are initialized — other slotted elements are ignored
+- If the `toujou-iframe` attribute contains invalid JSON, an error is logged and default options are used
