@@ -68,6 +68,11 @@
     --shadow-xl: 0 16px 24px 2px var(--shadow-color-1), 0 6px 30px 6px var(--shadow-color-2), 0 12px 12px -5px var(--shadow-color-3);
 
     --z-index-content: 1;
+
+    --animation-duration-normal: .5s;
+    --animation-duration-fast: .25s;
+
+    --animation-easing-normal: ease-in-out;
 }
 
 @media screen and (min-width: 840px) {

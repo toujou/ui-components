@@ -16,6 +16,11 @@
     --icon-icon: url('../../icons/icon-arrow-left.svg');
 }
 
+.icon--chevron-down {
+    --icon-icon: url('../../icons/icon-chevron-down.svg');
+}
+
 .icon--close {
     --icon-icon: url('../../icons/icon-close.svg');
 }
+

@@ -1,0 +1,65 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as DetailsStories from './toujou-details.stories';
+import * as DetailsAccordionStories from './toujou-details-accordion.stories';
+
+<Meta of={DetailsStories} />
+
+# Toujou Details
+
+A pair of components that provide an accessible, animatable details/summary pattern. `toujou-details` is a single collapsible panel built on the native `<details>` element. `toujou-details-accordion` is a wrapper that manages a group of `toujou-details` elements, optionally enforcing that only one panel is open at a time.
+
+## Toujou Details
+
+### Attributes
+
+| Attribute | Type | Default | Description |
+|---|---|---|---|
+| `is-open` | `boolean` | `false` | Whether the details panel is open. Reflected as an attribute |
+
+### Slots
+
+| Slot | Description |
+|---|---|
+| `summary` | The visible trigger element, always shown regardless of open state |
+| `chevron` | Optional indicator element, typically an icon or arrow |
+| `content` | The collapsible content shown when the panel is open |
+
+### CSS Parts
+
+| Part | Description |
+|---|---|
+| `details` | The native `<details>` element |
+| `details-summary` | The `<summary>` element |
+| `details-content` | The `<section>` wrapping the content slot |
+
+### Events
+
+| Event | Detail | Description |
+|---|---|---|
+| `toujou-details-connected` | `{ detailsEl }` | Fired when the component connects to the DOM |
+| `toujou-details-toggle` | `{ detailsEl, state }` | Fired when the panel is opened or closed. `state` is `true` when open |
+
+<div style={{ display: 'block', height: '64px' }}></div>
+
+
+## Toujou Details Accordion
+
+A wrapper component that groups multiple `toujou-details` elements. In `single-expand-mode`, opening one panel automatically closes all others.
+
+### Attributes
+
+| Attribute | Type | Default | Description |
+|---|---|---|---|
+| `single-expand-mode` | `boolean` | `false` | When present, only one child `toujou-details` can be open at a time |
+
+### Events
+
+| Event | Detail | Description |
+|---|---|---|
+| `toujou-details-accordion-connected` | `{ accordionEl }` | Fired when the accordion connects to the DOM |
+| `toujou-details-toggle` | `{ detailsEl, state }` | Bubbled up from child `toujou-details` elements when a panel is toggled |
+
+### Notes
+
+- Only direct `toujou-details` children assigned to the default slot are tracked
+- If no valid `toujou-details` children are found, a `has-no-children` attribute is set and a warning is logged
