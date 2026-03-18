@@ -1,5 +1,5 @@
 import React from 'react';
-import { addons, types, useStorybookApi } from 'storybook/manager-api';
+import { addons, types, useParameter } from 'storybook/manager-api';
 
 /**
  * Returns the background color for a given theme badge.
@@ -34,7 +34,8 @@ addons.register('theme-badges', () => {
   addons.add('theme-badges/toolbar', {
     type: types.TOOL,
     title: 'Theme Badges',
-    match: ({ tabId, viewMode }) => !tabId && viewMode === 'story',
+    match: ({ tabId, viewMode }) => !tabId && (viewMode === 'story' || viewMode === 'docs'),
+
 
     /**
      * Renders the theme badges in the toolbar.
@@ -43,11 +44,7 @@ addons.register('theme-badges', () => {
      * @returns {React.Element|null} A row of badge elements, or null if no themes are defined
      */
     render: () => {
-      const api = useStorybookApi();
-      const storyData = api.getCurrentStoryData();
-
-      /** @type {string[]} List of theme names defined on the current story */
-      const toujouThemes = storyData?.parameters?.toujouThemes || [];
+      const toujouThemes = useParameter('toujouThemes', []);
 
       if (!toujouThemes.length) return null;
 

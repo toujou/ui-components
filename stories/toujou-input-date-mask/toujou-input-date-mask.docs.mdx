@@ -1,0 +1,58 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as InputDateMaskStories from './toujou-input-date-mask.stories';
+
+<Meta of={InputDateMaskStories} />
+
+# Toujou Input Date Mask
+
+## Attributes
+
+| Attribute | Type | Default | Description |
+|---|---|---|---|
+| `mask` | `string` | `dd.mm.yyyy` | The date mask format. Letters are replaced with `9` (digit placeholder) internally by Inputmask |
+| `show-mask-on-hover` | `boolean` | `false` | Shows the mask placeholder when hovering over the input, before it is focused |
+| `show-mask-on-focus` | `boolean` | `false` | Shows the mask placeholder when the input receives focus |
+| `custom-validation-error-message` | `string` | `Please enter a valid date` | The message shown by the browser's native validation tooltip when the date is invalid |
+
+## Slots
+
+| Slot | Description |
+|---|---|
+| `facade` | The visible text input the user types into. Inputmask is applied to this element |
+| `input` | A hidden input that stores the converted ISO 8601 date value (`yyyy-mm-dd`). Only populated when the entered date is valid |
+
+## Validation
+
+The component validates the facade input on every `input` event:
+
+- If the value is **incomplete or invalid**, `setCustomValidity` is called with the custom error message and the hidden input is cleared
+- If the value is **valid**, `setCustomValidity` is cleared and the hidden input is populated with the ISO 8601 equivalent
+
+The validation error is displayed by the browser's native tooltip when the form is submitted.
+
+## Pre-filling
+
+If the hidden input has a `value` attribute set in ISO 8601 format (`yyyy-mm-dd`), the component will automatically convert and display it in the facade input using the configured mask format on load:
+```html
+<toujou-input-date-mask mask="dd.mm.yyyy">
+  <input slot="facade" type="text" />
+  <!-- Will display as "03.01.2022" in the facade input -->
+  <input slot="input" type="hidden" name="date" value="2022-01-03" />
+</toujou-input-date-mask>
+```
+
+## Mask Format
+
+The `mask` attribute uses letter-based format tokens. All letters are internally converted to `9` (Inputmask digit placeholder):
+
+| Format | Example output |
+|---|---|
+| `dd.mm.yyyy` | `31.12.2025` |
+| `mm/dd/yyyy` | `12/31/2025` |
+| `yyyy-mm-dd` | `2025-12-31` |
+
+## Notes
+
+- The component re-initializes Inputmask in `firstUpdated()`, so changing the `mask` attribute after the component has rendered requires a full re-render of the component
+- Only the first `<input>` element assigned to each slot is used
+- The hidden input value is always in ISO 8601 format (`yyyy-mm-dd`) regardless of the display mask
