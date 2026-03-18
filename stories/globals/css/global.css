@@ -8,7 +8,11 @@
 
 /* Elements */
 @import url('./elements/_chevron.css');
+@import url('./elements/_flatpickr.css');
+@import url('./elements/_flatpickr-light.css');
 @import url('./elements/_icon.css');
+@import url('./elements/_input.css');
+@import url('./elements/_input-group.css');
 @import url('./elements/_storybook-button.css');
 @import url('./elements/_storybook-spinner.css');
 @import url('./elements/_type.css');

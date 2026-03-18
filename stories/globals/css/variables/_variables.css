@@ -5,10 +5,14 @@
     --color-primary: #007ce8;
     --color-primary-dark: #0050b3;
     --color-primary-light: #1f96ff;
+    --color-primary-o-10: color-mix(in srgb, var(--color-primary) 10%, transparent);
 
     --color-font: #1b1b1e;
     --color-font-dark: #000000;
     --color-font-light: #3a3a3a;
+
+    --color-error: #ff0000;
+    --color-success: #008000;
 
     --font-size-base: 1rem;                                    /* 16px */
     --font-size-xxl: calc(var(--font-size-base) * 2.5);     /* 40px */
