@@ -7,9 +7,6 @@ import { THEME_NAMES } from "../globals/js/constants";
 const meta: Meta = {
   title: 'Components/Toujou Inpage Nav',
   component: 'toujou-inpage-nav',
-  parameters: {
-    layout: 'fullscreen',
-  },
   argTypes: {
     alignment: {
       control: 'radio',
@@ -45,6 +42,7 @@ const meta: Meta = {
     onStuckStateChange: fn().mockName('toujou-inpage-nav-stuck-state-change'),
   },
   parameters: {
+    layout: 'fullscreen',
     toujouThemes: [THEME_NAMES.KOJO]
   },
   tags: ['kojo']

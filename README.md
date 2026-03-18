@@ -35,6 +35,19 @@ To run the tests, run:
 We can also lint a single package:
 - `PACKAGE_NAME=toujou-accordion npm run lint:single-package`
 
+## Storybook
+We use Storybook as a development environment to preview and prototype components in isolation.
+
+### Run Storybook
+- `npm run storybook`
+
+Storybook will be available at `http://localhost:6006` (see message in console)
+
+### Build Storybook
+- `npm run build-storybook`
+
+The built output will be in the `storybook-static` folder.
+
 ## Released Components
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
 
