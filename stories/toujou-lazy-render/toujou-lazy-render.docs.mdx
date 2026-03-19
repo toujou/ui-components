@@ -1,0 +1,30 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import * as LazyRenderStories from './toujou-lazy-render.stories';
+
+<Meta of={LazyRenderStories} />
+
+# Toujou Lazy Render
+
+A component that defers the rendering of its `<template>` children until the component becomes visible in the viewport. It uses an `IntersectionObserver` to detect visibility and renders all templates at once when triggered. Once rendered, the observer disconnects and does not fire again.
+
+This is useful for deferring expensive content (such as maps, sliders, or heavy media) until the user actually scrolls to it.
+
+## Slots
+
+| Slot | Description |
+|---|---|
+| *(default)* | One or more `<template>` elements whose content will be rendered when the component becomes visible |
+
+## Behavior
+
+- On `connectedCallback`, an `IntersectionObserver` is set up to watch the component element itself
+- When the component intersects the viewport, all `<template>` children are cloned and inserted into the DOM immediately before their respective `<template>` elements
+- The observer disconnects immediately after the first intersection — content is only rendered once
+- On `disconnectedCallback`, the observer is also disconnected to prevent memory leaks
+
+## Notes
+
+- Only `<template>` elements assigned to the default slot are rendered — other slotted content is ignored
+- The template content is cloned using `document.importNode` with deep cloning enabled
+- The component itself has no visible UI — it is purely a rendering wrapper
+- To test the lazy rendering behavior, the component must be placed below the fold so scrolling is required to trigger the observer
