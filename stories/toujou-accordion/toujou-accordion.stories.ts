@@ -15,12 +15,12 @@ const meta: Meta = {
     },
   },
   parameters: {
-    toujouThemes: [THEME_NAMES.TOUJOU_V1, THEME_NAMES.HISSU_V1, THEME_NAMES.TABI_V1, THEME_NAMES.MEDATSU_V1]
+    toujouThemes: [THEME_NAMES.TOUJOU_V1, THEME_NAMES.HISSU_V1, THEME_NAMES.TABI_V1, THEME_NAMES.MEDATSU_V1, THEME_NAMES.CUSTOMIZATIONS, THEME_NAMES.OTHER],
   },
   args: {
     'expand-mode-single': false,
   },
-  tags: ['toujou v1', 'hissu v1', 'tabi v1', 'medatsu v1']
+  tags: ['toujou v1', 'hissu v1', 'tabi v1', 'medatsu v1', 'customizations', 'other']
 };
 
 export default meta;

@@ -7,9 +7,9 @@ const meta: Meta = {
   title: 'Components/Toujou Exit Warning',
   component: 'exit-warning',
   parameters: {
-    toujouThemes: [THEME_NAMES.KOJO]
+    toujouThemes: [THEME_NAMES.KOJO, THEME_NAMES.OTHER]
   },
-  tags: ['kojo']
+  tags: ['kojo', 'other']
 };
 
 export default meta;

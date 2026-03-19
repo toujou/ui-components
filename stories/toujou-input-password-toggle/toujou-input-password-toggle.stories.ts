@@ -7,9 +7,9 @@ const meta: Meta = {
   title: 'Components/Toujou Input Password Toggle',
   component: 'toujou-input-password-toggle',
   parameters: {
-    toujouThemes: [THEME_NAMES.KOJO]
+    toujouThemes: [THEME_NAMES.KOJO, THEME_NAMES.CUSTOMIZATIONS]
   },
-  tags: ['kojo']
+  tags: ['kojo', 'customizations']
 };
 
 export default meta;

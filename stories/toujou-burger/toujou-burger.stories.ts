@@ -6,9 +6,9 @@ const meta: Meta = {
   title: 'Components/Toujou Burger',
   component: 'toujou-burger',
   parameters: {
-    toujouThemes: [THEME_NAMES.DEPRECATED]
+    toujouThemes: [THEME_NAMES.TOUJOU_V1_5, THEME_NAMES.HISSU_V1_5, THEME_NAMES.TABI_V1_5, THEME_NAMES.MEDATSU_V1, THEME_NAMES.MEDATSU_V1_5, THEME_NAMES.CELSEO, THEME_NAMES.CUSTOMIZATIONS],
   },
-  tags: ['deprecated']
+  tags: ['toujou v1.5', 'hissu v1.5', 'tabi v1.5', 'medatsu v1.', 'medatsu v1.5', 'celseo', 'customizations']
 };
 
 export default meta;

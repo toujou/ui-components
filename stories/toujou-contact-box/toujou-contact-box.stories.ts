@@ -7,9 +7,9 @@ const meta: Meta = {
   title: 'Components/Toujou Contact Box',
   component: 'toujou-contact-box',
   parameters: {
-    toujouThemes: [THEME_NAMES.DEPRECATED]
+    toujouThemes: [THEME_NAMES.CUSTOMIZATIONS]
   },
-  tags: ['deprecated']
+  tags: ['customizations']
 };
 
 export default meta;

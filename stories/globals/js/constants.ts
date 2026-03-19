@@ -8,5 +8,8 @@ export enum THEME_NAMES {
   MEDATSU_V1 = 'medatsu v1',
   MEDATSU_V1_5 = 'medatsu v1.5',
   KOJO = 'kojo',
+  CELSEO = 'celseo',
   DEPRECATED = 'deprecated', // For components that aren't used anymore
+  CUSTOMIZATIONS = 'customizations',
+  OTHER = 'other',
 }

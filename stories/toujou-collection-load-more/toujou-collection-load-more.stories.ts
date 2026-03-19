@@ -29,10 +29,11 @@ const meta: Meta = {
       THEME_NAMES.TABI_V1_5,
       THEME_NAMES.MEDATSU_V1,
       THEME_NAMES.MEDATSU_V1_5,
-      THEME_NAMES.KOJO
+      THEME_NAMES.KOJO,
+      THEME_NAMES.CUSTOMIZATIONS,
     ]
   },
-  tags: ['toujou v1', 'toujou v1.5', 'hissu v1', 'hissu v1.5', 'tabi v1\, \tabi v1.5', 'medatsu v1', 'medatsu v1.5', 'kojo']
+  tags: ['toujou v1', 'toujou v1.5', 'hissu v1', 'hissu v1.5', 'tabi v1\, \tabi v1.5', 'medatsu v1', 'medatsu v1.5', 'kojo', 'customizations']
 };
 
 export default meta;

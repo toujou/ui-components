@@ -6,9 +6,9 @@ const meta: Meta = {
   title: 'Components/Toujou Iframe Resizer',
   component: 'toujou-iframe-resizer',
   parameters: {
-    toujouThemes: [THEME_NAMES.KOJO]
+    toujouThemes: [THEME_NAMES.OTHER]
   },
-  tags: ['kojo']
+  tags: ['other']
 };
 
 export default meta;

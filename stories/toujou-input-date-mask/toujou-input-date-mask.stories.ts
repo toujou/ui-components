@@ -30,10 +30,10 @@ const meta: Meta = {
     'show-mask-on-focus': true,
     'custom-validation-error-message': 'Please enter a valid date',
   },
-  // parameters: {
-  //   toujouThemes: [THEME_NAMES.KOJO]
-  // },
-  // tags: ['kojo']
+  parameters: {
+    toujouThemes: [THEME_NAMES.CUSTOMIZATIONS]
+  },
+  tags: ['customizations']
 };
 
 export default meta;

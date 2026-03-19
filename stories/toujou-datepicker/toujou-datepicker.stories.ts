@@ -1,6 +1,7 @@
 import { Meta, StoryObj } from '@storybook/web-components';
 import { fn } from 'storybook/test';
 import '../../packages/toujou-datepicker/src/index.ts';
+import { THEME_NAMES } from "../globals/js/constants";
 
 const meta: Meta = {
   title: 'Components/Toujou Datepicker',
@@ -42,6 +43,18 @@ const meta: Meta = {
     onOpen: fn().mockName('open'),
     onClose: fn().mockName('close'),
   },
+  parameters: {
+    toujouThemes: [
+      THEME_NAMES.TOUJOU_V1,
+      THEME_NAMES.HISSU_V1,
+      THEME_NAMES.TABI_V1,
+      THEME_NAMES.MEDATSU_V1,
+      THEME_NAMES.KOJO,
+      THEME_NAMES.OTHER,
+      THEME_NAMES.CUSTOMIZATIONS
+    ]
+  },
+  tags: ['toujou v1', 'hissu v1', 'tabi v1', 'medatsu v1', 'kojo', 'other', 'customizations']
 };
 
 export default meta;

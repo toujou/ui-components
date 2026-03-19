@@ -13,7 +13,10 @@ const getBadgeColor = (themeName) => {
 
   /** @type {Record<string, string>} Map of custom colors for some theme options */
   const colorMap = {
+    'celseo': '#cd7602',
     'deprecated': '#e80058',
+    'customizations': '#009772',
+    'other': '#7a1b9f',
   };
 
   return colorMap[themeName] ?? defaultColor;

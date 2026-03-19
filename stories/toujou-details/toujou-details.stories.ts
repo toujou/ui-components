@@ -21,9 +21,9 @@ const meta: Meta = {
     onConnected: fn().mockName('toujou-details-connected'),
   },
   parameters: {
-    toujouThemes: [THEME_NAMES.KOJO]
+    toujouThemes: [THEME_NAMES.KOJO, THEME_NAMES.OTHER, THEME_NAMES.CUSTOMIZATIONS]
   },
-  tags: ['kojo']
+  tags: ['kojo', 'other', 'customizations']
 };
 
 export default meta;
