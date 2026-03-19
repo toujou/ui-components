@@ -10,6 +10,7 @@
     --color-font: #1b1b1e;
     --color-font-dark: #000000;
     --color-font-light: #3a3a3a;
+    --color-font-o-05: color-mix(in srgb, var(--color-font) 5%, transparent);
 
     --color-error: #ff0000;
     --color-success: #008000;
@@ -88,6 +89,14 @@
     --animation-duration-fast: .25s;
 
     --animation-easing-normal: ease-in-out;
+
+    --aspect-ratio-auto: auto;
+    --aspect-ratio-square: 1;
+    --aspect-ratio-4-3: 4 / 3;
+    --aspect-ratio-16-9: 16 / 9;
+    --aspect-ratio-golden: 1.618 / 1;
+    --aspect-ratio-3-1: 3 / 1;
+    --aspect-ratio-default: var(--aspect-ratio-golden);
 }
 
 @media screen and (min-width: 840px) {
