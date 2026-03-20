@@ -14,6 +14,7 @@
     --color-font-o-75: color-mix(in srgb, var(--color-font) 55%, transparent);
 
     --color-error: #ff0000;
+    --color-warning: #ff6200;
     --color-success: #008000;
 
     --font-size-base: 1rem;                                    /* 16px */
