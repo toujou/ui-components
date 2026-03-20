@@ -3,13 +3,30 @@ import '../../packages/toujou-map/dist/index';
 import { sharedArgTypes, sharedArgs, renderMapAttributes } from './toujou-map.shared';
 import { spiderfyGeoMock } from './mocks/spiderfy.mock';
 import './toujou-map.storyStyles.css';
+import { THEME_NAMES } from "../globals/js/constants";
 
 const meta: Meta = {
   title: 'Components/Toujou Map',
   component: 'toujou-map-spiderfy',
-  parameters: { layout: 'fullscreen' },
   argTypes: sharedArgTypes,
   args: sharedArgs,
+  parameters: {
+    layout: 'fullscreen',
+    toujouThemes: [
+      THEME_NAMES.TOUJOU_V1,
+      THEME_NAMES.TOUJOU_V1_5,
+      THEME_NAMES.HISSU_V1,
+      THEME_NAMES.HISSU_V1_5,
+      THEME_NAMES.TABI_V1,
+      THEME_NAMES.TABI_V1_5,
+      THEME_NAMES.MEDATSU_V1,
+      THEME_NAMES.MEDATSU_V1_5,
+      THEME_NAMES.KOJO,
+      THEME_NAMES.OTHER,
+      THEME_NAMES.CUSTOMIZATIONS
+    ],
+  },
+  tags: ['toujou v1', 'toujou v1.5', 'hissu v1', 'hissu v1.5', 'tabi v1', 'tabi v1.5', 'medatsu v1', 'medatsu v1.5', 'kojo', 'other', 'customizations']
 };
 
 export default meta;

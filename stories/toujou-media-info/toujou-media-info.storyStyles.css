@@ -1,0 +1,27 @@
+* {
+    box-sizing: border-box;
+}
+
+.media-info-story__figure {
+    position: relative;
+    width: 100%;
+    max-width: 640px;
+    height: auto;
+    aspect-ratio: var(--aspect-ratio-default);
+    margin: 0;
+}
+
+.media-info-story__image {
+    width: 100%;
+    height: auto;
+    aspect-ratio: var(--aspect-ratio-default);
+    object-fit: cover;
+    vertical-align: middle;
+}
+
+.media-info__toggle {
+    background-color: var(--color-primary);
+    color: white;
+    padding: var(--spacing-xs) var(--spacing-s);
+    border-radius: var(--border-radius-normal);
+}

@@ -11,6 +11,7 @@
     --color-font-dark: #000000;
     --color-font-light: #3a3a3a;
     --color-font-o-05: color-mix(in srgb, var(--color-font) 5%, transparent);
+    --color-font-o-75: color-mix(in srgb, var(--color-font) 55%, transparent);
 
     --color-error: #ff0000;
     --color-success: #008000;

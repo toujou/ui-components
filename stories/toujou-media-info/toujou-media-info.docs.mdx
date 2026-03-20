@@ -1,0 +1,53 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import * as MediaInfoStories from './toujou-media-info.stories';
+
+<Meta of={MediaInfoStories} />
+
+# Toujou Media Info
+
+A component that toggles the visibility of image caption and copyright information. It is designed to be placed inside a `<figure>` element alongside an image. When opened, it sets an attribute on its parent element that can be used to show/hide the caption and copyright via CSS.
+
+## Attributes
+
+| Attribute | Type | Default | Description |
+|---|---|---|---|
+| `open` | `boolean` | `false` | Whether the media info panel is open. Reflected as an attribute |
+
+## Slots
+
+| Slot | Description |
+|---|---|
+| `open-button` | Button shown when the panel is closed. Clicking it opens the panel |
+| `close-button` | Button shown when the panel is open. Clicking it closes the panel |
+| `figcaption` | The image caption content |
+| `copyright` | The copyright information |
+
+## Parent Attribute
+
+When the panel is opened, the component sets a `media-info-child-is-open` attribute on its **parent element**. When closed, the attribute is removed. This allows you to control the visibility of the caption and copyright purely via CSS:
+```css
+figure {
+  position: relative;
+}
+
+toujou-media-info [slot="figcaption"],
+toujou-media-info [slot="copyright"] {
+  display: none;
+}
+
+figure[media-info-child-is-open] toujou-media-info [slot="figcaption"],
+figure[media-info-child-is-open] toujou-media-info [slot="copyright"] {
+  display: block;
+}
+```
+
+## Behavior
+
+- Clicking the `open-button` slot sets `open` to `true` and adds `media-info-child-is-open` to the parent element
+- Clicking the `close-button` slot sets `open` to `false` and removes `media-info-child-is-open` from the parent element
+- Clicking anywhere on the component prevents the click from propagating to elements behind it — useful when the panel overlaps other content
+
+## Accessibility
+
+- Use `aria-label` on both the open and close buttons to provide meaningful descriptions for screen readers
+- The `open` attribute is reflected so it can be used for CSS styling and attribute selectors
