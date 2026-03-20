@@ -1,5 +1,5 @@
 import { fn } from 'storybook/test';
-import { Meta, StoryObj } from '@storybook/web-components';
+import { Meta, StoryObj } from '@storybook/web-components-vite';
 import '../../packages/toujou-burger-button/src/index.ts';
 import './toujou-burger-button.storyStyles.css';
 import { THEME_NAMES } from '../globals/js/constants';

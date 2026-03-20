@@ -26,7 +26,6 @@ export const mockFetch = (rules: MockFetchRule[]) => {
 
   window.fetch = (input: RequestInfo | URL, init?: RequestInit) => {
     const urlString = input instanceof Request ? input.url : input.toString();
-    console.log('FETCH CALLED:', urlString);
 
     const matchedRule = rules.find((rule) => rule.match(urlString));
 

@@ -1,6 +1,6 @@
 // stories/toujou-collection-load-more/toujou-collection-load-more.stories.ts
 import { html } from 'lit';
-import { Meta, StoryObj } from '@storybook/web-components';
+import { Meta, StoryObj } from '@storybook/web-components-vite';
 import { fn } from 'storybook/test';
 import '../../packages/toujou-collection-load-more/src/index.ts';
 import { THEME_NAMES } from "../globals/js/constants";

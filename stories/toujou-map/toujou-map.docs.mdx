@@ -1,0 +1,130 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as MapStories from './toujou-map.stories';
+import * as SpiderfyStories from './toujou-map-spiderfy.stories';
+import * as StaticStories from './toujou-map-static.stories';
+
+<Meta of={MapStories} />
+
+# Toujou Map
+
+A suite of map components built on [MapLibre GL](https://maplibre.org/) with Mapbox style support. The components follow a compositional pattern — `toujou-map` is the base container, and child components like `toujou-map-marker`, `toujou-map-popup`, `toujou-map-layer` and `toujou-map-geojson` are slotted inside it.
+
+### Attributes
+
+| Attribute | Type | Default | Description |
+|---|---|---|---|
+| `access-token` | `string` | `null` | Mapbox access token |
+| `map-style` | `string` | `mapbox://styles/mapbox/light-v10` | MapLibre/Mapbox style URL |
+| `center` | `array` | — | Initial center coordinates as `[longitude, latitude]` |
+| `zoom` | `number` | — | Initial zoom level (0–20) |
+| `min-zoom` | `number` | `0` | Minimum zoom level |
+| `max-zoom` | `number` | `20` | Maximum zoom level |
+| `fit-bounds-max-zoom` | `number` | `22` | Maximum zoom when fitting to bounds |
+| `initial-bounds` | `array` | — | Initial bounds as `[west, south, east, north]` |
+| `pitch` | `number` | `0` | Map pitch in degrees (0–60) |
+| `bearing` | `number` | `0` | Map bearing in degrees (0–360) |
+| `zoom-on-scroll` | `boolean` | `false` | Enable zooming with the scroll wheel |
+| `no-navigation` | `boolean` | `false` | Hide the navigation controls |
+| `fullscreen-control` | `boolean` | `false` | Show the fullscreen button |
+| `reduced-motion` | `boolean` | `false` | Disable map animations |
+| `interactive` | `boolean` | `false` | Enable map interaction |
+
+### Events
+
+| Event | Detail | Description |
+|---|---|---|
+| `toujou-map-ready` | `maplibregl.Map` | Fired when the map instance is created |
+| `toujou-map-loaded` | — | Fired when the map style has fully loaded |
+| `toujou-map-error` | error object | Fired when a map error occurs |
+| `toujou-map-source-data-loaded` | — | Fired when source data is loaded |
+
+<div style={{ display: 'block', height: '80px' }}></div>
+
+## Toujou Map Marker
+
+Places a marker on the map at specified coordinates.
+
+### Attributes / Properties
+
+| Property | Type | Default | Description |
+|---|---|---|---|
+| `coordinates` | `array` | `[0, 0]` | Marker position as `[longitude, latitude]`. Must be set as a JS property |
+| `color` | `string` | `#77b800` | Marker color as a valid CSS color value |
+| `offset` | `array` | `[0, 0]` | Pixel offset from the coordinates |
+
+### Notes
+
+- `coordinates` must be set as a JS property (`.coordinates="${[...]}"`) not as an HTML attribute, since it expects an array
+- A custom element can be slotted inside the marker to use a custom icon instead of the default pin
+
+<div style={{ display: 'block', height: '80px' }}></div>
+
+## Toujou Map Popup
+
+Shows a popup on the map at specified coordinates.
+
+### Attributes / Properties
+
+| Property | Attribute | Type | Default | Description |
+|---|---|---|---|---|
+| `coordinates` | — | `array` | `[0, 0]` | Popup position as `[longitude, latitude]`. Must be set as a JS property |
+| `closeButton` | `close-button` | `boolean` | `false` | Show a close button in the popup |
+| `closeOnOutsideClick` | `close-on-outside-click` | `boolean` | `false` | Close the popup when clicking outside |
+
+### Events
+
+| Event | Detail | Description |
+|---|---|---|
+| `toujou-map-popup-opened` | `maplibregl.Popup` | Fired when the popup opens |
+| `toujou-map-popup-closed` | `maplibregl.Popup` | Fired when the popup closes |
+
+<div style={{ display: 'block', height: '80px' }}></div>
+
+## Toujou Map Spiderfy
+
+Expands overlapping clustered markers into a circle pattern when clicked, making individual points accessible.
+
+### Attributes
+
+| Attribute | Type | Default | Description |
+|---|---|---|---|
+| `source-id` | `string` | — | ID for the spiderfy GeoJSON source that renders the spread points and lines |
+| `source` | `string` | — | ID of the clustered GeoJSON source to spiderfy |
+| `leaves-separation` | `number` | `50` | Distance in pixels between spread points |
+| `min-zoom` | `number` | `0` | Minimum zoom level at which spiderfy activates instead of zooming in |
+| `zoom-increment` | `number` | `2` | Zoom increment when clicking a cluster below `min-zoom` |
+
+### Notes
+
+- Requires a corresponding `toujou-map-layer` for both points and lines using the `source-id` to render the spread markers
+- Clicking a cluster below `min-zoom` zooms in instead of spiderfying
+- Clicking outside a spiderfied cluster collapses it back
+
+<div style={{ display: 'block', height: '80px' }}></div>
+
+## Toujou Map Static
+
+Renders a static map as an image using the Mapbox Static Images API. No interaction, no tiles — just a single image request.
+
+### Attributes / Properties
+
+| Property | Attribute | Type | Default | Description |
+|---|---|---|---|---|
+| `accessToken` | `access-token` | `string` | — | Mapbox access token |
+| `mapStyle` | `map-style` | `string` | `mapbox://styles/mapbox/light-v10` | Mapbox style URL |
+    | `center` | — | `array` | `[0, 0]` | Center coordinates as `[longitude, latitude]` |
+| `width` | — | `number` | `300` | Image width in pixels (1–1280) |
+| `height` | — | `number` | `200` | Image height in pixels (1–1280) |
+| `zoom` | — | `number` | `8` | Zoom level (0–20) |
+| `pitch` | — | `number` | `0` | Pitch in degrees (0–60) |
+| `bearing` | — | `number` | `0` | Bearing in degrees (0–360) |
+| `auto` | — | `boolean` | `false` | Fit viewport to overlay bounds. Replaces center, zoom, bearing and pitch |
+| `overlay` | — | `string` | `''` | Custom overlay string appended to the image URL |
+
+### Notes
+
+- `width`, `height`, `center` and `zoom` must be set as JS properties using Lit's `.prop` binding
+- Markers slotted inside the component are converted to Mapbox Static API overlay format automatically
+- The image is not requested until the slot has rendered, preventing a request with no overlay data
+
+

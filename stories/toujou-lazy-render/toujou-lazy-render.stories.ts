@@ -1,5 +1,5 @@
 import { html } from 'lit';
-import { Meta, StoryObj } from '@storybook/web-components';
+import { Meta, StoryObj } from '@storybook/web-components-vite';
 import '../../packages/toujou-lazy-render/src/index.ts';
 import './toujou-lazy-render.storyStyles.css';
 import { THEME_NAMES } from "../globals/js/constants";

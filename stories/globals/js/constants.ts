@@ -13,3 +13,6 @@ export enum THEME_NAMES {
   CUSTOMIZATIONS = 'customizations',
   OTHER = 'other',
 }
+
+export const MAPLIBRE_ACCESS_TOKEN = 'pk.eyJ1IjoiZGZhdSIsImEiOiJjbDdyanc5aHUwZzA2M29wMmM4cjJud2IxIn0.EtfjXD2re5QUhatJJoKPYg';
+export const MAP_STYLE = `mapbox://styles/mapbox/light-v10`;

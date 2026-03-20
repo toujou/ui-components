@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/web-components';
+import { Meta, StoryObj } from '@storybook/web-components-vite';
 import '../../packages/toujou-burger/src/index.ts';
 import { THEME_NAMES } from "../globals/js/constants";
 

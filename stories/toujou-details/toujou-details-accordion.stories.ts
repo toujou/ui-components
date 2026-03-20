@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/web-components';
+import { Meta, StoryObj } from '@storybook/web-components-vite';
 import { fn } from 'storybook/test';
 import '../../packages/toujou-details/src/index.ts';
 import './toujou-details.storyStyles.css';

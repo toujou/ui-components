@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/web-components';
+import { Meta, StoryObj } from '@storybook/web-components-vite';
 import '../../packages/toujou-contact-box/src/index.ts';
 import './toujou-contact-box.storyStyles.css';
 import { THEME_NAMES } from "../globals/js/constants";

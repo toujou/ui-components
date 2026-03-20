@@ -1,18 +1,16 @@
 import { html } from 'lit';
-import { Meta, StoryObj } from '@storybook/web-components';
+import { Meta, StoryObj } from '@storybook/web-components-vite';
 import { fn } from 'storybook/test';
 import '../../packages/toujou-location-finder/dist/index';
 import '../../packages/toujou-map/dist/index';
 import './toujou-location-finder.storyStyles.css';
 
+import { THEME_NAMES } from "../globals/js/constants";
+
 import { mockFetch } from '../globals/js/mockFetch';
 import { placesGeoMockResp } from "./mocks/plagcesgeo.mock";
 import { placesTeaserMockResp_all, placesTeaserMockResp_singleTeaser } from "./mocks/placesteaser.mock";
-import { THEME_NAMES } from "../globals/js/constants";
-
-const MAPLIBRE_ACCESS_TOKEN = 'pk.eyJ1IjoiZGZhdSIsImEiOiJjbDdyanc5aHUwZzA2M29wMmM4cjJud2IxIn0.EtfjXD2re5QUhatJJoKPYg';
-
-
+import { MAPLIBRE_ACCESS_TOKEN, MAP_STYLE } from "../globals/js/constants";
 
 const meta: Meta = {
   title: 'Components/Toujou Location Finder',
@@ -88,7 +86,7 @@ export const Default: Story = {
       teaserurl="/mock-teaser"
       geojsonurl="/mock-geojson"
       filterparams="&amp;pagetypes=34&amp;pages=1000435&amp;recursive=2&amp;hmac=3e4c316ebf46da7e82bcb3c911655e561fb95f52"
-      map-style="mapbox://styles/mapbox/light-v10"
+      map-style="${MAP_STYLE}"
       access-token="${MAPLIBRE_ACCESS_TOKEN}"
       @toujou-location-finder-ready="${args.onReady}"
     >
