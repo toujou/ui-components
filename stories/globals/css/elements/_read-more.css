@@ -1,0 +1,4 @@
+.read-more {
+    max-width: var(--content-max-width);
+    margin-inline: auto;
+}
