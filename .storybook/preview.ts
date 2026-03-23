@@ -28,5 +28,3 @@ const preview: Preview = {
 
 export default preview;
 export { decorators } from './decorators';
-
-console.clear();
