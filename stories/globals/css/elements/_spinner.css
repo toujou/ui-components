@@ -1,0 +1,4 @@
+.spinner {
+    --toujou-spinner-start-color: var(--color-primary-light);
+    --toujou-spinner-end-color: var(--color-primary-dark);
+}

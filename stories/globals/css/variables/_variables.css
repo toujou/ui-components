@@ -3,8 +3,8 @@
     --color-light-grey: #f9f9f9;
 
     --color-primary: #007ce8;
-    --color-primary-dark: #0050b3;
-    --color-primary-light: #1f96ff;
+    --color-primary-dark: #0149a5;
+    --color-primary-light: #2f9bfa;
     --color-primary-o-10: color-mix(in srgb, var(--color-primary) 10%, transparent);
 
     --color-font: #1b1b1e;
