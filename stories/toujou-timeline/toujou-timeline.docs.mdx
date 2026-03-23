@@ -1,0 +1,89 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import * as TimelineStories from './toujou-timeline.stories';
+
+<Meta of={TimelineStories} />
+
+# Toujou Timeline
+
+A component that displays a chronological list of events as a timeline. It supports both vertical and horizontal layouts, an optional legend for quick year navigation, and uses an `IntersectionObserver` to track which year items are currently visible in the viewport.
+
+## Horizontal Layout
+
+In horizontal mode the timeline scrolls left/right. The legend allows jumping to a specific year.
+
+## Attributes
+
+| Attribute | Type | Default | Description |
+|---|---|---|---|
+| `timeline-direction` | `vertical` \| `horizontal` | `vertical` | Layout direction of the timeline |
+| `timeline-show-legend` | `boolean` | `false` | When present, shows the legend component |
+
+## Child Components
+
+### `toujou-timeline-item`
+
+Wrapper for a single timeline entry. Must be placed inside `.timeline__container`.
+```html
+<toujou-timeline-item class="timeline-item" role="listitem">
+  <h2 class="timeline-item__year" id="timeline-year-2024">2024</h2>
+  <div class="timeline-card">...</div>
+</toujou-timeline-item>
+```
+
+### `toujou-timeline-legend`
+
+Optional navigation component that lists years as clickable links. Clicking a year scrolls the timeline to the corresponding item. Only visible when `timeline-show-legend` is set.
+```html
+<toujou-timeline-legend class="timeline-legend">
+  <ul class="timeline-legend__list">
+    <li class="timeline-legend__item">
+      <a href="#timeline-year-2024" class="timeline-legend__link">2024</a>
+    </li>
+  </ul>
+</toujou-timeline-legend>
+```
+
+## CSS Classes
+
+| Class | Element | Description |
+|---|---|---|
+| `timeline__container` | `div` | Scrollable container for all timeline items. Must have `role="list"` |
+| `timeline-item__year` | `h2` | Year heading inside a timeline item. Must have a unique `id` for legend linking and observer tracking |
+| `timeline-card` | `div` | Card wrapper inside a timeline item |
+| `timeline-card__figure` | `figure` | Optional image container |
+| `timeline-card__image` | `img` | Card image |
+| `timeline-card__bottom` | `div` | Text content area |
+| `timeline-card__title` | `h3` | Card title |
+| `timeline-card__subtitle` | `h4` | Card subtitle |
+| `timeline-card__text` | `p` | Card description text |
+| `timeline-card__button` | `a` | Optional call-to-action link |
+
+## Events
+
+| Event | Detail | Description |
+|---|---|---|
+| `toujou-timeline-ready` | `ToujouTimeline` | Fired when the component has initialized and the observer is set up |
+| `toujou-timeline-new-observation` | `TimelineObservation[]` | Fired whenever a year element's visibility changes in the viewport. Each observation contains `yearId` and `isIntersecting` |
+
+## Legend Navigation
+
+When a legend year link is clicked, the component dispatches a `toujou-timeline-legend-year-click` event internally and scrolls the `.timeline__container` to the corresponding year item using smooth scrolling.
+
+For the legend links to work, the `id` on each `.timeline-item__year` must match the `href` of the corresponding legend link:
+```html
+<!-- Legend link -->
+<a href="#timeline-year-2024" class="timeline-legend__link">2024</a>
+
+<!-- Matching year element -->
+<h2 class="timeline-item__year" id="timeline-year-2024">2024</h2>
+```
+
+## URL Hash Navigation
+
+In horizontal mode, if the page URL contains a hash matching a year element's `id` on load, the timeline automatically scrolls to that year.
+
+## Accessibility
+
+- Use `aria-label` on the component to describe the timeline for screen readers
+- Use `role="list"` on `.timeline__container` and `role="listitem"` on each `toujou-timeline-item`
+- Year headings (`timeline-item__year`) serve as both visual anchors and observer targets — their `id` is required for both legend navigation and intersection tracking

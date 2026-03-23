@@ -26,6 +26,10 @@
 @import url('./elements/_spinner.css');
 @import url('./elements/_storybook-button.css');
 @import url('./elements/_storybook-spinner.css');
+@import url('./elements/_timeline.css');
+@import url('./elements/_timeline-card.css');
+@import url('./elements/_timeline-item.css');
+@import url('./elements/_timeline-legend.css');
 @import url('./elements/_type.css');
 
 /* Custom styles */
