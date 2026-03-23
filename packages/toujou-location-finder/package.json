@@ -1,6 +1,6 @@
 {
   "name": "@toujou/toujou-location-finder",
-  "version": "3.17.3",
+  "version": "3.17.7",
   "description": "A location finder with and interactive map",
   "main": "./dist/toujou-location-finder.js",
   "module": "./src/toujou-location-finder.js",
@@ -37,7 +37,7 @@
   ],
   "author": "toujou",
   "license": "MIT",
-  "gitHead": "e1bfcc508966aac0d1391d2b19e9fd692c5070fc",
+  "gitHead": "f611907a8c5be707a5943073c30adb064123f4c5",
   "devDependencies": {
     "@types/events": "^3.0.3",
     "@types/node": "^20.10.4"
