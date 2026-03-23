@@ -38,6 +38,8 @@ We can also lint a single package:
 ## Storybook
 We use Storybook as a development environment to preview and prototype components in isolation.
 
+> **Note:** The styles used in Storybook are based on the Kojo theme but intentionally differ from it. They are designed to make it easier to understand how the components work.
+
 ### Run Storybook
 - `npm run storybook`
 
