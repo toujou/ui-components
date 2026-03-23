@@ -1,6 +1,7 @@
 import { html } from 'lit';
 import { Meta, StoryObj } from '@storybook/web-components';
 import '../../packages/toujou-rating-stars/src/index.ts';
+import { THEME_NAMES } from "../globals/js/constants";
 
 const meta: Meta = {
   title: 'Components/Toujou Rating Stars',
@@ -19,6 +20,14 @@ const meta: Meta = {
     'rating-value': 3.5,
     'rating-suffix': '',
   },
+  parameters: {
+    toujouThemes: [
+      THEME_NAMES.KOJO,
+      THEME_NAMES.OTHER,
+      THEME_NAMES.CUSTOMIZATIONS
+    ],
+  },
+  tags: ['kojo', 'other', 'customizations'],
 };
 
 export default meta;
