@@ -1,0 +1,55 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import * as TopbuttonStories from './toujou-topbutton.stories';
+
+<Meta of={TopbuttonStories} />
+
+# Toujou Topbutton
+
+A scroll-to-top button that appears automatically after the user has scrolled past one full viewport height. Clicking or pressing Enter/Space smoothly scrolls the page back to the top and resets focus.
+
+## Slots
+
+| Slot | Description |
+|---|---|
+| *(default)* | The visual content of the button, typically an icon |
+
+## Reflected Properties
+
+| Property | Attribute | Type | Description |
+|---|---|---|---|
+| `visible` | `is-visible` | `boolean` | Set automatically when the page has been scrolled past one viewport height. Use this attribute in CSS to show/hide the button |
+
+## Visibility
+
+The button manages its own visibility based on scroll position. It becomes visible when:
+```
+document.body.scrollTop > viewportHeight
+OR
+document.documentElement.scrollTop > viewportHeight
+```
+
+Use the `is-visible` reflected attribute in CSS to control the visual display:
+```css
+toujou-topbutton {
+  display: none;
+}
+
+toujou-topbutton[is-visible] {
+  display: flex;
+}
+```
+
+## Keyboard Interactions
+
+| Key | Description |
+|---|---|
+| `Enter` | Scrolls to the top of the page |
+| `Space` | Scrolls to the top of the page |
+
+## Accessibility
+
+- The component sets `role="button"` automatically on `connectedCallback`
+- `aria-hidden` is managed automatically — set to `false` when visible, `true` when hidden
+- Use `aria-label` and `title` to provide a meaningful description for screen readers
+- Use `tabindex="0"` to make the element focusable via keyboard
+- Focus is reset (blurred) after clicking to return focus to the start of the page

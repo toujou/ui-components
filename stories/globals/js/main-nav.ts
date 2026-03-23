@@ -43,7 +43,6 @@ export class MainNav {
         }
 
         this.navListItems.forEach((listItem: MainNavListItem) => {
-          console.log('aaa');
             listItem.hasSubNav = listItem.hasAttribute(this.hasSubNavAttribute);
             if (!listItem.hasSubNav) return;
 
@@ -163,7 +162,6 @@ export class MainNav {
 }
 
 export function initMainNav() {
-  console.log('1111');
     const mainNavEl = document.querySelector('.main-nav') as MainNavElement;
     if (!mainNavEl || mainNavEl.mainNav) return;
 
@@ -182,5 +180,3 @@ declare global {
         mainNav: MainNav
     }
 }
-
-console.log('XXXXXX');

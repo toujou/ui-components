@@ -37,8 +37,9 @@
 @import url('./elements/_timeline-card.css');
 @import url('./elements/_timeline-item.css');
 @import url('./elements/_timeline-legend.css');
-@import url('./elements/_type.css');
 @import url('./elements/_topbar.css');
+@import url('./elements/_topbutton.css');
+@import url('./elements/_type.css');
 
 /* Custom styles */
 * {
