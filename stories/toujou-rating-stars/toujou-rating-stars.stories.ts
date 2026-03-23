@@ -1,6 +1,7 @@
 import { html } from 'lit';
 import { Meta, StoryObj } from '@storybook/web-components';
 import '../../packages/toujou-rating-stars/src/index.ts';
+
 import { THEME_NAMES } from "../globals/js/constants";
 
 const meta: Meta = {

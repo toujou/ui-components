@@ -1,5 +1,5 @@
 /*
- * Styles that get loaded on the storybook preview
+ * Styles that get loaded ONLY on the storybook preview
  */
 
 /* Variables */
@@ -7,9 +7,16 @@
 @import url('./variables/_variables.css');
 
 /* Elements */
+@import url('./elements/_accordion.css');
+@import url('./elements/_breadcrumb.css');
 @import url('./elements/_burger-button.css');
 @import url('./elements/_button.css');
 @import url('./elements/_chevron.css');
+@import url('./elements/_clamped-content.css');
+@import url('./elements/_contact-box.css');
+@import url('./elements/_counter.css');
+@import url('./elements/_details.css');
+@import url('./elements/_details-accordion.css');
 @import url('./elements/_flatpickr.css');
 @import url('./elements/_flatpickr-light.css');
 @import url('./elements/_icon.css');
@@ -23,6 +30,7 @@
 @import url('./elements/_main-nav.css');
 @import url('./elements/_main-nav-first-level.css');
 @import url('./elements/_main-nav-second-level.css');
+@import url('./elements/_map.css');
 @import url('./elements/_media-info.css');
 @import url('./elements/_overlay.css');
 @import url('./elements/_rating-stars.css');

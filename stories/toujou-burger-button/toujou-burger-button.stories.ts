@@ -1,6 +1,7 @@
 import { fn } from 'storybook/test';
 import { Meta, StoryObj } from '@storybook/web-components-vite';
 import '../../packages/toujou-burger-button/src/index.ts';
+
 import { THEME_NAMES } from '../globals/js/constants';
 
 const meta: Meta = {

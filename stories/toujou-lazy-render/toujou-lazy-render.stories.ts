@@ -1,7 +1,7 @@
 import { html } from 'lit';
 import { Meta, StoryObj } from '@storybook/web-components-vite';
 import '../../packages/toujou-lazy-render/src/index.ts';
-import './toujou-lazy-render.storyStyles.css';
+
 import { THEME_NAMES } from "../globals/js/constants";
 
 const meta: Meta = {
@@ -31,15 +31,15 @@ type Story = StoryObj;
 
 export const Default: Story = {
   render: () => html`
-    <div class="lazy-render-story">
-      <p class="lazy-render-story__hint">⬇ Scroll down to see the lazy rendered content appear</p>
+    <div class="lazy-render-story" style="padding: var(--spacing-normal);">
+      <p class="lazy-render-story__hint" style="font-size: var(--font-size-l); font-weight: bold;">⬇ Scroll down to see the lazy rendered content appear</p>
 
       <!-- Spacer to push the component below the fold -->
-      <div class="lazy-render-story__spacer"></div>
+      <div class="lazy-render-story__spacer" style="height: 120vh;"></div>
 
       <toujou-lazy-render>
         <template>
-          <div class="lazy-render-story__content">
+          <div class="lazy-render-story__content" style="border: 3px solid mediumseagreen; padding: var(--spacing-normal); margin-bottom: var(--spacing-xl); min-height: 50vw;">
             <h2>Lazy rendered content</h2>
             <p>This content was rendered when this component became visible in the viewport.</p>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
@@ -49,7 +49,7 @@ export const Default: Story = {
 
       <toujou-lazy-render>
         <template>
-          <div class="lazy-render-story__content">
+          <div class="lazy-render-story__content" style="border: 3px solid mediumseagreen; padding: var(--spacing-normal); margin-bottom: var(--spacing-xl); min-height: 50vw;">
             <h2>Some other lazy rendered content</h2>
             <p>This content was rendered when this component became visible in the viewport.</p>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>

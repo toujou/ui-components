@@ -3,7 +3,6 @@ import { Meta, StoryObj } from '@storybook/web-components-vite';
 import { fn } from 'storybook/test';
 import '../../packages/toujou-location-finder/dist/index';
 import '../../packages/toujou-map/dist/index';
-import './toujou-location-finder.storyStyles.css';
 
 import { THEME_NAMES } from "../globals/js/constants";
 

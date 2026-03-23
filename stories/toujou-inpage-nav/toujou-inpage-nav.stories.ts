@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from '@storybook/web-components-vite';
 import { fn } from 'storybook/test';
 import '../../packages/toujou-inpage-nav/src/index.ts';
-import './toujou-inpage-nav.storyStyles.css';
+
 import { THEME_NAMES } from "../globals/js/constants";
 
 const meta: Meta = {
@@ -43,7 +43,11 @@ const meta: Meta = {
   },
   parameters: {
     layout: 'fullscreen',
-    toujouThemes: [THEME_NAMES.KOJO, THEME_NAMES.OTHER, THEME_NAMES.CUSTOMIZATIONS],
+    toujouThemes: [
+      THEME_NAMES.KOJO,
+      THEME_NAMES.OTHER,
+      THEME_NAMES.CUSTOMIZATIONS
+    ],
   },
   tags: ['kojo', 'other', 'customizations']
 };
@@ -104,7 +108,7 @@ const renderInpageNav = (args) => `
 
 const renderSections = () =>
   sectionsData.map((section) => `
-    <section id="${section.id}" class="inpage-nav-story__section">
+    <section id="${section.id}" class="inpage-nav-story__section" style="width: calc(100% - 2rem); max-width: var(--content-max-width); margin-inline: auto;">
       <h2>${section.label}</h2>
       ${loremIpsum}
     </section>

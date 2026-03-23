@@ -1,9 +1,8 @@
-import { html } from 'lit';
 import { Meta, StoryObj } from '@storybook/web-components';
 import { fn } from 'storybook/test';
 import '../../packages/toujou-map/dist/index';
-import { sharedArgTypes, sharedArgs, renderMapAttributes, MAPLIBRE_ACCESS_TOKEN } from './toujou-map.shared';
-import './toujou-map.storyStyles.css';
+
+import { sharedArgTypes, sharedArgs, renderMapAttributes } from './toujou-map.shared';
 import { THEME_NAMES } from "../globals/js/constants";
 
 const meta: Meta = {

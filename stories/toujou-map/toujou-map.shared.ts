@@ -1,5 +1,6 @@
 import type { ArgTypes } from '@storybook/web-components';
 import { fn } from 'storybook/test';
+
 import { MAPLIBRE_ACCESS_TOKEN, MAP_STYLE } from '../globals/js/constants';
 
 export { MAPLIBRE_ACCESS_TOKEN };

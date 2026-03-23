@@ -1,5 +1,0 @@
-.inpage-nav-story__section {
-    width: calc(100% - 2rem);
-    max-width: var(--content-max-width);
-    margin-inline: auto;
-}

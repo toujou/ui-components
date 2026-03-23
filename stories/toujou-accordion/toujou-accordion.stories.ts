@@ -2,7 +2,6 @@ import { fn } from 'storybook/test';
 import { Meta, StoryObj } from '@storybook/web-components-vite';
 import '../../packages/toujou-accordion/src/index.ts';
 
-import './toujou-accordion.storyStyles.css';
 import { THEME_NAMES } from "../globals/js/constants";
 
 const meta: Meta = {

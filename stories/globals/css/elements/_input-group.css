@@ -389,7 +389,6 @@
     }
 }
 
-
 @media (hover: hover) {
     .input-group--disabled:hover {
         cursor: not-allowed;

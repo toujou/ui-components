@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/web-components';
 import '../../packages/toujou-overlay/dist/index.js';
-import './toujou-overlay.storyStyles.css';
+
 import { THEME_NAMES } from "../globals/js/constants";
 
 const meta: Meta = {

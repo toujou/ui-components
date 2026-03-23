@@ -43,7 +43,7 @@ input[type="search"]::-webkit-search-cancel-button {
     mask-position: center;
     mask-size: contain;
     mask-repeat: no-repeat;
-    mask-image: var(--icon-close);
+    mask-image: var(--ui-components-sb-icon-close);
     cursor: pointer;
 }
 

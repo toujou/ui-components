@@ -1,8 +1,8 @@
 import { Meta, StoryObj } from '@storybook/web-components';
 import '../../packages/toujou-map/dist/index';
+
 import { sharedArgTypes, sharedArgs, renderMapAttributes } from './toujou-map.shared';
 import { spiderfyGeoMock } from './mocks/spiderfy.mock';
-import './toujou-map.storyStyles.css';
 import { THEME_NAMES } from "../globals/js/constants";
 
 const meta: Meta = {

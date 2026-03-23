@@ -2,7 +2,6 @@ import { html } from 'lit';
 import { Meta, StoryObj } from '@storybook/web-components-vite';
 import { fn } from 'storybook/test';
 import '../../packages/toujou-details/src/index.ts';
-import './toujou-details.storyStyles.css';
 
 import { THEME_NAMES } from "../globals/js/constants";
 
@@ -21,7 +20,11 @@ const meta: Meta = {
     onConnected: fn().mockName('toujou-details-connected'),
   },
   parameters: {
-    toujouThemes: [THEME_NAMES.KOJO, THEME_NAMES.OTHER, THEME_NAMES.CUSTOMIZATIONS]
+    toujouThemes: [
+      THEME_NAMES.KOJO,
+      THEME_NAMES.OTHER,
+      THEME_NAMES.CUSTOMIZATIONS
+    ]
   },
   tags: ['kojo', 'other', 'customizations']
 };

@@ -77,6 +77,8 @@
     --toujou-location-finder-pagination-text-size: var(--font-size-normal);
 
     --toujou-location-finder-image-size: auto;
+
+    --bg-color: var(--color-bg);
 }
 
 .location-finder {
@@ -103,6 +105,7 @@
     position: var(--toujou-location-finder-position);
     margin: var(--toujou-location-finder-margin);
     z-index: var(--toujou-location-finder-grid-z-index);
+    margin-top: var(--spacing-normal);
 }
 
 /* Target only Safari */

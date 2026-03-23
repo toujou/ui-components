@@ -1,8 +1,6 @@
 import { Meta, StoryObj } from '@storybook/web-components-vite';
 import { fn } from 'storybook/test';
 import '../../packages/toujou-details/src/index.ts';
-import './toujou-details.storyStyles.css';
-import './toujou-details-accordion.stoyStyles.css';
 
 import { THEME_NAMES } from "../globals/js/constants";
 

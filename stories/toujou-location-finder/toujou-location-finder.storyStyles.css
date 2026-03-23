@@ -1,7 +1,0 @@
-:root {
-    --bg-color: var(--color-bg);
-}
-
-.location-finder {
-    margin-top: var(--spacing-normal);
-}

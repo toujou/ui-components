@@ -1,23 +1,22 @@
 :root {
+    /* COLORS */
     --color-bg: #ffffff;
     --color-light-grey: #f9f9f9;
-
     --color-primary: #007ce8;
     --color-primary-dark: #0149a5;
     --color-primary-light: #2f9bfa;
     --color-primary-o-10: color-mix(in srgb, var(--color-primary) 10%, transparent);
-
     --color-font: #1b1b1e;
     --color-font-dark: #000000;
     --color-font-light: #3a3a3a;
     --color-font-o-05: color-mix(in srgb, var(--color-font) 5%, transparent);
     --color-font-o-75: color-mix(in srgb, var(--color-font) 55%, transparent);
-
     --color-error: #ff0000;
     --color-warning: #ff6200;
     --color-success: #008000;
 
-    --font-size-base: 1rem;                                    /* 16px */
+    /* FONT SIZES */
+    --font-size-base: 1rem;                                 /* 16px */
     --font-size-xxl: calc(var(--font-size-base) * 2.5);     /* 40px */
     --font-size-xl: calc(var(--font-size-base) * 2);        /* 32px */
     --font-size-l: calc(var(--font-size-base) * 1.75);      /* 28px */
@@ -27,11 +26,14 @@
     --font-size-s: calc(var(--font-size-base) * .875);      /* 14px */
     --font-size-xs: calc(var(--font-size-base) * .75);      /* 12px */
 
+    /* FONT FAMILIES */
     --font-family-text: sans-serif;
 
+    /* LINE HEIGHTS */
     --line-height-normal: 1.4;
     --line-height-s: 1.25;
 
+    /* SPACING */
     --spacing-base: 1rem;
     --spacing-xxxl: calc(var(--spacing-base) * 6);       /* 96px */
     --spacing-xxl: calc(var(--spacing-base) * 4);        /* 64px */
@@ -45,11 +47,14 @@
     --spacing-xxs: calc(var(--spacing-base) * .125);     /* 2px */
     --spacing-between-consecutive-elements-normal: var(--spacing-l);
 
+    /* BORDER RADIUS */
     --border-radius-m: .5rem;
     --border-radius-normal: .25rem;
 
+    /* BORDER */
     --border-width-normal: 1px;
 
+    /* CONTENT WIDTH */
     --content-fullwidth: 100%;
     --content-width-with-padding: calc(100% - calc(var(--content-padding-to-border) * 2));
     --content-max-width: 960px;
@@ -60,16 +65,17 @@
     --content-spacing-between-columns: var(--spacing-between-consecutive-elements-normal);
     --content-inner-padding: var(--spacing-m);
 
+    /* SHADOWS */
     --shadow-color: 286deg 0% 56%;
     --shadow-color-1: hsl(0 0% 0% / 5%);
     --shadow-color-2: hsl(0 0% 0% / 6%);
     --shadow-color-3: hsl(0 0% 0% / 10%);
-
     --shadow-s: 0 4px 5px 0 var(--shadow-color-1), 0 1px 10px 0 var(--shadow-color-2), 0 2px 4px -1px var(--shadow-color-3);
     --shadow-normal: 0 6px 10px 0 var(--shadow-color-1), 0 1px 18px 0 var(--shadow-color-2), 0 3px 5px -1px var(--shadow-color-3);
     --shadow-l: 0 12px 15px 2px var(--shadow-color-1), 0 4px 24px 4px var(--shadow-color-2), 0 9px 8px -4px var(--shadow-color-3);
     --shadow-xl: 0 16px 24px 2px var(--shadow-color-1), 0 6px 30px 6px var(--shadow-color-2), 0 12px 12px -5px var(--shadow-color-3);
 
+    /* Z INDEX */
     --z-index-content: 1;
     --z-index-pn-nav: 30;
     --z-index-top-button: 50;
@@ -87,11 +93,12 @@
     --z-index-overlay: 50000;
     --z-index-important: 2147483641;
 
+    /* ANIMATION */
     --animation-duration-normal: .5s;
     --animation-duration-fast: .25s;
-
     --animation-easing-normal: ease-in-out;
 
+    /* ASPECT RATIO */
     --aspect-ratio-auto: auto;
     --aspect-ratio-square: 1;
     --aspect-ratio-4-3: 4 / 3;
@@ -100,11 +107,13 @@
     --aspect-ratio-3-1: 3 / 1;
     --aspect-ratio-default: var(--aspect-ratio-golden);
 
+    /* TOPBAR */
     --topbar-height-small: 54px;
     --topbar-height-medium: 64px;
     --topbar-height-large: 80px;
     --topbar-height: 0px;
 
+     /* A11Y */
     --a11y-min-target-size: 24px;
 }
 

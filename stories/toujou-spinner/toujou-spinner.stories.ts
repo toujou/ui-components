@@ -1,6 +1,7 @@
 import { html } from 'lit';
 import { Meta, StoryObj } from '@storybook/web-components';
 import '../../packages/toujou-spinner/dist/index.js';
+
 import { THEME_NAMES } from "../globals/js/constants";
 
 const meta: Meta = {

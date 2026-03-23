@@ -1,6 +1,7 @@
 import { html } from 'lit';
 import { Meta, StoryObj } from '@storybook/web-components-vite';
 import '../../packages/toujou-input-password-toggle/src/index.ts';
+
 import { THEME_NAMES } from "../globals/js/constants";
 
 const meta: Meta = {

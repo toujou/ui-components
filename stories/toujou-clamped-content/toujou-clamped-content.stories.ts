@@ -2,8 +2,8 @@ import { html } from 'lit';
 import { Meta, StoryObj } from '@storybook/web-components-vite';
 import { fn } from 'storybook/test';
 import '../../packages/toujou-clamped-content/src/index.ts';
+
 import { THEME_NAMES } from "../globals/js/constants";
-import './toujou-clamped-content.storyStyles.css';
 
 const meta: Meta = {
   title: 'Components/Toujou Clamped Content',
@@ -42,8 +42,8 @@ export const Default: Story = {
         <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
         <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
       </div>
-      <button slot="show-button">Show more</button>
-      <button slot="hide-button">Show less</button>
+      <button class="button" slot="show-button">Show more</button>
+      <button class="button" slot="hide-button">Show less</button>
     </toujou-clamped-content>
   `,
 };

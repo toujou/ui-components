@@ -1,8 +1,8 @@
 import { Meta, StoryObj } from '@storybook/web-components';
 import { fn } from 'storybook/test';
 import '../../packages/toujou-timeline/dist/index.js';
+
 import { THEME_NAMES } from "../globals/js/constants";
-// import './toujou-timeline.storyStyles.css';
 
 const meta: Meta = {
   title: 'Components/Toujou Timeline',
