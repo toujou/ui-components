@@ -163,3 +163,8 @@
     }
 }
 
+@media screen and (width >= 1024px) {
+    .topbar .burger-button {
+        display: none;
+    }
+}

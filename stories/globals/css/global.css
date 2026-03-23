@@ -7,6 +7,7 @@
 @import url('./variables/_variables.css');
 
 /* Elements */
+@import url('./elements/_burger-button.css');
 @import url('./elements/_button.css');
 @import url('./elements/_chevron.css');
 @import url('./elements/_flatpickr.css');
@@ -15,13 +16,19 @@
 @import url('./elements/_inpage-nav.css');
 @import url('./elements/_input.css');
 @import url('./elements/_input-group.css');
+@import url('./elements/_language-picker.css');
+@import url('./elements/_language-picker-dropdown.css');
 @import url('./elements/_location-finder.css');
 @import url('./elements/_location-finder-teaser.css');
+@import url('./elements/_main-nav.css');
+@import url('./elements/_main-nav-first-level.css');
+@import url('./elements/_main-nav-second-level.css');
 @import url('./elements/_media-info.css');
 @import url('./elements/_overlay.css');
 @import url('./elements/_rating-stars.css');
 @import url('./elements/_read-more.css');
 @import url('./elements/_search.css');
+@import url('./elements/_service-nav.css');
 @import url('./elements/_snackbar.css');
 @import url('./elements/_spinner.css');
 @import url('./elements/_storybook-button.css');
@@ -31,8 +38,13 @@
 @import url('./elements/_timeline-item.css');
 @import url('./elements/_timeline-legend.css');
 @import url('./elements/_type.css');
+@import url('./elements/_topbar.css');
 
 /* Custom styles */
+* {
+    box-sizing: border-box;
+}
+
 body {
     font-family: var(--font-family-text);
     font-size: var(--font-size-normal);

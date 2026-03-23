@@ -12,23 +12,38 @@
     background-color: var(--icon-color);
 }
 
+/* ICON COLORS */
 .icon--color-font {
     --icon-color: var(--color-font);
 }
 
+/* ICON SIZES */
+.icon--size-xl {
+    --icon-size: var(--font-size-xl);
+}
+
+/* ICON ICONS */
 .icon--arrow-left {
-    --icon-icon: url('../../icons/icon-arrow-left.svg');
+    --icon-icon: var(--ui-components-sb-icon-arrow-left);
 }
 
 .icon--chevron-down {
-    --icon-icon: url('../../icons/icon-chevron-down.svg');
+    --icon-icon: var(--ui-components-sb-icon-chevron-down);
 }
 
 .icon--close {
-    --icon-icon: url('../../icons/icon-close.svg');
+    --icon-icon: var(--ui-components-sb-icon-close);
 }
 
 .icon--link {
-    --icon-icon: url('../../icons/icon-link.svg');
+    --icon-icon: var(--ui-components-sb-icon-link);
+}
+
+.icon--search {
+    --icon-icon: var(--ui-components-sb-icon-search);
+}
+
+.icon--telephone {
+    --icon-icon: var(--ui-components-sb-icon-telephone);
 }
 

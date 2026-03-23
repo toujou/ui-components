@@ -99,11 +99,34 @@
     --aspect-ratio-golden: 1.618 / 1;
     --aspect-ratio-3-1: 3 / 1;
     --aspect-ratio-default: var(--aspect-ratio-golden);
+
+    --topbar-height-small: 54px;
+    --topbar-height-medium: 64px;
+    --topbar-height-large: 80px;
+    --topbar-height: 0px;
+
+    --a11y-min-target-size: 24px;
+}
+
+:root:has(.topbar[logo-size="small"]) {
+    --topbar-height: var(--topbar-height-small);
+}
+
+:root:has(.topbar[logo-size="medium"]) {
+    --topbar-height: var(--topbar-height-medium);
+}
+
+:root:has(.topbar[logo-size="large"]) {
+    --topbar-height: var(--topbar-height-large);
 }
 
 @media screen and (min-width: 840px) {
     :root {
         --spacing-between-elements-normal: var(--spacing-xxxl);
         --spacing-between-consecutive-elements-normal: var(--spacing-xl);
+
+        --topbar-height-small: 64px;
+        --topbar-height-medium: 80px;
+        --topbar-height-large: 100px;
     }
 }
