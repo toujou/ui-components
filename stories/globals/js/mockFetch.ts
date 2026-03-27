@@ -3,6 +3,8 @@
  * Intercept rules are passed as an array of matcher/responder pairs.
  * Any URL that does not match falls through to the real fetch.
  *
+ * ⚠️ Note: This replaces `window.fetch` globally for the current page.
+ *
  * @example
  * mockFetch([
  *   {
@@ -12,8 +14,14 @@
  * ]);
  */
 
+/**
+ * Rule describing when a request should be mocked and what to return.
+ */
 export interface MockFetchRule {
+  /** Returns true if the request URL should be intercepted. */
   match: (url: string) => boolean;
+
+  /** Partial mock of a Fetch API Response object. */
   response: Partial<{
     ok: boolean;
     text: () => string;

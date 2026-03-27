@@ -1,9 +1,33 @@
 # ui-components
 
-Mono repo with the web-components used across the toujou themes
+Monorepo containing the reusable **Toujou Web Components** used across Toujou themes and projects.
+Each component is published as an individual npm package under the `@toujou` scope.
+The repository also contains a **Storybook environment** used for development and documentation of the components.
 
 ## Requirements
-npm v16.14.0
+npm v20.20.1
+
+## Project Structure
+```text
+    .
+    ├── .storybook/          # Storybook configuration (preview, manager, webpack/vite config)
+    ├── etc/                 # Shared configuration and helper scripts (e.g. common.rollup.js)
+    ├── packages/            # All Toujou web component packages
+    │   ├── toujou-accordion/
+    │   │   ├── src/         # Component source code
+    │   │   └── tests/       # Unit tests for the component
+    │   └── ...
+    ├── patches/             # Patch files applied to dependencies (via patch-package)
+    ├── scripts/             # Custom repository scripts (e.g. package scaffolding)
+    ├── stories/             # Storybook stories and development helpers
+    │   ├── globals/         # Shared Storybook css, js and utilities
+    │   ├── toujou-accordion/
+    │   │   └── toujou-accordion.stories.ts
+    │   └── ...
+    └── package.json
+    └── README.md
+    └── ...
+```
 
 ## Install dependencies
 On the root folder run:
@@ -29,7 +53,7 @@ We can also test a single package:
 - `PACKAGE_NAME=toujou-accordion npm run test:single-package`
 
 ## Lint packages
-To run the tests, run:
+To run the linter, run:
 - `npm run lint`
 
 We can also lint a single package:

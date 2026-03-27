@@ -1,3 +1,7 @@
+/*
+ * This was copied from Kojo to make the topbar work correctly on the stories
+ */
+
 // --- Create the necessary augmented Types ---
 /**
  * @interface TopbarActionElement

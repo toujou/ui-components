@@ -1,3 +1,7 @@
+/*
+ * NOTE: This was copied from the Kojo theme to make the nav work on the stories
+ */
+
 export class MainNav {
     private mainNavEl: MainNavElement;
     private navListItems: MainNavListItem[] = [];
