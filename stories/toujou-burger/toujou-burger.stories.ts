@@ -16,7 +16,7 @@ const meta: Meta = {
       THEME_NAMES.CUSTOMIZATIONS
     ],
   },
-  tags: ['toujou v1.5', 'hissu v1.5', 'tabi v1.5', 'medatsu v1.', 'medatsu v1.5', 'celseo', 'customizations']
+  tags: ['toujou v1.5', 'hissu v1.5', 'tabi v1.5', 'medatsu v1', 'medatsu v1.5', 'celseo', 'customizations']
 };
 
 export default meta;
