@@ -28,7 +28,6 @@
 			"css",
 			"mapbox-gl"
 		],
-		"outDir": "./.tsbuild"
 	},
 	"include": [
 		"**/*.ts",
