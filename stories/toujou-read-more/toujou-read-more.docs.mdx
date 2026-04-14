@@ -1,0 +1,61 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import * as ReadMoreStories from './toujou-read-more.stories';
+
+<Meta of={ReadMoreStories} />
+
+# Toujou Read More
+
+A component that clamps text content to a configurable number of lines and provides a toggle button to expand and collapse it. The toggle button is only shown when the content actually overflows — if the content fits within the max lines limit, no button is rendered.
+
+When the content fits within the max lines limit, the toggle button is automatically hidden.
+
+## Attributes
+
+| Attribute | Type | Default | Description |
+|---|---|---|---|
+| `max-lines` | `number` | `3` | Number of lines to show before truncating. Can also be set via the `--toujou-read-more-max-lines` CSS custom property |
+| `has-clamped-text` | `boolean` | `true` | Whether the content is currently clamped. Reflected as an attribute |
+
+## Slots
+
+| Slot | Description |
+|---|---|
+| *(default)* | The content to be clamped |
+| `open-button` | Button shown when content is clamped. Clicking it expands the content |
+| `close-button` | Button shown when content is expanded. Clicking it collapses the content |
+
+## CSS Parts
+
+| Part | Description |
+|---|---|
+| `content` | The wrapper around the clamped content |
+| `buttons` | The container for the toggle buttons |
+
+## CSS Custom Properties
+
+| Property | Default | Description |
+|---|---|---|
+| `--toujou-read-more-max-lines` | `3` | Overrides the `max-lines` attribute for clamping via CSS |
+| `--spacing-normal` | — | Used for the margin above the toggle buttons |
+
+## Events
+
+| Event | Detail | Description |
+|---|---|---|
+| `toujou-read-more-toggle` | `{ isClamped: boolean }` | Fired when the clamped state changes. `isClamped` is `true` when collapsed |
+| `toujou-read-more-ready` | — | Fired after the component has finished its initial setup and overflow check |
+
+## Behavior
+
+- On `firstUpdated`, the component temporarily removes clamping to measure the full content height, then re-applies clamping to compare heights
+- If the full height exceeds the clamped height, the toggle button is shown and content starts clamped
+- If the content fits within the max lines, no button is shown and `has-clamped-text` is set to `false`
+- When `max-lines` changes, the overflow check reruns automatically
+
+## Accessibility
+
+- The content wrapper has `role="region"` and `aria-label="Expandable content"`
+- The open button receives `aria-expanded="false"` when visible, and `aria-hidden="true"` when hidden
+- The close button receives `aria-expanded="true"` when visible, and `aria-hidden="true"` when hidden
+- Both buttons receive `aria-controls` pointing to the content wrapper's `id`
+- Hidden buttons also receive `tabindex="-1"` to prevent keyboard focus

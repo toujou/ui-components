@@ -1,0 +1,57 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import * as DatepickerStories from './toujou-datepicker.stories';
+
+<Meta of={DatepickerStories} />
+
+# Toujou Datepicker
+
+A wrapper component around [Flatpickr](https://flatpickr.js.org/) that provides a configurable date picker. Supports single date, multiple date, and range selection modes, as well as optional time picking and a dedicated month picker mode. The locale is automatically set based on the page's `lang` attribute.
+
+## Attributes
+
+| Attribute | Type | Default | Description |
+|---|---|---|---|
+| `mode` | `single` \| `multiple` \| `range` \| `time` | `single` | The date selection mode |
+| `date-format` | `string` | `d.m.Y` | The format string for the internal date value. Uses [Flatpickr format tokens](https://flatpickr.js.org/formatting/) |
+| `alt-format` | `string` | `null` | An alternative display format shown to the user. When set, enables Flatpickr's `altInput` mode |
+| `min-date` | `string` | `null` | The earliest selectable date |
+| `max-date` | `string` | `null` | The latest selectable date |
+| `enable-time` | `boolean` | `false` | When present, adds a time picker below the calendar. Uses 24h format |
+| `month-picker` | `boolean` | `false` | When present, switches to month selection mode. On touch devices with native month input support, uses the native input |
+| `show-months` | `number` | `1` | Number of months to display side by side |
+
+## Required Child Elements
+
+| Selector | Description |
+|---|---|
+| `input` | A text input element inside the component. Flatpickr is initialized on this element |
+
+## Events
+
+Events are dispatched on the `<input>` element, not on the component itself.
+
+| Event | Detail | Description |
+|---|---|---|
+| `open` | `{ selectedDates, dateStr, instance }` | Fired when the datepicker calendar opens |
+| `close` | `{ selectedDates, dateStr, instance }` | Fired when the datepicker calendar closes |
+
+## Default Date
+
+If the `<input>` element has a `value` attribute set, the component will attempt to parse it using the configured `date-format` and use it as the default selected date.
+
+## Localization
+
+The component automatically localizes Flatpickr based on the `lang` attribute on the `<html>` element. If no `lang` attribute is found, it falls back to `en-US`. Currently German (`de`) is bundled — additional locales need to be imported separately.
+
+## Month Picker Behavior
+
+When `month-picker` is set:
+- On desktop (no touch support), the Flatpickr `monthSelect` plugin is used
+- On touch devices with native month input support, a native `<input type="month">` is used instead
+- The display format is always `F Y` (e.g. `January 2025`)
+
+## Accessibility
+
+- Direct keyboard input into the datepicker field is disabled (`allowInput: false`) — users must use the calendar UI
+- Use a `<label>` element associated with the input for screen reader support
+- Consider using `alt-format` to show a more human-readable date format to users while keeping a machine-readable format as the internal value

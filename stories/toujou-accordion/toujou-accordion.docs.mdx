@@ -1,0 +1,54 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import * as AccordionStories from './toujou-accordion.stories';
+
+<Meta of={AccordionStories} />
+
+# Toujou Accordion
+
+A component that shows and hides content panels. Panels can be toggled individually or configured to only allow one open panel at a time via `expand-mode-single`.
+
+## Attributes
+
+| Attribute | Type | Default | Description |
+|---|---|---|---|
+| `expand-mode-single` | `boolean` | `false` | When `true`, opening a panel closes all other open panels |
+
+## Data Attributes
+
+| Attribute | Element | Description |
+|---|---|---|
+| `data-for` | `.accordion__panel` | Links a panel to its content block. Must match the `data-content` value on the corresponding content element |
+| `data-content` | `.accordion__content` | Links a content block to its panel. Must match the `data-for` value on the corresponding panel element |
+| `data-open` | `.accordion__panel` | Set to `"true"` to open the panel on load |
+
+## CSS Classes
+
+| Class | Element | Description |
+|---|---|---|
+| `accordion__panel` | Panel trigger | Clickable element that toggles the corresponding content |
+| `accordion__content` | Content wrapper | The collapsible content block |
+| `accordion__panel--active` | Panel trigger | Added when the panel is open |
+| `accordion__content--active` | Content wrapper | Added when the content is visible |
+
+## Events
+
+| Event | Detail | Description |
+|---|---|---|
+| `accordion-change` | — | Fired on the component every time a panel is toggled |
+| `toujou-accordion-ready` | `ToujouAccordion` | Fired once after the component's first render |
+
+## Keyboard Interactions
+
+| Key | Description |
+|---|---|
+| `Enter` / `Space` | Toggle the focused panel |
+| `Arrow Down` | Move focus to the next panel |
+| `Arrow Up` | Move focus to the previous panel |
+| `Home` | Move focus to the first panel |
+| `End` | Move focus to the last panel |
+
+## Accessibility
+
+- Each panel receives `tabindex="0"` and `aria-expanded` automatically
+- Each content block receives `aria-hidden` automatically
+- The component uses light DOM (`createRenderRoot` returns `this`), so global styles apply directly

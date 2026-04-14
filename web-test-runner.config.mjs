@@ -35,7 +35,7 @@ export default {
     },
     plugins: [
         typescript({
-            tsconfig: 'tsconfig.json'
+            tsconfig: 'tsconfig.tests.json',
         }),
         alias({
             resolve: ['', './index.js', '.js', '.ts', './index.ts'],

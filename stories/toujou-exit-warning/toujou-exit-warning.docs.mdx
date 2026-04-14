@@ -1,0 +1,47 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import * as ExitWarningStories from './toujou-exit-warning.stories';
+
+<Meta of={ExitWarningStories} />
+
+# Toujou Exit Warning
+
+A component that intercepts clicks on external links and shows a modal warning before redirecting the user. After a configurable delay, the page automatically redirects to the target URL. The countdown and target URL are rendered inside the modal via a `<template>` element.
+
+> ⚠️ This component requires `toujou-modal` to be present in the DOM. A live canvas example is not available until `toujou-modal` has a story.
+
+
+To trigger the exit warning, add `target="toujou-exit-warning"` to any link:
+```html
+<a href="https://www.example.com" target="toujou-exit-warning">External link</a>
+```
+
+## Attributes
+
+| Attribute | Type | Default | Description |
+|---|---|---|---|
+| `title` | `string` | — | The title shown in the modal |
+| `targetUrl` | `string` | `http://www.dfau.de` | The URL to redirect to after the countdown |
+| `redirectDelay` | `number` | `50` | Number of seconds before the automatic redirect |
+
+## Template Variables
+
+The `<template>` child element supports two interpolated variables that are updated dynamically:
+
+| Variable | Description |
+|---|---|
+| `${secondsRemaining}` | The number of seconds remaining before the redirect |
+| `${targetUrl}` | The target URL the user will be redirected to |
+
+## Behavior
+
+- Listens for clicks on elements with `target="toujou-exit-warning"` on the whole document
+- If the target URL is on the same hostname, redirects immediately without showing the modal
+- If the target URL is external, opens the modal and starts the countdown
+- Supports being used inside a `toujou-modal` iframe via `postMessage`
+- Closing the modal cancels the countdown and redirect
+
+## Dependencies
+
+| Dependency | Description |
+|---|---|
+| `toujou-modal` | Required — the exit warning renders inside a `toujou-modal` element |

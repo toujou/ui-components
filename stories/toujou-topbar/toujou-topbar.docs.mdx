@@ -1,0 +1,114 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import * as TopbarStories from './toujou-topbar.stories';
+
+<Meta of={TopbarStories} />
+
+# Toujou Topbar
+
+The main navigation bar component for toujou installations. It manages the mobile navigation open/closed state via a burger button, responds to viewport breakpoint changes, and coordinates with the main navigation, logo, actions, language picker and service navigation.
+
+## Attributes
+
+| Attribute | Type | Default | Description |
+|---|---|---|---|
+| `logo-size` | `small` \| `medium` \| `large` | — | Controls the size of the logo |
+| `no-transitions` | `boolean` | `false` | Removes CSS transitions from topbar elements |
+| `open-nav` | `boolean` | `false` | Reflected attribute set when the navigation is open |
+
+## CSS Custom Properties
+
+| Property | Default | Description |
+|---|---|---|
+| `--toujou-topbar-breakpoint` | `840px` | Viewport width at which the topbar switches between mobile and desktop layout |
+
+## Child Components
+
+### Logo
+Place a `<nav>` with `aria-label="Topbar Logo"` containing a link to the homepage. Use `show-title-on-mobile` attribute on the link to show the text title instead of the logo image on mobile.
+
+### Burger Button
+`toujou-burger-button` with `toggle-element-selector="#topbar"` — dispatches `toujou-burger-button-state-change` on `window` which the topbar listens to in order to toggle the `open-nav` attribute.
+
+### Main Navigation
+A `<nav>` with class `main-nav`. Sub-navigation toggling is handled by the `MainNav` JavaScript class which must be instantiated separately:
+```js
+const mainNavEl = document.querySelector('.main-nav');
+mainNavEl.mainNav = new MainNav(mainNavEl);
+```
+
+The `MainNav` class handles:
+- Chevron button click toggling with `data-is-open` attribute
+- Closing sibling sub-navs when one opens
+- Mouse hover toggling when `data-is-open-on-hover` is set on the nav
+- Closing the nav on click outside
+- Closing the nav on `Escape` key press
+
+### Language Picker
+
+**Inline:**
+```html
+<nav class="language-picker" aria-label="Language picker">
+  <ul class="language-picker__list">
+    <li class="language-picker__item">
+      <a href="#" class="language-picker__link" lang="en" hreflang="en" aria-current="true">
+        <span class="language-picker__iso-code">EN</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+```
+
+**Dropdown:**
+```html
+<nav class="language-picker-dropdown" aria-label="Language picker">
+  <select class="language-picker-dropdown__select" id="language-picker">
+    <option value="#" selected>EN</option>
+    <option value="#">DE</option>
+  </select>
+  <label class="language-picker-dropdown__label" for="language-picker">▾</label>
+</nav>
+```
+
+### Service Navigation
+```html
+<nav class="service-nav">
+  <a href="#" class="service-nav__link">Impressum</a>
+  <a href="#" class="service-nav__link">Datenschutz</a>
+</nav>
+```
+
+## Events
+
+| Event | Detail | Description |
+|---|---|---|
+| `toujou-topbar-breakpoint-change` | `{ state: boolean }` | Fired when the viewport crosses the breakpoint. `state` is `true` when mobile |
+
+## Body Attribute
+
+When the navigation is open, `nav-is-open` is added to `document.body`. Use this to apply global styles such as preventing page scroll:
+```css
+body[nav-is-open] {
+  overflow: hidden;
+}
+```
+
+## Main Navigation CSS Classes
+
+| Class | Attribute | Description |
+|---|---|---|
+| `main-nav__list` | `data-nav-list-level="1/2/3"` | Navigation list at the given depth level |
+| `main-nav__list-item` | `data-nav-item-level="1/2/3"` | List item at the given depth level |
+| `main-nav__list-item` | `data-has-subnav` | Present when the item has a sub-navigation |
+| `main-nav__list-item` | `data-is-open` | Set by `MainNav` when the sub-navigation is open |
+| `main-nav__chevron` | `aria-controls`, `aria-expanded`, `aria-pressed` | Toggle button for sub-navigation. Managed by `MainNav` |
+| `main-nav__link` | — | The navigation anchor element |
+| `main-nav__text` | — | Text wrapper inside the link |
+
+## Accessibility
+
+- Use `aria-label` on the topbar's logo nav, main nav and language picker nav
+- The burger button manages `aria-expanded` and `aria-pressed` automatically
+- Main nav chevrons manage `aria-expanded` and `aria-pressed` via `MainNav`
+- Use `aria-current="page"` on the active navigation link
+- Use `aria-controls` on chevron buttons referencing the sub-nav `id`
+- Escape key closes the currently open sub-nav level or dispatches `toujou-main-nav-close` when at the top level

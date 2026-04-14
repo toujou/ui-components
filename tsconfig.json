@@ -27,10 +27,10 @@
 			"mocha",
 			"css",
 			"mapbox-gl"
-		]
+		],
 	},
 	"include": [
 		"**/*.ts",
 		"node_modules/@webcomponents/shadycss/externs/shadycss.d.ts"
-	]
+	],
 }

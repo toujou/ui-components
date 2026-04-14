@@ -1,0 +1,49 @@
+.icon {
+    --icon-size: var(--font-size-normal);
+    --icon-color: var(--color-primary);
+
+    mask-position: center;
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    display: inline-block;
+    height: var(--icon-size);
+    width: var(--icon-size);
+    mask-image: var(--icon-icon);
+    background-color: var(--icon-color);
+}
+
+/* ICON COLORS */
+.icon--color-font {
+    --icon-color: var(--color-font);
+}
+
+/* ICON SIZES */
+.icon--size-xl {
+    --icon-size: var(--font-size-xl);
+}
+
+/* ICON ICONS */
+.icon--arrow-left {
+    --icon-icon: var(--ui-components-sb-icon-arrow-left);
+}
+
+.icon--chevron-down {
+    --icon-icon: var(--ui-components-sb-icon-chevron-down);
+}
+
+.icon--close {
+    --icon-icon: var(--ui-components-sb-icon-close);
+}
+
+.icon--link {
+    --icon-icon: var(--ui-components-sb-icon-link);
+}
+
+.icon--search {
+    --icon-icon: var(--ui-components-sb-icon-search);
+}
+
+.icon--telephone {
+    --icon-icon: var(--ui-components-sb-icon-telephone);
+}
+

@@ -1,0 +1,22 @@
+:root {
+    --ui-components-sb-icon-arrow-left: url("../../icons/icon-arrow-left.svg");
+    --ui-components-sb-icon-chevron-right: url("../../icons/icon-chevron-right.svg");
+    --ui-components-sb-icon-chevron-down: url("../../icons/icon-chevron-down.svg");
+    --ui-components-sb-icon-close: url("../../icons/icon-close.svg");
+    --ui-components-sb-icon-home-smooth: url("../../icons/icon-home-smooth.svg");
+    --ui-components-sb-icon-link: url("../../icons/icon-link.svg");
+    --ui-components-sb-icon-rating-star-0: url("../../icons/icon-rating-star-0.svg");
+    --ui-components-sb-icon-rating-star-00: url("../../icons/icon-rating-star-00.svg");
+    --ui-components-sb-icon-rating-star-10: url("../../icons/icon-rating-star-10.svg");
+    --ui-components-sb-icon-rating-star-20: url("../../icons/icon-rating-star-20.svg");
+    --ui-components-sb-icon-rating-star-30: url("../../icons/icon-rating-star-30.svg");
+    --ui-components-sb-icon-rating-star-40: url("../../icons/icon-rating-star-40.svg");
+    --ui-components-sb-icon-rating-star-50: url("../../icons/icon-rating-star-50.svg");
+    --ui-components-sb-icon-rating-star-60: url("../../icons/icon-rating-star-60.svg");
+    --ui-components-sb-icon-rating-star-70: url("../../icons/icon-rating-star-70.svg");
+    --ui-components-sb-icon-rating-star-80: url("../../icons/icon-rating-star-80.svg");
+    --ui-components-sb-icon-rating-star-90: url("../../icons/icon-rating-star-90.svg");
+    --ui-components-sb-icon-rating-star-100: url("../../icons/icon-rating-star-100.svg");
+    --ui-components-sb-icon-search: url("../../icons/icon-search.svg");
+    --ui-components-sb-icon-telephone: url("../../icons/icon-telephone.svg");
+}

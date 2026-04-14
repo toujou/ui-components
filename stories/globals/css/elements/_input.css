@@ -1,0 +1,62 @@
+.input {
+    --input-position: relative;
+    --input-width: 100%;
+    --input-border: 1px solid var(--color-font);
+    --input-border-radius: var(--border-radius-normal);
+    --input-background-color: transparent;
+    --input-padding: var(--spacing-s) var(--spacing-normal);
+    --input-color: var(--color-font);
+    --input-font-family: var(--font-family-text);
+    --input-font-size: var(--font-size-normal);
+    --input-font-weight: normal;
+
+    --input-placeholder-color: var(--color-font-light);
+
+    --input-focus-caret-color: var(--color-font);
+
+    position: var(--input-position);
+    width: var(--input-width);
+    border-radius: var(--input-border-radius);
+    border: var(--input-border);
+    background-color: var(--input-background-color);
+    padding: var(--input-padding);
+    color: var(--input-color);
+    font-family: var(--input-font-family);
+    font-size: var(--input-font-size);
+    font-weight: var(--input-font-weight);
+}
+
+.input[disabled] {
+    --input-color: var(--color-font-light);
+    --input-border-color: var(--color-font-light);
+
+    pointer-events: none;
+}
+
+.input-group.input-group--has-error .input {
+    border: 1px solid var(--color-error);
+    outline: 1px solid var(--color-error);
+}
+
+.input-group.input-group--has-success .input {
+    --input-color: var(--color-font);
+
+    border: 1px solid var(--color-success);
+    outline: 1px solid var(--color-success);
+}
+
+.input::placeholder {
+    color: var(--input-placeholder-color);
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    opacity: 1;
+}
+
+@media (hover: hover) {
+    .input:not(:focus):hover {
+        border: 1px solid var(--color-font-dark);
+        outline: 1px solid var(--color-font-dark);
+    }
+}

@@ -1,0 +1,94 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import * as LocationFinderStories from './toujou-location-finder.stories';
+
+<Meta of={LocationFinderStories} />
+
+# Toujou Location Finder
+
+An interactive map component that displays GeoJSON features as markers on a map and shows corresponding teasers in a sidebar. It supports clustering, popups, geolocation, address search via geocoder, pagination, and a mobile-responsive layout. Built on [MapLibre GL](https://maplibre.org/) with a [Redux](https://redux.js.org/) store for state management.
+
+## Attributes
+
+| Attribute | Type | Default | Description |
+|---|---|---|---|
+| `geojsonurl` | `string` | `''` | Base URL for the GeoJSON endpoint. The current map bounds are appended as query parameters (`north`, `south`, `east`, `west`) |
+| `teaserurl` | `string` | `''` | Base URL for the teaser HTML endpoint. Feature UIDs are appended as `?ids=1,2,3` |
+| `filterparams` | `string` | `''` | Additional query parameters appended to both the GeoJSON and teaser URLs (e.g. `&pagetypes=34&pages=423_424&recursive=250&hmac=abc123`) |
+| `access-token` | `string` | `null` | MapLibre/Mapbox access token |
+| `map-style` | `string` | — | MapLibre style URL (e.g. `mapbox://styles/mapbox/light-v10`) |
+| `bounds` | `array` | `[]` | Initial map bounds as `[west, south, east, north]` |
+| `min-zoom` | `number` | — | Minimum zoom level for the map |
+| `max-zoom` | `number` | — | Maximum zoom level for the map |
+| `fit-bounds-max-zoom` | `number` | — | Maximum zoom level when fitting to bounds |
+| `reduced-motion` | `boolean` | `false` | Disables map animations |
+| `locator-button-label` | `string` | `Find my location` | Aria label for the geolocation button |
+| `pagination-prev-button-title` | `string` | `Previous page` | Title for the previous page button |
+| `pagination-next-button-title` | `string` | `Next page` | Title for the next page button |
+
+## Reflected Properties
+
+| Property | Attribute | Type | Description |
+|---|---|---|---|
+| `isLoading` | `isloading` | `boolean` | Set when a fetch request is in progress |
+| `hasPagination` | `haspagination` | `boolean` | Set when the results have more than one page |
+| `isMobile` | `ismobile` | `boolean` | Set when the viewport is below the breakpoint |
+| `map-is-hidden` | `map-is-hidden` | `boolean` | Set when the map is toggled off via the map toggle button |
+
+## Slots
+
+| Slot | Description |
+|---|---|
+| `location-finder-map-toggle` | Optional button to show/hide the map panel. Clicking it toggles the `map-is-hidden` attribute |
+| `layers` | Optional custom map layers. If provided, replaces the default point, polygon, line and cluster layers |
+
+## API Endpoints
+
+The component makes two types of fetch requests:
+
+**GeoJSON endpoint** — called on map move and on init:
+```
+{geojsonurl}?north=X&south=X&east=X&west=X{filterparams}
+```
+
+**Teasers endpoint** — called with the UIDs of currently visible features:
+```
+{teaserurl}?ids=1,2,3{filterparams}
+```
+
+**Popup endpoint** — called when a single marker is clicked:
+```
+{teaserurl}?ids=1{filterparams}
+```
+
+Both endpoints are expected to return HTML strings that are rendered via `unsafeHTML`.
+
+## Events
+
+| Event | Detail | Description |
+|---|---|---|
+| `toujou-location-finder-ready` | `ToujouLocationFinder` | Fired when the map is initialized and ready |
+
+## CSS Variables
+
+| Variable | Default | Description |
+|---|---|---|
+| `--toujou-location-finder-map-point-color` | `var(--primary-color)` | Fill color of point markers |
+| `--toujou-location-finder-map-point-color-hover` | `var(--primary-color--dark)` | Fill color of point markers on hover |
+| `--toujou-location-finder-map-polygon-color` | `var(--primary-color)` | Fill color of polygon features |
+| `--toujou-location-finder-map-polygon-color-hover` | `var(--primary-color--dark)` | Fill color of polygon features on hover |
+| `--toujou-location-finder-map-line-color` | `var(--primary-color)` | Color of line features |
+| `--toujou-location-finder-map-line-color-hover` | `var(--primary-color--dark)` | Color of line features on hover |
+| `--toujou-location-finder-breakpoint` | `840px` | Viewport width at which the layout switches to mobile |
+| `--toujou-location-finder-cluster-background-color` | `var(--primary-color)` | Background color of cluster circles |
+| `--toujou-location-finder-cluster-border-width` | `2` | Border width of cluster circles in pixels |
+| `--toujou-location-finder-cluster-border-color` | `var(--primary-color)` | Border color of cluster circles |
+| `--toujou-location-finder-cluster-text-color` | `var(--bg-color)` | Text color of cluster count labels |
+| `--toujou-location-finder-cluster-text-size` | `16` | Font size of cluster count labels |
+| `--toujou-location-finder-cluster-radius` | `50` | Radius in pixels at which points are clustered together |
+| `--toujou-location-finder-cluster-max-zoom` | `12` | Maximum zoom level at which clustering is applied |
+
+## Notes
+
+- The geocoder uses [Nominatim](https://nominatim.openstreetmap.org/) (OpenStreetMap) for address search — no additional API key required
+- The locator button uses the browser's `navigator.geolocation` API — requires HTTPS and user permission
+- `toujou-location-finder-teaser` is bundled as part of the same package and does not need to be imported separately

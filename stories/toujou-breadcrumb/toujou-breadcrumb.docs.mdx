@@ -1,0 +1,48 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import * as BreadcrumbStories from './toujou-breadcrumb.stories';
+
+<Meta of={BreadcrumbStories} />
+
+# Toujou Breadcrumb
+
+A responsive breadcrumb navigation component that automatically switches between desktop and mobile views based on the available width. On mobile, the full breadcrumb list is hidden behind a toggle button.
+
+## How it works
+
+The component measures the total width of all breadcrumb items on first render and uses that value as the breakpoint. When the viewport is narrower than the breakpoint, the component switches to mobile mode, hiding the full list and showing only the toggle button. Clicking the toggle button reveals the full list.
+
+## Attributes
+
+| Attribute | Type | Default | Description |
+|---|---|---|---|
+| `breakpoint` | `number` | `0` | Viewport width in pixels at which the component switches to mobile mode. Calculated automatically based on item widths. |
+| `isMobile` | `boolean` | `false` | Reflects whether the component is currently in mobile mode. Set automatically. |
+| `mobileMenuIsOpen` | `boolean` | `false` | Reflects whether the mobile dropdown menu is currently open. |
+
+## Slots
+
+| Slot | Description |
+|---|---|
+| `toggle-buttons` | The button(s) used to toggle the mobile menu open and closed |
+| `list` | The `<ol>` element containing the breadcrumb items |
+
+## Events dispatched
+
+| Event | Detail | Description |
+|---|---|---|
+| `toujou-breadcrumb-connected` | — | Fired when the component is connected to the DOM |
+| `toujou-breadcrumb-mode-change` | `{ isMobile: boolean, breakpoint: number }` | Fired when the component switches between mobile and desktop mode |
+| `toujou-breadcrumb-menu-open` | — | Fired when the mobile menu is opened |
+| `toujou-breadcrumb-menu-close` | — | Fired when the mobile menu is closed |
+
+## CSS parts
+
+| Part | Description |
+|---|---|
+| `fake-list` | The abbreviated list shown in desktop mode, containing all items except the last one |
+
+## Accessibility
+
+- Use meaningful link text for each breadcrumb item
+- The toggle button should have a descriptive `aria-label` for screen readers
+- The component reflects its state via the `isMobile` and `mobileMenuIsOpen` attributes which can be used for CSS styling

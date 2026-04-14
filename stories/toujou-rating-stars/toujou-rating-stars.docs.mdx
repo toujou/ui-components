@@ -1,0 +1,48 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import * as RatingStarsStories from './toujou-rating-stars.stories';
+
+<Meta of={RatingStarsStories} />
+
+# Toujou Rating Stars
+
+A component that displays a star rating. It supports decimal values for partial stars and an optional suffix. The visual fill of each star is calculated based on the rating value relative to the total.
+
+## Attributes
+
+| Attribute | Type | Default | Description |
+|---|---|---|---|
+| `rating-value` | `number` | `0` | The current rating value. Supports decimals for partial stars |
+| `rating-total` | `number` | `5` | The total number of stars to display |
+| `rating-suffix` | `string` | `''` | Optional text shown after the stars. Hidden if empty |
+
+## Partial Stars
+
+The component calculates a `star-value` attribute (0–100) on each star element based on how much of that star should be filled:
+
+- `100` — fully filled star
+- `0` — empty star
+- `1–99` — partially filled star (e.g. `50` for a half star)
+
+This allows CSS to style each star individually using the `star-value` attribute:
+```css
+.rating-stars__star[star-value="100"] {
+  /* full star */
+}
+
+.rating-stars__star[star-value="0"] {
+  /* empty star */
+}
+
+/* Partial star using a CSS clip or gradient based on the value */
+```
+
+## Accessibility
+
+- All star elements have `aria-hidden="true"` — they are decorative
+- Use `aria-label` on the component to provide a meaningful description for screen readers (e.g. `"3.5 out of 5 stars"`)
+- The suffix element also has `aria-hidden="true"` since the `aria-label` already conveys the rating
+
+## Notes
+
+- The component uses light DOM (`createRenderRoot` returns `this`), so global styles apply directly to the star elements
+- The `rating-suffix` is only rendered if it has a non-empty value

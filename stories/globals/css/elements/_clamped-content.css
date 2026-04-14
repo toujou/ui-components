@@ -1,0 +1,5 @@
+.clamped-content {
+    display: block;
+    max-width: var(--content-max-width);
+    margin-inline: auto;
+}

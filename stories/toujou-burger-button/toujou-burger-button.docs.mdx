@@ -1,0 +1,46 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import * as BurgerButtonStories from './toujou-burger-button.stories';
+
+<Meta of={BurgerButtonStories} />
+
+# Toujou Burger Button
+
+A toggle button component for opening and closing the main navigation. It manages its own open/closed state and communicates with other components via custom events.
+
+## Attributes
+
+| Attribute | Type | Default | Description |
+|---|---|---|---|
+| `aria-pressed` | `boolean` | `false` | Reflects the current open/closed state |
+| `aria-expanded` | `boolean` | `false` | Reflects the current open/closed state |
+| `aria-controls` | `string` | — | ID of the element being controlled (e.g. the nav) |
+| `aria-label` | `string` | — | Descriptive label for screen readers |
+| `aria-haspopup` | `boolean` | `true` | Indicates the button controls a popup element |
+| `toggle-element-selector` | `string` | — | CSS selector of the element to toggle (e.g. `#topbar`) |
+| `tabindex` | `number` | `0` | Makes the element focusable via keyboard |
+
+## Slots
+
+| Slot | Description |
+|---|---|
+| `content` | The visual content of the button, typically three `burger-button__line` spans |
+
+## Events
+
+| Event | Detail | Description |
+|---|---|---|
+| `toujou-burger-button-state-change` | `{ state: boolean }` | Fired when the button is toggled. `true` means open, `false` means closed |
+
+## Listens for
+
+| Event | Description |
+|---|---|
+| `toujou-topbar-breakpoint-change` | Resets the button to closed when the topbar breakpoint changes to a larger viewport |
+| `toujou-main-nav-close` | Closes the button when the main navigation is closed programmatically from elsewhere |
+
+## Accessibility
+
+- Manages `aria-pressed` and `aria-expanded` attributes automatically based on current state
+- Supports keyboard interaction via `Enter` and `Space` keys
+- Use `aria-controls` to reference the element being controlled by the button
+- Use `aria-label` to provide a meaningful description for screen readers

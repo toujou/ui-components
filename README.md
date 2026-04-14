@@ -1,9 +1,33 @@
 # ui-components
 
-Mono repo with the web-components used across the toujou themes
+Monorepo containing the reusable **Toujou Web Components** used across Toujou themes and projects.
+Each component is published as an individual npm package under the `@toujou` scope.
+The repository also contains a **Storybook environment** used for development and documentation of the components.
 
 ## Requirements
-npm v16.14.0
+npm v20.20.1
+
+## Project Structure
+```text
+    .
+    ├── .storybook/          # Storybook configuration (preview, manager, webpack/vite config)
+    ├── etc/                 # Shared configuration and helper scripts (e.g. common.rollup.js)
+    ├── packages/            # All Toujou web component packages
+    │   ├── toujou-accordion/
+    │   │   ├── src/         # Component source code
+    │   │   └── tests/       # Unit tests for the component
+    │   └── ...
+    ├── patches/             # Patch files applied to dependencies (via patch-package)
+    ├── scripts/             # Custom repository scripts (e.g. package scaffolding)
+    ├── stories/             # Storybook stories and development helpers
+    │   ├── globals/         # Shared Storybook css, js and utilities
+    │   ├── toujou-accordion/
+    │   │   └── toujou-accordion.stories.ts
+    │   └── ...
+    └── package.json
+    └── README.md
+    └── ...
+```
 
 ## Install dependencies
 On the root folder run:
@@ -29,11 +53,26 @@ We can also test a single package:
 - `PACKAGE_NAME=toujou-accordion npm run test:single-package`
 
 ## Lint packages
-To run the tests, run:
+To run the linter, run:
 - `npm run lint`
 
 We can also lint a single package:
 - `PACKAGE_NAME=toujou-accordion npm run lint:single-package`
+
+## Storybook
+We use Storybook as a development environment to preview and prototype components in isolation.
+
+> **Note:** The styles used in Storybook are based on the Kojo theme but intentionally differ from it. They are designed to make it easier to understand how the components work.
+
+### Run Storybook
+- `npm run storybook`
+
+Storybook will be available at `http://localhost:6006` (see message in console)
+
+### Build Storybook
+- `npm run build-storybook`
+
+The built output will be in the `storybook-static` folder.
 
 ## Released Components
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)

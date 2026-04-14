@@ -1,0 +1,68 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import * as SnackbarStories from './toujou-snackbar.stories';
+
+<Meta of={SnackbarStories} />
+
+# Toujou Snackbar
+
+A notification component that displays brief messages at the bottom of the screen. It supports two types — `auto` (hides automatically after a duration) and `action` (requires manual dismissal). Messages are queued, so multiple snackbars dispatched in quick succession are shown one after another.
+
+## Event Detail
+
+The `toujou-add-snackbar` event detail supports the following properties:
+
+| Property | Type | Default | Description |
+|---|---|---|---|
+| `message` | `string` | — | The message to display. Required |
+| `type` | `auto` \| `action` | — | `auto` hides after `duration` ms. `action` requires the user to click the button |
+| `buttonText` | `string` | `OK` | Label for the dismiss button |
+| `duration` | `number` | `2500` | Duration in milliseconds before auto-hiding. Only applies to `auto` type |
+| `variant` | `success` \| `warning` \| `error` \| `info` | — | Visual style variant |
+
+## Attributes
+
+| Attribute | Type | Default | Description |
+|---|---|---|---|
+| `button-aria-label` | `string` | `Close the snackbar` | Accessible label for the dismiss button |
+| `visible` | `boolean` | — | Set automatically when the snackbar is showing |
+| `tabindex` | `number` | `-1` | Managed automatically — set to `0` when visible, `-1` when hidden |
+
+## Variants
+
+| Variant | Description |
+|---|---|
+| `info` | Default informational style |
+| `success` | Positive confirmation style |
+| `warning` | Cautionary style |
+| `error` | Error or failure style |
+
+## Types
+
+| Type | Description |
+|---|---|
+| `auto` | Hides automatically after the configured duration |
+| `action` | Stays visible until the user clicks the dismiss button |
+
+## Queueing
+
+Multiple snackbars dispatched in quick succession are queued and shown one after another. If a new `auto` snackbar arrives while another `auto` snackbar is showing, the current one is immediately replaced.
+
+## Keyboard Interactions
+
+| Key | Description |
+|---|---|
+| `Escape` | Dismisses the snackbar (action type only) |
+| `Enter` | Dismisses the snackbar (action type only) |
+
+## Accessibility
+
+- Place the snackbar element with `aria-live="assertive"` so screen readers announce the message immediately
+- Use `button-aria-label` to provide a meaningful description for the dismiss button
+- Focus is automatically moved to the snackbar when it becomes visible
+- Focus is returned after the snackbar is dismissed
+
+## Notes
+
+- The snackbar element must be present in the DOM before any `toujou-add-snackbar` events are dispatched
+- Only one `toujou-snackbar` element should exist per page
+- The first `toujou-add-snackbar` event removes a default `hidden` attribute from the element, preventing an unwanted animation on initial load

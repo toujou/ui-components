@@ -1,0 +1,55 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import * as SpinnerStories from './toujou-spinner.stories';
+
+<Meta of={SpinnerStories} />
+
+# Toujou Spinner
+
+A circular loading spinner component. Its appearance is fully controlled via CSS custom properties, making it easy to customize size, thickness, colors and animation speed.
+
+## Attributes
+
+| Attribute | Type | Default | Description |
+|---|---|---|---|
+| `centered-on-page` | `boolean` | `false` | When present, the spinner is fixed and centered on the page using `position: fixed` |
+
+## CSS Custom Properties
+
+| Property | Default | Description |
+|---|---|---|
+| `--toujou-spinner-size` | `5rem` | Width and height of the spinner |
+| `--toujou-spinner-thickness` | `4` | Stroke width of the spinning circle |
+| `--toujou-spinner-start-color` | `var(--primary-color--light)` | Stroke color at the start of the color animation |
+| `--toujou-spinner-end-color` | `var(--primary-color--dark)` | Stroke color at the end of the color animation |
+| `--toujou-spinner-animation-duration` | `2s` | Duration of the full rotation animation |
+| `--toujou-spinner-dash-animation-duration` | `1.4s` | Duration of the dash and color animations |
+| `--toujou-spinner-display` | `inline-flex` | Display value of the host element |
+
+## Sizes
+
+## Customization
+
+Size and thickness can be set via inline styles or a CSS class:
+```html
+<!-- Via inline style -->
+<toujou-spinner style="
+  --toujou-spinner-size: 8rem;
+  --toujou-spinner-thickness: 2;
+  --toujou-spinner-start-color: #ff0000;
+  --toujou-spinner-end-color: #0000ff;
+"></toujou-spinner>
+
+<!-- Via CSS class -->
+<style>
+  .my-spinner {
+    --toujou-spinner-size: 3rem;
+    --toujou-spinner-thickness: 6;
+  }
+</style>
+```
+
+## Centered on Page
+
+When the `centered-on-page` attribute is present, the spinner uses `position: fixed` to center itself on the viewport, useful for full-page loading states:
+```html
+<toujou-spinner centered-on-page></toujou-spinner>

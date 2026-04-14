@@ -1,0 +1,36 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import * as ClampedContentStories from './toujou-clamped-content.stories';
+
+<Meta of={ClampedContentStories} />
+
+# Toujou Clamped Content
+
+A component that clamps its content to a fixed height and provides show/hide toggle buttons to expand and collapse it. The clamp is automatically disabled if the content is shorter than the clamped height.
+
+## Attributes
+
+| Attribute | Type | Default | Description |
+|---|---|---|---|
+| `is-open` | `boolean` | `false` | Whether the content is expanded |
+| `clamp-disabled` | `boolean` | `false` | Automatically set when content is shorter than the clamped height. Disables clamping |
+
+## Slots
+
+| Slot | Description |
+|---|---|
+| `clamped-content` | The content to be clamped |
+| `show-button` | Button to expand the content |
+| `hide-button` | Button to collapse the content |
+
+## Events
+
+| Event | Detail | Description |
+|---|---|---|
+| `toujou-clamped-content-changed` | `{ isOpen: boolean }` | Fired when the content is expanded or collapsed |
+| `toujou-clamped-content-clamp-enabled-changed` | `{ clampDisabled: boolean }` | Fired when the clamp enabled state changes, e.g. after slot content changes |
+
+## Accessibility
+
+- Manages `aria-expanded` attribute automatically based on `is-open` state
+- Use meaningful labels on the show/hide button slots for screen readers
+- The `clamp-disabled` attribute is reflected so it can be used for CSS styling

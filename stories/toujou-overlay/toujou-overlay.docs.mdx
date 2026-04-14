@@ -1,0 +1,104 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import * as OverlayStories from './toujou-overlay.stories';
+
+<Meta of={OverlayStories} />
+
+# Toujou Overlay
+
+A modal overlay component that displays content on top of the page. It remembers the user's decision using session or local storage, so it only appears once per session/browser unless the storage is cleared. Supports an optional delay before appearing, focus trapping, and yes/no decision buttons.
+
+## Attributes
+
+| Attribute | Type | Default | Description |
+|---|---|---|---|
+| `id` | `string` | — | Required. Used as the storage key to remember the user's decision |
+| `delay` | `number` | `0` | Delay in milliseconds before the overlay appears on page load |
+| `storage-mode` | `string` | `session` | Storage mode for persisting the decision. One of `session`, `local`, or `none` |
+| `opened` | `boolean` | `false` | Whether the overlay is currently open. Reflected as an attribute |
+
+## Template Content
+
+The overlay content must be placed inside a `<template>` element. The component reads and renders the template content when the overlay opens, and removes it when the overlay closes:
+```html
+<toujou-overlay id="my-overlay">
+  <template>
+    <!-- Your overlay content here -->
+  </template>
+</toujou-overlay>
+```
+
+## Decision Buttons
+
+Buttons inside the overlay with a `data-overlay-value` attribute are handled automatically:
+
+| Value | Behavior |
+|---|---|
+| `yes` | Stores `accepted` in storage and closes the overlay |
+| `no` | Stores `rejected` in storage and shows the warning element |
+
+## Close Button
+
+Any element with the class `overlay-button-close-trigger` inside the template will close the overlay and store `accepted` when clicked:
+```html
+<button class="overlay-button-close-trigger" aria-label="Close">✕</button>
+```
+
+## CSS Classes
+
+| Class | Element | Description |
+|---|---|---|
+| `overlay__infos` | `section` | Main content wrapper |
+| `overlay__title` | heading | The overlay headline |
+| `overlay__warning` | `p` | Warning message shown when user clicks "no". Hidden by default |
+| `overlay__buttons` | `section` | Container for the decision buttons. Hidden when warning is shown |
+| `overlay__button` | `button` | Decision button. Must have `data-overlay-value="yes"` or `data-overlay-value="no"` |
+| `overlay__close-button` | `button` | Optional close button. Must also have `overlay-button-close-trigger` class |
+| `overlay__background` | `img` | Optional background image |
+| `overlay__logo` | `img` | Optional logo image |
+| `overlay__conclusion` | `p` | Optional conclusion text shown below the buttons |
+
+## Storage
+
+The component uses the element's `id` as the storage key. The stored value is either `accepted` or `rejected`:
+
+- `accepted` — overlay will not show again
+- `rejected` — overlay shows the warning message instead of the buttons
+
+To reset the overlay and show it again, clear the storage:
+```js
+sessionStorage.removeItem('my-overlay'); // for session mode
+localStorage.removeItem('my-overlay');   // for local mode
+```
+
+## Body Class
+
+When the overlay is open, `toujou-overlay-open` is added to `document.body`. This can be used to prevent page scrolling:
+```css
+body.toujou-overlay-open {
+  overflow: hidden;
+}
+```
+
+## Events
+
+All events are dispatched on `document`, not on the component itself.
+
+| Event | Detail | Description |
+|---|---|---|
+| `toujou-overlay-show` | `{ overlay: id }` | Fired when the overlay opens |
+| `toujou-overlay-hide` | `{ overlay: id }` | Fired when the overlay closes |
+| `toujou-overlay-button-click` | `{ overlay: id, choice: 'yes' \| 'no' }` | Fired when a decision button is clicked |
+| `toujou-overlay-button-close-click` | `{ overlay: id }` | Fired when the close button is clicked |
+
+## Accessibility
+
+- Use `role="dialog"` and `aria-modal="true"` on the component
+- Use `aria-label` or `aria-labelledby` to describe the overlay
+- Focus is automatically moved to the first focusable element when the overlay opens
+- Focus is returned to the previously focused element when the overlay closes
+- Use `aria-label` on the close button for screen reader support
+
+## Notes
+
+- The `id` attribute is required — without it the storage key will be `undefined` and the overlay will always appear
+- Adding `#aaa` to the URL hash marks the overlay as accepted without showing it — useful for bypassing the overlay during development
