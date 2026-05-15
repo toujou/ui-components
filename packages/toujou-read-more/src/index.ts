@@ -44,7 +44,7 @@ export class ToujouReadMore extends LitElement {
     }
 
     :host(:not([has-clamped-text])) .content {
-      -webkit-line-clamp: unset;
+      -webkit-line-clamp: var(--toujou-read-more-max-lines-when-open, 9999);
     }
 
     .content {
