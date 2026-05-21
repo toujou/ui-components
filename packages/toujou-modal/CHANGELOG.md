@@ -1,0 +1,6 @@
+# Change Log
+
+All notable changes to the `@toujou/toujou-modal` package will be documented in this file
+
+## [1.0.0]
+- 🌱 Initial release (migrated from toujou-theme-toujou)
