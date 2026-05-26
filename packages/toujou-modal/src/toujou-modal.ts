@@ -3,7 +3,7 @@ import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'bo
 import iframeResizerPkg from 'iframe-resizer';
 const { iframeResizer } = iframeResizerPkg;
 import styles from './css/toujou-modal.css';
-import { property } from 'lit/decorators.js';
+import { property, query } from 'lit/decorators.js';
 import { IframeOptions, ToujouModalEvents } from './types';
 
 const bodyScrollLockOptions = {
@@ -44,11 +44,12 @@ export class ToujouModal extends LitElement {
   @property({ type: Boolean, attribute: 'no-backdrop', reflect: true }) noBackdrop = false;
   @property({ type: Boolean, reflect: true }) loading = false;
   @property({ type: Boolean, attribute: 'keep-on-close', reflect: true }) keepOnClose = false;
+  @query('dialog', true) dialog: HTMLDialogElement;
+
 
   private intersectionObserver: IntersectionObserver;
   private iframeResizerMap: Map<HTMLElement, any>;
   private $!: {
-    scroller: HTMLElement | null;
     content: HTMLElement | null;
     modalContent: HTMLElement | null;
     slot: HTMLSlotElement | null;
@@ -73,7 +74,7 @@ export class ToujouModal extends LitElement {
 
   render() {
     return html`
-      <div id="scroller" @click="${this.onClick}" part="scroller">
+      <dialog @click="${this.onClick}">
         <div id="content" part="content">
           <div id="modal-content" part="modal-content">
             <div id="modal-header" part="modal-header">
@@ -89,7 +90,7 @@ export class ToujouModal extends LitElement {
             <slot id="slot" @slotchange="${this.onSlotchange}"></slot>
           </div>
         </div>
-      </div>
+      </dialog>
     `;
   }
 
@@ -101,7 +102,6 @@ export class ToujouModal extends LitElement {
 
   firstUpdated() {
     this.$ = {
-      scroller: this.shadowRoot.querySelector('#scroller'),
       content: this.shadowRoot.querySelector('#content'),
       modalContent: this.shadowRoot.querySelector('#modal-content'),
       slot: this.shadowRoot.querySelector('#slot'),
@@ -130,10 +130,12 @@ export class ToujouModal extends LitElement {
   onOpen() {
     this.intersectionObserver.observe(this);
 
+    this.dialog.showModal();
+
     if (this.allowOutsideScroll) {
       document.body.style.position = 'relative';
     } else {
-      disableBodyScroll(this.$.scroller, bodyScrollLockOptions);
+      disableBodyScroll(this.dialog, bodyScrollLockOptions);
     }
 
     pushToOpenStack(this);
@@ -151,11 +153,13 @@ export class ToujouModal extends LitElement {
     if (this.allowOutsideScroll) {
       document.body.style.position = '';
     } else {
-      enableBodyScroll(this.$.scroller);
+      enableBodyScroll(this.dialog);
     }
 
     this.intersectionObserver.unobserve(this);
     this.dispatchModalEvent(ToujouModalEvents.CLOSED);
+
+    this.dialog.close();
 
     if (this.keepOnClose === false) {
       setTimeout(() => {

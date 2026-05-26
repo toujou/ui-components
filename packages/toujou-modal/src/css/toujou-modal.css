@@ -2,65 +2,31 @@
     box-sizing: border-box;
 }
 
-:host {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    width: 100%;
-    z-index: 15;
-    background: var(--toujou-modal-backdrop-color, rgba(0,0,0,.6));
-    visibility: hidden;
-}
-
-:host([allow-outside-scroll]) {
-    position: absolute;
-    height: 100%;
-    min-height: 100vh;
-}
-
-:host([no-backdrop]) {
-    background: transparent;
-}
-
-:host([visible]) {
-    visibility: visible;
-}
-
-#scroller {
-    overflow-y: auto;
-    height: 100vh;
-}
-
-:host([allow-outside-scroll]) #scroller {
-    height: 100%;
-}
-
-#content {
-    position: relative;
+dialog {
+    overflow: var(--toujou-modal-content-overflow, auto);
     display: flex;
     flex-direction: column;
-    justify-content: var(--toujou-modal-container-justify-content, center);
-    min-height: var(--toujou-modal-container-min-height, 100%);
-    height: var(--toujou-modal-container-height, 100vh);
-    width: var(--toujou-modal-container-width, 100vw);
-}
-
-#modal-content {
-    margin: var(--toujou-modal-content-margin, 2rem auto);
-    width: var(--toujou-modal-content-width, 100%);
-    max-width: var(--toujou-modal-content-max-width, calc(100vw - 1rem));
-    background: var(--toujou-modal-content-background, #fff);
-    box-shadow: var(--toujou-modal-content-shadow, 0 16px 24px 2px rgba(0,0,0,0.14), 0 6px 30px 5px rgba(0,0,0,0.12), 0 8px 10px -5px rgba(0,0,0,0.4));
+    opacity: 1;
+    outline: none;
+    transform: translate(0);
+    transition: opacity .3s ease-out, transform .3s ease-out, overlay allow-discrete .3s ease-out, display allow-discrete .3s ease-out;
     border: var(--toujou-modal-content-border, none);
     border-radius: var(--toujou-modal-content-border-radius, 0px 0px 0px 0px);
+    width: var(--toujou-modal-content-width, 100%);
+    max-width: var(--toujou-modal-content-max-width, calc(100vw - 1rem));
     max-height: var(--toujou-modal-content-max-height, 100vh);
-    overflow: var(--toujou-modal-content-overflow, auto);
+
+    box-shadow: var(--toujou-modal-content-shadow, 0 16px 24px 2px rgba(0,0,0,0.14), 0 6px 30px 5px rgba(0,0,0,0.12), 0 8px 10px -5px rgba(0,0,0,0.4));
     scroll-behavior: var(--toujou-modal-scroll-behavior, smooth);
+    overflow: var(--toujou-modal-content-overflow, auto);
+
+    background: var(--toujou-modal-content-background, #fff);
+    padding: var(--toujou-modal-content-margin, 2rem auto);
 }
 
+
 @media only screen and (min-width: 51rem) {
-    #modal-content {
+    dialog {
         min-width: var(--toujou-modal-content-min-width, 42.5rem);
         max-width: var(--toujou-modal-content-max-width, 50rem);
     }
@@ -221,4 +187,8 @@
 #modal-content ::slotted(iframe) {
     border: none;
     width: 100%;
+}
+
+dialog::backdrop {
+    background: var(--toujou-modal-backdrop-color, rgba(0, 0, 0, .6));
 }
