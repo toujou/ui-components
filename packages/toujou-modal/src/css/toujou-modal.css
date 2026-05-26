@@ -189,6 +189,11 @@ dialog {
     width: 100%;
 }
 
+
+:host([no-backdrop]) {
+    --toujou-modal-backdrop-color: transparent;
+}
+
 dialog::backdrop {
     background: var(--toujou-modal-backdrop-color, rgba(0, 0, 0, .6));
 }

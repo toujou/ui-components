@@ -205,7 +205,7 @@ The toujou-modal web component exposes several parts that can be styled external
 
 | Part                 | Description                                         |
 |:---------------------|:----------------------------------------------------|
-| `scroller`           | The scrollable container inside the modal           |
+| `dialog`             | The dialog element of the modal                     |
 | `content`            | The main content wrapper of the modal               |
 | `modal-content`      | The container for the modal's content               |
 | `modal-header`       | The header element of the modal                     |
