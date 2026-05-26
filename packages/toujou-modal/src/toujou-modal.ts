@@ -68,33 +68,42 @@ export class ToujouModal extends LitElement {
 
     this.iframeResizerMap = new Map();
 
-    window.addEventListener('keydown', this.onKeyDown.bind(this));
-    window.addEventListener('message', this.onWindowPostMessage.bind(this));
+    this.onKeyDown = this.onKeyDown.bind(this);
+    this.onWindowPostMessage = this.onWindowPostMessage.bind(this);
   }
 
   render() {
     return html`
-      <dialog @click="${this.onClick}">
+      <dialog part="dialog" @click="${this.onClick}">
         <div id="content" part="content">
           <div id="modal-content" part="modal-content">
             <div id="modal-header" part="modal-header">
               ${this.noHeader
     ? html`
-                  <button id="dog-ear-close" dialog-dismiss part="dog-ear-close"></button>`
+                  <button id="dog-ear-close" dialog-dismiss aria-label="Close modal" part="dog-ear-close"></button>`
     : html`
                   <h3 part="headline">${this.title}</h3>
-                  <button id="modal-header-close" dialog-dismiss part="modal-header-close">×</button>
+                  <button id="modal-header-close" dialog-dismiss aria-label="Close modal" part="modal-header-close">×</button>
                 `}
               <div id="progress-bar" part="progress-bar"></div>
             </div>
-            <slot id="slot" @slotchange="${this.onSlotchange}"></slot>
+            <slot id="slot" @slotchange="${this.onSlotChange}"></slot>
           </div>
         </div>
       </dialog>
     `;
   }
 
+  connectedCallback() {
+    super.connectedCallback();
+
+    window.addEventListener('keydown', this.onKeyDown);
+    window.addEventListener('message', this.onWindowPostMessage);
+  }
+
   disconnectedCallback() {
+    super.disconnectedCallback();
+
     clearAllBodyScrollLocks();
     window.removeEventListener('keydown', this.onKeyDown);
     window.addEventListener('message', this.onWindowPostMessage);
@@ -189,7 +198,7 @@ export class ToujouModal extends LitElement {
     this.$.content.style.top = potentialTop ? `${potentialTop}px` : '';
   }
 
-  onSlotchange() {
+  onSlotChange() {
     const iframes = this.$.slot.assignedNodes().filter((node) => node instanceof HTMLIFrameElement);
 
     this.iframeResizerMap.forEach((iframe) => {
