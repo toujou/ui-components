@@ -14,7 +14,8 @@
     "directory": "packages/toujou-spinner"
   },
   "scripts": {
-    "build:lib": "rollup --silent --config ../../rollup.config.js",
+    "build": "npm run build:lib && npm run build:dist",
+
     "build:dist": "rollup --config ../../rollup.config.dist.js",
     "genPackagelock": "npm i --package-lock-only",
     "watch": "rollup --watch --silent --config ../../rollup.config.js"
