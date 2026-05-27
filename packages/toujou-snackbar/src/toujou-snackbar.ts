@@ -29,11 +29,12 @@ class ToujouSnackbar extends LitElement {
 
   render() {
     return html`
-      <p class="snackbar__message">${this.message}</p>
+      <p class="snackbar__message" part="message">${this.message}</p>
       <button
         class="snackbar__button"
         @click="${this._handleButtonClick}"
         aria-label="${this.buttonAriaLabel}"
+        part="button"
       >${this.buttonText}</button>
     `;
   }
