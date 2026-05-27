@@ -3,6 +3,8 @@ import { Meta, StoryObj } from '@storybook/web-components-vite';
 
 import { THEME_NAMES } from "../globals/js/constants";
 
+import '../../packages/toujou-exit-warning/src/index';
+
 const meta: Meta = {
   title: 'Components/Toujou Exit Warning',
   component: 'exit-warning',
@@ -17,12 +19,9 @@ type Story = StoryObj;
 
 export const ToujouExitWarning: Story = {
   render: (args) => html`
-    <p>
-      <span style="font-weight: bold;">
-        This component cannot be rendered here
-      </span>
-      because it depends on <code>toujou-modal</code>, which is not available in this project.
-    </p>
-    <p>Please refer to the Docs tab for more info!</p>
+    <a href="https://www.example.com" target="toujou-exit-warning">External link</a>
+    <exit-warning title="Sie sind dabei die Seite zu verlassen" redirectDelay="6">
+      <template><p>Sie werden in <strong>\${secondsRemaining} Sekunden</strong> auf die Seite <a href="\${targetUrl}">\${targetUrl}</a> weitergeleitet. Wenn Sie dies abbrechen wollen, schließen Sie dieses Popup.</p></template>
+    </exit-warning>
   `,
 };

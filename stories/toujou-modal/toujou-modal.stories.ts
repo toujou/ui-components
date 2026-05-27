@@ -1,7 +1,5 @@
 import { html } from 'lit';
 import { Meta, StoryObj } from '@storybook/web-components';
-import '../../packages/toujou-modal/src/index';
-
 import { THEME_NAMES } from "../globals/js/constants";
 
 const meta: Meta = {
@@ -52,7 +50,6 @@ export const Default: Story = {
         id="myModal"
         class="modal"
         title="My Modal Title"
-        hidden
         keep-on-close
         ?no-backdrop=${args['no-backdrop']}
         ?no-header=${args['no-header']}
@@ -84,6 +81,6 @@ const MOCK_IFRAME_URL = `${import.meta.env.BASE_URL}iframe.html?viewMode=story&i
 
 export const Iframe: Story = {
   render: (args) => html`
-    <a class="button" href="${MOCK_IFRAME_URL}" target="toujou-modal" >Open Link in Modal</a>
+    <a class="button" href="${MOCK_IFRAME_URL}" target="toujou-modal">Open Link in Modal</a>
   `,
 };
