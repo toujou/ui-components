@@ -31,9 +31,16 @@ const config: StorybookConfig = {
     }
   ],
   "framework": getAbsolutePath('@storybook/web-components-vite'),
+  staticDirs: [
+    {
+      from: '../node_modules/iframe-resizer/js',
+      to: '/iframe-resizer'
+    }
+  ],
   viteFinal: async (config) => {
     const { mergeConfig } = await import('vite');
     const litcss = (await import('vite-plugin-lit-css')).default;
+
     return mergeConfig(config, {
       ...(process.env.NODE_ENV === 'production' && { base: '/ui-components/' }),
       plugins: [

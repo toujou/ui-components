@@ -1,5 +1,4 @@
 import { Meta, StoryObj } from '@storybook/web-components-vite';
-import 'iframe-resizer/js/iframeResizer.contentWindow.min.js';
 
 /**
  * This is a helper story used as the iframe source in the toujou-iframe-resizer story.
@@ -15,7 +14,7 @@ export default meta;
 type Story = StoryObj;
 
 /** Time in milliseconds to wait before injecting the mock content, simulating an async load */
-const AWAIT_TIME = 2000;
+const AWAIT_TIME = 3000;
 
 /** Mock HTML content injected into the iframe after the await time */
 const MOCK_CONTENT = `
@@ -60,7 +59,7 @@ export const MockContent: Story = {
     // Without this script the parent page cannot receive height change notifications.
     const script = document.createElement('script');
     // @ts-ignore
-    script.src = `${import.meta.env.BASE_URL}node_modules/iframe-resizer/js/iframeResizer.contentWindow.min.js`;
+    script.src = `${import.meta.env.BASE_URL}iframe-resizer/iframeResizer.contentWindow.min.js`;
     document.head.appendChild(script);
 
     addMockContent();
