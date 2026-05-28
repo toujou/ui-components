@@ -45,18 +45,21 @@ export class ToujouModal extends LitElement {
   @property({ type: Boolean, reflect: true }) loading = false;
   @property({ type: Boolean, attribute: 'keep-on-close', reflect: true }) keepOnClose = false;
 
-  // Notice the type allows null now because it won't exist when closed
   @query('dialog') dialog: HTMLDialogElement | null;
 
   private intersectionObserver: IntersectionObserver;
   private iframeResizerMap: Map<HTMLElement, any>;
 
-  private get $() {
-    return {
-      content: this.shadowRoot?.querySelector('#content') as HTMLElement | null,
-      modalContent: this.shadowRoot?.querySelector('#modal-content') as HTMLElement | null,
-      slot: this.shadowRoot?.querySelector('#slot') as HTMLSlotElement | null,
-    };
+  get content(): HTMLElement | null {
+    return this.shadowRoot?.querySelector('#content') as HTMLElement | null;
+  }
+
+  get modalContent(): HTMLElement | null {
+    return this.shadowRoot?.querySelector('#modal-content') as HTMLElement | null;
+  }
+
+  get slotElement(): HTMLSlotElement | null {
+    return this.shadowRoot?.querySelector('#slot') as HTMLSlotElement | null;
   }
 
   constructor() {
@@ -76,7 +79,6 @@ export class ToujouModal extends LitElement {
     this.onWindowPostMessage = this.onWindowPostMessage.bind(this);
   }
 
-  // OPTIMIZATION: Control rendering inside the render method itself
   render() {
     if (!this.opened) return html``;
 
@@ -184,7 +186,9 @@ export class ToujouModal extends LitElement {
     if (!event.composed) return;
 
     const composedPath: EventTarget[] = event.composedPath();
-    const { modalContent } = this.$;
+    const modalContent = this.modalContent;
+
+    if (!modalContent) return;
 
     if (!composedPath.includes(modalContent) || composedPath.some((node) => node instanceof HTMLElement && node.hasAttribute('dialog-dismiss'))) {
       this.close();
@@ -192,7 +196,7 @@ export class ToujouModal extends LitElement {
   }
 
   onPosition(observerEntry: IntersectionObserverEntry) {
-    const { content } = this.$;
+    const content = this.content;
     if (!content) return;
 
     const potentialTop = Math.max(observerEntry.intersectionRect.y, Math.abs(observerEntry.boundingClientRect.y));
@@ -201,7 +205,7 @@ export class ToujouModal extends LitElement {
   }
 
   onSlotChange() {
-    const { slot } = this.$;
+    const slot = this.slotElement;
     if (!slot) return;
 
     const iframes = slot.assignedNodes().filter((node) => node instanceof HTMLIFrameElement);
