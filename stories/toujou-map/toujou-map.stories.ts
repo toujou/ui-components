@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/web-components';
 import { fn } from 'storybook/test';
-import '../../packages/toujou-map/dist/index';
+import '../../packages/toujou-map/src/index';
 
 import { sharedArgTypes, sharedArgs, renderMapAttributes } from './toujou-map.shared';
 import { THEME_NAMES } from "../globals/js/constants";

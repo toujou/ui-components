@@ -1,6 +1,6 @@
 import { html } from 'lit';
 import { Meta, StoryObj } from '@storybook/web-components';
-import '../../packages/toujou-map/dist/index';
+import '../../packages/toujou-map/src/index';
 
 import { sharedArgTypes, sharedArgs, MAPLIBRE_ACCESS_TOKEN } from './toujou-map.shared';
 import { THEME_NAMES } from "../globals/js/constants";

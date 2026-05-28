@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from '@storybook/web-components';
 import { fn } from 'storybook/test';
-import '../../packages/toujou-topbar/dist/index.js';
-import '../../packages/toujou-burger-button/dist/index.js';
+import '../../packages/toujou-topbar/src/index';
+import '../../packages/toujou-burger-button/src/index';
 
 import { initMainNav } from '../globals/js/main-nav.js';
 import { initTopbarActionsKeyboardBehavior } from '../globals/js/topbar-actions.js';

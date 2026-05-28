@@ -1,6 +1,6 @@
 import { html } from 'lit';
 import { Meta, StoryObj } from '@storybook/web-components';
-import '../../packages/toujou-modal/dist/index.js';
+import '../../packages/toujou-modal/src/index';
 
 import { THEME_NAMES } from "../globals/js/constants";
 

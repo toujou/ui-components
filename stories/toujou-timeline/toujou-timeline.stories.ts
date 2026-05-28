@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/web-components';
 import { fn } from 'storybook/test';
-import '../../packages/toujou-timeline/dist/index.js';
+import '../../packages/toujou-timeline/src/index';
 
 import { THEME_NAMES } from "../globals/js/constants";
 

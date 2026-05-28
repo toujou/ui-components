@@ -1,8 +1,8 @@
 import { html } from 'lit';
 import { Meta, StoryObj } from '@storybook/web-components-vite';
 import { fn } from 'storybook/test';
-import '../../packages/toujou-location-finder/dist/index';
-import '../../packages/toujou-map/dist/index';
+import '../../packages/toujou-location-finder/src/index';
+import '../../packages/toujou-map/src/index';
 
 import { THEME_NAMES } from "../globals/js/constants";
 

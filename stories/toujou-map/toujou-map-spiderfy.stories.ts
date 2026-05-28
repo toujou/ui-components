@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/web-components';
-import '../../packages/toujou-map/dist/index';
+import '../../packages/toujou-map/src/index';
 
 import { sharedArgTypes, sharedArgs, renderMapAttributes } from './toujou-map.shared';
 import { spiderfyGeoMock } from './mocks/spiderfy.mock';

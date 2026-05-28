@@ -1,6 +1,6 @@
 import { html } from 'lit';
 import { Meta, StoryObj } from '@storybook/web-components';
-import '../../packages/toujou-media-info/dist/index.js';
+import '../../packages/toujou-media-info/src/index';
 
 import { THEME_NAMES } from "../globals/js/constants";
 

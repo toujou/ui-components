@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/web-components';
-import '../../packages/toujou-overlay/dist/index.js';
+import '../../packages/toujou-overlay/src/index';
 
 import { THEME_NAMES } from "../globals/js/constants";
 
