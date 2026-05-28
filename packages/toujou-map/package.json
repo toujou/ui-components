@@ -1,6 +1,6 @@
 {
   "name": "@toujou/toujou-map",
-  "version": "3.10.3",
+  "version": "3.10.4",
   "description": "Different webcomponents wo render a mapbox map",
   "main": "./dist/toujou-map.js",
   "module": "./src/toujou-map.js",

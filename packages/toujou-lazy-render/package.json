@@ -1,6 +1,6 @@
 {
   "name": "@toujou/toujou-lazy-render",
-  "version": "3.5.0",
+  "version": "3.5.1",
   "author": "toujou",
   "license": "MIT",
   "description": "The toujou-lazy-render package of toujou ui components",
