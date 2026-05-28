@@ -1,4 +1,5 @@
 import { Meta, StoryObj } from '@storybook/web-components-vite';
+import 'iframe-resizer/js/iframeResizer.contentWindow.min.js';
 
 /**
  * This is a helper story used as the iframe source in the toujou-iframe-resizer story.
@@ -14,7 +15,7 @@ export default meta;
 type Story = StoryObj;
 
 /** Time in milliseconds to wait before injecting the mock content, simulating an async load */
-const AWAIT_TIME = 3000;
+const AWAIT_TIME = 2000;
 
 /** Mock HTML content injected into the iframe after the await time */
 const MOCK_CONTENT = `
