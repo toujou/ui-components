@@ -18,7 +18,7 @@ const AWAIT_TIME = 3000;
 
 /** Mock HTML content injected into the iframe after the await time */
 const MOCK_CONTENT = `
-  <h1>Iframe content has been loaded!</h1>
+  <h1>This is the iframe content!</h1>
   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
   <h2>Another headline</h2>
   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
@@ -58,7 +58,8 @@ export const MockContent: Story = {
     // Required by iframe-resizer on the content (iframe) side.
     // Without this script the parent page cannot receive height change notifications.
     const script = document.createElement('script');
-    script.src = '/node_modules/iframe-resizer/js/iframeResizer.contentWindow.min.js';
+    // @ts-ignore
+    script.src = `${import.meta.env.BASE_URL}node_modules/iframe-resizer/js/iframeResizer.contentWindow.min.js`;
     document.head.appendChild(script);
 
     addMockContent();

@@ -15,7 +15,8 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj;
 
-const MOCK_IFRAME_URL = '/iframe.html?viewMode=story&id=components-toujou-iframe-resizer-mock-content--mock-content';
+// @ts-ignore
+const MOCK_IFRAME_URL = `${import.meta.env.BASE_URL}iframe.html?viewMode=story&id=components-toujou-iframe-resizer-mock-content--mock-content`;
 
 export const Default: Story = {
   render: () => {
