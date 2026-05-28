@@ -79,10 +79,11 @@ export const Default: Story = {
   },
 };
 
-
+// @ts-ignore
+const MOCK_IFRAME_URL = `${import.meta.env.BASE_URL}iframe.html?viewMode=story&id=components-toujou-iframe-resizer-mock-content--mock-content`;
 
 export const Iframe: Story = {
   render: (args) => html`
-    <a class="button" href="https://example.com/" target="toujou-modal" >Open Link in Modal</a>
+    <a class="button" href="${MOCK_IFRAME_URL}" target="toujou-modal" >Open Link in Modal</a>
   `,
 };
