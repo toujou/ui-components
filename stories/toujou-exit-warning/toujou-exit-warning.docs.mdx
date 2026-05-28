@@ -7,9 +7,6 @@ import * as ExitWarningStories from './toujou-exit-warning.stories';
 
 A component that intercepts clicks on external links and shows a modal warning before redirecting the user. After a configurable delay, the page automatically redirects to the target URL. The countdown and target URL are rendered inside the modal via a `<template>` element.
 
-> ⚠️ This component requires `toujou-modal` to be present in the DOM. A live canvas example is not available until `toujou-modal` has a story.
-
-
 To trigger the exit warning, add `target="toujou-exit-warning"` to any link:
 ```html
 <a href="https://www.example.com" target="toujou-exit-warning">External link</a>

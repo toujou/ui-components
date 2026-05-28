@@ -44,16 +44,23 @@ export class ToujouModal extends LitElement {
   @property({ type: Boolean, attribute: 'no-backdrop', reflect: true }) noBackdrop = false;
   @property({ type: Boolean, reflect: true }) loading = false;
   @property({ type: Boolean, attribute: 'keep-on-close', reflect: true }) keepOnClose = false;
-  @query('dialog', true) dialog: HTMLDialogElement;
 
+  @query('dialog') dialog: HTMLDialogElement | null;
 
   private intersectionObserver: IntersectionObserver;
   private iframeResizerMap: Map<HTMLElement, any>;
-  private $!: {
-    content: HTMLElement | null;
-    modalContent: HTMLElement | null;
-    slot: HTMLSlotElement | null;
-  };
+
+  get content(): HTMLElement | null {
+    return this.shadowRoot?.querySelector('#content') as HTMLElement | null;
+  }
+
+  get modalContent(): HTMLElement | null {
+    return this.shadowRoot?.querySelector('#modal-content') as HTMLElement | null;
+  }
+
+  get slotElement(): HTMLSlotElement | null {
+    return this.shadowRoot?.querySelector('#slot') as HTMLSlotElement | null;
+  }
 
   constructor() {
     super();
@@ -73,18 +80,19 @@ export class ToujouModal extends LitElement {
   }
 
   render() {
+    if (!this.opened) return html``;
+
     return html`
       <dialog part="dialog" @click="${this.onClick}">
         <div id="content" part="content">
           <div id="modal-content" part="modal-content">
             <div id="modal-header" part="modal-header">
               ${this.noHeader
-    ? html`
-                  <button id="dog-ear-close" dialog-dismiss aria-label="Close modal" part="dog-ear-close"></button>`
+    ? html`<button id="dog-ear-close" dialog-dismiss aria-label="Close modal" part="dog-ear-close"></button>`
     : html`
-                  <h3 part="headline">${this.title}</h3>
-                  <button id="modal-header-close" dialog-dismiss aria-label="Close modal" part="modal-header-close">×</button>
-                `}
+                    <h3 part="headline">${this.title}</h3>
+                    <button id="modal-header-close" dialog-dismiss aria-label="Close modal" part="modal-header-close">×</button>
+                  `}
               <div id="progress-bar" part="progress-bar"></div>
             </div>
             <slot id="slot" @slotchange="${this.onSlotChange}"></slot>
@@ -96,31 +104,20 @@ export class ToujouModal extends LitElement {
 
   connectedCallback() {
     super.connectedCallback();
-
     window.addEventListener('keydown', this.onKeyDown);
     window.addEventListener('message', this.onWindowPostMessage);
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
-
     clearAllBodyScrollLocks();
     window.removeEventListener('keydown', this.onKeyDown);
-    window.addEventListener('message', this.onWindowPostMessage);
-  }
-
-  firstUpdated() {
-    this.$ = {
-      content: this.shadowRoot.querySelector('#content'),
-      modalContent: this.shadowRoot.querySelector('#modal-content'),
-      slot: this.shadowRoot.querySelector('#slot'),
-    };
+    window.removeEventListener('message', this.onWindowPostMessage);
   }
 
   updated(changedProperties: any) {
     if (changedProperties.has('opened') && changedProperties.get('opened') !== undefined) {
       this.opened ? this.onOpen() : this.onClose();
-      this.hidden = !this.opened;
     }
   }
 
@@ -136,9 +133,12 @@ export class ToujouModal extends LitElement {
     this.opened = !this.opened;
   }
 
-  onOpen() {
-    this.intersectionObserver.observe(this);
+  async onOpen() {
+    await this.updateComplete;
 
+    if (!this.dialog) return;
+
+    this.intersectionObserver.observe(this);
     this.dialog.showModal();
 
     if (this.allowOutsideScroll) {
@@ -159,16 +159,17 @@ export class ToujouModal extends LitElement {
     this.removeAttribute('visible');
     popFromOpenStack(this);
 
-    if (this.allowOutsideScroll) {
-      document.body.style.position = '';
-    } else {
-      enableBodyScroll(this.dialog);
+    if (this.dialog) {
+      if (this.allowOutsideScroll) {
+        document.body.style.position = '';
+      } else {
+        enableBodyScroll(this.dialog);
+      }
+      this.dialog.close();
     }
 
     this.intersectionObserver.unobserve(this);
     this.dispatchModalEvent(ToujouModalEvents.CLOSED);
-
-    this.dialog.close();
 
     if (this.keepOnClose === false) {
       setTimeout(() => {
@@ -182,24 +183,32 @@ export class ToujouModal extends LitElement {
   }
 
   onClick(event: MouseEvent) {
-    if (!event.composed) {
-      return;
-    }
+    if (!event.composed) return;
 
     const composedPath: EventTarget[] = event.composedPath();
-    if (!composedPath.includes(this.$.modalContent) || composedPath.some((node) => node instanceof HTMLElement && node.hasAttribute('dialog-dismiss'))) {
+    const modalContent = this.modalContent;
+
+    if (!modalContent) return;
+
+    if (!composedPath.includes(modalContent) || composedPath.some((node) => node instanceof HTMLElement && node.hasAttribute('dialog-dismiss'))) {
       this.close();
     }
   }
 
   onPosition(observerEntry: IntersectionObserverEntry) {
+    const content = this.content;
+    if (!content) return;
+
     const potentialTop = Math.max(observerEntry.intersectionRect.y, Math.abs(observerEntry.boundingClientRect.y));
-    this.$.content.style['min-height'] = `${observerEntry.intersectionRect.height}px`;
-    this.$.content.style.top = potentialTop ? `${potentialTop}px` : '';
+    content.style['min-height'] = `${observerEntry.intersectionRect.height}px`;
+    content.style.top = potentialTop ? `${potentialTop}px` : '';
   }
 
   onSlotChange() {
-    const iframes = this.$.slot.assignedNodes().filter((node) => node instanceof HTMLIFrameElement);
+    const slot = this.slotElement;
+    if (!slot) return;
+
+    const iframes = slot.assignedNodes().filter((node) => node instanceof HTMLIFrameElement);
 
     this.iframeResizerMap.forEach((iframe) => {
       if (!iframes.includes(iframe)) {
@@ -221,12 +230,12 @@ export class ToujouModal extends LitElement {
     this.loading = true;
     this.iframeResizerMap.set(iframe, this.createIframeResizer(iframe));
 
-    iframe.contentWindow.addEventListener('beforeunload', () => {
+    iframe.contentWindow?.addEventListener('beforeunload', () => {
       this.loading = true;
     });
 
     try {
-      this.title = iframe.contentWindow.document.title || this.title;
+      this.title = iframe.contentWindow?.document.title || this.title;
     } catch (e) {
       this.title = '';
     }
@@ -277,4 +286,3 @@ export class ToujouModal extends LitElement {
 }
 
 customElements.define(ToujouModal.is, ToujouModal);
-

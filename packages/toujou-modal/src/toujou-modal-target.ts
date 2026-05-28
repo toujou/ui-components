@@ -21,12 +21,12 @@ function isSrcOnPageContent(src: string): boolean {
   return uri.hash && uriWithoutHash === currentUri;
 }
 
-function generateId(prefix: string, hashArguments: any) {
+function generateId(prefix: string, hashArguments: any): string {
   const string = JSON.stringify(hashArguments);
   let hash = 0;
 
   if (string.length === 0) {
-    return hash;
+    return `${prefix}-0`;
   }
 
   for (let i = 0; i < string.length; i++) {

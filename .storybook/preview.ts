@@ -4,6 +4,7 @@ export const globalTypes = {};
 
 // Globals
 import '../stories/globals/css/global.css';
+import '../packages/toujou-modal/src/index';
 
 const preview: Preview = {
   parameters: {
