@@ -1,0 +1,30 @@
+{
+  "name": "@toujou/toujou-slider-progressbar",
+  "version": "0.0.0-beta.0",
+  "author": "toujou",
+  "license": "MIT",
+  "description": "The toujou-slider-progressbar package of toujou ui components",
+  "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build:lib": "rollup --silent --config ../../rollup.config.js",
+    "build:dist": "rollup --config ../../rollup.config.dist.js",
+    "genPackagelock": "npm i --package-lock-only",
+    "watch": "rollup --watch --silent --config ../../rollup.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/toujou/ui-components.git",
+    "directory": "packages/toujou-slider-progressbar"
+  },
+  "dependencies": {
+    "lit": "^2.0.0-rc.2",
+    "tslib": "^2.5.0"
+  },
+  "keywords": [
+    "toujou",
+    "web-component"
+  ]
+}

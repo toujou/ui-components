@@ -1,0 +1,47 @@
+:host {
+    --toujou-slider-progressbar-height: 4px;
+    --toujou-slider-progressbar-animation-duration: 6s;
+    --toujou-slider-progressbar-color: currentColor;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: var(--toujou-slider-progressbar-height);
+    z-index: 1;
+}
+
+:host([animated]) {
+    animation-name: progressAnimation;
+    animation-duration: var(--toujou-slider-progressbar-animation-duration);
+    animation-timing-function: linear;
+    background-color: var(--toujou-slider-progressbar-color);
+}
+
+:host([animated][color="primary"]) {
+    --toujou-slider-progressbar-color: var(--color-primary, currentColor);
+}
+
+:host([animated][color="secondary"]) {
+    --toujou-slider-progressbar-color: var(--color-secondary, currentColor);
+}
+
+:host([animated][color="font"]) {
+    --toujou-slider-progressbar-color: var(--color-font, currentColor);
+}
+
+:host([animated][color="grey"]) {
+    --toujou-slider-progressbar-color: var(--color-font-light, currentColor);
+}
+
+:host([animated][animation-paused]) {
+    animation-play-state: paused;
+}
+
+@keyframes progressAnimation {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 100%;
+    }
+}
