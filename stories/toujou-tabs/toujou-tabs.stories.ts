@@ -12,7 +12,7 @@ interface TabItem {
 
 interface TabsStoryArgs {
   orientation: string;
-  buttonsAlignment: string;
+  alignment: string;
 }
 
 const TAB_ITEMS: TabItem[] = [
@@ -47,8 +47,8 @@ const meta: Meta = {
   title: 'Components/Toujou Tabs',
   component: 'toujou-tabs',
   args: {
-    orientation: 'vertical',
-    buttonsAlignment: 'left',
+    orientation: 'horizontal',
+    alignment: 'left',
   },
   argTypes: {
     orientation: {
@@ -61,7 +61,7 @@ const meta: Meta = {
         defaultValue: { summary: 'vertical' },
       },
     },
-    buttonsAlignment: {
+    alignment: {
       name: 'Buttons alignment',
       description: 'Set the alignment for the tabs buttons',
       options: ['left', 'center', 'right'],
@@ -117,42 +117,42 @@ const renderTabPanels = (items: TabItem[]) => items.map((item, index) => `
 
 export const Default: Story = {
   render: (args) => `
-    <toujou-tabs
-            class="tabs"
-            data-orientation="${args.orientation}"
-            data-alignment="${args.buttonsAlignment}"
-            element-design="${args.elementDesign}"
-        >
-            <div class="tabs__header">
-                <button
-                    class="tabs__scroll-button tabs__scroll-button--prev"
-                    aria-hidden="true"
-                    aria-label="Scroll tab list left"
-                    tabindex="-1"
-                    hidden
-                >
-                    <toujou-icon class="icon icon--chevron-left" icon-name="chevron-left" icon-size="m" icon-color="font"></toujou-icon>
-                </button>
+      <toujou-tabs
+          class="tabs"
+          data-orientation="${args.orientation}"
+          data-alignment="${args.alignment}"
+          element-design="${args.elementDesign}"
+      >
+          <div class="tabs__header">
+              <button
+                  class="tabs__scroll-button tabs__scroll-button--prev"
+                  aria-hidden="true"
+                  aria-label="Scroll tab list left"
+                  tabindex="-1"
+                  hidden
+              >
+                  <toujou-icon class="icon icon--chevron-left" icon-name="chevron-left" icon-size="m" icon-color="font"></toujou-icon>
+              </button>
 
-                <div role="tablist" aria-label="Select a tab" class="tabs__buttons">
-                    ${renderTabButtons(TAB_ITEMS)}
-                </div>
+              <div role="tablist" aria-label="Select a tab" class="tabs__buttons">
+                  ${renderTabButtons(TAB_ITEMS)}
+              </div>
 
-                <button
-                    class="tabs__scroll-button tabs__scroll-button--next"
-                    aria-hidden="true"
-                    aria-label="Scroll tab list right"
-                    tabindex="-1"
-                    hidden
-                >
-                    <toujou-icon class="icon icon--chevron-right" icon-name="chevron-right" icon-size="m" icon-color="font"></toujou-icon>
-                </button>
-            </div>
+              <button
+                  class="tabs__scroll-button tabs__scroll-button--next"
+                  aria-hidden="true"
+                  aria-label="Scroll tab list right"
+                  tabindex="-1"
+                  hidden
+              >
+                  <toujou-icon class="icon icon--chevron-right" icon-name="chevron-right" icon-size="m" icon-color="font"></toujou-icon>
+              </button>
+          </div>
 
-            <div class="tabs__panels">
-                ${renderTabPanels(TAB_ITEMS)}
-            </div>
-        </toujou-tabs>
+          <div class="tabs__panels">
+              ${renderTabPanels(TAB_ITEMS)}
+          </div>
+      </toujou-tabs>
   `,
 };
 
