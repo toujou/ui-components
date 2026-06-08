@@ -1,5 +1,4 @@
-import { LitElement } from 'lit'
-import { customElement } from 'lit/decorators.js'
+import { LitElement } from 'lit';
 
 export const TOUJOU_TABS_EVENTS = {
   READY: 'toujou-tabs-ready',
@@ -26,7 +25,7 @@ export class ToujouTabs extends LitElement {
   private scrollNextButton: HTMLButtonElement | undefined;
   private tabsButtonsContainer: HTMLElement | undefined;
   private resizeObserver: ResizeObserver | undefined;
-  private isOverflowing: boolean = false;
+  private isOverflowing = false;
 
   static get is() {
     return 'toujou-tabs';
@@ -98,7 +97,7 @@ export class ToujouTabs extends LitElement {
   /**
    * Activates a tab and optionally emits change event.
    */
-  private _setActiveTab(id: string | undefined, dispatchEvent: boolean = true): void {
+  private _setActiveTab(id: string | undefined, dispatchEvent = true): void {
     if (!id) return;
 
     const previousId = this.currentActiveId;
@@ -121,7 +120,7 @@ export class ToujouTabs extends LitElement {
 
     this._setActiveTab(clickedButton.id);
     this._scrollButtonIntoView(clickedButton);
-  }
+  };
 
   /** Handles keyboard navigation between tabs */
   private _onKeyDown = (event: KeyboardEvent) => {
@@ -146,17 +145,17 @@ export class ToujouTabs extends LitElement {
       buttons[nextIndex].focus();
       this._scrollButtonIntoView(buttons[nextIndex]);
     }
-  }
+  };
 
   /** Scrolls the tab list to a previous segment */
   private _onScrollPrevClick = () => {
     this._scrollTabs('prev');
-  }
+  };
 
   /** Scrolls the tab list to the next segment */
   private _onScrollNextClick = () => {
     this._scrollTabs('next');
-  }
+  };
 
   /**
    * Scrolls tab header container horizontally.
@@ -171,7 +170,7 @@ export class ToujouTabs extends LitElement {
     });
 
     this._dispatch(TOUJOU_TABS_EVENTS.SCROLL, { direction });
-  }
+  };
 
   /**
    * Ensures the active tab button is visible inside the scroll container.
@@ -193,7 +192,7 @@ export class ToujouTabs extends LitElement {
         behavior: 'smooth',
       });
     }
-  }
+  };
 
   /**
    * Updates visibility and state of scroll buttons based on overflow.
@@ -235,7 +234,7 @@ export class ToujouTabs extends LitElement {
       this.scrollNextButton.removeAttribute('disabled');
       this.scrollNextButton.setAttribute('tabindex', '0');
     }
-  }
+  };
 
   /**
    * Updates tab buttons and panels to reflect the active state.
@@ -257,7 +256,7 @@ export class ToujouTabs extends LitElement {
         ? tabPanel.removeAttribute('hidden')
         : tabPanel.setAttribute('hidden', '');
     });
-  }
+  };
 
   /**
    * Dispatches a custom event with an optional payload.
@@ -268,7 +267,7 @@ export class ToujouTabs extends LitElement {
       bubbles: true,
       composed: true,
     }));
-  }
+  };
 }
 
 customElements.define(ToujouTabs.is, ToujouTabs);

@@ -1,9 +1,9 @@
 import { elementUpdated, expect, fixture, html, oneEvent } from '@open-wc/testing';
 
 import '../src/index';
-import { sendKeys } from "@web/test-runner-commands";
+import { sendKeys } from '@web/test-runner-commands';
 
-const renderTabs = (activeIndex: number = 0) => html`
+const renderTabs = (activeIndex = 0) => html`
     <toujou-tabs class="tabs">
         <div class="tabs__header">
             <button
