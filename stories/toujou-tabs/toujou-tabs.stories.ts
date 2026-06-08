@@ -11,7 +11,7 @@ interface TabItem {
 }
 
 interface TabsStoryArgs {
-  layout: string;
+  orientation: string;
   buttonsAlignment: string;
 }
 
@@ -47,13 +47,13 @@ const meta: Meta = {
   title: 'Components/Toujou Tabs',
   component: 'toujou-tabs',
   args: {
-    layout: 'vertical',
+    orientation: 'vertical',
     buttonsAlignment: 'left',
   },
   argTypes: {
-    layout: {
-      name: 'Layout',
-      description: 'Set the tabs element layout',
+    orientation: {
+      name: 'Orientation',
+      description: 'Set the tabs element orientation',
       options: ['vertical', 'horizontal'],
       control: { type: 'radio' },
       table: {
@@ -119,14 +119,15 @@ export const Default: Story = {
   render: (args) => `
     <toujou-tabs
             class="tabs"
-            layout="${args.layout}"
+            data-orientation="${args.orientation}"
+            data-alignment="${args.buttonsAlignment}"
             element-design="${args.elementDesign}"
-            buttons-alignment="${args.buttonsAlignment}"
         >
             <div class="tabs__header">
                 <button
                     class="tabs__scroll-button tabs__scroll-button--prev"
                     aria-hidden="true"
+                    aria-label="Scroll tab list left"
                     tabindex="-1"
                     hidden
                 >
@@ -140,6 +141,7 @@ export const Default: Story = {
                 <button
                     class="tabs__scroll-button tabs__scroll-button--next"
                     aria-hidden="true"
+                    aria-label="Scroll tab list right"
                     tabindex="-1"
                     hidden
                 >
