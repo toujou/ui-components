@@ -1,6 +1,7 @@
 :root {
     --ui-components-sb-icon-arrow-left: url("../../icons/icon-arrow-left.svg");
     --ui-components-sb-icon-chevron-right: url("../../icons/icon-chevron-right.svg");
+    --ui-components-sb-icon-chevron-left: url("../../icons/icon-chevron-left.svg");
     --ui-components-sb-icon-chevron-down: url("../../icons/icon-chevron-down.svg");
     --ui-components-sb-icon-close: url("../../icons/icon-close.svg");
     --ui-components-sb-icon-home-smooth: url("../../icons/icon-home-smooth.svg");

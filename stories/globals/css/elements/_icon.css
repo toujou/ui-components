@@ -31,6 +31,14 @@
     --icon-icon: var(--ui-components-sb-icon-chevron-down);
 }
 
+.icon--chevron-left{
+    --icon-icon: var(--ui-components-sb-icon-chevron-left);
+}
+
+.icon--chevron-right{
+    --icon-icon: var(--ui-components-sb-icon-chevron-right);
+}
+
 .icon--close {
     --icon-icon: var(--ui-components-sb-icon-close);
 }
