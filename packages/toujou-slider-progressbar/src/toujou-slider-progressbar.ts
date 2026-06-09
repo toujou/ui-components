@@ -1,15 +1,11 @@
-import { LitElement, html } from 'lit';
+import { LitElement } from 'lit';
 import ToujouSliderProgressbarStyles from './css/toujou-slider-progressbar.css';
 
 export class ToujouSliderProgressbar extends LitElement {
-  private _slider: Node;
+  private _parentElement: HTMLElement;
 
   static get is() {
     return 'toujou-slider-progressbar';
-  }
-
-  render() {
-    return html``;
   }
 
   static get styles() {
@@ -36,72 +32,59 @@ export class ToujouSliderProgressbar extends LitElement {
     };
   }
 
-  set animated(value) {
-    if (value) {
-      this.setAttribute('animated', '');
-    } else {
-      this.removeAttribute('animated');
-    }
-  }
-
-  set animationPaused(value) {
-    if (value) {
-      this.setAttribute('animation-paused', '');
-    } else {
-      this.removeAttribute('animation-paused');
-    }
-  }
-
-  set hidden(value) {
-    if (value) {
-      this.setAttribute('hidden', '');
-    } else {
-      this.removeAttribute('hidden');
-    }
-  }
-
-  constructor() {
-    super();
-
-    // Get a reference to the slider element in which the progressbar exists
-    this._slider = this.parentNode;
+  connectedCallback() {
+    super.connectedCallback();
 
     if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      // Event Listeners
-      this._slider.addEventListener('glider-slide-visible', this._addAnimation.bind(this));
-      this._slider.addEventListener('glider-slide-hidden', this._removeAnimation.bind(this));
-      this._slider.addEventListener('glider-reset-animation', this._resetAnimation.bind(this));
-      this._slider.addEventListener('mouseenter', this._pauseAnimation.bind(this));
-      this._slider.addEventListener('mouseleave', this._unpauseAnimation.bind(this));
+      this._parentElement = this.parentElement;
 
-      // Run the reset function when the element is ready
+      if (this._parentElement) {
+        this._parentElement.addEventListener('glider-slide-visible', () => this._addAnimation());
+        this._parentElement.addEventListener('glider-slide-hidden', () => this._removeAnimation());
+        this._parentElement.addEventListener('glider-reset-animation', () => this._resetAnimation());
+        this._parentElement.addEventListener('mouseenter', () => this._pauseAnimation());
+        this._parentElement.addEventListener('mouseleave', () => this._unpauseAnimation());
+      }
+
       this._resetAnimation();
     } else {
-      this.hidden = true;
+      this.setAttribute('hidden', '');
+    }
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+
+    if (this._parentElement) {
+      this._parentElement.removeEventListener('glider-slide-visible', () => this._addAnimation());
+      this._parentElement.removeEventListener('glider-slide-hidden', () => this._removeAnimation());
+      this._parentElement.removeEventListener('glider-reset-animation', () => this._resetAnimation());
+      this._parentElement.removeEventListener('mouseenter', () => this._pauseAnimation());
+      this._parentElement.removeEventListener('mouseleave', () => this._unpauseAnimation());
     }
   }
 
   private _addAnimation() {
-    setTimeout(() => {
-      this.animated = true;
-    });
+    this.setAttribute('animated', '');
   }
 
   private _removeAnimation() {
-    this.animated = false;
+    this.removeAttribute('animated');
   }
 
   private _resetAnimation() {
     this._removeAnimation();
-    this._addAnimation();
+    requestAnimationFrame(() => {
+      this._addAnimation();
+    });
   }
 
   private _pauseAnimation() {
-    this.animationPaused = true;
+    this.setAttribute('animation-paused', '');
   }
 
   private _unpauseAnimation() {
-    this.animationPaused = false;
+    this.removeAttribute('animation-paused');
     this._resetAnimation();
   }
 }
