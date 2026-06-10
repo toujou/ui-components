@@ -1,0 +1,24 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import * as SliderProgressbarStories from './toujou-slider-progressbar.stories';
+
+<Meta of={SliderProgressbarStories} />
+
+# Toujou Slider Progressbar
+
+A progressbar indicating the current progress of a slider item's display duration. Can be controlled via CSS custom properties.
+
+## Attributes
+
+| Attribute | Type | Default | Description |
+|---|---|---|---|
+| `animated` | `boolean` | `false` | When present, the progressbar animation is active |
+| `animation-paused` | `boolean` | `false` | When present, the progressbar animation is paused |
+| `color` | `primary \| secondary \| font \| grey` | | Set progressbar to one of the default theme colors |
+
+## CSS Custom Properties
+
+| Property | Default | Description |
+|---|---|---|
+| `--toujou-slider-progressbar-height` | `4px` | Height of the progressbar |
+| `--toujou-slider-progressbar-animation-duration` | `6s` | Duration of the progress animation |
+| `--toujou-slider-progressbar-color` | `currentColor` | Color of the progressbar |
