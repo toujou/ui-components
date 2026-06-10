@@ -1,6 +1,6 @@
 {
   "name": "@toujou/toujou-slider-progressbar",
-  "version": "0.0.0-beta.0",
+  "version": "1.0.0",
   "author": "toujou",
   "license": "MIT",
   "description": "The toujou-slider-progressbar package of toujou ui components",
@@ -9,7 +9,7 @@
     "access": "public"
   },
   "scripts": {
-	"build": "npm run build:lib && npm run build:dist",
+    "build": "npm run build:lib && npm run build:dist",
     "build:lib": "rollup --silent --config ../../rollup.config.js",
     "build:dist": "rollup --config ../../rollup.config.dist.js",
     "genPackagelock": "npm i --package-lock-only",
