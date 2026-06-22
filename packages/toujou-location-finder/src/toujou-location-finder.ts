@@ -683,7 +683,10 @@ export class ToujouLocationFinder extends LitElement {
     this._clusterBorderColor = bodyStyles.getPropertyValue('--toujou-location-finder-cluster-border-color') || this._cssVarsFallbacks.clusterBorderColor;
     this._clusterTextColor = bodyStyles.getPropertyValue('--toujou-location-finder-cluster-text-color') || this._cssVarsFallbacks.clusterTextColor;
     this._clusterTextSize = bodyStyles.getPropertyValue('--toujou-location-finder-cluster-text-size') || this._cssVarsFallbacks.clusterTextSize;
-    this._clusterRadius = parseInt(bodyStyles.getPropertyValue('--toujou-location-finder-cluster-radius'), 10) || this._cssVarsFallbacks.clusterRadius;
+    const parsedRadius = parseInt(bodyStyles.getPropertyValue('--toujou-location-finder-cluster-radius'), 10);
+    this._clusterRadius = Number.isNaN(parsedRadius)
+      ? this._cssVarsFallbacks.clusterRadius
+      : parsedRadius;
     this._clusterMaxZoom = bodyStyles.getPropertyValue('--toujou-location-finder-cluster-max-zoom') || this._cssVarsFallbacks.clusterMaxZoom;
 
     this._mapPaddingMobile = {
