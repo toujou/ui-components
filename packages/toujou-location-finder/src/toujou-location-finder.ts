@@ -1,4 +1,4 @@
-import { LitElement, html, TemplateResult } from 'lit';
+import { LitElement, html, TemplateResult, nothing } from 'lit';
 import maplibregl, { MapLayerMouseEvent } from 'maplibre-gl';
 import MaplibreGeocoder, {
   MaplibreGeocoderApiConfig,
@@ -30,6 +30,11 @@ import {
 } from './store/actions/_popup';
 import { getGeoJsonWithHighlights } from './store/selectors/data';
 import { Store } from 'redux';
+
+enum MapSourceId {
+  GeoJson = 'geoJsonData',
+  GeoJsonUnclustered = 'geoJsonData_unclustered '
+}
 
 export class ToujouLocationFinder extends LitElement {
 
@@ -244,13 +249,26 @@ export class ToujouLocationFinder extends LitElement {
           ${hasLayersSlot ? html`<slot name="layers"></slot>` : this.renderLayers()}
 
           <toujou-map-geojson
-            id="geoJsonSourcePolygons"
+            id="${MapSourceId.GeoJson}"
             ?cluster="${this._clusterRadius > 0}"
             .clusterRadius="${this._clusterRadius}"
             .clusterMaxZoom="${Math.min(this._clusterMaxZoom, this.maxZoom)}"
             .sourceData='${this._geoJsonData}'
-            source-id="geoJsonData">
+            source-id="${MapSourceId.GeoJson}"
+          >
           </toujou-map-geojson>
+          <!-- GeoJson Unclustered (for display polygons lines etc.) -->
+          ${this._clusterRadius > 0
+    ? html`
+              <toujou-map-geojson
+                id=${MapSourceId.GeoJsonUnclustered}"
+                .sourceData='${this._geoJsonData}'
+                source-id="${MapSourceId.GeoJsonUnclustered}"
+              >
+              </toujou-map-geojson>
+             `
+    : nothing
+}
 
           ${this._popupFeature && this._popupCoordinates ? html`
             <toujou-map-popup .coordinates="${this._popupCoordinates}" part="map-popup">
@@ -315,7 +333,7 @@ export class ToujouLocationFinder extends LitElement {
         <!-- POLYGONS LAYER -->
         <toujou-map-layer
           layer-id="geoJson_polygons"
-          source="geoJsonData"
+          source="${this._clusterRadius === 0 ? MapSourceId.GeoJson : MapSourceId.GeoJsonUnclustered}"
           type="fill"
           .paint='${polygonPaintObject}'
           filter='["==", "$type", "Polygon"]'
@@ -324,7 +342,7 @@ export class ToujouLocationFinder extends LitElement {
         <!-- POINTS LAYER -->
         <toujou-map-layer
           layer-id="geoJson_points"
-          source="geoJsonData"
+          source="${MapSourceId.GeoJson}"
           type="circle"
           .paint='${pointPaintObject}'
           filter='["==", "$type", "Point"]'
@@ -333,7 +351,7 @@ export class ToujouLocationFinder extends LitElement {
       <!-- LINES LAYER -->
       <toujou-map-layer
         layer-id="geoJson_lines"
-        source="geoJsonData"
+        source="${this._clusterRadius === 0 ? MapSourceId.GeoJson : MapSourceId.GeoJsonUnclustered}"
         type="line"
         layout='{
           "line-join": "round",
@@ -343,26 +361,32 @@ export class ToujouLocationFinder extends LitElement {
         filter='["==", "$type", "LineString"]'
       ></toujou-map-layer>
 
-      <toujou-map-layer
-        layer-id="clusters"
-        source="geoJsonData"
-        type="circle"
-        filter='["has", "point_count"]'
-        paint='{
-          "circle-radius": [ "step", ["get", "point_count"], 12, 3, 16, 5, 20, 10, 25, 25, 30 ],
-          "circle-color": "${this._clusterBgColor}",
-          "circle-stroke-width": ${this._clusterBorderWidth},
-          "circle-stroke-color": "${this._clusterBorderColor}"
-        }'
-      ></toujou-map-layer>
-      <toujou-map-layer
-        layer-id="cluster-count"
-        source="geoJsonData"
-        type="symbol"
-        filter='["has", "point_count"]'
-        layout='{ "text-field": "{point_count_abbreviated}", "text-size": ${this._clusterTextSize} }'
-        paint='{ "text-color": "${this._clusterTextColor}" }'
-      ></toujou-map-layer>`;
+      <!-- OPTIONAL CLUSTER LAYERS -->
+      ${this._clusterRadius > 0
+    ? html`
+            <toujou-map-layer
+              layer-id="clusters"
+              source="${MapSourceId.GeoJson}"
+              type="circle"
+              filter='["has", "point_count"]'
+              paint='{
+                "circle-radius": [ "step", ["get", "point_count"], 12, 3, 16, 5, 20, 10, 25, 25, 30 ],
+                "circle-color": "${this._clusterBgColor}",
+                "circle-stroke-width": ${this._clusterBorderWidth},
+                "circle-stroke-color": "${this._clusterBorderColor}"
+            }'
+            ></toujou-map-layer>
+            <toujou-map-layer
+              layer-id="cluster-count"
+              source="${MapSourceId.GeoJson}"
+              type="symbol"
+              filter='["has", "point_count"]'
+              layout='{ "text-field": "{point_count_abbreviated}", "text-size": ${this._clusterTextSize} }'
+              paint='{ "text-color": "${this._clusterTextColor}" }'
+            ></toujou-map-layer>`
+    : nothing
+}
+    `;
   }
 
   constructor() {

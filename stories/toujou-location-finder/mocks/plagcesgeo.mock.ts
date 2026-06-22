@@ -80,6 +80,49 @@ export const placesGeoMockResp = {
         ],
         "distance": 161022.2575388874
       }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "uid": 10,
+        "name": "Würzburg Central Area",
+        "search_boost": 1,
+        "categories": [
+          0
+        ],
+        "distance": 161022.2575388874,
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [9.90, 49.81],
+            [9.96, 49.81],
+            [9.96, 49.77],
+            [9.90, 49.77],
+            [9.90, 49.81]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "uid": 11,
+        "name": "Heidelberg to Stuttgart Route",
+        "search_boost": 1,
+        "categories": [
+          0
+        ],
+        "distance": 161022.2575388874,      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [8.6755, 49.4037],  // Heidelberg Hbf
+          [9.1816, 48.7841]   // Stuttgart Hbf
+        ]
+      }
     }
+
   ]
 }
