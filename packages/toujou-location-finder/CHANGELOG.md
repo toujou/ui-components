@@ -2,6 +2,13 @@
 
 All notable changes to the `@toujou/location-finder` package will be documented in this file
 
+## [3.17.9] - 2026-06-22
+
+### Fix
+
+- Split GeoJSON into separate layers for clustering to ensure polygon features render correctly when clustering is enabled.
+- Allow `--toujou-location-finder-cluster-radius: 0` by treating `0` as a valid value instead of falling back to the default radius.
+
 ## [3.9.6] - 2026-03-09
 
 ### Fix
