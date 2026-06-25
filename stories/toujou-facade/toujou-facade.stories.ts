@@ -22,7 +22,7 @@ const meta: Meta = {
       THEME_NAMES.CUSTOMIZATIONS
     ],
   },
-  tags: ['kojo'],
+  tags: ['toujou v1', 'toujou v1.5', 'hissu v1', 'hissu v1.5', 'tabi v1', 'tabi v1.5', 'medatsu v1', 'medatsu v1.5', 'kojo', 'other', 'customizations'],
 };
 
 export default meta;
@@ -48,7 +48,7 @@ export const Default: Story = {
               src="https://www.youtube-nocookie.com/embed/MRKy3kX8XUM?autohide=1&amp;controls=1&amp;loop=1&amp;playlist=MRKy3kX8XUM&amp;enablejsapi=1"
               class="video-embed-item"
               title="Bach - Violin Sonata no. 1 in G minor BWV 1001"
-              allow="fullscreen"
+              allow="autoplay"
               ></iframe>
           </figure>
         </div>
@@ -81,7 +81,9 @@ export const Default: Story = {
     `;
 
 
-    document.querySelectorAll('toujou-facade').forEach(f => console.log('aaaa', f.outerHTML));
+    window.addEventListener("message", (event) => {
+      console.log('message', event);
+    });
 
     return wrapper;
   },

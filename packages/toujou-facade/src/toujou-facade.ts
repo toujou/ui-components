@@ -9,9 +9,9 @@ import { property,queryAssignedElements } from 'lit/decorators.js';
  * real (potentially expensive) content.
  *
  * Slots:
- *  - poster   – placeholder visual (e.g. an <img>)
- *  - trigger  – the element that activates the facade (e.g. a <button>)
- *  - content  – the real content (e.g. a YouTube/Vimeo <iframe>)
+ *  - poster   – visual placeholder (e.g., an <img>)
+ *  - trigger  – the element that activates the facade (e.g., a <button>)
+ *  - content  – the real content (e.g., a YouTube/Vimeo <iframe>)
  *
  * Usage:
  * <toujou-facade>
@@ -60,9 +60,6 @@ class ToujouFacade extends LitElement {
 
   /**
    * Optional. Tells the facade how to "start" the content on activation.
-   * Supported out of the box: 'youtube', 'vimeo', 'video'.
-   * Leave unset for non-video facades (map, social embed, etc.) —
-   * activation will just reveal the content slot with no extra behavior.
    */
   @property({ type: String, attribute: 'content-type' })
   contentType?: 'youtube' | 'vimeo' | 'video';
@@ -77,6 +74,7 @@ class ToujouFacade extends LitElement {
     await this.updateComplete;
 
     this._startContent();
+
     this.dispatchEvent(
       new CustomEvent('toujou-facade-activate', {
         bubbles: true,
