@@ -1,5 +1,4 @@
 import { Meta, StoryObj } from '@storybook/web-components';
-import { fn } from 'storybook/test';
 import '../../packages/toujou-facade/src/index';
 
 import { THEME_NAMES } from "../globals/js/constants";
@@ -29,7 +28,7 @@ export default meta;
 type Story = StoryObj;
 
 export const Default: Story = {
-  render: (args) => {
+  render: () => {
     const wrapper = document.createElement('div');
     wrapper.style.containerType = 'inline-size';
     wrapper.style.containerName = 'containerWrapper';
@@ -79,11 +78,6 @@ export const Default: Story = {
         </div>
       </toujou-facade>
     `;
-
-
-    window.addEventListener("message", (event) => {
-      console.log('message', event);
-    });
 
     return wrapper;
   },
