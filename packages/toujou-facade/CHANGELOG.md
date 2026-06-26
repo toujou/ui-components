@@ -4,3 +4,4 @@ All notable changes to the `@toujou/toujou-facade` package will be documented in
 
 ## [1.0.0]
 - 🌱 Initial release
+- Add component, story and tests

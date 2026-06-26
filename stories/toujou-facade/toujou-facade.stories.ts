@@ -34,13 +34,13 @@ export const Default: Story = {
     wrapper.style.containerName = 'containerWrapper';
 
     wrapper.innerHTML = `
-      <h3>Youtube iframe</h3>
       <toujou-facade class="facade" content-type="youtube">
         <figure slot="poster" class="facade__figure">
           <img src="https://picsum.photos/id/14/1200" alt="" loading="lazy" class="facade__poster-image">
         </figure>
 
-        <button slot="trigger" class="facade__trigger">Show</button>
+        <button slot="trigger" class="facade__trigger">Show Content</button>
+
         <div slot="content" class="facade__content">
           <figure class="video">
             <iframe
@@ -48,31 +48,6 @@ export const Default: Story = {
               class="video-embed-item"
               title="Bach - Violin Sonata no. 1 in G minor BWV 1001"
               allow="autoplay"
-              ></iframe>
-          </figure>
-        </div>
-      </toujou-facade>
-
-      <h3>Vimeo iframe</h3>
-
-      <toujou-facade class="facade" content-type="vimeo">
-        <figure slot="poster" class="facade__figure">
-          <img src="https://picsum.photos/id/14/1200" alt="" loading="lazy" class="facade__poster-image">
-        </figure>
-
-        <button slot="trigger" class="facade__trigger">Show</button>
-        <div slot="content" class="facade__content">
-          <figure class="video">
-            <iframe
-              src="https://player.vimeo.com/video/347119375?loop=1&amp;dnt=1&amp;title=0&amp;byline=0&amp;portrait=0"
-              allowfullscreen=""
-              playsinline=""
-              poster=""
-              video-extension="vimeo"
-              data-is-autoplay="0"
-              class="single-media__video video"
-              title="Sample Video"
-              allow="fullscreen"
               ></iframe>
           </figure>
         </div>

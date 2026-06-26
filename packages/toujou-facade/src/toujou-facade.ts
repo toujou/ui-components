@@ -51,7 +51,7 @@ export class ToujouFacade extends LitElement {
    * Indicates whether the facade has been activated.
    */
   @property({ type: Boolean, reflect: true })
-  activated = false;
+    activated = false;
 
   /**
    * Activates the facade and reveals the content.
