@@ -52,9 +52,15 @@ export class ToujouFacade extends LitElement {
 
   render() {
     return html`
-      <slot name="poster"></slot>
-      <slot name="trigger" @click=${this.activate}></slot>
-      <slot name="content"></slot>
+      ${!this.activated
+        ? html`
+          <slot name="poster"></slot>
+          <slot name="trigger" @click=${this.activate}></slot>
+        `
+        : html`
+          <slot name="content"></slot>
+        `
+      }
     `;
   }
 }
