@@ -53,14 +53,14 @@ export class ToujouFacade extends LitElement {
   render() {
     return html`
       ${!this.activated
-        ? html`
+    ? html`
           <slot name="poster"></slot>
           <slot name="trigger" @click=${this.activate}></slot>
         `
-        : html`
+    : html`
           <slot name="content"></slot>
-        `
-      }
+    `
+}
     `;
   }
 }
