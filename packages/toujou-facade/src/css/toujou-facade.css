@@ -1,0 +1,26 @@
+:host {
+    display: var(--toujou-facade-display, block);
+    position: var(--toujou-facade-position, relative);
+}
+
+::slotted([slot='content']) {
+    display: var(--toujou-facade-content-display, none) !important;
+}
+
+:host([activated]) ::slotted([slot='content']) {
+    display: var(--toujou-facade-active-content-display, revert) !important;
+}
+
+:host([activated]) ::slotted([slot='poster']) {
+    display: var(--toujou-facade-poster-display, none) !important;
+}
+
+::slotted([slot='trigger']) {
+    position: var(--toujou-facade-trigger-position, absolute);
+    inset: var(--toujou-facade-trigger-inset, 0);
+    cursor: var(--toujou-facade-trigger-cursor, pointer);
+}
+
+:host([activated]) ::slotted([slot='trigger']) {
+    display: var(--toujou-facade-trigger-display, none) !important;
+}

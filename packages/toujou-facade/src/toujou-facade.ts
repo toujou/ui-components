@@ -1,5 +1,6 @@
-import { html, css, LitElement } from 'lit';
+import { html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
+import styles from './css/toujou-facade.css';
 
 export const TOUJOU_FACADE_ACTIVATE_EVENT = 'toujou-facade-activate';
 
@@ -18,34 +19,9 @@ export class ToujouFacade extends LitElement {
     return 'toujou-facade';
   }
 
-  static styles = css`
-    :host {
-      display: var(--toujou-facade-display, block);
-      position: var(--toujou-facade-position, relative);
-    }
-
-    ::slotted([slot='content']) {
-      display: var(--toujou-facade-content-display, none) !important;
-    }
-
-    :host([activated]) ::slotted([slot='content']) {
-      display: var(--toujou-facade-active-content-display, revert) !important;
-    }
-
-    :host([activated]) ::slotted([slot='poster']) {
-      display: var(--toujou-facade-poster-display, none) !important;
-    }
-
-    ::slotted([slot='trigger']) {
-      position: var(--toujou-facade-trigger-position, absolute);
-      inset: var(--toujou-facade-trigger-inset, 0);
-      cursor: var(--toujou-facade-trigger-cursor, pointer);
-    }
-
-    :host([activated]) ::slotted([slot='trigger']) {
-      display: var(--toujou-facade-trigger-display, none) !important;
-    }
-  `;
+  static get styles() {
+    return styles;
+  }
 
   /**
    * Indicates whether the facade has been activated.
