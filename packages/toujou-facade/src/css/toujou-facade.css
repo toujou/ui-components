@@ -1,4 +1,0 @@
-:host {
-    display: var(--toujou-facade-display, block);
-    position: var(--toujou-facade-position, relative);
-}

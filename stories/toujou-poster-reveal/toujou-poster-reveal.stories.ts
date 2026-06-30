@@ -1,11 +1,11 @@
 import { Meta, StoryObj } from '@storybook/web-components';
-import '../../packages/toujou-facade/src/index';
+import '../../packages/toujou-poster-reveal/src/index';
 
 import { THEME_NAMES } from "../globals/js/constants";
 
 const meta: Meta = {
-  title: 'Components/Toujou Facade',
-  component: 'toujou-facade',
+  title: 'Components/Toujou Poster Reveal',
+  component: 'toujou-poster-reveal',
   parameters: {
     toujouThemes: [
       THEME_NAMES.TOUJOU_V1,
@@ -34,14 +34,14 @@ export const Default: Story = {
     wrapper.style.containerName = 'containerWrapper';
 
     wrapper.innerHTML = `
-      <toujou-facade class="facade" content-type="youtube">
-        <figure slot="poster" class="facade__figure">
-          <img src="https://picsum.photos/id/14/1200" alt="" loading="lazy" class="facade__poster-image">
+      <toujou-poster-reveal class="poster-reveal">
+        <figure slot="poster" class="poster-reveal__figure">
+          <img src="https://picsum.photos/id/14/1200" alt="" loading="lazy" class="poster-reveal__poster-image">
         </figure>
 
-        <button slot="trigger" class="facade__trigger">Show Content</button>
+        <button slot="trigger" class="poster-reveal__trigger">Show Content</button>
 
-        <div slot="content" class="facade__content">
+        <div slot="content" class="poster-reveal__content">
           <figure class="video">
             <iframe
               src="https://www.youtube-nocookie.com/embed/MRKy3kX8XUM?autohide=1&amp;controls=1&amp;loop=1&amp;playlist=MRKy3kX8XUM&amp;enablejsapi=1"
@@ -51,7 +51,7 @@ export const Default: Story = {
               ></iframe>
           </figure>
         </div>
-      </toujou-facade>
+      </toujou-poster-reveal>
     `;
 
     return wrapper;

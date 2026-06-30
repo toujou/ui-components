@@ -1,12 +1,12 @@
-# Toujou Facade
+# Toujou Poster Reveal
 
-A lightweight facade component that displays placeholder content (poster + trigger) until user interaction, then reveals the real content.
+A lightweight "poster image" component that displays placeholder content (poster + trigger) until user interaction, then reveals the real content.
 
 Typical use case: show a poster image for youtube iframes.
 
 ## Installation
 
-      npm install @toujou/toujou-facade
+      npm install @toujou/toujou-poster-reveal
 
 ## Features
 - Lightweight placeholder pattern for heavy content
@@ -19,7 +19,7 @@ Typical use case: show a poster image for youtube iframes.
 ## Usage
 
 ```html
-<toujou-facade>
+<toujou-poster-reveal>
     <img slot="poster" src="poster.jpg" alt="Video preview" />
 
     <button slot="trigger">Play video</button>
@@ -31,7 +31,7 @@ Typical use case: show a poster image for youtube iframes.
             allowfullscreen
         ></iframe>
     </div>
-</toujou-facade>
+</toujou-poster-reveal>
 ```
 
 ## Behavior
@@ -45,27 +45,17 @@ On click:
 
 ## Events
 
-| Event name             | Description                             |
-| ---------------------- | --------------------------------------- |
-| toujou-facade-activate | Fired once when the facade is activated |
+| Event name                    | Description                              |
+|-------------------------------|------------------------------------------|
+| toujou-poster-reveal-activate | Fired once when the element is activated |
 
 ## Customization
 
 The component exposes CSS variables for styling overrides:
 ```css
-toujou-facade {
-  --toujou-facade-display: block;
-  --toujou-facade-position: relative;
-
-  --toujou-facade-content-display: none;
-  --toujou-facade-active-content-display: block;
-
-  --toujou-facade-trigger-position: absolute;
-  --toujou-facade-trigger-inset: 0;
-  --toujou-facade-trigger-cursor: pointer;
-
-  --toujou-facade-poster-display: block;
-  --toujou-facade-trigger-display: none;
+toujou-poster-reveal {
+  --toujou-poster-reveal-display: block;
+  --toujou-poster-reveal-position: relative;
 }
 ```
 

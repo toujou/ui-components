@@ -1,0 +1,4 @@
+:host {
+    display: var(--toujou-poster-reveal-display, block);
+    position: var(--toujou-poster-reveal-position, relative);
+}
