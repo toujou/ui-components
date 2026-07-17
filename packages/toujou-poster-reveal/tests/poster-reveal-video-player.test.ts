@@ -47,9 +47,9 @@ class FailingYouTubePlayer {
   }
 
   mute() { throw new Error('Playback failed.'); }
-  setVolume() {}
-  playVideo() {}
-  unMute() {}
+  setVolume() { /* no-op for this test fake */ }
+  playVideo() { /* no-op for this test fake */ }
+  unMute() { /* no-op for this test fake */ }
 }
 
 describe('poster-reveal-video-player', () => {

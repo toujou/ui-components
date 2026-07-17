@@ -87,7 +87,10 @@ function waitForIframes(target: HTMLElement): Promise<HTMLIFrameElement[]> {
   if (existing.length > 0) return Promise.resolve(existing);
 
   return new Promise((resolve) => {
-    let timeout: number;
+    const timeout = window.setTimeout(() => {
+      observer.disconnect();
+      resolve(Array.from(target.querySelectorAll<HTMLIFrameElement>('iframe')));
+    }, IFRAME_WAIT_TIMEOUT_MS);
 
     const observer = new MutationObserver(() => {
       const found = Array.from(target.querySelectorAll<HTMLIFrameElement>('iframe'));
@@ -99,11 +102,6 @@ function waitForIframes(target: HTMLElement): Promise<HTMLIFrameElement[]> {
     });
 
     observer.observe(target, { childList: true, subtree: true });
-
-    timeout = window.setTimeout(() => {
-      observer.disconnect();
-      resolve(Array.from(target.querySelectorAll<HTMLIFrameElement>('iframe')));
-    }, IFRAME_WAIT_TIMEOUT_MS);
   });
 }
 
@@ -207,18 +205,16 @@ function ensureYouTubeAutoplayAllowed(iframe: HTMLIFrameElement): boolean {
  */
 function reloadIframe(iframe: HTMLIFrameElement): Promise<void> {
   return new Promise((resolve, reject) => {
-    let timeout: number;
+    const timeout = window.setTimeout(() => {
+      iframe.removeEventListener('load', onLoad);
+      reject(new Error('Timed out while reloading iframe.'));
+    }, IFRAME_RELOAD_TIMEOUT_MS);
 
     const onLoad = () => {
       window.clearTimeout(timeout);
       iframe.removeEventListener('load', onLoad);
       resolve();
     };
-
-    timeout = window.setTimeout(() => {
-      iframe.removeEventListener('load', onLoad);
-      reject(new Error('Timed out while reloading iframe.'));
-    }, IFRAME_RELOAD_TIMEOUT_MS);
 
     iframe.addEventListener('load', onLoad);
 
@@ -345,13 +341,13 @@ function playEmbeddedVideos(
     const provider = getVideoProvider(iframe);
 
     switch (provider) {
-      case 'youtube':
-        void playYouTube(posterReveal, iframe);
-        break;
+    case 'youtube':
+      void playYouTube(posterReveal, iframe);
+      break;
 
-      case 'vimeo':
-        playVimeo(posterReveal, iframe);
-        break;
+    case 'vimeo':
+      playVimeo(posterReveal, iframe);
+      break;
     }
   }
 }
