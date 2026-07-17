@@ -49,6 +49,13 @@ On click:
 |-------------------------------|------------------------------------------|
 | toujou-poster-reveal-activate | Fired once when the element is activated |
 
+## Events from the poster-reveal-video-player component
+| Event name                                | Description                                                     |
+|-------------------------------------------|-----------------------------------------------------------------|
+| toujou-poster-reveal-video-play-requested | Fired once when the user clicks the play button                 |
+| toujou-poster-reveal-video-playing        | Fired once when video stars playing                             |
+| toujou-poster-reveal-video-error          | Fired once when there is an error white tying to play the video |
+
 ## Customization
 
 The component exposes CSS variables for styling overrides:

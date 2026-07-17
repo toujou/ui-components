@@ -26,7 +26,8 @@
 			"node",
 			"mocha",
 			"css",
-			"mapbox-gl"
+			"mapbox-gl",
+			"youtube"
 		],
 	},
 	"include": [
