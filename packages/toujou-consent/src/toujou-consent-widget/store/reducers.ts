@@ -16,68 +16,68 @@ declare global {
 
 function reducers(state, action) {
   switch (action.type) {
-  case CHECK_CONSENT_EXPIRY: {
-    const now = Date.now();
-    const consentsData = { ...state.consents };
-    for (const key in consentsData) {
-      // We can only expire non-session consents
-      if (key !== 'consentBoxDismissed'
-        && (consentsData[key]?.consentLifetime ?? 0) > 0
-        && (consentsData[key]?.consentExpirationDate ?? 0) <= now
-      ) {
-        delete consentsData[key];
-        consentsData.consentBoxDismissed = false;
+    case CHECK_CONSENT_EXPIRY: {
+      const now = Date.now();
+      const consentsData = { ...state.consents };
+      for (const key in consentsData) {
+        // We can only expire non-session consents
+        if (key !== 'consentBoxDismissed'
+          && (consentsData[key]?.consentLifetime ?? 0) > 0
+          && (consentsData[key]?.consentExpirationDate ?? 0) <= now
+        ) {
+          delete consentsData[key];
+          consentsData.consentBoxDismissed = false;
+        }
       }
+      return {
+        ...state,
+        consents: consentsData,
+      };
     }
-    return {
-      ...state,
-      consents: consentsData,
-    };
-  }
 
-  case CLEAR_CONSENT_TYPE_DATA: {
-    const newClearedConsents = { ...state.consents };
-    delete newClearedConsents[action.payload];
-    return {
-      ...state,
-      consents: newClearedConsents,
-    };
-  }
+    case CLEAR_CONSENT_TYPE_DATA: {
+      const newClearedConsents = { ...state.consents };
+      delete newClearedConsents[action.payload];
+      return {
+        ...state,
+        consents: newClearedConsents,
+      };
+    }
 
-  case SAVE_ALL_CONSENTS: {
-    const newAllConsents = { ...state.consents, ...action.payload };
-    return {
-      ...state,
-      consents: newAllConsents,
-    };
-  }
+    case SAVE_ALL_CONSENTS: {
+      const newAllConsents = { ...state.consents, ...action.payload };
+      return {
+        ...state,
+        consents: newAllConsents,
+      };
+    }
 
-  case SAVE_SINGLE_CONSENT: {
-    const newConsentsWithSingleConsentChange = { ...state.consents };
-    newConsentsWithSingleConsentChange[action.payload.consentType] = { ...action.payload.consentData };
-    return {
-      ...state,
-      consents: newConsentsWithSingleConsentChange,
-    };
-  }
+    case SAVE_SINGLE_CONSENT: {
+      const newConsentsWithSingleConsentChange = { ...state.consents };
+      newConsentsWithSingleConsentChange[action.payload.consentType] = { ...action.payload.consentData };
+      return {
+        ...state,
+        consents: newConsentsWithSingleConsentChange,
+      };
+    }
 
-  case DISMISS_CONSENT_BOX: {
-    const newDismissedBoxConsents = { ...state.consents };
-    newDismissedBoxConsents.consentBoxDismissed = true;
-    return {
-      ...state,
-      consents: newDismissedBoxConsents,
-    };
-  }
+    case DISMISS_CONSENT_BOX: {
+      const newDismissedBoxConsents = { ...state.consents };
+      newDismissedBoxConsents.consentBoxDismissed = true;
+      return {
+        ...state,
+        consents: newDismissedBoxConsents,
+      };
+    }
 
-  case UNDISMISS_CONSENT_BOX: {
-    const newUndismissedBoxConsents = { ...state.consents };
-    newUndismissedBoxConsents.consentBoxDismissed = false;
-    return {
-      ...state,
-      consents: newUndismissedBoxConsents,
-    };
-  }
+    case UNDISMISS_CONSENT_BOX: {
+      const newUndismissedBoxConsents = { ...state.consents };
+      newUndismissedBoxConsents.consentBoxDismissed = false;
+      return {
+        ...state,
+        consents: newUndismissedBoxConsents,
+      };
+    }
   }
 
   return state;

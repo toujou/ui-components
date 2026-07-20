@@ -22,7 +22,8 @@
   },
   "dependencies": {
     "lit": "^2.0.0-rc.2",
-    "tslib": "^2.5.0"
+    "tslib": "^2.5.0",
+	"@types/youtube": "^0.1.0"
   },
   "keywords": [
     "toujou",
