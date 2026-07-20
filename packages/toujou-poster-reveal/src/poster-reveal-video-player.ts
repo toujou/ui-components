@@ -341,13 +341,13 @@ function playEmbeddedVideos(
     const provider = getVideoProvider(iframe);
 
     switch (provider) {
-    case 'youtube':
-      void playYouTube(posterReveal, iframe);
-      break;
+      case 'youtube':
+        void playYouTube(posterReveal, iframe);
+        break;
 
-    case 'vimeo':
-      playVimeo(posterReveal, iframe);
-      break;
+      case 'vimeo':
+        playVimeo(posterReveal, iframe);
+        break;
     }
   }
 }
