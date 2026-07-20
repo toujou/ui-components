@@ -1,6 +1,6 @@
 {
   "name": "@toujou/toujou-poster-reveal",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "toujou",
   "license": "MIT",
   "description": "The toujou-poster-reveal package of toujou ui components",
@@ -21,9 +21,9 @@
     "directory": "packages/toujou-poster-reveal"
   },
   "dependencies": {
+    "@types/youtube": "^0.1.0",
     "lit": "^2.0.0-rc.2",
-    "tslib": "^2.5.0",
-	"@types/youtube": "^0.1.0"
+    "tslib": "^2.5.0"
   },
   "keywords": [
     "toujou",
