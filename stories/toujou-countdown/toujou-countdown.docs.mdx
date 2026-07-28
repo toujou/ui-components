@@ -1,0 +1,8 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import * as CountdownStories from './toujou-countdown.stories';
+
+<Meta of={CountdownStories} />
+
+# Toujou Countdown
+
+A component that animates a number from a start value to an end value when it becomes visible in the viewport. The animation is triggered by an `IntersectionObserver` and respects the user's `prefers-reduced-motion` setting. Supports optional prefix and suffix elements around the number.
