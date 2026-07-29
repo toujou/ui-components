@@ -80,7 +80,7 @@ export const Default: Story = {
       <toujou-countdown
         class="countdown"
         target-date="${new Date(args.targetDate).toISOString()}"
-        aria-label="Countdown element"
+        aria-label="Countdown until 24 December 2026 at 18:00"
         role="timer"
         element-design="default"
         ${args.hideLabels ? 'hide-labels' : ''}
