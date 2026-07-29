@@ -1,0 +1,87 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import * as CountdownStories from './toujou-countdown.stories';
+
+<Meta of={CountdownStories} />
+
+# Toujou Countdown
+
+A countdown component that displays the remaining time until a target date. The countdown updates automatically every second and exposes CSS states and custom events when the countdown finishes.
+
+The component uses light DOM and expects the required markup structure to be provided by the consumer.
+
+## Attributes
+
+| Attribute                    | Type      | Default | Description                                                          |
+|------------------------------|-----------|---------|----------------------------------------------------------------------|
+| `target-date`                | `string`  | —       | Target date/time in a format accepted by JavaScript `Date`. Required |
+| `hide-labels`                | `boolean` | `false` | CSS hook to hide the countdown labels                                |
+| `hide-finished-days`         | `boolean` | `false` | CSS hook to hide the days unit when the countdown reaches zero       |
+| `hide-counter-when-finished` | `boolean` | `false` | CSS hook to hide the counter when the countdown reaches zero         |
+
+## Required Child Elements
+
+The component does not render its own markup. The following elements must exist in the light DOM:
+
+| Selector                                  | Description                    |
+|-------------------------------------------|--------------------------------|
+| `[data-unit="days"] .countdown__value`    | Displays the remaining days    |
+| `[data-unit="hours"] .countdown__value`   | Displays the remaining hours   |
+| `[data-unit="minutes"] .countdown__value` | Displays the remaining minutes |
+| `[data-unit="seconds"] .countdown__value` | Displays the remaining seconds |
+
+Example:
+
+```html
+<div class="countdown__item" data-unit="seconds">
+    <span class="countdown__value">00</span>
+    <span class="countdown__label">Seconds</span>
+</div>
+```
+
+## CSS States
+
+The component adds attributes and data states that can be used for styling.
+
+| State                   | Description                                |
+|-------------------------|--------------------------------------------|
+| `countdown-finished`    | Added when the countdown reaches zero      |
+| `data-state="finished"` | Added to the days item when no days remain |
+
+Example:
+
+```html
+<toujou-countdown countdown-finished>...</toujou-countdown>
+```
+
+```html
+<div class="countdown__item" data-unit="days" data-state="finished">...</div>
+```
+
+## Events
+
+| Event                       | Detail      | Description                                |
+|-----------------------------|-------------|--------------------------------------------|
+| `toujou-countdown-finished` | { element } | Fired once when the countdown reaches zero |
+
+Example:
+
+```js
+element.addEventListener('toujou-countdown-finished', (event) => {
+    console.log(event.detail.element);
+});
+```
+
+## Behavior
+- The countdown starts automatically when the component is connected
+- Values are updated every second
+- The countdown stops automatically after reaching zero
+- Changing the target-date attribute restarts the countdown
+- Invalid target dates are ignored and logged as warnings
+- Numbers are formatted with leading zeros for hours, minutes, and seconds
+- The component removes the finished state again if the target date is changed to a future date
+
+## A11y
+- Use role="timer" on the component to expose the countdown semantics
+- Provide an accessible name using aria-label
+- The visual countdown content can be marked with aria-hidden="true" to avoid excessive screen reader announcements
+- The component uses light DOM, so global styles and accessibility attributes apply directly
