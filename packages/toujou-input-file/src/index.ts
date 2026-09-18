@@ -3,6 +3,7 @@ import { LitElement, html } from 'lit';
 export class ToujouInputFile extends LitElement {
 
   private fileChosen: boolean;
+
   static get is() {
     return 'toujou-input-file';
   }
