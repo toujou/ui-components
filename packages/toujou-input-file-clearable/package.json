@@ -1,9 +1,9 @@
 {
-  "name": "@toujou/toujou-input-file",
+  "name": "@toujou/toujou-input-file-clearable",
   "version": "0.0.0-beta.0",
   "author": "toujou",
   "license": "MIT",
-  "description": "The toujou-input-file package of toujou ui components",
+  "description": "The toujou-input-file-clearable package of toujou ui components",
   "type": "module",
   "publishConfig": {
     "access": "public"
@@ -18,7 +18,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/toujou/ui-components.git",
-    "directory": "packages/toujou-input-file"
+    "directory": "packages/toujou-input-file-clearable"
   },
   "dependencies": {
     "lit": "^2.0.0-rc.2",

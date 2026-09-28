@@ -1,9 +1,9 @@
 import { Meta } from '@storybook/addon-docs/blocks';
-import * as InputFileStories from './toujou-input-file.stories';
+import * as InputFileStories from './toujou-input-file-clearable.stories';
 
 <Meta of={InputFileStories} />
 
-# Toujou Input File
+# Toujou Input File Clearable
 
 A wrapper component that adds a clear button to a file input. It allows for resetting the file input.
 
@@ -12,13 +12,13 @@ A wrapper component that adds a clear button to a file input. It allows for rese
 | Slot | Description |
 |---|---|
 | `input` | The file input element. Must be an `<input>` element |
-| `clear-chosen-file-button` | Button shown when a file is selected. Clicking it clears the file input |
+| `clear-button` | Button shown when a file is selected. Clicking it clears the file input |
 
 ## Behavior
 
 - On load, only the file input is visible
-- Selecting a file shows the `clear-chosen-file-button` slot
-- Clicking the button clears the file input's value and hides the `clear-chosen-file-button` slot
+- Selecting a file shows the `clear-button` slot
+- Clicking the button sets the file input's `files` property to an empty `FileList` and hides the `clear-button` slot
 - Click events on the button are prevented from bubbling to avoid unintended form submissions
 
 ## Accessibility

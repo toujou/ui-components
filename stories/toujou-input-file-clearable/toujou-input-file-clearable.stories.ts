@@ -1,12 +1,12 @@
 import { html } from 'lit';
 import { Meta, StoryObj } from '@storybook/web-components-vite';
-import '../../packages/toujou-input-file/src/index';
+import '../../packages/toujou-input-file-clearable/src/index';
 
 import { THEME_NAMES } from "../globals/js/constants";
 
 const meta: Meta = {
-  title: 'Components/Toujou Input File',
-  component: 'toujou-input-file',
+  title: 'Components/Toujou Input File Clearable',
+  component: 'toujou-input-file-clearable',
   parameters: {
     toujouThemes: [THEME_NAMES.KOJO, THEME_NAMES.CUSTOMIZATIONS]
   },
@@ -20,7 +20,7 @@ export const Default: Story = {
   render: () => html`
     <toujou-input-group class="input-group input-group--file">
       <label class="input-label" for="facade">Input File</label>
-      <toujou-input-file>
+      <toujou-input-file-clearable>
         <input
           slot="input"
           data-element-type="FileUpload"
@@ -30,7 +30,7 @@ export const Default: Story = {
           aria-label="File"
         />
         <button
-          slot="clear-chosen-file-button"
+          slot="clear-button"
           type="button"
           aria-label="Clear file input"
           class="button"
@@ -38,7 +38,7 @@ export const Default: Story = {
         >
           🗑️ Clear
         </button>
-      </toujou-input-file>
+      </toujou-input-file-clearable>
     </toujou-input-group>
   `,
 };
