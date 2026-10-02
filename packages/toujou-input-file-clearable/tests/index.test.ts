@@ -113,6 +113,36 @@ describe('Toujou Input File Clearable', () => {
     expect(clearButton).to.be.null;
   });
 
+  it('will reflect the state of the file input correctly', async () => {
+    const inputElement = element.querySelector('input');
+
+    expect(element).not.to.have.attribute('has-file');
+
+    const testFileContent = ['This is a test.'];
+    const testFileName = 'test_file.txt';
+    const testFile = new File(testFileContent, testFileName);
+
+    const testDataTransfer = new DataTransfer();
+    testDataTransfer.items.add(testFile);
+    inputElement.files = testDataTransfer.files;
+
+    inputElement.dispatchEvent(new Event('change', { bubbles: true }));
+
+    await elementUpdated(element);
+
+    expect(element).to.have.attribute('has-file');
+
+    (element.querySelector('button[slot="clear-button"]') as HTMLButtonElement)?.click();
+
+    await elementUpdated(element);
+
+    const clearButton = element.shadowRoot?.querySelector('slot[name="clear-button"]');
+
+    expect(inputElement.value).to.be.empty;
+    expect(clearButton).to.be.null;
+    expect(element).not.to.have.attribute('has-file');
+  });
+
   it('passes the a11y audit', () => {
     expect(element).to.be.accessible();
   });

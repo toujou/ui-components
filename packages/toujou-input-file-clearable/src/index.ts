@@ -10,12 +10,17 @@ export class ToujouInputFileClearable extends LitElement {
 
   static get properties() {
     return {
-      hasFile: {type: Boolean, attribute: false},
+      hasFile: {
+        type: Boolean,
+        attribute: 'has-file',
+        reflect: true,
+      },
     };
   }
 
   constructor() {
     super();
+
     this.hasFile = false;
   }
 
